@@ -5,5 +5,12 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {}
+  state: {
+    header_title: "SHU_Message"
+  },
+  mutations: {
+    CHANGE_HEADER_TITLE(state, title) {
+      state.header_title = title
+    }
+  }
 })

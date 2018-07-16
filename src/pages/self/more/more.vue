@@ -1,26 +1,65 @@
 <template>
-  <ViewBox class="wrapper">
-    <x-header slot="header" class="XHeader"
-              :left-options="{showBack: false}"
-              :right-options="{showMore: true}"
-              @on-click-more="handleClickMore">SHU Message
-    </x-header>
-    asd
-  </ViewBox>
+  <div class="more-wrapper">
+    <group class="group-person">
+      <cell title="更改个人信息" is-link link="/self/more/myinfo">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="更改签名" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="添加兴趣" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
+    <group class="group-safety">
+      <cell title="修改密码" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="修改手机" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
+    <group class="group-feedback">
+      <cell title="安利分享" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="常见问题" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="新版功能" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="用户反馈" is-link link="/self/more/pi">
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
+  </div>
 </template>
 
 <script>
-  import {ViewBox,XHeader} from 'vux'
+  import {Cell, Group} from 'vux'
+  import store from 'store/store'
+
   export default {
     name: "more",
-    components:{
-      ViewBox,
-      XHeader
+    store,
+    components: {
+      Cell,
+      Group
     },
-
+    created() {
+      this.$store.commit("CHANGE_HEADER_TITLE", "更多")
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-@import "more";
+  @import "more";
+</style>
+<style lang="scss">
+  .force-black {
+    .vux-header-title, .vux-header-back, .vux-header-left, .vux-header-right {
+      color: black !important;
+    }
+  }
 </style>
