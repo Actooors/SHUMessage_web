@@ -1,0 +1,49 @@
+.wrapper {
+  background: white;
+  .XHeader {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(0,0,0,.25);
+  }
+  .show-bar {
+    //margin-top: 23px;
+    height: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/back.jpg");
+    background-size: cover;
+    .center-content {
+      margin-top:60px;
+      text-align: center;
+      color: white;
+      line-height: 2rem;
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .tab {
+    background: transparent;
+  }
+
+  .timeline {
+    h4 {
+      font-weight: normal;
+      font-size: .9em;
+    }
+    p {
+      color: gray;
+      font-size: .7em;
+    }
+    h4, p {
+      text-indent: .5em;
+    }
+  }
+}
