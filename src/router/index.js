@@ -15,10 +15,10 @@ export default new Router({
       path: '/',
       component: Mainpage,
       children: [
-        // {
-        //   path: '',
-        //   name: 'mainpage',
-        // },
+        {
+          path: '',
+          name: 'mainpage',
+        },
         {
           path: 'self',
           name: 'self',
