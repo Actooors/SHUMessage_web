@@ -1,0 +1,15 @@
+@import "../../assets/css/common";
+
+.XHeader {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.plus-btn {
+  @extend .clear-decoration;
+  background: url("../../assets/images/增加.png") no-repeat center;
+  background-size: 40px 40px;
+}

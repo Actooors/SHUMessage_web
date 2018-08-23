@@ -1,21 +1,26 @@
 <template>
   <ViewBox>
-    <!--<div :left-options="{showBack: showBack}" class="XHeader-box">-->
-      <!--<x-header class="XHeader">SHU Message</x-header>-->
-    <!--</div>-->
     <router-view></router-view>
-    <tabbar slot="bottom">
-      <tabbar-item link="/">
+    <tabbar slot="bottom" v-model="selectedIndex">
+      <tabbar-item link="/playground">
+        <img slot="icon-active" src="../../assets/images/文档.png">
+        <img slot="icon" src="../../assets/images/文档gray.png">
+        <span slot="label">广场</span>
+      </tabbar-item>
+      <tabbar-item link="/joys">
         <img slot="icon-active" src="../../assets/images/信息.png">
         <img slot="icon" src="../../assets/images/信息gray.png">
         <span slot="label">动态</span>
       </tabbar-item>
-      <tabbar-item selected link="/">
+      <button class="weui-tabbar__item plus-btn" @click="handleClickPlus">
+        <!--<img slot="icon" src="../../assets/images/增加.png">-->
+      </button>
+      <tabbar-item link="/find">
         <img slot="icon-active" src="../../assets/images/灵感.png">
         <img slot="icon" src="../../assets/images/灵感gray.png">
-        <span slot="label">新鲜事</span>
+        <span slot="label">发现</span>
       </tabbar-item>
-      <tabbar-item link="self">
+      <tabbar-item link="/self">
         <img slot="icon-active" src="../../assets/images/用户.png">
         <img slot="icon" src="../../assets/images/用户gray.png">
         <span slot="label">自己</span>
@@ -37,17 +42,28 @@
     },
     data() {
       return {
-        showBack: false
+        selectedIndex: -1
       }
     },
     watch: {
-      "$route"(r) {
-        this.showBack = r !== '/'
+      "$route"() {
+        this.initData()
+      }
+    },
+    created() {
+      this.initData()
+    },
+    methods: {
+      handleClickPlus() {
+        console.log("点击了发布新动态")
+      },
+      initData() {
+        this.selectedIndex = this.$route.meta.tabbarIndex
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import "mainpage";
+  @import "tabbar";
 </style>
