@@ -1,0 +1,28 @@
+@import "../../assets/css/common";
+
+.results {
+  @extend .vuxfy;
+  padding: 1rem;
+  .hots {
+    .tag {
+      display: inline-block;
+      background: rgba(0, 15, 80, .08);
+      padding: .3rem 1rem .3rem 1rem;
+      margin: .4rem .5rem;
+      border-radius: .3rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      .icon-huo {
+        color: rgb(215, 0, 0);
+        //使用偏移的方式使得空出的位置不向右挤，居中感更好
+        position: relative;
+        left: -0.2rem;
+      }
+    }
+    .more {
+      @extend .tag;
+      color: rgba(215, 0, 0, .7);
+      background: rgba(215, 0, 0, .12);
+    }
+  }
+}

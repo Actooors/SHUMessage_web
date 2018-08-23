@@ -12,7 +12,7 @@
         <p class="tips">{{tips}}</p>
       </div>
     </div>
-    <tab :line-width="2" custom-bar-width="20px" bar-active-color="#f00" active-color="#f00" class="tab">
+    <tab :line-width="2" custom-bar-width="20px" bar-active-color="#2196F3" active-color="#2196F3" class="tab">
       <tab-item selected>瞬间</tab-item>
       <tab-item>收藏</tab-item>
     </tab>

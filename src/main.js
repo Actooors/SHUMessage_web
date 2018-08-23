@@ -6,8 +6,9 @@ import App from './App'
 import { TransferDom } from 'vux'
 Vue.directive('transfer-dom', TransferDom)
 
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
+/* 引入FastClick会导致vux-Search组件不好用，使用class="needsclick"无法解决 */
+// const FastClick = require('fastclick')
+// FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 

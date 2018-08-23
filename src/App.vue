@@ -5,16 +5,18 @@
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'app'
+  }
 </script>
 
 <style lang="less">
-@import '~vux/src/styles/reset.less';
-@import '~vux/src/styles/1px.less';
-@import 'assets/css/reset.css';
-body {
-  background-color: #fbf9fe;
-}
+  @import url('//at.alicdn.com/t/font_806770_uhirq1nlzu.css');
+  @import '~vux/src/styles/reset.less';
+  @import '~vux/src/styles/1px.less';
+  @import 'assets/css/reset.css';
+
+  body {
+    background-color: #fbf9fe;
+  }
 </style>

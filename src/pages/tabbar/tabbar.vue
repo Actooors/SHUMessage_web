@@ -1,6 +1,8 @@
 <template>
   <ViewBox>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <tabbar slot="bottom" v-model="selectedIndex">
       <tabbar-item link="/playground">
         <img slot="icon-active" src="../../assets/images/文档.png">
@@ -12,9 +14,7 @@
         <img slot="icon" src="../../assets/images/信息gray.png">
         <span slot="label">动态</span>
       </tabbar-item>
-      <button class="weui-tabbar__item plus-btn" @click="handleClickPlus">
-        <!--<img slot="icon" src="../../assets/images/增加.png">-->
-      </button>
+      <button class="weui-tabbar__item plus-btn" @click="handleClickPlus"></button>
       <tabbar-item link="/find">
         <img slot="icon-active" src="../../assets/images/灵感.png">
         <img slot="icon" src="../../assets/images/灵感gray.png">
@@ -57,8 +57,15 @@
       handleClickPlus() {
         console.log("点击了发布新动态")
       },
+      initSelectedIndex() {
+        // 从后向前遍历，有tabbarIndex的就更新
+        let len = this.$route.matched.length
+        for (let i = len - 1; i >= 0; i--) {
+          Number.isInteger(this.$route.matched[i].meta.tabbarIndex) && (this.selectedIndex = this.$route.matched[i].meta.tabbarIndex)
+        }
+      },
       initData() {
-        this.selectedIndex = this.$route.meta.tabbarIndex
+        this.initSelectedIndex()
       }
     }
   }

@@ -5,7 +5,10 @@ import Self from 'pages/self/self'
 import MoreIndex from 'pages/self/more'
 import More from 'pages/self/more/more'
 import Myinfo from 'pages/self/more/myinfo'
-import Playground from 'pages/playground/playground'
+import Playground from 'pages/playground'
+import Attention from 'pages/playground/attention'
+import Recommend from 'pages/playground/recommend'
+import Neighborhood from 'pages/playground/neighborhood'
 
 Vue.use(Router)
 
@@ -23,8 +26,21 @@ export default new Router({
         },
         {
           path: 'playground',
-          name: 'playground',
+          // name: 'playground',
           component: Playground,
+          children: [{
+            path: '',
+            redirect: 'recommend'
+          }, {
+            path: 'attention',
+            component: Attention
+          }, {
+            path: 'recommend',
+            component: Recommend
+          }, {
+            path: 'neighborhood',
+            component: Neighborhood
+          }],
           meta: {
             tabbarIndex: 0
           }
