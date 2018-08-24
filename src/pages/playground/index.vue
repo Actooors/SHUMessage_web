@@ -84,7 +84,8 @@
       nodeTopBar: null,
       nodeTabBar: null,
       nodeTab: null,
-      scrollHeight: "0"
+      scrollHeight: "0",
+      slowScrollHeight: "0"
     }),
     created() {
       this.initTab()
@@ -95,13 +96,12 @@
     },
     methods: {
       initScroller() {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          let topBarHeight = Number(window.getComputedStyle(this.nodeTopBar)["height"].replace(/px/, ''))
-          let tabbarHeight = Number(window.getComputedStyle(this.nodeTabbar)["height"].replace(/px/, ''))
-          this.scrollHeight = `-${topBarHeight + tabbarHeight - 10}px`
-          console.log(topBarHeight, tabbarHeight, this.scrollHeight)
-        }, 100)
+        let topBarHeight = Number(window.getComputedStyle(this.nodeTopBar)["height"].replace(/px/, ''))
+        let tabbarHeight = Number(window.getComputedStyle(this.nodeTabbar)["height"].replace(/px/, ''))
+        this.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
+        //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
+        this.slowScrollHeight = this.scrollHeight
+        console.log(topBarHeight, tabbarHeight, this.scrollHeight)
       },
       handlePulldown() {
         console.log("拉下来了", this.$refs.scroller)
@@ -132,12 +132,12 @@
         //如果this.scrollTop已经开始记录了
         if (this.scrollTop > -1) {
           let dist = st - this.scrollTop
-          //触顶了！！
+          //触顶了！！立刻显出搜索框全貌
           if (st <= 0) {
             this.offset = 0
             ok = true
             //如果向下滚动的距离比较大，或者已经开始拉搜索框了，则拉出搜索框
-          } else if ((-dist >= 15 || this.offset < oh) && this.offset > 0) {
+          } else if ((-dist >= 30 || this.offset < oh) && this.offset > 0) {
             this.offset += dist
             ok = true
             //向上滚动，则推入搜索框
@@ -154,13 +154,20 @@
             tab.style.top = `${-this.offset}px`
             tab.style.paddingTop = `${oh - this.offset}px`
             search.style.top = tab.style.top
+            //搜索框高度变化的话要立刻调整scroller的高度
+            this.$nextTick(() => {
+              this.scrollHeight = (Number(this.slowScrollHeight) + this.offset).toString()
+            })
           }
         }
         this.scrollTop = st;
-        //也要记得动态调整scroller的height
-        this.$nextTick(() => {
-          this.initScroller()
-        })
+        //平时也要记得动态调整scroller的height，但是间隔可以大一点
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.$nextTick(() => {
+            this.initScroller()
+          })
+        }, 200)
       },
       handleClickTabItem(pushExpression) {
         this.$router.push(pushExpression)
