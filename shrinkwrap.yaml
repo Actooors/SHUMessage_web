@@ -2,6 +2,7 @@ dependencies:
   axios: 0.18.0
   babel-runtime: 6.26.0
   fastclick: 1.0.6
+  normalize.css: 8.0.0
   vue: 2.5.17
   vue-hot-reload-api: 2.3.0
   vue-router: 3.0.1
@@ -41,6 +42,7 @@ devDependencies:
   semver: 5.5.1
   shelljs: 0.7.8
   url-loader: 0.5.9
+  vue-lazyload: 1.2.6
   vue-loader: 13.7.2
   vue-style-loader: 3.1.2
   vue-template-compiler: 2.5.17
@@ -4710,6 +4712,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-LMDWazHqIwNkWENuNiDYWVTGbDw=
+  /normalize.css/8.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-iXcbM3NWr0XkNyfiSBsoPezi+0V92P9nj84yVV1/UZxRUrGczgX/X91KMAGM0omWLY2+2Q1gKD/XRn4gQRDB2A==
   /npm-run-path/2.0.2:
     dependencies:
       path-key: 2.0.1
@@ -7143,6 +7149,10 @@ packages:
   /vue-hot-reload-api/2.3.0:
     resolution:
       integrity: sha512-2j/t+wIbyVMP5NvctQoSUvLkYKoWAAk2QlQiilrM2a6/ulzFgdcLUJfTvs4XQ/3eZhHiBmmEojbjmM4AzZj8JA==
+  /vue-lazyload/1.2.6:
+    dev: true
+    resolution:
+      integrity: sha512-6a61+pzwcfowhLRQiPdmRuJ40n/4fL/sEynu8KQZoCf5RVA0NH0X68vplLY0+lUM8mKNScYomaepV+hdjgnZhg==
   /vue-loader/13.7.2:
     dependencies:
       consolidate: 0.14.5
@@ -7633,6 +7643,7 @@ specifiers:
   lodash: ^4.17.10
   node-notifier: ^5.1.2
   node-sass: ^4.9.2
+  normalize.css: ^8.0.0
   optimize-css-assets-webpack-plugin: ^3.2.0
   ora: ^1.2.0
   portfinder: ^1.0.13
@@ -7645,6 +7656,7 @@ specifiers:
   url-loader: ^0.5.8
   vue: ^2.5.2
   vue-hot-reload-api: ^2.3.0
+  vue-lazyload: ^1.2.6
   vue-loader: ^13.3.0
   vue-router: ^3.0.1
   vue-style-loader: ^3.0.1

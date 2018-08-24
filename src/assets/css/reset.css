@@ -3,3 +3,8 @@ html, body, #app {
   width: 100%;
   overflow-x: hidden;
 }
+
+.vux-tab-ink-bar-transition-backward, .vux-tab-ink-bar-transition-forward {
+  /* 全局封杀tab的animate, 防止tab出现什么幺蛾子 */
+  transition: none !important;
+}

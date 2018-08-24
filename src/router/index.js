@@ -33,13 +33,22 @@ export default new Router({
             redirect: 'recommend'
           }, {
             path: 'attention',
-            component: Attention
+            component: Attention,
+            meta: {
+              tabIndex: 0
+            }
           }, {
             path: 'recommend',
-            component: Recommend
+            component: Recommend,
+            meta: {
+              tabIndex: 1
+            }
           }, {
             path: 'neighborhood',
-            component: Neighborhood
+            component: Neighborhood,
+            meta: {
+              tabIndex: 2
+            }
           }],
           meta: {
             tabbarIndex: 0
