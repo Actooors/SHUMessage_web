@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="searchResult">
     <tab :line-width="2" bar-active-color="#2196F3" active-color="#2196F3" :animate=false>
       <tab-item @on-item-click="handleSwitchTab" selected>综合</tab-item>
       <tab-item @on-item-click="handleSwitchTab">主题</tab-item>

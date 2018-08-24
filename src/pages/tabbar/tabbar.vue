@@ -3,7 +3,7 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <tabbar slot="bottom" v-model="selectedIndex">
+    <tabbar slot="bottom" v-model="selectedIndex" id="tabbar">
       <tabbar-item link="/playground">
         <img slot="icon-active" src="../../assets/images/文档.png">
         <img slot="icon" src="../../assets/images/文档gray.png">

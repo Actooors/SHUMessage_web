@@ -6,7 +6,7 @@
   font-size: .9rem;
   background: white;
   box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
-  .topBar {
+  .cardTopBar {
     position: relative;
     font-size: .75rem;
     height: 2rem;
@@ -18,10 +18,12 @@
     }
     .operation {
       position: absolute;
+      display: flex;
+      align-items: center;
       right: 0;
       top: 0;
       fill: gray;
-      color: gray
+      color: gray;
     }
   }
   .author {
