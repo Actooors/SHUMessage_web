@@ -2,7 +2,7 @@
   <div class="pCard">
     <div class="cardTopBar">
       <span class="topic">{{topic.name}}</span>
-      <span class="operation">{{extraInfo}}<x-icon type="ios-arrow-down" size="15"></x-icon></span>
+      <span class="operation"><span class="extraInfo">{{extraInfo}}</span><x-icon type="ios-arrow-down" size="15"></x-icon></span>
     </div>
     <div class="content" v-html="content"></div>
     <div class="author">
