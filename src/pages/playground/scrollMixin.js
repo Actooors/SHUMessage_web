@@ -49,6 +49,7 @@ export default {
           } else if (this.offset < 0) {
             this.offset = 0
           }
+          search.style.position = "relative"
           tab.style.top = `${-this.offset}px`
           tab.style.paddingTop = `${oh - this.offset}px`
           search.style.top = tab.style.top

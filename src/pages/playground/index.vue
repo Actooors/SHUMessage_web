@@ -63,7 +63,6 @@
     methods: {
       initHeaderScroll() {
         let search = document.querySelector('#search')
-        search.style.position = "relative"
         store.commit('SET_SEARCH_HEIGHT',search.offsetHeight)
         store.commit('SET_NODE_TAB',document.querySelector('#tab'))
         store.commit('SET_NODE_TOPBAR',document.querySelector("#topBar"))
