@@ -1,0 +1,95 @@
+<template>
+  <div class="pCard">
+    <div class="left-side">
+      <img class="avatar" v-lazy="author.avatar">
+    </div>
+    <div class="right-side">
+      <div class="cardTopBar">
+        <div class="cardTopBar-top">
+          <span class="author">{{author.name}}</span>
+          <span class="operation"><span class="star">关注</span><x-icon type="ios-arrow-down" size="15"></x-icon></span>
+        </div>
+        <div class="cardTopBar-extra">
+          <span class="hasbeenfrom">{{relativeTime(publishTime)}}</span>
+          <span class="position" v-if="position">
+            <i class="icon-location1 iconfont icon"></i>{{position.name}} · {{position.distance}}
+          </span>
+        </div>
+      </div>
+      <div class="content" v-html="content"></div>
+      <div class="topic-box">
+        <span class="topic">{{topic.name}}</span>
+      </div>
+      <share-bar
+        :like="shareInfo.like"
+        :comment="shareInfo.comment"
+        :share="shareInfo.share"
+        hr="hr"
+        class="shareBar"
+      ></share-bar>
+    </div>
+  </div>
+</template>
+
+<script>
+  import ShareBar from 'components/shareBar/shareBar'
+  import relativeTime from 'assets/js/relativeTime'
+
+  export default {
+    name: "playgroundCard",
+    components: {ShareBar},
+    props: {
+      topic: {
+        type: Object,
+        require: true,
+        // default() {
+        //   return {
+        //     id: 10001,
+        //     name: "喵星人的日常"
+        //   }
+        // }
+      },
+      content: {
+        type: String,
+        require: true
+      },
+      author: {
+        type: Object,
+        require: true,
+        // default() {
+        //   return {
+        //     id: 10001,
+        //     avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4"
+        //     name: "Message广场导游"
+        //   }
+        // }
+      },
+      showStar: {
+        type: Boolean,
+        require: true
+      },
+      shareInfo: {
+        type: Object,
+        require: true
+      },
+      publishTime: {
+        type: String,
+        default(){
+          return Date.now().toString()
+        }
+      },
+      position:{
+        type:Object
+      }
+    },
+    methods:{
+      relativeTime(t){
+        return relativeTime(t)
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "userMessageCard";
+</style>
