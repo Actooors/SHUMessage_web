@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <scroll
+    @on-scroll="handleScroll"
+    :height="scrollHeight"
+    @on-pulldown-loading="handlePulldownLoading"
+    @on-pullup-loading="handlePullupLoading"
+    ref="scroll"
+  >
     <playground-card
       v-for="item of cards"
       :key="item.value"
@@ -9,17 +15,19 @@
       :extraInfo="item.publishTime"
       :shareInfo="item.shareInfo"
     ></playground-card>
-  </div>
+  </scroll>
 </template>
 
 <script>
   import PlaygroundCard from "components/playgroundCard/playgroundCard"
   import {attention as mock} from './mock'
+  import scrollMixin from './scrollMixin'
+  import Scroll from 'components/scroll/scroll'
 
   export default {
     name: "attention",
-    components: {PlaygroundCard},
-    mixins: [mock]
+    components: {PlaygroundCard, Scroll},
+    mixins: [mock, scrollMixin]
   }
 </script>
 

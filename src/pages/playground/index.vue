@@ -22,42 +22,14 @@
         class="topBar-tab animate-quick"
         id="tab"
       >
-        <tab-item @on-item-click="handleClickTabItem('/playground/attention')">关注</tab-item>
-        <tab-item @on-item-click="handleClickTabItem('/playground/recommend')">推荐</tab-item>
-        <tab-item @on-item-click="handleClickTabItem('/playground/neighborhood')">附近</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">关注</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/recommend',index)}">推荐</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">附近</tab-item>
       </tab>
     </div>
-    <scroller lock-x
-              scrollbar-y
-              use-pulldown
-              use-pullup
-              @on-pulldown-loading="handlePulldown"
-              @on-pullup-loading="handlePullup"
-              v-model="scrollerStatus"
-              :height="scrollHeight"
-              ref="scroller"
-              @on-scroll="handleScroll"
-    >
-      <keep-alive>
-        <router-view id="view"></router-view>
-      </keep-alive>
-      <div slot="pulldown" class="xs-plugin-pulldown-container xs-plugin-pulldown-down"
-           style="position: absolute; width: 100%; height: 60px; line-height: 60px; top: -60px; text-align: center;">
-        <span v-show="scrollerStatus.pulldownStatus === 'default'"></span>
-        <span class="pulldown-arrow"
-              v-show="scrollerStatus.pulldownStatus === 'down' || scrollerStatus.pulldownStatus === 'up'"
-              :class="{'rotate': scrollerStatus.pulldownStatus === 'up'}"><x-icon type="ios-circle-outline" style="position: relative; bottom:-.9rem" size="18"></x-icon></span>
-        <span v-show="scrollerStatus.pulldownStatus === 'loading'"><spinner type="ripple"></spinner></span>
-      </div>
-      <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up"
-           style="position: absolute; width: 100%; height: 20px; bottom: -20px; text-align: center;">
-        <span v-show="scrollerStatus.pullupStatus === 'default'"></span>
-        <span class="pullup-arrow"
-              v-show="scrollerStatus.pullupStatus === 'down' || scrollerStatus.pullupStatus === 'up'"
-              :class="{'rotate': scrollerStatus.pullupStatus === 'up'}"><i class="icon-threedots iconfont icon" style="position: relative; top:-0.15rem; font-size:1.3rem; color:gray"></i></span>
-        <span v-show="scrollerStatus.pullupStatus === 'loading'"><spinner type="dots"></spinner></span>
-      </div>
-    </scroller>
+    <keep-alive>
+      <router-view id="view"></router-view>
+    </keep-alive>
   </ViewBox>
 </template>
 
@@ -65,9 +37,12 @@
   import {ViewBox, Tab, TabItem, Search, Scroller, Spinner} from 'vux'
   import SearchResult from 'components/searchResult/searchResult'
   import stickybits from 'stickybits'
+  import {playground as store} from 'store/store'
+  import {mapState} from 'vuex'
 
   export default {
     name: "playground",
+    store,
     components: {...{ViewBox, Tab, TabItem, Search, Scroller, Spinner}, SearchResult},
     data: () => ({
       searchValue: "",
@@ -75,18 +50,9 @@
       timer: null,
       scrollTop: -1,
       offset: 0,
-      scrollerStatus: {
-        pullupStatus: 'default',
-        pulldownStatus: 'default'
-      },
-      viewHeight: "",
-      searchHeight: 0,
-      nodeTopBar: null,
-      nodeTabBar: null,
-      nodeTab: null,
-      scrollHeight: "0",
       slowScrollHeight: "0"
     }),
+    computed:mapState(['nodeTab','nodeTopBar','nodeTabbar','searchHeight']),
     created() {
       this.initTab()
     },
@@ -95,101 +61,43 @@
       this.initHeaderScroll();
     },
     methods: {
-      initScroller() {
-        let topBarHeight = Number(window.getComputedStyle(this.nodeTopBar)["height"].replace(/px/, ''))
-        let tabbarHeight = Number(window.getComputedStyle(this.nodeTabbar)["height"].replace(/px/, ''))
-        this.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
-        //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
-        this.slowScrollHeight = this.scrollHeight
-        console.log(topBarHeight, tabbarHeight, this.scrollHeight)
-      },
-      handlePulldown() {
-        console.log("拉下来了", this.$refs.scroller)
-        setTimeout(() => {
-          this.$refs.scroller.donePulldown()
-        }, 1000)
-      },
-      handlePullup() {
-        console.log("拉上来了", this.$refs.scroller)
-        setTimeout(() => {
-          this.$refs.scroller.donePullup()
-        }, 1000)
-      },
       initHeaderScroll() {
         let search = document.querySelector('#search')
         search.style.position = "relative"
-        this.searchHeight = search.offsetHeight
-        this.nodeTab = document.querySelector('#tab')
-        this.nodeTopBar = document.querySelector("#topBar")
-        this.nodeTabbar = document.querySelector('#tabbar')
+        store.commit('SET_SEARCH_HEIGHT',search.offsetHeight)
+        store.commit('SET_NODE_TAB',document.querySelector('#tab'))
+        store.commit('SET_NODE_TOPBAR',document.querySelector("#topBar"))
+        store.commit('SET_NODE_TABBAR',document.querySelector('#tabbar'))
         //禁用viewBoxBody的滚动
         let viewBoxBody = this.$refs.playground.getScrollBody()
         viewBoxBody.style.overflow = 'hidden'
         viewBoxBody.parentElement.style.overflow = 'hidden'
-        this.initScroller()
-      },
-      handleScroll({top}) {
-        let st = top
-        let oh = this.searchHeight
-        let ok = false
-        let tab = this.nodeTab
-        //如果this.scrollTop已经开始记录了
-        if (this.scrollTop > -1) {
-          let dist = st - this.scrollTop
-          //触顶了！！立刻显出搜索框全貌
-          if (st <= 0) {
-            this.offset = 0
-            ok = true
-            //如果向下滚动的距离比较大，或者已经开始拉搜索框了，则拉出搜索框
-          } else if ((-dist >= 30 || this.offset < oh) && this.offset > 0) {
-            this.offset += dist
-            ok = true
-            //向上滚动，则推入搜索框
-          } else if (dist > 0 && this.offset < oh) {
-            this.offset += dist
-            ok = true
-          }
-          if (ok) {
-            if (this.offset > oh) {
-              this.offset = oh
-            } else if (this.offset < 0) {
-              this.offset = 0
-            }
-            tab.style.top = `${-this.offset}px`
-            tab.style.paddingTop = `${oh - this.offset}px`
-            search.style.top = tab.style.top
-            //搜索框高度变化的话要立刻调整scroller的高度
-            this.$nextTick(() => {
-              this.scrollHeight = (Number(this.slowScrollHeight) + this.offset).toString()
-            })
-          }
-        }
-        this.scrollTop = st;
-        //平时也要记得动态调整scroller的height，但是间隔可以大一点
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.$nextTick(() => {
-            this.initScroller()
-          })
-        }, 200)
       },
       handleClickTabItem(pushExpression) {
         this.$router.push(pushExpression)
       },
       handleSearch(value) {
-        console.log("asd", value)
+        console.log("search", value)
         this.$refs.search.setBlur()
       },
-      initTab() {
-        // 从后向前遍历，有tabIndex的就更新
+      initTab(autoMatch = true) {
+        // 从后向前遍历，有tabIndex的就更新，将当前选中的tab自动与地址匹配，并返回tabIndex
         let len = this.$route.matched.length
         let tabIndex = -1;
         for (let i = len - 1; i >= 0; i--) {
           Number.isInteger(this.$route.matched[i].meta.tabIndex) && (tabIndex = this.$route.matched[i].meta.tabIndex)
         }
         if (tabIndex > -1 && this.tabIndex !== tabIndex) {
-          this.tabIndex = tabIndex
+          autoMatch && (this.tabIndex = tabIndex)
+          autoMatch && this.$nextTick(() => {
+            this.scrollTop = this.scrollTops[tabIndex]
+            console.log('to', this.scrollTop)
+          })
         }
+        if (!autoMatch) {
+          console.log("false")
+        }
+        return tabIndex
       }
     }
   }
