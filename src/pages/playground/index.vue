@@ -122,6 +122,10 @@
         this.nodeTab = document.querySelector('#tab')
         this.nodeTopBar = document.querySelector("#topBar")
         this.nodeTabbar = document.querySelector('#tabbar')
+        //禁用viewBoxBody的滚动
+        let viewBoxBody = this.$refs.playground.getScrollBody()
+        viewBoxBody.style.overflow = 'hidden'
+        viewBoxBody.parentElement.style.overflow = 'hidden'
         this.initScroller()
       },
       handleScroll({top}) {
