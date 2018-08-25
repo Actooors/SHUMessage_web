@@ -46,16 +46,16 @@
         <span v-show="scrollerStatus.pulldownStatus === 'default'"></span>
         <span class="pulldown-arrow"
               v-show="scrollerStatus.pulldownStatus === 'down' || scrollerStatus.pulldownStatus === 'up'"
-              :class="{'rotate': scrollerStatus.pulldownStatus === 'up'}">↓</span>
-        <span v-show="scrollerStatus.pulldownStatus === 'loading'"><spinner type="ios-small"></spinner></span>
+              :class="{'rotate': scrollerStatus.pulldownStatus === 'up'}"><x-icon type="ios-circle-outline" style="position: relative; bottom:-.9rem" size="18"></x-icon></span>
+        <span v-show="scrollerStatus.pulldownStatus === 'loading'"><spinner type="ripple"></spinner></span>
       </div>
       <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up"
            style="position: absolute; width: 100%; height: 20px; bottom: -20px; text-align: center;">
         <span v-show="scrollerStatus.pullupStatus === 'default'"></span>
         <span class="pullup-arrow"
               v-show="scrollerStatus.pullupStatus === 'down' || scrollerStatus.pullupStatus === 'up'"
-              :class="{'rotate': scrollerStatus.pullupStatus === 'up'}">↑</span>
-        <span v-show="scrollerStatus.pullupStatus === 'loading'"><spinner type="ios-small"></spinner></span>
+              :class="{'rotate': scrollerStatus.pullupStatus === 'up'}"><i class="icon-threedots iconfont icon" style="position: relative; top:-0.15rem; font-size:1.3rem; color:gray"></i></span>
+        <span v-show="scrollerStatus.pullupStatus === 'loading'"><spinner type="dots"></spinner></span>
       </div>
     </scroller>
   </ViewBox>
