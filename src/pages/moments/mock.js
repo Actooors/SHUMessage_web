@@ -22,7 +22,7 @@ export default {
         comment: 73,
         share: 2
       },
-      starred: true
+      showStar: false
       // position: {//后端记录每条信息的position经纬度，计算后返回
       //   name: "栋霖科技园",
       //   distance: "5km"
@@ -69,7 +69,7 @@ export default {
         comment: 73,
         share: 2
       },
-      starred: false
+      showStar: true
       // position: {//后端记录每条信息的position经纬度，计算后返回
       //   name: "栋霖科技园",
       //   distance: "5km"
@@ -96,7 +96,7 @@ export default {
         comment: 73,
         share: 2
       },
-      starred: false
+      showStar: true
       // position: {//后端记录每条信息的position经纬度，计算后返回
       //   name: "栋霖科技园",
       //   distance: "5km"
@@ -123,7 +123,7 @@ export default {
         comment: 73,
         share: 2
       },
-      starred: false
+      showStar: true
       // position: {//后端记录每条信息的position经纬度，计算后返回
       //   name: "栋霖科技园",
       //   distance: "5km"

@@ -7,13 +7,14 @@
     ref="scroll"
   >
     <playground-card
-      v-for="item of cards"
+      v-for="(item,index) of cards"
       :key="item.value"
       :topic="item.topic"
       :content="item.content"
       :author="item.author"
       :extraInfo="item.extraInfo"
       :shareInfo="item.shareInfo"
+      @click.native="handleClickCard(index)"
     ></playground-card>
   </scroll>
 </template>
@@ -23,18 +24,22 @@
   import {recommend as mock} from './mock'
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
+  import store from "store/store";
 
   export default {
     name: "recommend",
     components: {PlaygroundCard, Scroll},
     mixins: [mock, scrollMixin],
-    // watch: {
-    //   '$route'(to) {
-    //     if (to.meta.tabIndex === 1) {
-    //       console.log("欢迎", to)
-    //     }
-    //   }
-    // }
+    store,
+    methods: {
+      handleClickCard(index) {
+        store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        let that = this;
+        this.$router.push('/commonMsgDetail', {
+          params: {...that.cards[index].info}
+        })
+      }
+    }
   }
 </script>
 

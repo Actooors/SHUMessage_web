@@ -11,7 +11,7 @@
     name: "myinfo",
     store,
     created() {
-      this.$store.commit("CHANGE_HEADER_TITLE", "我的信息")
+      store.commit("top/CHANGE_HEADER_TITLE", "我的信息")
     }
   }
 </script>

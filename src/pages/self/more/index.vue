@@ -2,7 +2,7 @@
   <ViewBox class="wrapper">
     <x-header slot="header" class="XHeader force-black"
               :left-options="{backText:''}">
-      {{$store.state.header_title}}
+      {{$store.state.top.header_title}}
     </x-header>
     <router-view></router-view>
   </ViewBox>

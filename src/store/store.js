@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const top = {
+  namespaced: true,
   state: {
     header_title: "SHU_Message",
   },
@@ -12,9 +13,10 @@ export default new Vuex.Store({
       state.header_title = title
     }
   }
-})
+}
 
-export const playground = new Vuex.Store({
+const playground = {
+  namespaced: true,
   state: {
     nodeTab: null,
     nodeTopBar: null,
@@ -35,4 +37,27 @@ export const playground = new Vuex.Store({
       state.searchHeight = height
     }
   }
+}
+
+const pushRouter = {
+  namespaced: true,
+  state: {
+    cardItem: null
+  },
+  mutations: {
+    SET_CARD_ITEM(state, item) {
+      state.cardItem = item
+    }
+  }
+}
+
+
+export default new Vuex.Store({
+  modules: {
+    top,
+    playground,
+    pushRouter
+  },
 })
+
+

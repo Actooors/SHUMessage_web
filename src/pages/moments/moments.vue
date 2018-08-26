@@ -36,7 +36,7 @@
         :extraUser="item.extraUser"
         :starred="item.starred"
       ></user-message-card>
-      <div class="recommend">
+      <div class="justBar">
         校友都在看
         <x-icon
           type="ios-arrow-down"
@@ -56,7 +56,7 @@
         :hideExtra="item.hideExtra"
         :band="item.band"
         :extraUser="item.extraUser"
-        :starred="item.starred"
+        :showStar="item.showStar"
       ></user-message-card>
     </scroll>
   </ViewBox>

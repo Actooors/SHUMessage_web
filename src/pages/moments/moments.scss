@@ -27,16 +27,17 @@
   }
 }
 
-.recommend {
+.justBar {
   position: relative;
   font-size: 13px;
-  margin-top:16px;
+  margin-top: 16px;
   background: white;
   height: 40px;
   line-height: 40px;
   padding-left: 16px;
   border-bottom: $--theme-gray-light3 solid 1px;
   border-top: $--theme-gray-light4 solid 1px;
+  box-shadow: 0 -5px 5px 1px rgba(0, 0, 0, 0.025); //emphasis
   &-operation {
     position: absolute;
     height: 100%;

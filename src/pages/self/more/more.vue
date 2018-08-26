@@ -48,7 +48,7 @@
       Group
     },
     created() {
-      this.$store.commit("CHANGE_HEADER_TITLE", "更多")
+      store.commit("top/CHANGE_HEADER_TITLE", "更多")
     }
   }
 </script>

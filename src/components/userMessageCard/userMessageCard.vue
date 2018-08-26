@@ -7,7 +7,7 @@
           <span class="author">{{author.name}}</span>
           <span v-if="band" class="band"> {{band}} </span>
           <span v-if="extraUser">{{extraUser.name}}</span>
-          <span class="operation" v-if="!hideExtra"><span class="star" v-if="!starred">关注</span><x-icon
+          <span class="operation" v-if="!hideExtra"><span class="star" v-if="showStar">关注</span><x-icon
             type="ios-arrow-down"
             size="15"></x-icon></span>
         </div>
@@ -96,10 +96,6 @@
       },
       extraUser: {
         type: Object
-      },
-      starred: {
-        type: Boolean,
-        default: false
       }
     },
     methods: {

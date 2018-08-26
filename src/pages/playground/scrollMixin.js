@@ -1,4 +1,4 @@
-import {playground as store} from "store/store";
+import store from "store/store";
 import {mapState} from 'vuex'
 
 export default {
@@ -17,7 +17,7 @@ export default {
     })
   },
   computed: {
-    ...mapState(['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
+    ...mapState('playground',['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
   },
   methods: {
     computeScrollHeight() {

@@ -37,7 +37,7 @@
   import {ViewBox, Tab, TabItem, Search, Scroller, Spinner} from 'vux'
   import SearchResult from 'components/searchResult/searchResult'
   import stickybits from 'stickybits'
-  import {playground as store} from 'store/store'
+  import store from 'store/store'
   import {mapState} from 'vuex'
 
   export default {
@@ -52,7 +52,7 @@
       offset: 0,
       slowScrollHeight: "0"
     }),
-    computed:mapState(['nodeTab','nodeTopBar','nodeTabbar','searchHeight']),
+    computed: mapState('playground', ['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight']),
     created() {
       this.initTab()
     },
@@ -63,10 +63,10 @@
     methods: {
       initHeaderScroll() {
         let search = document.querySelector('#search')
-        store.commit('SET_SEARCH_HEIGHT',search.offsetHeight)
-        store.commit('SET_NODE_TAB',document.querySelector('#tab'))
-        store.commit('SET_NODE_TOPBAR',document.querySelector("#topBar"))
-        store.commit('SET_NODE_TABBAR',document.querySelector('#tabbar'))
+        store.commit('playground/SET_SEARCH_HEIGHT', search.offsetHeight)
+        store.commit('playground/SET_NODE_TAB', document.querySelector('#tab'))
+        store.commit('playground/SET_NODE_TOPBAR', document.querySelector("#topBar"))
+        store.commit('playground/SET_NODE_TABBAR', document.querySelector('#tabbar'))
         //禁用viewBoxBody的滚动
         let viewBoxBody = this.$refs.playground.getScrollBody()
         viewBoxBody.style.overflow = 'hidden'
