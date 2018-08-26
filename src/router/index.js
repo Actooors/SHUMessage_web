@@ -10,6 +10,7 @@ import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
 import Neighborhood from 'pages/playground/neighborhood'
 import Moments from 'pages/moments/moments'
+import Find from 'pages/find/find'
 
 Vue.use(Router)
 
@@ -60,6 +61,13 @@ export default new Router({
             tabbarIndex: 1
           },
           component: Moments,
+        },
+        {
+          path: 'find',
+          meta: {
+            tabbarIndex: 2
+          },
+          component: Find,
         },
         {
           path: 'self',

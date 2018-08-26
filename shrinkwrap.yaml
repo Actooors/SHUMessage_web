@@ -69,23 +69,23 @@ packages:
     dev: false
     resolution:
       integrity: sha512-maDaBVsKQ22uqPEIkb6GrENBDaTk5Xdjfm9TnGjc7kdNqogtYX2Zgp0/ySX/hjDszet6j5+d9yEjQGUHXaRY0A==
-  /@antv/f2/3.2.0:
+  /@antv/f2/3.2.1:
     dependencies:
       '@antv/adjust': 0.0.6
       '@antv/attr': 0.0.6
-      '@antv/scale': 0.0.6
+      '@antv/scale': 0.0.8
       '@antv/util': 1.0.12
       hammerjs: 2.0.8
     dev: false
     resolution:
-      integrity: sha512-NNtPc5FFpd7WN0q7Wl5K6UKchx54Mg/cPEYhp0+zCnH+FEMpsfTN9OOxgOMV60rmmjjxnfoxWYTncu2AMVFIWg==
-  /@antv/scale/0.0.6:
+      integrity: sha512-NsIolfm9Yftoo/pV44SiQVT5Hg1wd1+ocWK/cUANJJ00SKC4Ql4eUX6tMCZ/g4AJB+mU2Uwc4c3byr8yXGg9yA==
+  /@antv/scale/0.0.8:
     dependencies:
       '@antv/util': 1.0.12
       fecha: 2.3.3
     dev: false
     resolution:
-      integrity: sha512-sBcPIdLxonOYPonB3Nzr2LNIYexC6dly+/mc8fPpjOhLOI6iSvkPYCHMBVjOUlwACgNBhq4RCck1YmaDvBb84A==
+      integrity: sha512-d+npja5cpNAYn2GQepk4iHnTrd7b2zMszlZUVDTuXBxsYQqNf7DYfVJkI0bWllmpGbqB8yQL2oJlTKiQ8CCMKg==
   /@antv/util/1.0.12:
     dev: false
     resolution:
@@ -7252,7 +7252,7 @@ packages:
       integrity: sha1-41Ln+dxfn+6SU9szHJZ91Ws7yVA=
   /vux/2.9.2:
     dependencies:
-      '@antv/f2': 3.2.0
+      '@antv/f2': 3.2.1
       array-filter: 1.0.0
       array-find: 1.0.0
       array-map: 0.0.0
@@ -7666,16 +7666,16 @@ specifiers:
   shelljs: ^0.7.6
   stickybits: ^3.4.1
   url-loader: ^0.5.8
-  vue: ^2.5.2
+  vue: ^2.5.17
   vue-hot-reload-api: ^2.3.0
   vue-lazyload: ^1.2.6
   vue-loader: ^13.3.0
   vue-router: ^3.0.1
   vue-style-loader: ^3.0.1
   vue-template-compiler: ^2.5.2
-  vuex: ^2.1.1
+  vuex: ^2.5.0
   vuex-i18n: ^1.3.1
-  vux: ^2.2.0
+  vux: ^2.9.2
   vux-loader: ^1.0.56
   webpack: ^3.6.0
   webpack-bundle-analyzer: ^2.9.0

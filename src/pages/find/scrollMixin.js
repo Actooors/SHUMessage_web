@@ -10,7 +10,7 @@ export default {
   methods: {
     initScrollHeight() {
       let tabbarHeight = Number(window.getComputedStyle(document.getElementById('tabbar'))['height'].replace(/px/,''))
-      let headerHeight = Number(window.getComputedStyle(document.getElementById('moments-XHeader'))['height'].replace(/px/,''))
+      let headerHeight = Number(window.getComputedStyle(document.getElementById('topBar'))['height'].replace(/px/,''))
       this.scrollHeight = (-(tabbarHeight + headerHeight)).toString()
     },
     handlePulldownLoading() {
