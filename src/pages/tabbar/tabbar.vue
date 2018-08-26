@@ -1,7 +1,7 @@
 <template>
   <ViewBox>
     <tabbar slot="bottom" v-model="selectedIndex" id="tabbar">
-      <tabbar-item link="/playground">
+      <tabbar-item :link="`/playground${$store.state.playground.playgroundNow}`">
         <img slot="icon-active" src="../../assets/images/文档.png">
         <img slot="icon" src="../../assets/images/文档gray.png">
         <span slot="label">广场</span>
@@ -31,9 +31,11 @@
 
 <script>
   import {Tabbar, TabbarItem, XHeader, ViewBox} from 'vux'
+  import store from 'store/store';
 
   export default {
     name: "mainpage",
+    store,
     components: {
       Tabbar,
       TabbarItem,

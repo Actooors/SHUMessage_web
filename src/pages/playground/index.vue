@@ -74,6 +74,7 @@
       },
       handleClickTabItem(pushExpression) {
         this.$router.push(pushExpression)
+        this.$store.commit("playground/SET_PLAYGROUND_NOW", this.$route.fullPath.substring(this.$route.fullPath.lastIndexOf('/')))
       },
       handleSearch(value) {
         console.log("search", value)
@@ -88,6 +89,7 @@
         }
         if (tabIndex > -1 && this.tabIndex !== tabIndex) {
           autoMatch && (this.tabIndex = tabIndex)
+          this.$store.commit("playground/SET_PLAYGROUND_NOW", this.$route.fullPath.substring(this.$route.fullPath.lastIndexOf('/')))
         }
         return tabIndex
       }

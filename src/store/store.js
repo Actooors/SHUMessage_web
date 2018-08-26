@@ -21,7 +21,8 @@ const playground = {
     nodeTab: null,
     nodeTopBar: null,
     nodeTabbar: null,
-    searchHeight: null
+    searchHeight: null,
+    playgroundNow: ''
   },
   mutations: {
     SET_NODE_TAB(state, node) {
@@ -35,6 +36,9 @@ const playground = {
     },
     SET_SEARCH_HEIGHT(state, height) {
       state.searchHeight = height
+    },
+    SET_PLAYGROUND_NOW(state, NOW) {
+      state.playgroundNow = NOW
     }
   }
 }
