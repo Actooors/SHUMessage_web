@@ -1,12 +1,16 @@
 .wrapper {
   background: white;
-  .XHeader {
+  .self-XHeader {
     width: 100%;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 100;
-    background: rgba(0,0,0,.25);
+    background: rgba(0, 0, 0, .25);
+    .iconfont {
+      font-size: 1.25rem;
+      color: white
+    }
   }
   .show-bar {
     //margin-top: 23px;
@@ -17,7 +21,7 @@
     background-image: url("/static/back.jpg");
     background-size: cover;
     .center-content {
-      margin-top:60px;
+      margin-top: 60px;
       text-align: center;
       color: white;
       line-height: 2rem;

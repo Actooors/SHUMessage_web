@@ -1,9 +1,12 @@
 <template>
   <ViewBox class="wrapper">
-    <x-header slot="header" class="XHeader"
+    <x-header slot="header" class="self-XHeader"
               :left-options="{showBack: false}"
-              :right-options="{showMore: true}"
-              @on-click-more="handleClickMore">SHU Message
+              :right-options="{showMore: false}"
+    >SHU Message
+      <div slot="right" @click="handleClickMore">
+        <i class="icon-shezhi iconfont icon"></i>
+      </div>
     </x-header>
     <div class="show-bar">
       <div class="center-content">

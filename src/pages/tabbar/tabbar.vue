@@ -1,15 +1,12 @@
 <template>
   <ViewBox>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
     <tabbar slot="bottom" v-model="selectedIndex" id="tabbar">
       <tabbar-item link="/playground">
         <img slot="icon-active" src="../../assets/images/文档.png">
         <img slot="icon" src="../../assets/images/文档gray.png">
         <span slot="label">广场</span>
       </tabbar-item>
-      <tabbar-item link="/joys">
+      <tabbar-item link="/moments">
         <img slot="icon-active" src="../../assets/images/信息.png">
         <img slot="icon" src="../../assets/images/信息gray.png">
         <span slot="label">动态</span>
@@ -26,6 +23,9 @@
         <span slot="label">自己</span>
       </tabbar-item>
     </tabbar>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </ViewBox>
 </template>
 

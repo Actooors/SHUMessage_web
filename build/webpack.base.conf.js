@@ -25,7 +25,6 @@ let webpackConfig = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
       'assets': resolve('src/assets'),
       'components': resolve('src/components'),
       'interceptors': resolve('src/interceptors'),

@@ -1,0 +1,54 @@
+@import "../../assets/css/varies";
+
+.moments-XHeader {
+  .icon {
+    font-size: 1.25rem;
+  }
+}
+
+.publishMoments {
+  display: flex;
+  align-items: center;
+  padding: .75rem;
+  background: white;
+  box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
+  margin: .5rem 0;
+  color: $--theme-gray-deep;
+  .avatar {
+    height: 46px;
+    width: 46px;
+    flex-shrink: 0; //头像坚决不能缩，不然就压扁了
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: 48px 48px;
+    background-position: center;
+    border: $--background-deep solid 1px;
+    margin-right: .5rem;
+  }
+}
+
+.recommend {
+  position: relative;
+  font-size: 13px;
+  margin-top:16px;
+  background: white;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 16px;
+  border-bottom: $--theme-gray-light3 solid 1px;
+  border-top: $--theme-gray-light4 solid 1px;
+  &-operation {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+    fill: gray;
+    color: gray;
+    margin-right: 16px;
+    .star {
+      margin-right: 9.6px;
+      font-size: 12.8px;
+      color: $--theme-blue;
+    }
+  }
+}

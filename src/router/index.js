@@ -9,6 +9,7 @@ import Playground from 'pages/playground'
 import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
 import Neighborhood from 'pages/playground/neighborhood'
+import Moments from 'pages/moments/moments'
 
 Vue.use(Router)
 
@@ -26,7 +27,9 @@ export default new Router({
         },
         {
           path: 'playground',
-          // name: 'playground',
+          meta: {
+            tabbarIndex: 0
+          },
           component: Playground,
           children: [{
             path: '',
@@ -49,10 +52,14 @@ export default new Router({
             meta: {
               tabIndex: 2
             }
-          }],
+          }]
+        },
+        {
+          path: 'moments',
           meta: {
-            tabbarIndex: 0
-          }
+            tabbarIndex: 1
+          },
+          component: Moments,
         },
         {
           path: 'self',

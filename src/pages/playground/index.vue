@@ -88,13 +88,6 @@
         }
         if (tabIndex > -1 && this.tabIndex !== tabIndex) {
           autoMatch && (this.tabIndex = tabIndex)
-          autoMatch && this.$nextTick(() => {
-            this.scrollTop = this.scrollTops[tabIndex]
-            console.log('to', this.scrollTop)
-          })
-        }
-        if (!autoMatch) {
-          console.log("false")
         }
         return tabIndex
       }

@@ -5,11 +5,17 @@ export default {
   store,
   data: () => ({
     scrollHeight: "",
-    slowScrollHeight: "0",
+    slowScrollHeight: "",
     offset: 0,
     scrollTop: -1
 
   }),
+  mounted() {
+    //这个方法应该在ajax回调的时候调用
+    this.$nextTick(() => {
+      this.computeScrollHeight()
+    })
+  },
   computed: {
     ...mapState(['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
   },
