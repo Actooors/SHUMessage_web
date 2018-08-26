@@ -1,34 +1,37 @@
 @import "../../assets/css/varies";
 
 .pCard {
-  padding: 1rem 1rem .5rem 1rem;
-  margin-bottom: .5rem;
+  padding: 20.8px 16px 8px 16px;
+  margin-bottom: 8px;
   font-size: .9rem;
   background: white;
   box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
   display: flex;
   .left-side {
-    height: 45px;
-    width: 45px;
+    height: 46px;
+    width: 46px;
     flex-shrink: 0; //头像坚决不能缩，不然就压扁了
-    .avatar {
-      height: 100%;
-      width: 100%;
-      border-radius: 50%;
-      border: $--background-deep solid 1px;
-      position: relative;
-      top: -.3rem;
-    }
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: 48px 48px;
+    background-position: center;
+    border: $--background-deep solid 1px;
+    position: relative;
+    top: -.4rem;
   }
   .right-side {
     margin-left: .5rem;
     width: 100%;
     .cardTopBar {
-      line-height: 1.2rem;
+      line-height: 19.6px;
       min-height: 45px;
       .cardTopBar-top {
         position: relative;
+        .band {
+          color: $--theme-gray-deep;
+        }
         .operation {
+          font-size: 12px;
           position: absolute;
           display: flex;
           align-items: center;
@@ -37,35 +40,35 @@
           fill: gray;
           color: gray;
           .star {
-            margin-right: .6rem;
-            font-size: .8rem;
+            margin-right: 9.6px;
+            font-size: 12.8px;
             color: $--theme-blue;
           }
         }
       }
       .cardTopBar-extra {
         color: gray;
-        font-size: .7rem;
+        font-size: 11.2px;
         display: inline-flex;
         align-items: center;
         .position {
           display: inline-flex;
           align-items: center;
           .icon {
-            font-size: .9rem;
+            font-size: 14.4px;
           }
         }
       }
     }
   }
-  .content{
+  .content {
     margin-bottom: .5rem;
   }
   .topic {
-    font-size: .75rem;
+    font-size: 12px;
     background: $--background-deep;
-    padding: .25rem .8rem;
-    border-radius: 1rem;
+    padding: 4px 12.8px;
+    border-radius: 16px;
     color: $--theme-blue;
   }
   .shareBar {

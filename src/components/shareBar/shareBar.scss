@@ -2,30 +2,34 @@
 
 .shareBar {
   position: relative;
-  font-size: .75rem;
+  font-size: 12px;
   display: flex;
+  //justify-content: space-between;
+  //padding-right: 25%;
   align-items: center;
   height: 2rem;
   color: gray;
   .forward {
     position: absolute;
     right: 0;
-    .icon{
-      margin-right: .2rem;
+    .icon {
+      margin-right: 3.2px;
       font-weight: bold;
-      font-size:.9rem;
+      font-size: 14.4px;
     }
   }
   .btn {
-    margin-right: 1.5rem;
+    //width: 60px;
+    width: 28%;
+    max-width:65px;
     display: flex;
     align-items: center;
     .icon {
-      margin-right: .2rem;
+      margin-right: 3px;
       font-weight: bold;
     }
   }
-  .clicked{
+  .clicked {
     color: $--theme-red-light;
   }
   &.hr {

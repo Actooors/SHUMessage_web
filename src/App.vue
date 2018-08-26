@@ -11,7 +11,7 @@
 </script>
 
 <style lang="less">
-  @import url('//at.alicdn.com/t/font_806770_5dhru99ap4j.css');
+  @import url('//at.alicdn.com/t/font_806770_u0gleoffom.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
   @import 'assets/css/reset.css';

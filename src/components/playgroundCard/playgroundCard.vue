@@ -14,6 +14,7 @@
       :comment="shareInfo.comment"
       :share="shareInfo.share"
       hr="hr"
+      class="shareBar"
     ></share-bar>
   </div>
 </template>

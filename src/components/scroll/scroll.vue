@@ -10,7 +10,9 @@
             ref="scroller"
             @on-scroll="handleScroll"
   >
-    <div><slot></slot></div>
+    <div>
+      <slot></slot>
+    </div>
     <div slot="pulldown" class="xs-plugin-pulldown-container xs-plugin-pulldown-down">
       <span v-show="scrollerStatus.pulldownStatus === 'default'"></span>
       <span class="pulldown-arrow"
@@ -49,6 +51,15 @@
       },
       height: {
         type: String
+      },
+      onPulldownLoading: {
+        type: Function
+      },
+      onPullupLoading: {
+        type: Function
+      },
+      onScroll() {
+        type:Function
       }
     },
     data: () => ({
@@ -57,7 +68,7 @@
         pulldownStatus: 'default'
       },
     }),
-    mounted(){
+    mounted() {
 
     },
     watch: {
@@ -76,11 +87,14 @@
         //position: Object{top,left}
         this.$emit('on-scroll', position)
       },
-      donePulldown(){
+      donePulldown() {
         this.$refs.scroller.donePulldown()
       },
-      donePullup(){
+      donePullup() {
         this.$refs.scroller.donePullup()
+      },
+      reset() {
+        this.$refs.scroller.reset(...arguments)
       }
     }
   }

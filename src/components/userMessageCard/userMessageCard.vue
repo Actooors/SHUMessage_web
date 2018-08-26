@@ -1,13 +1,14 @@
-<template>
+<template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard">
-    <div class="left-side">
-      <img class="avatar" v-lazy="author.avatar">
-    </div>
+    <div class="left-side avatar" v-lazy:background-image="author.avatar"></div>
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author">{{author.name}}</span>
-          <span class="operation"><span class="star">关注</span><x-icon type="ios-arrow-down" size="15"></x-icon></span>
+          <span v-if="band" class="band"> {{band}} </span>
+          <span v-if="extraUser">{{extraUser.name}}</span>
+          <span class="operation" v-if="!hideExtra"><span class="star">关注</span><x-icon type="ios-arrow-down"
+                                                                                        size="15"></x-icon></span>
         </div>
         <div class="cardTopBar-extra">
           <span class="hasbeenfrom">{{relativeTime(publishTime)}}</span>
@@ -17,10 +18,14 @@
         </div>
       </div>
       <div class="content" v-html="content"></div>
-      <div class="topic-box">
+      <div
+        v-if="topic"
+        class="topic-box"
+      >
         <span class="topic">{{topic.name}}</span>
       </div>
       <share-bar
+        v-if="shareInfo"
         :like="shareInfo.like"
         :comment="shareInfo.comment"
         :share="shareInfo.share"
@@ -74,16 +79,26 @@
       },
       publishTime: {
         type: String,
-        default(){
+        default() {
           return Date.now().toString()
         }
       },
-      position:{
-        type:Object
+      position: {
+        type: Object
+      },
+      hideExtra: {
+        type: Boolean,
+        default: false
+      },
+      band: {
+        type: String
+      },
+      extraUser: {
+        type: Object
       }
     },
-    methods:{
-      relativeTime(t){
+    methods: {
+      relativeTime(t) {
         return relativeTime(t)
       }
     }
