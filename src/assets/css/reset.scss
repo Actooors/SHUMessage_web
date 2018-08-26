@@ -1,3 +1,5 @@
+@import './varies';
+
 html, body, #app {
   height: 100%;
   width: 100%;
@@ -7,4 +9,12 @@ html, body, #app {
 .vux-tab-ink-bar-transition-backward, .vux-tab-ink-bar-transition-forward {
   /* 全局封杀tab的animate, 防止tab出现什么幺蛾子 */
   transition: none !important;
+}
+
+.theme-XHeader {
+  background-color: #fff !important;
+  border-bottom: $--background-deep solid 1px;
+  .vux-header-left, .vux-header-title, .vux-header-right {
+    color: #000 !important;
+  }
 }

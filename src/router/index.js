@@ -12,6 +12,7 @@ import Neighborhood from 'pages/playground/neighborhood'
 import Moments from 'pages/moments/moments'
 import Find from 'pages/find/find'
 import CommonMsgDetail from 'pages/details/commonMsgDetail'
+import UserMsgDetail from 'pages/details/userMsgDetail'
 
 Vue.use(Router)
 
@@ -98,7 +99,13 @@ export default new Router({
     },
     {
       path: "/commonMsgDetail",
+      name: "commonMsgDetail",
       component: CommonMsgDetail
+    },
+    {
+      path: "/userMsgDetail",
+      name: "userMsgDetail",
+      component: UserMsgDetail
     }
   ]
 })

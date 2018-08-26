@@ -35,8 +35,9 @@
       handleClickCard(index) {
         store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
         let that = this;
-        this.$router.push('/commonMsgDetail', {
-          params: {...that.cards[index].info}
+        this.$router.push({
+          path: '/commonMsgDetail',
+          query: that.cards[index].info
         })
       }
     }

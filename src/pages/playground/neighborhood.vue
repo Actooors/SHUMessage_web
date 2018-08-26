@@ -7,7 +7,7 @@
     ref="scroll"
   >
     <user-message-card
-      v-for="item of cards"
+      v-for="(item,index) of cards"
       :key="item.value"
       :topic="item.topic"
       :content="item.content"
@@ -15,6 +15,7 @@
       :shareInfo="item.shareInfo"
       :publishTime="item.publishTime"
       :position="item.position"
+      @click.native="handleClickCard(index)"
     ></user-message-card>
   </scroll>
 </template>
@@ -24,11 +25,23 @@
   import {neighborhood as mock} from "./mock"
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
+  import store from "store/store";
 
   export default {
     name: "neighborhood",
+    store,
     components: {UserMessageCard, Scroll},
-    mixins: [mock, scrollMixin]
+    mixins: [mock, scrollMixin],
+    methods: {
+      handleClickCard(index) {
+        store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        let that = this;
+        this.$router.push({
+          path: '/userMsgDetail',
+          query: that.cards[index].info
+        })
+      }
+    }
   }
 </script>
 

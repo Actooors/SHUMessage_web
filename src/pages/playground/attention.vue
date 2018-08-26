@@ -23,7 +23,7 @@
   import {attention as mock} from './mock'
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
-
+  //暂未引入detail，因为关注和推荐中同时涉及动态和消息，先在recommend里面试水，完善了再将其引入attention
   export default {
     name: "attention",
     components: {PlaygroundCard, Scroll},

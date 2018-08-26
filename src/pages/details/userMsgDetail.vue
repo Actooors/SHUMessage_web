@@ -1,10 +1,65 @@
 <template>
-
+  <MsgDetail headerTitle="动态详情">
+    <playground-card
+      :publishTime="item.publishTime"
+      :position="item.position"
+      :topic="item.topic"
+      :content="item.content"
+      :author="item.author"
+      :shareInfo="item.shareInfo"
+    ></playground-card>
+  </MsgDetail>
 </template>
 
 <script>
+  import MsgDetail from 'components/msgDetail/msgDetail'
+  import PlaygroundCard from "components/userMessageCard/userMessageCard";
+  import store from "store/store";
+
   export default {
-    name: "userMsgDetail"
+    name: "userMsgDetail",
+    store,
+    components: {MsgDetail, PlaygroundCard},
+    data: () => ({
+      item: {
+        info: {
+          type: 0,
+          id: 0
+        },
+        topic: {
+          id: 0,
+          name: ""
+        },
+        content: "",
+        photos: [],
+        author: {
+          id: 0,
+          avatar: "",
+          name: ""
+        },
+        publishTime: "",
+        shareInfo: {
+          like: 0,
+          comment: 0,
+          share: 0
+        },
+        showStar: false
+      }
+    }),
+    created() {
+      this.loadData()
+    },
+    methods: {
+      loadData() {
+        if (!!store.state.pushRouter.cardItem) {
+          //vuex里面存有状态，直接渲染
+          this.item = store.state.pushRouter.cardItem
+        } else {
+          let {type, id} = this.$route.params
+          //老老实实axios
+        }
+      }
+    }
   }
 </script>
 

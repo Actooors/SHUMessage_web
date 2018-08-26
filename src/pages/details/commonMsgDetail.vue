@@ -1,10 +1,10 @@
 <template>
-  <MsgDetail>
+  <MsgDetail headerTitle="消息详情">
     <playground-card
       :topic="item.topic"
       :content="item.content"
       :author="item.author"
-      :extraInfo="item.publishTime"
+      :extraInfo="item.publishTime||item.extraInfo"
       :shareInfo="item.shareInfo"
     ></playground-card>
   </MsgDetail>
@@ -20,9 +20,32 @@
     store,
     components: {MsgDetail, PlaygroundCard},
     data: () => ({
-      item: {}
+      item: {
+        info: {
+          type: 0,
+          id: 0
+        },
+        topic: {
+          id: 0,
+          name: ""
+        },
+        content: "",
+        photos: [],
+        author: {
+          id: 0,
+          avatar: "",
+          name: ""
+        },
+        publishTime: "",
+        shareInfo: {
+          like: 0,
+          comment: 0,
+          share: 0
+        },
+        showStar: false
+      }
     }),
-    mounted() {
+    created() {
       this.loadData()
     },
     methods: {

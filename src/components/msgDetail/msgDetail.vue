@@ -1,6 +1,6 @@
 <template>
   <ViewBox>
-    <x-header slot="header" class="XHeader force-black"
+    <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}">
       {{headerTitle}}
     </x-header>
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-  import {ViewBox} from 'vux'
+  import {ViewBox, XHeader} from 'vux'
 
   export default {
     name: "msgDetail",
-    components: {ViewBox},
+    components: {ViewBox, XHeader},
     props: {
       headerTitle: {
         type: String,

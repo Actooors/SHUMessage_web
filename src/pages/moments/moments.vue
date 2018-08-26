@@ -1,6 +1,6 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <ViewBox>
-    <x-header slot="header" class="moments-XHeader"
+    <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"
               id="moments-XHeader"
@@ -86,15 +86,4 @@
 
 <style lang="scss" scoped>
   @import "moments";
-</style>
-<style lang="scss">
-  @import "../../assets/css/varies";
-
-  .moments-XHeader {
-    background-color: #fff !important;
-    border-bottom: $--background-deep solid 1px;
-    .vux-header-left, .vux-header-title, .vux-header-right {
-      color: #000 !important;
-    }
-  }
 </style>

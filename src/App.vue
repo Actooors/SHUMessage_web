@@ -14,9 +14,11 @@
   @import url('//at.alicdn.com/t/font_806770_u0gleoffom.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
-  @import 'assets/css/reset.css';
 
   body {
     background-color: #fbf9fe;
   }
+</style>
+<style lang="scss">
+  @import 'assets/css/reset.scss';
 </style>
