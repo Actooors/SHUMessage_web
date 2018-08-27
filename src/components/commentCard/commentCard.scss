@@ -1,0 +1,79 @@
+@import "../../assets/css/varies";
+
+.pCard {
+  padding: 20.8px 16px 16px 16px;
+  //margin-bottom: 8px;
+  font-size: .85rem;
+  background: white;
+  //box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
+  border-bottom: $--theme-gray-light3 solid 1px;
+  display: flex;
+  .left-side {
+    height: 46px;
+    width: 46px;
+    flex-shrink: 0; //头像坚决不能缩，不然就压扁了
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: 48px 48px;
+    background-position: center;
+    border: $--background-deep solid 1px;
+    position: relative;
+    top: -.4rem;
+  }
+  .right-side {
+    margin-left: .5rem;
+    width: 100%;
+    .cardTopBar {
+      line-height: 19.6px;
+      min-height: 45px;
+      .cardTopBar-top {
+        position: relative;
+        .operation {
+          font-size: 12px;
+          position: absolute;
+          //display: flex;
+          //align-items: center;
+          right: 0;
+          top: 0;
+          fill: gray;
+          color: gray;
+          .iconfont {
+            margin-left: 6px;
+          }
+        }
+      }
+      .cardTopBar-extra {
+        color: gray;
+        font-size: 11.2px;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+  .content {
+    margin-bottom: .5rem;
+    //width:
+  }
+  .commentBox {
+    background: $--theme-gray-light4;
+    padding: 8px;
+    .authorName {
+      color: $--theme-blue-light2;
+      &:after {
+        content: ":";
+        color: black;
+        position: relative;
+        left: -.2em;
+      }
+    }
+    .comment {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+    }
+    .comment-more {
+      color: $--theme-blue-light;
+    }
+  }
+}
