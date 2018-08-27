@@ -17,16 +17,53 @@ export default {
     })
   },
   computed: {
-    ...mapState('playground',['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
+    ...mapState('playground', ['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
   },
   methods: {
     computeScrollHeight() {
-      let topBarHeight = Number(window.getComputedStyle(this.nodeTopBar)["height"].replace(/px/, ''))
-      let tabbarHeight = Number(window.getComputedStyle(this.nodeTabbar)["height"].replace(/px/, ''))
-      this.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
-      //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
-      this.slowScrollHeight = this.scrollHeight
-      console.log(topBarHeight, tabbarHeight, this.scrollHeight)
+      //判断topTopBarHeight+tabbarHeight是否符合规矩
+      let that = this;
+      let topBarHeight;
+      let tabbarHeight;
+
+      function judgeRoute() {
+        let str = that.$route.path
+        return str.substring(1, str.indexOf('/', 1)) === 'playground'
+      }
+
+      function judge() {
+        topBarHeight = Number(window.getComputedStyle(that.nodeTopBar)["height"].replace(/px/, ''))
+        tabbarHeight = Number(window.getComputedStyle(that.nodeTabbar)["height"].replace(/px/, ''))
+        return !(Number.isNaN(topBarHeight + tabbarHeight) || topBarHeight + tabbarHeight === 0)
+      }
+
+      let t = 10
+
+      function delayHandler(f) {
+        //不在playground，不要考虑了
+        if (!judgeRoute()) {
+          return
+        }
+        if (!judge()) {
+          //说明界面还没渲染好或者出现异常数据，1.25*t ms后再考虑，递归调用
+          t *= 1.25
+          if (that.nodeTopBar && that.nodeTabbar) {
+            setTimeout(() => {
+              delayHandler(f)
+            }, t)
+          }
+          console.log("不通过", that.$route)
+          return
+        }
+        f();
+      }
+
+      delayHandler(() => {
+        that.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
+        that.slowScrollHeight = that.scrollHeight
+        //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
+        console.log(topBarHeight, tabbarHeight, that.scrollHeight)
+      })
     },
     handleScroll({top}, set = false) {
       let st = top
@@ -61,7 +98,10 @@ export default {
           search.style.top = tab.style.top
           //搜索框高度变化的话要立刻调整scroller的高度
           !set && this.$nextTick(() => {
-            this.scrollHeight = (Number(this.slowScrollHeight) + this.offset).toString()
+            let s = Number(this.slowScrollHeight) + this.offset
+            if (!isNaN(s) && s) {
+              this.scrollHeight = s.toString()
+            }
           })
         }
       }
