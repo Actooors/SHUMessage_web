@@ -9,6 +9,7 @@
       :author="item.author"
       :extraInfo="item.publishTime||item.extraInfo"
       :shareInfo="item.shareInfo"
+      :lazy-load=false
     ></playground-card>
   </MsgDetail>
 </template>

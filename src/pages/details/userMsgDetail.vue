@@ -10,6 +10,7 @@
       :content="item.content"
       :author="item.author"
       :shareInfo="item.shareInfo"
+      :lazy-load=false
     ></playground-card>
   </MsgDetail>
 </template>

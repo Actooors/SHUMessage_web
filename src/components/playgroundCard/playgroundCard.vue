@@ -2,11 +2,13 @@
   <div class="pCard">
     <div class="cardTopBar">
       <span class="topic">{{topic.name}}</span>
-      <span class="operation"><span class="extraInfo">{{extraInfo}}</span><x-icon type="ios-arrow-down" size="15"></x-icon></span>
+      <span class="operation"><span class="extraInfo">{{extraInfo}}</span><x-icon type="ios-arrow-down"
+                                                                                  size="15"></x-icon></span>
     </div>
     <div class="content" v-html="content"></div>
     <div class="author">
-      <img v-lazy="author.avatar" class="avatar">
+      <img v-if="lazyLoad" v-lazy="author.avatar" class="avatar">
+      <img v-else :src="author.avatar" class="avatar">
       <span class="author-name">{{author.name}}</span>
     </div>
     <share-bar
@@ -58,6 +60,10 @@
       shareInfo: {
         type: Object,
         require: true
+      },
+      lazyLoad: {
+        type: Boolean,
+        default: true
       }
     }
   }

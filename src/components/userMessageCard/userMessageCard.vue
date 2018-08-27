@@ -1,6 +1,7 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard">
-    <div class="left-side avatar" v-lazy:background-image="author.avatar"></div>
+    <div class="left-side avatar" v-lazy:background-image="author.avatar" v-if="lazyLoad"></div>
+    <div class="left-side avatar" :style="`background-image:url(${author.avatar})`" v-else></div>
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
@@ -96,6 +97,10 @@
       },
       extraUser: {
         type: Object
+      },
+      lazyLoad: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
