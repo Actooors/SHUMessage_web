@@ -5,18 +5,34 @@
       {{headerTitle}}
     </x-header>
     <slot></slot>
-    <div class="justBar">热门评论</div>
-    <comment-card
-      v-for="item of cards"
-      :key="item.value"
-      :content="item.content"
-      :author="item.author"
-      :publishTime="item.publishTime"
-      :photos="item.photos"
-      :like="item.like"
-      :replies="item.replies"
-      :info="item.info"
-    ></comment-card>
+    <div class="block1">
+      <div class="justBar-box"><p class="justBar">热门评论</p></div>
+      <comment-card
+        v-for="item of cards"
+        :key="item.value"
+        :content="item.content"
+        :author="item.author"
+        :publishTime="item.publishTime"
+        :photos="item.photos"
+        :like="item.like"
+        :replies="item.replies"
+        :info="item.info"
+      ></comment-card>
+    </div>
+    <div class="block2">
+      <div class="justBar-box"><p class="justBar">最新评论</p></div>
+      <comment-card
+        v-for="item of cards2"
+        :key="item.value"
+        :content="item.content"
+        :author="item.author"
+        :publishTime="item.publishTime"
+        :photos="item.photos"
+        :like="item.like"
+        :replies="item.replies"
+        :info="item.info"
+      ></comment-card>
+    </div>
   </ViewBox>
 </template>
 
@@ -24,6 +40,7 @@
   import {ViewBox, XHeader} from 'vux'
   import CommentCard from 'components/commentCard/commentCard'
   import mock from './mock'
+  import stickybits from 'stickybits'
 
   export default {
     name: "msgDetail",
@@ -33,6 +50,9 @@
         type: String,
         default: '详情页'
       }
+    },
+    mounted() {
+      stickybits('.justBar-box', {stickyBitStickyOffset: -1})
     },
     mixins: [mock]
   }
