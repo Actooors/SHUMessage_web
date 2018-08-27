@@ -8,7 +8,13 @@
 
 <script>
   export default {
-    name: 'app'
+    name: 'app',
+    created() {
+      //解除iOS的橡皮筋回弹效果
+      document.body.addEventListener('touchmove', (event) => {
+        event.preventDefault()
+      }, {passive: false})
+    }
   }
 </script>
 
