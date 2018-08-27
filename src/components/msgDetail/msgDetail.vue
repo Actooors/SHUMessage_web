@@ -10,7 +10,7 @@
       :key="block.value"
       class="block"
     >
-      <div class="justBar-box"><p class="justBar">{{block.blockName}}</p></div>
+      <div class="justBar-box"><p class="justBar"><span class="justBar-title">{{block.blockName}}</span></p></div>
       <comment-card
         v-for="item of block.cards"
         :key="item.value"
