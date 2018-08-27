@@ -1,5 +1,5 @@
 <template>
-  <ViewBox class="wrapper">
+  <ViewBox class="wrapper" id="__viewBox">
     <x-header slot="header" class="self-XHeader"
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"

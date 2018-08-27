@@ -1,5 +1,5 @@
 <template>
-  <ViewBox class="wrapper">
+  <ViewBox class="wrapper" id="__viewBox">
     <x-header slot="header" class="XHeader force-black"
               :left-options="{backText:''}">
       {{$store.state.top.header_title}}
