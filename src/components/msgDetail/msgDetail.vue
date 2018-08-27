@@ -5,10 +5,14 @@
       {{headerTitle}}
     </x-header>
     <slot></slot>
-    <div class="block1">
-      <div class="justBar-box"><p class="justBar">热门评论</p></div>
+    <div
+      v-for="block of raw"
+      :key="block.value"
+      class="block"
+    >
+      <div class="justBar-box"><p class="justBar">{{block.blockName}}</p></div>
       <comment-card
-        v-for="item of cards"
+        v-for="item of block.cards"
         :key="item.value"
         :content="item.content"
         :author="item.author"
@@ -17,20 +21,8 @@
         :like="item.like"
         :replies="item.replies"
         :info="item.info"
-      ></comment-card>
-    </div>
-    <div class="block2">
-      <div class="justBar-box"><p class="justBar">最新评论</p></div>
-      <comment-card
-        v-for="item of cards2"
-        :key="item.value"
-        :content="item.content"
-        :author="item.author"
-        :publishTime="item.publishTime"
-        :photos="item.photos"
-        :like="item.like"
-        :replies="item.replies"
-        :info="item.info"
+        :show-comment="showComment"
+        @onClickReply="handleClickReply(item)"
       ></comment-card>
     </div>
   </ViewBox>
@@ -39,22 +31,39 @@
 <script>
   import {ViewBox, XHeader} from 'vux'
   import CommentCard from 'components/commentCard/commentCard'
-  import mock from './mock'
   import stickybits from 'stickybits'
+  import store from 'store/store'
 
   export default {
     name: "msgDetail",
+    store,
     components: {...{ViewBox, XHeader}, CommentCard},
     props: {
       headerTitle: {
         type: String,
         default: '详情页'
+      },
+      showComment: {
+        type: Boolean,
+        default: true
+      },
+      raw: {
+        type: Array,
+        require: true
       }
     },
     mounted() {
       stickybits('.justBar-box', {stickyBitStickyOffset: -1})
     },
-    mixins: [mock]
+    methods: {
+      handleClickReply(item) {
+        store.commit("pushRouter/SET_CARD_ITEM", item)
+        this.$router.push({
+          path: '/commentDetail',
+          query: item.info
+        })
+      }
+    }
   }
 </script>
 

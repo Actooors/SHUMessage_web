@@ -5,7 +5,7 @@
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author">{{author.name}}</span>
-          <span class="operation">{{like}}<i
+          <span class="operation">{{like?like:''}}<i
             class="icon-appreciate iconfont icon"></i></span>
         </div>
         <div class="cardTopBar-extra">
@@ -13,15 +13,19 @@
         </div>
       </div>
       <div class="content" v-html="content"></div>
-      <div class="commentBox">
+      <div
+        v-if="showComment"
+        class="commentBox"
+        @click="handleClickReplay"
+      >
         <div
           v-for="item of replies.representatives"
           :key="item.value"
           class="comment"
         >
-          <router-link :to="`#${item.author.id}`" class="authorName">
+          <span :to="`#${item.author.id}`" class="authorName">
             {{item.author.name}}
-          </router-link>
+          </span>
           <span>{{item.content}}</span>
         </div>
         <router-link
@@ -37,9 +41,11 @@
 
 <script>
   import relativeTime from 'assets/js/relativeTime'
+  import store from 'store/store'
 
   export default {
     name: "commentCard",
+    store,
     props: {
       content: {
         type: String,
@@ -87,11 +93,18 @@
             type: 0
           }
         }
+      },
+      showComment: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
       relativeTime(t) {
         return relativeTime(t)
+      },
+      handleClickReplay() {
+        this.$emit('onClickReply')
       }
     }
   }

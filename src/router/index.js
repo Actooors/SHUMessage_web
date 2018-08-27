@@ -13,6 +13,7 @@ import Moments from 'pages/moments/moments'
 import Find from 'pages/find/find'
 import CommonMsgDetail from 'pages/details/commonMsgDetail'
 import UserMsgDetail from 'pages/details/userMsgDetail'
+import CommentDetail from 'pages/details/commentDetail'
 
 Vue.use(Router)
 
@@ -106,6 +107,11 @@ export default new Router({
       path: "/userMsgDetail",
       name: "userMsgDetail",
       component: UserMsgDetail
+    },
+    {
+      path: "/commentDetail",
+      name: "commentDetail",
+      component: CommentDetail
     }
   ]
 })

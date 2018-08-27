@@ -1,5 +1,8 @@
 <template>
-  <MsgDetail headerTitle="动态详情">
+  <MsgDetail
+    headerTitle="动态详情"
+    :raw="raw"
+  >
     <playground-card
       :publishTime="item.publishTime"
       :position="item.position"
@@ -15,6 +18,7 @@
   import MsgDetail from 'components/msgDetail/msgDetail'
   import PlaygroundCard from "components/userMessageCard/userMessageCard";
   import store from "store/store";
+  import {commonDetail as mock} from "./mock";
 
   export default {
     name: "userMsgDetail",
@@ -46,7 +50,7 @@
         showStar: false
       }
     }),
-    created() {
+    mounted() {
       this.loadData()
     },
     methods: {
@@ -57,9 +61,11 @@
         } else {
           let {type, id} = this.$route.params
           //老老实实axios
+          console.log("此处应该有ajax")
         }
       }
-    }
+    },
+    mixins: [mock]
   }
 </script>
 
