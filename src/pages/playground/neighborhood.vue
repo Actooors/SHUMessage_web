@@ -16,7 +16,7 @@
       :publishTime="item.publishTime"
       :position="item.position"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="(index)=>{handleClickShareButton(index,item.info)}"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
     ></user-message-card>
   </scroll>
 </template>

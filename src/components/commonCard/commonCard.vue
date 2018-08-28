@@ -6,6 +6,18 @@
                                                                                   size="15"></x-icon></span>
     </div>
     <div class="content" v-html="content"></div>
+    <div
+      v-if="media && media.type==='url'"
+      class="url"
+      @click="handleClickUrl(url.value)"
+    >
+      <img src="../../assets/images/web.jpg" class="url-img"/>
+      <div class="url-side">
+        <p class="url-title">{{media.title}}</p>
+        <p class="url-domain">{{getDomain(media.url)}}</p>
+      </div>
+
+    </div>
     <div class="author">
       <img v-if="lazyLoad" v-lazy="author.avatar" class="avatar">
       <img v-else :src="author.avatar" class="avatar">
@@ -65,11 +77,22 @@
       lazyLoad: {
         type: Boolean,
         default: true
+      },
+      url: {
+        type: String
       }
     },
-    methods:{
-      handleClickShareButton(index){
-        this.$emit('onClickShareButton',index)
+    methods: {
+      handleClickShareButton(index) {
+        this.$emit('onClickShareButton', index)
+      },
+      getDomain(url) {
+        let s = url.replace(/.+:\/\//, '')
+        let l = s.indexOf('/')
+        return s.substring(0, l > 0 ? l : s.length)
+      },
+      handleClickUrl(url) {
+        this.$router.push('自带iframe', {query: {url}})
       }
     }
   }

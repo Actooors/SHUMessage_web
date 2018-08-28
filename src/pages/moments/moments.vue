@@ -35,6 +35,7 @@
         :band="item.band"
         :extraUser="item.extraUser"
         :starred="item.starred"
+        @onClickShareButton="handleClickShareButton(arguments,item.info)"
       ></user-message-card>
       <div class="justBar">
         校友都在看
@@ -57,6 +58,7 @@
         :band="item.band"
         :extraUser="item.extraUser"
         :showStar="item.showStar"
+        @onClickShareButton="handleClickShareButton(arguments,item.info)"
       ></user-message-card>
     </scroll>
   </ViewBox>
@@ -79,6 +81,9 @@
       handlePublicMoments() {
         console.log("发表新动态")
       },
+      handleClickShareButton([index], info) {
+        console.log("moments - handleClickShareButton", index, info)
+      }
     },
     mixins: [mock, scrollMixin]
   }

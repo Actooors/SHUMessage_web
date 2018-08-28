@@ -7,27 +7,66 @@
     ref="scroll"
   >
     <common-card
-      v-for="item of cards"
+      v-for="(item,index) of cards"
       :key="item.value"
       :topic="item.topic"
       :content="item.content"
       :author="item.author"
       :extraInfo="item.publishTime"
       :shareInfo="item.shareInfo"
+      :url="item.url"
+      @click.native="handleClickCard(index)"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
     ></common-card>
   </scroll>
 </template>
 
 <script>
   import CommonCard from "components/commonCard/commonCard"
-  import {attention as mock} from './mock'
+  // import {attention as mock} from './mock'
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
-  //暂未引入detail，因为关注和推荐中同时涉及动态和消息，先在recommend里面试水，完善了再将其引入attention
+  import store from 'store/store'
+  import axios from 'axios'
+
   export default {
     name: "attention",
+    store,
     components: {CommonCard, Scroll},
-    mixins: [mock, scrollMixin]
+    mixins: [scrollMixin],
+    data: () => ({
+      cards: []
+    }),
+    mounted() {
+      this.loadData()
+    },
+    methods: {
+      loadData() {
+        axios({
+          url: apiRoot + "/news/newsList",
+          method: "get",
+          params: {
+            page: 0,
+            pageSize: 20
+          }
+        }).then((res) => {
+          this.cards = res.data.data.cards
+        }).catch((err) => {
+          console.error(err)
+        })
+      },
+      handleClickCard(index) {
+        store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        let that = this;
+        this.$router.push({
+          path: '/commonMsgDetail',
+          query: that.cards[index].info
+        })
+      },
+      handleClickShareButton(index, info) {
+        console.log("recommend - handleClickShareButton", index, info)
+      }
+    }
   }
 </script>
 

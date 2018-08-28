@@ -30,9 +30,49 @@
       }
     }
   }
+  .url {
+    background-color: $--theme-gray-light4;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+    .url-img {
+      height: 65px;
+      width: 65px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .url-side {
+      position: relative;
+      max-height: 65px;
+      flex-grow: 1;
+      padding: 8px;
+      line-height: 18px;
+      word-break: break-word;
+      overflow: hidden;
+      .url-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+      }
+      .url-domain {
+        font-size: .75rem;
+        color: $--theme-gray;
+        position: absolute;
+        bottom: 3px;
+      }
+    }
+  }
+  .content {
+    margin-bottom: 8px;
+  }
   .author {
-    height: 40px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     display: flex;
     align-items: center;
     .avatar {

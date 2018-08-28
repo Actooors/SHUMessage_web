@@ -15,7 +15,7 @@
       :extraInfo="item.extraInfo"
       :shareInfo="item.shareInfo"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="(index)=>{handleClickShareButton(index,item.info)}"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
     ></common-card>
   </scroll>
 </template>
@@ -40,9 +40,6 @@
           path: '/commonMsgDetail',
           query: that.cards[index].info
         })
-      },
-      handleClickLike(info) {
-        console.log("recommend - handleClickLike", info)
       },
       handleClickShareButton(index, info) {
         console.log("recommend - handleClickShareButton", index, info)
