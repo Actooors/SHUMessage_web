@@ -3,6 +3,7 @@
     headerTitle="评论详情"
     :show-comment=false
     :raw="raw"
+    @onClickLike="handleClickLike"
   >
     <comment-card
       :content="item.content"
@@ -13,6 +14,7 @@
       :replies="item.replies"
       :info="item.info"
       :showComment=false
+      @onClickLike="handleClickLike(item.info)"
     ></comment-card>
   </MsgDetail>
 </template>
@@ -28,7 +30,7 @@
     store,
     components: {MsgDetail, CommentCard},
     data: () => ({
-      item: {
+      msg: {
         info: {
           type: 5,
           id: 1
@@ -75,6 +77,9 @@
           //老老实实axios
           console.log("此处应该有ajax")
         }
+      },
+      handleClickLike(info) {
+        console.log("commentDetail - handleClickLike", info)
       }
     },
     mixins: [mock]

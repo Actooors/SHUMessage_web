@@ -6,7 +6,7 @@
     @on-pullup-loading="handlePullupLoading"
     ref="scroll"
   >
-    <playground-card
+    <common-card
       v-for="(item,index) of cards"
       :key="item.value"
       :topic="item.topic"
@@ -15,12 +15,13 @@
       :extraInfo="item.extraInfo"
       :shareInfo="item.shareInfo"
       @click.native="handleClickCard(index)"
-    ></playground-card>
+      @onClickShareButton="(index)=>{handleClickShareButton(index,item.info)}"
+    ></common-card>
   </scroll>
 </template>
 
 <script>
-  import PlaygroundCard from "components/playgroundCard/playgroundCard"
+  import CommonCard from "components/commonCard/commonCard"
   import {recommend as mock} from './mock'
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
@@ -28,7 +29,7 @@
 
   export default {
     name: "recommend",
-    components: {PlaygroundCard, Scroll},
+    components: {CommonCard, Scroll},
     mixins: [mock, scrollMixin],
     store,
     methods: {
@@ -39,6 +40,12 @@
           path: '/commonMsgDetail',
           query: that.cards[index].info
         })
+      },
+      handleClickLike(info) {
+        console.log("recommend - handleClickLike", info)
+      },
+      handleClickShareButton(index, info) {
+        console.log("recommend - handleClickShareButton", index, info)
       }
     }
   }

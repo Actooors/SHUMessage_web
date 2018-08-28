@@ -23,6 +23,7 @@
         :info="item.info"
         :show-comment="showComment"
         @onClickReply="handleClickReply(item)"
+        @onClickLike="handleClickLike(item.info)"
       ></comment-card>
     </div>
   </ViewBox>
@@ -62,6 +63,9 @@
           path: '/commentDetail',
           query: item.info
         })
+      },
+      handleClickLike(info) {
+        this.$emit('onClickLike', info)
       }
     }
   }

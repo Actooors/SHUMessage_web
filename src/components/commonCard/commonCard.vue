@@ -13,6 +13,7 @@
     </div>
     <share-bar
       :like="shareInfo.like"
+      @onClickShareButton="handleClickShareButton"
       :comment="shareInfo.comment"
       :share="shareInfo.share"
       hr="hr"
@@ -25,7 +26,7 @@
   import ShareBar from 'components/shareBar/shareBar'
 
   export default {
-    name: "playgroundCard",
+    name: "commonCard",
     components: {ShareBar},
     props: {
       topic: {
@@ -65,10 +66,15 @@
         type: Boolean,
         default: true
       }
+    },
+    methods:{
+      handleClickShareButton(index){
+        this.$emit('onClickShareButton',index)
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  @import "playgroundCard";
+  @import "commonCard";
 </style>

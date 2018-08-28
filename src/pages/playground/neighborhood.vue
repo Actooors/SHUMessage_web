@@ -16,6 +16,7 @@
       :publishTime="item.publishTime"
       :position="item.position"
       @click.native="handleClickCard(index)"
+      @onClickShareButton="(index)=>{handleClickShareButton(index,item.info)}"
     ></user-message-card>
   </scroll>
 </template>
@@ -40,6 +41,9 @@
           path: '/userMsgDetail',
           query: that.cards[index].info
         })
+      },
+      handleClickShareButton(index, info) {
+        console.log("neighborhood - handleClickShareButton", index, info)
       }
     }
   }

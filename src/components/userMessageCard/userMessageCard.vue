@@ -33,6 +33,7 @@
         :share="shareInfo.share"
         hr="hr"
         class="shareBar"
+        @onClickShareButton="handleClickShareButton"
       ></share-bar>
     </div>
   </div>
@@ -43,7 +44,7 @@
   import relativeTime from 'assets/js/relativeTime'
 
   export default {
-    name: "playgroundCard",
+    name: "userMessageCard",
     components: {ShareBar},
     props: {
       topic: {
@@ -106,6 +107,9 @@
     methods: {
       relativeTime(t) {
         return relativeTime(t)
+      },
+      handleClickShareButton(index){
+        this.$emit('onClickShareButton',index)
       }
     }
   }

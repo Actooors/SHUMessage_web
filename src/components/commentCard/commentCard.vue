@@ -5,7 +5,7 @@
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author">{{author.name}}</span>
-          <span class="operation">{{like?like:''}}<i
+          <span class="operation" @click="handleClickLike">{{like?like:''}}<i
             class="icon-appreciate iconfont icon"></i></span>
         </div>
         <div class="cardTopBar-extra">
@@ -105,6 +105,10 @@
       },
       handleClickReplay() {
         this.$emit('onClickReply')
+      },
+      handleClickLike(event){
+        this.$emit('onClickLike')
+        event.stopPropagation()
       }
     }
   }

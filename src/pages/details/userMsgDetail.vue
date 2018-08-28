@@ -2,31 +2,33 @@
   <MsgDetail
     headerTitle="动态详情"
     :raw="raw"
+    @onClickLike="handleClickLike"
   >
-    <playground-card
-      :publishTime="item.publishTime"
-      :position="item.position"
-      :topic="item.topic"
-      :content="item.content"
-      :author="item.author"
-      :shareInfo="item.shareInfo"
+    <user-message-card
+      :publishTime="msg.publishTime"
+      :position="msg.position"
+      :topic="msg.topic"
+      :content="msg.content"
+      :author="msg.author"
+      :shareInfo="msg.shareInfo"
       :lazy-load=false
-    ></playground-card>
+      @onClickShareButton="handleClickShareButton"
+    ></user-message-card>
   </MsgDetail>
 </template>
 
 <script>
   import MsgDetail from 'components/msgDetail/msgDetail'
-  import PlaygroundCard from "components/userMessageCard/userMessageCard";
+  import UserMessageCard from "components/userMessageCard/userMessageCard";
   import store from "store/store";
   import {commonDetail as mock} from "./mock";
 
   export default {
     name: "userMsgDetail",
     store,
-    components: {MsgDetail, PlaygroundCard},
+    components: {MsgDetail, UserMessageCard},
     data: () => ({
-      item: {
+      msg: {
         info: {
           type: 0,
           id: 0
@@ -58,12 +60,18 @@
       loadData() {
         if (!!store.state.pushRouter.cardItem) {
           //vuex里面存有状态，直接渲染
-          this.item = store.state.pushRouter.cardItem
+          this.msg = store.state.pushRouter.cardItem
         } else {
           let {type, id} = this.$route.params
           //老老实实axios
           console.log("此处应该有ajax")
         }
+      },
+      handleClickLike(info) {
+        console.log("userMsgDetail - handleClickLike", info)
+      },
+      handleClickShareButton(index) {
+        console.log("userMsgDetail - handleClickShareButton", index, this.msg.info)
       }
     },
     mixins: [mock]
