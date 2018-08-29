@@ -31,7 +31,6 @@
         :like="shareInfo.like"
         :comment="shareInfo.comment"
         :share="shareInfo.share"
-        hr="hr"
         class="shareBar"
         @onClickShareButton="handleClickShareButton"
       ></share-bar>

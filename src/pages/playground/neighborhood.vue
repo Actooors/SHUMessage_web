@@ -17,6 +17,7 @@
       :position="item.position"
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item.info)"
+      class="neighborhood-card"
     ></user-message-card>
   </scroll>
 </template>
@@ -49,6 +50,10 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../../assets/css/varies';
 
+  .neighborhood-card {
+    border-bottom: $--theme-gray-light3 solid 1px;
+  }
 </style>

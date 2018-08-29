@@ -5,6 +5,7 @@
     @onClickLike="handleClickLike"
   >
     <user-message-card
+      class="userMsgDetail-card"
       :publishTime="msg.publishTime"
       :position="msg.position"
       :topic="msg.topic"
@@ -78,6 +79,12 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../../assets/css/varies';
+
+  .userMsgDetail-card {
+    margin-bottom: 8px;
+    box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
+  }
 
 </style>

@@ -27,29 +27,56 @@
   }
 }
 
-.justBar {
+.block {
+  box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.025); //emphasis
   position: relative;
-  font-size: 13px;
-  margin-top: 16px;
-  background: white;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 16px;
-  border-bottom: $--theme-gray-light3 solid 1px;
-  border-top: $--theme-gray-light4 solid 1px;
-  box-shadow: 0 -5px 5px 1px rgba(0, 0, 0, 0.025); //emphasis
-  &-operation {
-    position: absolute;
-    height: 100%;
-    right: 0;
-    top: 0;
-    fill: gray;
-    color: gray;
-    margin-right: 16px;
-    .star {
-      margin-right: 9.6px;
-      font-size: 12.8px;
-      color: $--theme-blue;
+  padding-top: 8px;
+  .block-append {
+    background-color: white;
+    font-size: .8rem;
+    .buttonLink {
+      display: block;
+      color: $--theme-gray-deep;
+      text-align: center;
+      padding: 12px;
     }
   }
+}
+
+.justBar-box {//独立出来好放到header的儿子去
+  //position: absolute;
+  //top: 0;
+  width: 100%;
+  z-index: 1;
+  background: $--background-vux;
+  .justBar {
+    position: relative;
+    font-size: 13px;
+    margin-top: 8px;
+    background: white;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 16px;
+    border-bottom: $--theme-gray-light3 solid 1px;
+    border-top: $--theme-gray-light4 solid 1px;
+    box-shadow: 0 -5px 5px 1px rgba(0, 0, 0, 0.025); //emphasis
+    &-operation {
+      position: absolute;
+      height: 100%;
+      right: 0;
+      top: 0;
+      fill: gray;
+      color: gray;
+      margin-right: 16px;
+      .star {
+        margin-right: 9.6px;
+        font-size: 12.8px;
+        color: $--theme-blue;
+      }
+    }
+  }
+}
+
+.moments-card {
+  border-bottom: $--theme-gray-light3 solid 1px;
 }

@@ -58,7 +58,7 @@
       onPullupLoading: {
         type: Function
       },
-      onScroll() {
+      onScroll: {
         type:Function
       }
     },
