@@ -12,9 +12,10 @@
       :topic="item.topic"
       :content="item.content"
       :author="item.author"
-      :extraInfo="item.publishTime"
+      :extraInfo="item.extraInfo"
+      :publishTime="item.publishTime"
       :shareInfo="item.shareInfo"
-      :url="item.url"
+      :media="item.media"
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item.info)"
     ></common-card>

@@ -3,18 +3,18 @@
     <div class="cardTopBar">
       <span class="topic">{{topic.name}}</span>
       <span class="operation"><span class="extraInfo">{{extraInfo}}</span><x-icon type="ios-arrow-down"
-                                                                                  size="15"></x-icon></span>
+                                                                                                size="15"></x-icon></span>
     </div>
     <div class="content" v-html="content"></div>
     <div
       v-if="media && media.type==='url'"
       class="url"
-      @click="handleClickUrl(url.value)"
+      @click="handleClickUrl(media.value)"
     >
       <img src="../../assets/images/web.jpg" class="url-img"/>
       <div class="url-side">
         <p class="url-title">{{media.title}}</p>
-        <p class="url-domain">{{getDomain(media.url)}}</p>
+        <p class="url-domain">{{getDomain(media.value)}}</p>
       </div>
 
     </div>
@@ -22,6 +22,7 @@
       <img v-if="lazyLoad" v-lazy="author.avatar" class="avatar">
       <img v-else :src="author.avatar" class="avatar">
       <span class="author-name">{{author.name}}</span>
+      <span class="author-append" v-if="publishTime">{{preHandleTime(publishTime)}}</span>
     </div>
     <share-bar
       :like="shareInfo.like"
@@ -36,6 +37,7 @@
 
 <script>
   import ShareBar from 'components/shareBar/shareBar'
+  import dayjs from 'dayjs'
 
   export default {
     name: "commonCard",
@@ -78,8 +80,12 @@
         type: Boolean,
         default: true
       },
-      url: {
+      publishTime: {
         type: String
+      },
+      media: {
+        type: Object,
+        default: null
       }
     },
     methods: {
@@ -93,6 +99,13 @@
       },
       handleClickUrl(url) {
         this.$router.push('自带iframe', {query: {url}})
+      },
+      preHandleTime(ex) {
+        let t = dayjs(ex)
+        if (!t.isValid()) {
+          return ex
+        }
+        return t.format('YYYY.MM.DD hh:mm')
       }
     }
   }

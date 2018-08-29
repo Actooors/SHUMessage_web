@@ -35,6 +35,7 @@
     display: flex;
     border-radius: 2px;
     overflow: hidden;
+    margin-bottom: 8px;
     .url-img {
       height: 65px;
       width: 65px;
@@ -75,6 +76,8 @@
     line-height: 30px;
     display: flex;
     align-items: center;
+    position: relative;
+    font-size: 12px;
     .avatar {
       height: 1.5rem;
       width: 1.5rem;
@@ -85,12 +88,17 @@
       flex-shrink: 0;
     }
     &-name {
-      font-size: 12px;
       &:after {
         margin-left: 4.8px;
         color: gray;
         content: '发布'
       }
+    }
+    .author-append {
+      @extend .author-name:after;
+      position: absolute;
+      right: 0;
+      margin-right: 3px;
     }
   }
   .shareBar {
