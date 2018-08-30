@@ -1,15 +1,25 @@
-# shu_message
+# SHU Message
+一个良心的校园消息聚合、分享及交流平台。
 
-> A Vue.js project
+> 我们将长期致力于打造一个好看的，好用的，稳定的，且仅为SHU师生服务的消息聚合及分享平台。
 
-## Before Build
+> 我们要做的是，将散落在学校不同网站上的消息聚合到本平台上，让用户及时且完全地浏览到自己关注的消息。如志愿活动信息、留学信息、保研信息等。并为用户提供发表动态的功能作为新闻和消息的补充，用户可以自由地在平台上进行交流。
+
+## 项目介绍
+目前项目的UI是仿照即刻APP进行设计的，项目结构上，components不涉及业务逻辑。项目尽量增加代码复用率，在不违背原则的基础上降低逻辑复杂度。
+
+技术栈 `ES6` `vue` `vuex` `vux-ui` `scss` `webpack`
+
+后端传送门：[SHU_Message_Service](https://github.com/Actooors/SHU_Message_Service)
+
+### Before Build
 
 ``` bash
 # install pnpm
 npm i -g pnpm
 ```
 
-## Build Setup
+### Build Setup
 
 ``` bash
 # install dependencies
