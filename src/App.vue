@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive
+      :include="['mainpage','commonMsgDetail','userMsgDetail']"
+    >
       <router-view></router-view>
     </keep-alive>
   </div>

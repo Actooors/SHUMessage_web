@@ -1,9 +1,9 @@
 <template>
   <div class="pCard">
-    <div class="cardTopBar">
+    <div class="cardTopBar" v-if="topic">
       <span class="topic">{{topic.name}}</span>
-      <span class="operation"><span class="extraInfo">{{extraInfo}}</span><x-icon type="ios-arrow-down"
-                                                                                                size="15"></x-icon></span>
+      <span class="operation"><span class="extraInfo">{{preHandleTime(extraInfo)}}</span><x-icon type="ios-arrow-down"
+                                                                                                 size="15"></x-icon></span>
     </div>
     <div class="content" v-html="content"></div>
     <div
@@ -18,13 +18,14 @@
       </div>
 
     </div>
-    <div class="author">
+    <div class="author" v-if="author">
       <img v-if="lazyLoad" v-lazy="author.avatar" class="avatar">
       <img v-else :src="author.avatar" class="avatar">
       <span class="author-name">{{author.name}}</span>
       <span class="author-append" v-if="publishTime">{{preHandleTime(publishTime)}}</span>
     </div>
     <share-bar
+      v-if="shareInfo"
       :like="shareInfo.like"
       @onClickShareButton="handleClickShareButton"
       :comment="shareInfo.comment"
@@ -98,11 +99,16 @@
         return s.substring(0, l > 0 ? l : s.length)
       },
       handleClickUrl(url) {
-        this.$router.push('自带iframe', {query: {url}})
+        this.$router.push({path: '/seo', query: {url, title: this.media.title}})
+        event.stopPropagation()
       },
       preHandleTime(ex) {
         let t = dayjs(ex)
         if (!t.isValid()) {
+          let exp = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}\+\d{4}/
+          if (exp.test(ex)) {
+            return dayjs(ex.replace(/\+\d{4}$/, 'Z')).format('YYYY.MM.DD hh:mm')
+          }
           return ex
         }
         return t.format('YYYY.MM.DD hh:mm')

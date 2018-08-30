@@ -14,6 +14,7 @@ import Find from 'pages/find/find'
 import CommonMsgDetail from 'pages/details/commonMsgDetail'
 import UserMsgDetail from 'pages/details/userMsgDetail'
 import CommentDetail from 'pages/details/commentDetail'
+import Seo from 'pages/seo/seo'
 
 Vue.use(Router)
 
@@ -26,7 +27,6 @@ export default new Router({
       children: [
         {
           path: '',
-          name: 'tabbar',
           redirect: '/playground'
         },
         {
@@ -74,7 +74,6 @@ export default new Router({
         },
         {
           path: 'self',
-          name: 'self',
           component: Self,
           meta: {
             tabbarIndex: 3
@@ -88,12 +87,10 @@ export default new Router({
       children: [
         {
           path: "",
-          name: "more",
           component: More
         },
         {
           path: "myinfo",
-          name: "myinfo",
           component: Myinfo
         }
       ]
@@ -101,17 +98,30 @@ export default new Router({
     {
       path: "/commonMsgDetail",
       name: "commonMsgDetail",
+      meta: {
+        pushLevel: 1
+      },
       component: CommonMsgDetail
     },
     {
       path: "/userMsgDetail",
       name: "userMsgDetail",
+      meta: {
+        pushLevel: 1
+      },
       component: UserMsgDetail
     },
     {
       path: "/commentDetail",
       name: "commentDetail",
+      meta: {
+        pushLevel: 2
+      },
       component: CommentDetail
+    },
+    {
+      path: "/seo",
+      component: Seo
     }
   ]
 })

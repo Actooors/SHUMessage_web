@@ -23,17 +23,16 @@
           :key="item.value"
           class="comment"
         >
-          <span :to="`#${item.author.id}`" class="authorName">
+          <span class="authorName">
             {{item.author.name}}
           </span>
           <span>{{item.content}}</span>
         </div>
-        <router-link
+        <span
           v-if="replies.count>2"
-          :to="`#${info.id}&${info.type}`"
           class="comment-more"
         >共{{replies.count}}条回复 >
-        </router-link>
+        </span>
       </div>
     </div>
   </div>

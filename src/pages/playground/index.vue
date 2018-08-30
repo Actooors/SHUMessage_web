@@ -47,8 +47,6 @@
     data: () => ({
       searchValue: "",
       tabIndex: 1,
-      timer: null,
-      scrollTop: -1,
       offset: 0,
       slowScrollHeight: "0"
     }),
