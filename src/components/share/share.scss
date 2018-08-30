@@ -1,0 +1,46 @@
+@import "../../assets/css/varies";
+
+.popup {
+  > * {
+    border-radius: 12px;
+    margin: 0 8px 8px 8px;
+    background-color: white;
+    color: $--theme-gray-deep0;
+  }
+  .content {
+    .title {
+      text-align: center;
+      font-size: .8rem;
+      line-height: 50px;
+    }
+    .row {
+      padding: 8px;
+    }
+    .hr {
+      border-top: 1px solid $--background-deep2;
+      width: 100%;
+    }
+    .operation {
+      .row-li {
+        display: inline-block;
+        text-align: center;
+        .iconfont {
+          font-size: 30px;
+          display: block;
+          width: 45px;
+          height: 40px;
+          line-height: 40px;
+          margin: 0 auto;
+        }
+        .tag {
+          font-size: 11px;
+        }
+      }
+
+    }
+  }
+  .cancel {
+    padding: 12px;
+    text-align: center;
+  }
+}

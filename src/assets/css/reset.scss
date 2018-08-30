@@ -14,7 +14,10 @@ html, body, #app {
 .theme-XHeader {
   background-color: #fff !important;
   border-bottom: $--background-deep solid 1px;
-  .vux-header-left, .vux-header-title, .vux-header-right {
+  .vux-header-left, .vux-header-title, .vux-header-right, .vux-header-back {
     color: #000 !important;
+  }
+  .vux-header-more {
+    color: $--theme-gray-deep4 !important;
   }
 }
