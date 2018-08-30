@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App'
-import {TransferDom} from 'vux'
+import {TransferDom, ToastPlugin} from 'vux'
 import 'normalize.css'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
+
+Vue.use(ToastPlugin)
 
 Vue.directive('transfer-dom', TransferDom)
 

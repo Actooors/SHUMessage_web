@@ -21,7 +21,6 @@
       //解除iOS的橡皮筋回弹效果
       let that = this;
       document.body.addEventListener('touchstart', (event) => {
-        console.log("try")
         let nodeViewBox = document.querySelector('#__viewBox #vux_view_box_body')
         if (nodeViewBox) {
           that.scrollTop = nodeViewBox.scrollTop
@@ -60,7 +59,7 @@
 </script>
 
 <style lang="less">
-  @import url('//at.alicdn.com/t/font_806770_85j557qgthc.css');
+  @import url('//at.alicdn.com/t/font_806770_cmp9yawwebc.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
 

@@ -52,7 +52,7 @@ export default {
               delayHandler(f)
             }, t)
           }
-          console.log("不通过", that.$route)
+          // console.log("不通过", that.$route)
           return
         }
         f();
@@ -62,7 +62,7 @@ export default {
         that.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
         that.slowScrollHeight = that.scrollHeight
         //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
-        console.log(topBarHeight, tabbarHeight, that.scrollHeight)
+        // console.log(topBarHeight, tabbarHeight, that.scrollHeight)
       })
     },
     handleScroll({top}, set = false) {
@@ -70,6 +70,9 @@ export default {
       let oh = this.searchHeight
       let ok = false
       let tab = this.nodeTab
+      if(!(search && tab)){
+        return
+      }
       //如果this.scrollTop已经开始记录了
       if (set || this.scrollTop > -1) {
         let dist = st - this.scrollTop

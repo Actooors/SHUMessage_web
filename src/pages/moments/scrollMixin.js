@@ -39,7 +39,7 @@ export default {
         if (!e || (e.className === 'xs-container')) {//最多到这个容器就好了
           return 0;
         }
-        console.log(e.offsetTop)
+        // console.log(e.offsetTop)
         return e.offsetTop + pageY(e.parentElement);
       }
 

@@ -3,12 +3,17 @@
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}"
               :right-options="{showMore: true}"
-              id="moments-XHeader"
+              id="seo-XHeader"
               @on-click-more="handleClickMore"
     ><span class="title">{{$route.query.title}}</span>
     </x-header>
-    <iframe name="seo" :src="forward()" id="seo" ref="seo" class="seoFrame"></iframe>
-    <share v-model="showPopup"></share>
+    <iframe name="seo" :src="forward()" id="seo" class="seoFrame" :key="refresh"></iframe>
+    <share
+      v-model="showPopup"
+      @onRefresh="handleOnRefresh"
+      :url="$route.query.url"
+      showRefresh
+    ></share>
   </ViewBox>
 </template>
 
@@ -20,7 +25,8 @@
     name: "seo",
     components: {...{ViewBox, XHeader}, Share},
     data: () => ({
-      showPopup: false
+      showPopup: false,
+      refresh: true
     }),
     mounted() {
       //解决iframe的touch事件不能被捕获，从而导致橡皮筋现象的问题
@@ -37,6 +43,19 @@
       },
       handleClickMore() {
         this.showPopup = true
+      },
+      handleOnRefresh() {
+        let iframe = document.createElement('iframe')
+        let seo = document.getElementById('seo')
+        iframe.id = "seo"
+        iframe.name = "seo"
+        iframe.className = "seoFrame"
+        iframe.style.cssText = "width: 100%;height: 100%;border: none;"
+        iframe.src = this.forward()
+        let parent = seo.parentElement
+        parent.removeChild(seo)
+        parent.appendChild(iframe)
+        this.showPopup = false
       }
     }
   }
