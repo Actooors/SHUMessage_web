@@ -1,4 +1,5 @@
 dependencies:
+  autosize: 4.0.2
   axios: 0.18.0
   babel-runtime: 6.26.0
   clipboard: 2.0.1
@@ -443,6 +444,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-8YL0DRd1fZeKE5pMnKQMTA5EhgM=
+  /autosize/4.0.2:
+    dev: false
+    resolution:
+      integrity: sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==
   /aws-sign2/0.6.0:
     dev: true
     optional: true
@@ -7656,6 +7661,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   autoprefixer: ^7.1.2
+  autosize: ^4.0.2
   axios: ^0.18.0
   babel-core: ^6.22.1
   babel-helpers: ^6.24.1

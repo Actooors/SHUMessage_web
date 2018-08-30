@@ -1,5 +1,8 @@
 <template>
-  <ViewBox id="__viewBox">
+  <ViewBox
+    id="__viewBox"
+    body-padding-bottom="93px"
+  >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}">
       {{headerTitle}}
@@ -26,6 +29,11 @@
         @onClickLike="handleClickLike(item.info)"
       ></comment-card>
     </div>
+    <reply-bar
+      slot="bottom"
+      :placeholder="replyPlaceholder"
+      @onSubmit="handleSubmitReply"
+    ></reply-bar>
   </ViewBox>
 </template>
 
@@ -34,11 +42,12 @@
   import CommentCard from 'components/commentCard/commentCard'
   import stickybits from 'stickybits'
   import store from 'store/store'
+  import ReplyBar from 'components/replyBar/replyBar'
 
   export default {
     name: "msgDetail",
     store,
-    components: {...{ViewBox, XHeader}, CommentCard},
+    components: {...{ViewBox, XHeader}, CommentCard, ReplyBar},
     props: {
       headerTitle: {
         type: String,
@@ -51,6 +60,10 @@
       raw: {
         type: Array,
         require: true
+      },
+      replyPlaceholder: {
+        type: String,
+        default: ''
       }
     },
     mounted() {
@@ -66,6 +79,9 @@
       },
       handleClickLike(info) {
         this.$emit('onClickLike', info)
+      },
+      handleSubmitReply(){
+        console.log("???")
       }
     }
   }
