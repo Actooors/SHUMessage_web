@@ -7,7 +7,32 @@
             分享到
           </p>
           <div class="row share">
-
+            <scroller lock-y :scrollbar-x=false>
+              <div class="share-div">
+                <ul class="row operation">
+                  <li class="row-li share-li">
+                    <img src="src/assets/images/qq.png" class="shareIcon"/>
+                    <p class="tag">QQ</p>
+                  </li>
+                  <li class="row-li share-li">
+                    <img src="src/assets/images/weixin.png" class="shareIcon"/>
+                    <p class="tag">微信</p>
+                  </li>
+                  <li class="row-li share-li">
+                    <img src="src/assets/images/pengyouquan.png" class="shareIcon"/>
+                    <p class="tag">朋友圈</p>
+                  </li>
+                  <li class="row-li share-li">
+                    <img src="src/assets/images/weibo.png" class="shareIcon"/>
+                    <p class="tag">微博</p>
+                  </li>
+                  <li class="row-li share-li">
+                    <img src="src/assets/images/qzone.png" class="shareIcon"/>
+                    <p class="tag">QQ空间</p>
+                  </li>
+                </ul>
+              </div>
+            </scroller>
           </div>
           <div class="hr"></div>
           <ul class="row operation">
@@ -41,7 +66,7 @@
 </template>
 
 <script>
-  import {Popup} from 'vux'
+  import {Popup, Scroller} from 'vux'
   import ClipboardJS from 'clipboard'
 
   export default {
@@ -59,7 +84,7 @@
         type: String
       }
     },
-    components: {Popup},
+    components: {Popup, Scroller},
     data: () => ({
       showPopup: false
     }),
