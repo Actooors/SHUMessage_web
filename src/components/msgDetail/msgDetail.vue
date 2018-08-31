@@ -81,7 +81,7 @@
         this.$emit('onClickLike', info)
       },
       handleSubmitReply(){
-        console.log("???")
+        this.$emit('onSubmitReply')
       }
     }
   }

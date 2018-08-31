@@ -21,29 +21,37 @@
     display: flex;
     align-items: center;
     margin-right: 60px;
+    margin-left: .6em;
+    $input-background: $--theme-gray-light4;
     .input {
       -webkit-appearance: none;
       width: 100%;
       border: $--theme-gray-light25 solid 1px;
       border-radius: $input-height / 2;
-      padding: $input-height / 4 25px $input-height / 4 .9em;
+      padding: {
+        top: $input-height / 4;
+        right: 25px;
+        bottom: $input-height / 4;
+        left: .9em;
+      }
       box-sizing: border-box;
       height: $input-height;
-      margin-left: .6em;
-      background-color: $--theme-gray-light4;
-      overflow: hidden;
+      background-color: $input-background;
       resize: none;
+      max-height: 30vh;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
       &:focus {
         outline: none;
       }
     }
-    .iconfont {
+    & > .iconfont {
       //pointer-events: none;
       position: absolute;
       right: 4px;
       bottom: 5px;
       font-size: 16px;
-      width: 20px;
+      //width: 20px;
       padding: 0 5px;
       color: $--theme-gray-deep;
       border-radius: 25%;
@@ -67,10 +75,46 @@
       color: $--theme-blue-light2;
       line-height: $input-height;
     }
-    #img {
+    #file {
       opacity: 0;
       height: 100%;
       width: 100%;
+    }
+  }
+}
+
+.popover-content {
+  position: relative;
+  .img {
+    height: 80px;
+    width: 80px;
+    border: $--theme-gray-light solid 1px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: {
+      position: center center;
+      size: cover;
+      repeat: no-repeat;
+    }
+    & > .iconfont {
+      position: absolute;
+      right: 2px;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      font-weight: bold;
+      //color: rgba(0, 0, 0, .5);
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, .3);
+      background: {
+        image: url(../../assets/images/close-circle.png);
+        size: 100% 100%;
+        position: center center;
+      }
+      //font-size: .6rem;
     }
   }
 }

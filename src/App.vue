@@ -59,9 +59,10 @@
 </script>
 
 <style lang="less">
-  @import url('//at.alicdn.com/t/font_806770_qwldi3cdyqi.css');
+  @import url('//at.alicdn.com/t/font_806770_cu4cl9pd2b.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
+  @import '~vux/src/styles/close.less';
 
   body {
     background-color: #fbf9fe;

@@ -4,6 +4,7 @@
     :show-comment=false
     :raw="raw"
     @onClickLike="handleClickLike"
+    :replyPlaceholder="`回复${msg.author.name}:`"
   >
     <comment-card
       v-if="msgLoaded"

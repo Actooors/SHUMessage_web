@@ -3,6 +3,7 @@
     headerTitle="消息详情"
     :raw="raw"
     @onClickLike="handleClickLike"
+    :replyPlaceholder="`回复${msg.author.name}:`"
   >
     <common-card
       v-if="msgLoaded"

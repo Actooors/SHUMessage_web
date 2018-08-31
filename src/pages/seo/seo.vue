@@ -45,16 +45,20 @@
         this.showPopup = true
       },
       handleOnRefresh() {
-        let iframe = document.createElement('iframe')
         let seo = document.getElementById('seo')
-        iframe.id = "seo"
-        iframe.name = "seo"
-        iframe.className = "seoFrame"
-        iframe.style.cssText = "width: 100%;height: 100%;border: none;"
-        iframe.src = this.forward()
-        let parent = seo.parentElement
-        parent.removeChild(seo)
-        parent.appendChild(iframe)
+        if ("outerHTML" in seo) {
+          seo.outerHTML = seo.outerHTML
+        } else {
+          let iframe = document.createElement('iframe')
+          iframe.id = "seo"
+          iframe.name = "seo"
+          iframe.className = "seoFrame"
+          iframe.style.cssText = "width: 100%;height: 100%;border: none;"
+          iframe.src = this.forward()
+          let parent = seo.parentElement
+          parent.removeChild(seo)
+          parent.appendChild(iframe)
+        }
         this.showPopup = false
       }
     }

@@ -20,7 +20,11 @@ html, body, #app {
   .vux-header-more {
     color: $--theme-gray-deep4 !important;
   }
-  .vux-header-title{
-    margin:0 52px !important;
+  .vux-header-title {
+    margin: 0 52px !important;
   }
+}
+
+* {
+  box-sizing: border-box;
 }

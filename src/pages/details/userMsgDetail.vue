@@ -3,6 +3,7 @@
     headerTitle="动态详情"
     :raw="raw"
     @onClickLike="handleClickLike"
+    :replyPlaceholder="`回复${msg.author.name}:`"
   >
     <user-message-card
       class="userMsgDetail-card"

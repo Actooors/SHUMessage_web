@@ -1,7 +1,12 @@
 export default {
   data: () => ({
     msgLoaded: false,
-    msg: {}
+    msg: {
+      //防止ajax之前渲染replyPlaceholder时出错
+      author: {
+        name: ""
+      }
+    }
   }),
   mounted() {
     if (!this.msgLoaded) {
