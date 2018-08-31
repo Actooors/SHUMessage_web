@@ -51,12 +51,14 @@
     }
   }
   .content {
-    margin-bottom: .5rem;
+    //margin-bottom: .5rem;
     //width:
   }
   .commentBox {
     background: $--theme-gray-light4;
     padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 4px;
     .authorName {
       color: $--theme-blue-light2;
       &:after {

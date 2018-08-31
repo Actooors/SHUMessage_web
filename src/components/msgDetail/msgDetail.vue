@@ -2,6 +2,7 @@
   <ViewBox
     id="__viewBox"
     body-padding-bottom="93px"
+    ref="viewBox"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}">
@@ -64,10 +65,33 @@
       replyPlaceholder: {
         type: String,
         default: ''
+      },
+      noMore: {
+        type: Boolean,
+        default: false
+      },
+      loadingMore: {
+        type: Boolean,
+        default: false
+      },
+      msgLoaded: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data: () => ({}),
+    watch: {
+      msgLoaded(val) {
+        if (val) {
+          this.$nextTick(() => {
+            stickybits('.justBar-box', {stickyBitStickyOffset: -1})
+          })
+        }
       }
     },
     mounted() {
-      stickybits('.justBar-box', {stickyBitStickyOffset: -1})
+      let el = this.$refs.viewBox.getScrollBody()
+      el.addEventListener('scroll', (event) => this.handleScroll(event, el))
     },
     methods: {
       handleClickReply(item) {
@@ -80,8 +104,17 @@
       handleClickLike(info) {
         this.$emit('onClickLike', info)
       },
-      handleSubmitReply(){
+      handleSubmitReply() {
         this.$emit('onSubmitReply')
+      },
+      handleScroll(event, el) {
+        if (!this.noMore
+          && !this.loadingMore
+          && el.scrollHeight - el.scrollTop - el.offsetHeight < 800//摸底不到800
+        ) {
+          console.log("!")
+          this.$emit('loadMore')
+        }
       }
     }
   }

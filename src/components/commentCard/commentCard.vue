@@ -14,7 +14,7 @@
       </div>
       <div class="content" v-html="content"></div>
       <div
-        v-if="showComment"
+        v-if="showComment && replies.count"
         class="commentBox"
         @click="handleClickReplay"
       >
@@ -67,9 +67,11 @@
           return Date.now().toString()
         }
       },
-      photos: {
+      imgs: {
         type: Array,
-        default: []
+        default() {
+          return []
+        }
       },
       like: {
         type: Number,
@@ -105,7 +107,7 @@
       handleClickReplay() {
         this.$emit('onClickReply')
       },
-      handleClickLike(event){
+      handleClickLike(event) {
         this.$emit('onClickLike')
         event.stopPropagation()
       }

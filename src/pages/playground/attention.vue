@@ -29,6 +29,7 @@
   import Scroll from 'components/scroll/scroll'
   import store from 'store/store'
   import axios from 'axios'
+  import {handleLikeAjax} from 'assets/js/handleShareButtonAjax'
 
   export default {
     name: "attention",
@@ -36,7 +37,8 @@
     components: {CommonCard, Scroll},
     mixins: [scrollMixin],
     data: () => ({
-      cards: []
+      cards: [],
+      listApi: '/news/newsList'
     }),
     mounted() {
       this.loadData()
@@ -44,7 +46,7 @@
     methods: {
       loadData() {
         axios({
-          url: apiRoot + "/news/newsList",
+          url: apiRoot + this.listApi,
           method: "get",
           params: {
             page: 0,
@@ -66,6 +68,9 @@
       },
       handleClickShareButton(index, info) {
         console.log("recommend - handleClickShareButton", index, info)
+        if (index === 0) {
+          handleLikeAjax(info,)
+        }
       }
     }
   }

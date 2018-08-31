@@ -1,13 +1,20 @@
 import axios from 'axios'
 
-export function handleLikeAjax(info) {
+export function handleLikeAjax(info, like) {
+  let ret = ""
   axios({
-    url: "",
+    url: apiRoot + "/common/like",
     method: "post",
-    data: info
+    data: {
+      ...info,
+      like: like//false为取消点赞
+    }
   }).then((res) => {
-
+    if (res.data.code === "FAILED") {
+      ret = res.data.message
+    }
   }).catch((err) => {
-
+    ret = err.toString()
   })
+  return ret
 }

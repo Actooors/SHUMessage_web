@@ -11,6 +11,7 @@
 技术栈 `ES6` `vue` `vuex` `vux-ui` `scss` `webpack`
 
 后端传送门：[SHU_Message_Service](https://github.com/Actooors/SHU_Message_Service)
+爬虫传送门：[SHUMessage-Scrapy](https://github.com/Actooors/SHUMessage-Scrapy)
 
 ### Before Build
 

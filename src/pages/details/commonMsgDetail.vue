@@ -4,6 +4,10 @@
     :raw="raw"
     @onClickLike="handleClickLike"
     :replyPlaceholder="`回复${msg.author.name}:`"
+    @loadMore="handleLoadMore"
+    :noMore="noMore"
+    :loadingMore="loadingMoreComments"
+    :msgLoaded="msgLoaded"
   >
     <common-card
       v-if="msgLoaded"
@@ -29,7 +33,9 @@
     name: "commonMsgDetail",
     store,
     components: {MsgDetail, CommonCard},
-    data: () => ({}),
+    data: () => ({
+
+    }),
     methods: {
       handleClickLike(info) {
         console.log("commonMsgDetail - handleClickLike", info)
@@ -38,7 +44,7 @@
         console.log("commonMsgDetail - handleClickShareButton", index, this.msg.info)
       }
     },
-    mixins: [mock, ajaxMixin]
+    mixins: [ajaxMixin]
   }
 </script>
 

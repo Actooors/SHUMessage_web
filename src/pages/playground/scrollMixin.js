@@ -1,5 +1,6 @@
 import store from "store/store";
 import {mapState} from 'vuex'
+import axios from 'axios'
 
 export default {
   store,
@@ -7,8 +8,10 @@ export default {
     scrollHeight: "",
     slowScrollHeight: "",
     offset: 0,
-    scrollTop: -1
-
+    scrollTop: -1,
+    page: 0,
+    loadingMore: false,
+    loadingRefresh: false
   }),
   mounted() {
     //这个方法应该在ajax回调的时候调用
@@ -70,7 +73,7 @@ export default {
       let oh = this.searchHeight
       let ok = false
       let tab = this.nodeTab
-      if(!(search && tab)){
+      if (!(search && tab)) {
         return
       }
       //如果this.scrollTop已经开始记录了
@@ -118,16 +121,60 @@ export default {
       }, 200)
     },
     handlePulldownLoading() {
-      console.log("handlePulldownLoading")
-      setTimeout(() => {
-        this.$refs.scroll.donePulldown()
-      }, 1000)
+
+      if (!this.loadingRefresh) {
+        this.loadingRefresh = true
+        axios({
+          url: apiRoot + this.listApi,
+          method: "get",
+          params: {
+            page: 0,
+            pageSize: 20
+          }
+        }).then((res) => {
+          this.cards = res.data.data.cards
+        }).catch((err) => {
+          console.error(err)
+        }).finally(() => {
+          this.$refs.scroll.donePulldown()
+          setTimeout(() => {
+            this.loadingRefresh = false
+          }, 1000)
+        })
+      }
     },
     handlePullupLoading() {
-      console.log("handlePullupLoading")
-      setTimeout(() => {
-        this.$refs.scroll.donePullup()
-      }, 1500)
+      console.log("?")
+      if (!this.loadingMore) {
+        console.log("yes")
+        this.loadingMore = true
+        this.page++;
+        axios({
+          url: apiRoot + this.listApi,
+          method: "get",
+          params: {
+            page: this.page,
+            pageSize: 20
+          }
+        }).then((res) => {
+          if (res.data.code === 'FAILED') {
+            this.$vux.toast.text(res.data.message)
+            return
+          }
+          this.cards = this.cards.concat(res.data.data.cards)
+          this.$nextTick(() => {
+            this.$refs.scroll.reset()
+          })
+        }).catch((err) => {
+          console.error(err)
+        }).finally(() => {
+          this.$refs.scroll.donePullup()
+          setTimeout(() => {
+            this.loadingMore = false
+          }, 1000)
+        })
+      }
+
     }
   }
 }
