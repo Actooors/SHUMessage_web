@@ -14,10 +14,23 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/apple-touch-icon-precomposed-72x72.jpeg">
   <!--适用于非 Retina 屏的 iPhone-->
   <link rel="apple-touch-icon-precomposed" href="./static/apple-touch-icon-precomposed-57x57.jpeg">
+  <!-- 添加manifest文件 -->
+  <link rel="manifest" href="/static/manifest.json">
   <title>SHU Message</title>
 </head>
 <body>
 <div id="app-box"></div>
 <!-- built files will be auto injected -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').then(() => {
+      console.log('Service worker registered!');
+    }).catch((error) => {
+      console.log('Error registering service worker: ', error);
+    });
+  } else {
+    console.log('Not supported by browser');
+  }
+</script>
 </body>
 </html>

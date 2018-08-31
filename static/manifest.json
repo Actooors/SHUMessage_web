@@ -1,0 +1,23 @@
+{
+  "scope": "/",
+  "name": "SHU Message",
+  "short_name": "SHU Message",
+  "start_url": "/?from=homescreen",
+  "display": "standalone",
+  "description": "SHU信息分享与交流平台",
+  "orientation": "portrait",
+  "theme_color": "#3f51b5",
+  "background_color": "#fff",
+  "icons": [
+    {
+      "src": "./favicon32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
