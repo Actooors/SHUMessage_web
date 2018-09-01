@@ -10,23 +10,27 @@
             <scroller lock-y :scrollbar-x=false>
               <div class="share-div">
                 <ul class="row operation">
-                  <li class="row-li share-li">
+                  <li class="row-li share-li" @click="sharetoqq">
                     <img src="src/assets/images/qq.png" class="shareIcon"/>
                     <p class="tag">QQ</p>
                   </li>
-                  <li class="row-li share-li">
+                  <li class="row-li share-li" @click="sharetowx">
                     <img src="src/assets/images/weixin.png" class="shareIcon"/>
                     <p class="tag">微信</p>
                   </li>
-                  <li class="row-li share-li">
+                  <li class="row-li share-li" @click="sharetopyq">
                     <img src="src/assets/images/pengyouquan.png" class="shareIcon"/>
                     <p class="tag">朋友圈</p>
                   </li>
-                  <li class="row-li share-li">
+                  <li class="row-li share-li" @click="sharetoweibo">
                     <img src="src/assets/images/weibo.png" class="shareIcon"/>
                     <p class="tag">微博</p>
                   </li>
-                  <li class="row-li share-li">
+                  <li class="row-li share-li" @click="sharetotxweibo">
+                    <img src="src/assets/images/txweibo.png" class="shareIcon"/>
+                    <p class="tag">腾讯微博</p>
+                  </li>
+                  <li class="row-li share-li" @click="sharetoqzone">
                     <img src="src/assets/images/qzone.png" class="shareIcon"/>
                     <p class="tag">QQ空间</p>
                   </li>
@@ -65,6 +69,7 @@
   </div>
 </template>
 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
   import {Popup, Scroller} from 'vux'
   import ClipboardJS from 'clipboard'
@@ -113,6 +118,38 @@
       handleOpenBlank() {
         window.open(this.url, "_blank")
         this.showPopup = false
+      },
+      sharetoqq() {
+//        console.log(this.$route.query.title)
+        var shareqqstring = "http://connect.qq.com/widget/shareqq/index.html?url=" + this.url + "&title=" + this.$route.query.title;
+        window.open(shareqqstring, "_self")
+      },
+      sharetowx() {
+//        var sharetowx =
+      },
+      sharetoqzone() {
+        var sharetoqzone = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + this.url + "&title=" + this.$route.query.title + "&desc=" + "&pics=";
+        window.open(sharetoqzone, "_self")
+      },
+      sharetotxweibo() {     //挂了
+        var sharetotxweibo = "http://share.v.t.qq.com/index.php?c=share&a=index" + "&url=" + this.url + "&title=" + this.$route.query.title;
+        window.open(sharetotxweibo, "_self")
+      },
+      sharetoweibo() {
+        var sharetoweibo = "http://service.weibo.com/share/mobile.php?url=" + this.url + "&title=" + this.$route.query.title;
+        window.open(sharetoweibo, "_self")
+      },
+      sharetopyq() { //微信朋友圈功能还没写
+//        wx.onMenuShareTimeline({
+//          title: this.$route.query.title,
+//          link: this.url,
+//          success: function () {
+//            console.log("success");
+//          },
+//          cancel: function () {
+//            console.log("cancel")
+//          }
+//        });
       }
     }
   }
