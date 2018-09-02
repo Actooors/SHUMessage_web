@@ -8,14 +8,8 @@
     <user-message-card
       class="userMsgDetail-card"
       v-if="msgLoaded"
-      :publishTime="msg.publishTime"
-      :position="msg.position"
-      :topic="msg.topic"
-      :content="msg.content"
-      :author="msg.author"
-      :shareInfo="msg.shareInfo"
-      :lazy-load=false
-      @onClickShareButton="handleClickShareButton"
+      :msg="msg"
+      @onClickShareButton="handleClickShareButton(...arguments,msg.info)"
     ></user-message-card>
   </MsgDetail>
 </template>
@@ -26,6 +20,7 @@
   import store from "store/store";
   import {commonDetail as mock} from "./mock";
   import ajaxMixin from "./ajaxMixin";
+  import sharebarMixin from "assets/js/sharebarMixin";
 
   export default {
     name: "userMsgDetail",
@@ -35,12 +30,9 @@
     methods: {
       handleClickLike(info) {
         console.log("userMsgDetail - handleClickLike", info)
-      },
-      handleClickShareButton(index) {
-        console.log("userMsgDetail - handleClickShareButton", index, this.msg.info)
       }
     },
-    mixins: [mock, ajaxMixin]
+    mixins: [mock, ajaxMixin, sharebarMixin]
   }
 </script>
 

@@ -39,6 +39,9 @@
           color: gray;
           .iconfont {
             margin-left: 6px;
+            &.icon-done {
+              color: $--theme-red-light
+            }
           }
         }
       }

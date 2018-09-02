@@ -42,16 +42,7 @@
           class="moments-card"
           v-for="item of block.cards"
           :key="item.value"
-          :topic="item.topic"
-          :content="item.content"
-          :author="item.author"
-          :shareInfo="item.shareInfo"
-          :publishTime="item.publishTime"
-          :position="item.position"
-          :hideExtra="item.hideExtra"
-          :band="item.band"
-          :extraUser="item.extraUser"
-          :showStar="item.showStar"
+          :msg="item"
           @onClickShareButton="handleClickShareButton(arguments,item.info)"
         ></user-message-card>
         <div class="block-append">

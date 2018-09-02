@@ -9,9 +9,9 @@
     <common-card
       v-for="(item,index) of cards"
       :key="item.value"
-      :item="item"
+      :msg="item"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info,item.footprint,item.shareInfo)"
     ></common-card>
   </scroll>
 </template>
@@ -22,11 +22,12 @@
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
   import store from "store/store";
+  import sharebarMixin from '../../assets/js/sharebarMixin'
 
   export default {
     name: "recommend",
     components: {CommonCard, Scroll},
-    mixins: [mock, scrollMixin],
+    mixins: [mock, scrollMixin, sharebarMixin],
     store,
     methods: {
       handleClickCard(index) {
@@ -36,9 +37,6 @@
           path: '/commonMsgDetail',
           query: that.cards[index].info
         })
-      },
-      handleClickShareButton(index, info) {
-        console.log("recommend - handleClickShareButton", index, info)
       }
     }
   }
