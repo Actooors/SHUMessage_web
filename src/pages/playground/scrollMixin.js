@@ -132,7 +132,11 @@ export default {
             pageSize: 20
           }
         }).then((res) => {
-          this.cards = res.data.data.cards
+          //营造数据刷新的效果
+          this.cards = []
+          setTimeout(() => {
+            this.cards = res.data.data.cards
+          }, 20)
         }).catch((err) => {
           console.error(err)
         }).finally(() => {

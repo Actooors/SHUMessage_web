@@ -110,9 +110,9 @@
       handleScroll(event, el) {
         if (!this.noMore
           && !this.loadingMore
-          && el.scrollHeight - el.scrollTop - el.offsetHeight < 800//摸底不到800
+          && el.scrollTop + el.offsetHeight >= el.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
         ) {
-          console.log("!")
+          // console.log("loadMore")
           this.$emit('loadMore')
         }
       }

@@ -9,6 +9,13 @@
   align-items: center;
   height: 2rem;
   color: gray;
+  .iconfont {
+    transition: all .4s ease 0s;
+
+    &.icon-done {
+      color: $--theme-red-light;
+    }
+  }
   .share {
     position: absolute;
     right: 0;

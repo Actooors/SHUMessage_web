@@ -1,35 +1,36 @@
 <template>
   <div class="pCard">
-    <div class="cardTopBar" v-if="topic">
-      <span class="topic">{{topic.name}}</span>
-      <span class="operation"><span class="extraInfo">{{preHandleTime(extraInfo)}}</span><x-icon type="ios-arrow-down"
-                                                                                                 size="15"></x-icon></span>
+    <div class="cardTopBar" v-if="msg.topic">
+      <span class="topic">{{msg.topic.name}}</span>
+      <span class="operation"><span class="extraInfo">{{preHandleTime(msg.extraInfo)}}</span><x-icon type="ios-arrow-down"
+                                                                                                     size="15"></x-icon></span>
     </div>
-    <div class="content" v-html="content"></div>
+    <div class="content" v-html="msg.content"></div>
     <div
-      v-if="media && media.type==='url'"
+      v-if="msg.media && msg.media.type==='url'"
       class="url"
-      @click="handleClickUrl(media.value)"
+      @click="handleClickUrl(msg.media.value)"
     >
       <img src="../../assets/images/web.jpg" class="url-img"/>
       <div class="url-side">
-        <p class="url-title">{{media.title}}</p>
-        <p class="url-domain">{{getDomain(media.value)}}</p>
+        <p class="url-title">{{msg.media.title}}</p>
+        <p class="url-domain">{{getDomain(msg.media.value)}}</p>
       </div>
 
     </div>
-    <div class="author" v-if="author">
-      <img v-if="lazyLoad" v-lazy="author.avatar" class="avatar">
-      <img v-else :src="author.avatar" class="avatar">
-      <span class="author-name">{{author.name}}</span>
-      <span class="author-append" v-if="publishTime">{{preHandleTime(publishTime)}}</span>
+    <div class="author" v-if="msg.author">
+      <img v-if="msg.lazyLoad" v-lazy="msg.author.avatar" class="avatar">
+      <img v-else :src="msg.author.avatar" class="avatar">
+      <span class="author-name">{{msg.author.name}}</span>
+      <span class="author-append" v-if="msg.publishTime">{{preHandleTime(msg.publishTime)}}</span>
     </div>
     <share-bar
-      v-if="shareInfo"
-      :like="shareInfo.like"
+      v-if="msg.shareInfo"
+      :like="msg.shareInfo.like"
       @onClickShareButton="handleClickShareButton"
-      :comment="shareInfo.comment"
-      :share="shareInfo.share"
+      :comment="msg.shareInfo.comment"
+      :share="msg.shareInfo.share"
+      :footprint="msg.footprint"
       hr="hr"
       class="shareBar"
     ></share-bar>
@@ -44,49 +45,9 @@
     name: "commonCard",
     components: {ShareBar},
     props: {
-      topic: {
-        type: Object,
-        require: true,
-        // default() {
-        //   return {
-        //     id: 10001,
-        //     name: "喵星人的日常"
-        //   }
-        // }
-      },
-      content: {
-        type: String,
-        require: true
-      },
-      author: {
-        type: Object,
-        require: true,
-        // default() {
-        //   return {
-        //     id: 10001,
-        //     avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4"
-        //     name: "Message广场导游"
-        //   }
-        // }
-      },
-      extraInfo: {
-        type: String,
-        require: false
-      },
-      shareInfo: {
+      msg: {
         type: Object,
         require: true
-      },
-      lazyLoad: {
-        type: Boolean,
-        default: true
-      },
-      publishTime: {
-        type: String
-      },
-      media: {
-        type: Object,
-        default: null
       }
     },
     methods: {
@@ -99,7 +60,7 @@
         return s.substring(0, l > 0 ? l : s.length)
       },
       handleClickUrl(url) {
-        this.$router.push({path: '/seo', query: {url, title: this.media.title}})
+        this.$router.push({path: '/seo', query: {url, title: this.msg.media.title}})
         event.stopPropagation()
       },
       preHandleTime(ex) {

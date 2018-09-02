@@ -45,18 +45,26 @@ export default {
       return f < t
     },
     loadData(tryVuex = true) {
+      let loadMessage = null
       if (tryVuex && !!this.$store.state.pushRouter.cardItem) {
         //vuex里面存有状态，直接渲染
         this.msg = this.$store.state.pushRouter.cardItem
+        loadMessage = Promise.resolve()
       } else {
-        let {type, id} = this.$route.params
         //老老实实axios
-        console.log("此处应该有ajax")
-        //  ajax完成后：
-        //  this.msgLoaded = true
+        console.log("此处应该有ajax", this.$route.query)
+        loadMessage = axios({
+          url: apiRoot + '/common/message',
+          method: "get",
+          params: this.$route.query
+        }).then((res) => {
+          this.msg = res.data.data
+          this.msgLoaded = true
+        }).catch((err) => {
+          console.error(err)
+        })
       }
-
-      Promise.all([this.loadComment()]).then(() => {
+      Promise.all([loadMessage, this.loadComment()]).then(() => {
         this.msgLoaded = true
       })
     },
@@ -76,14 +84,12 @@ export default {
               console.log("糟了，没有评论")
               break
           }
+          this.raw = []
           return
         }
         this.raw = res.data.data.raw
-        this.msgLoaded = true
       }).catch((err) => {
-
-      }).finally(() => {
-
+        console.error(err)
       })
     },
     handleLoadMore() {
@@ -102,12 +108,12 @@ export default {
           }
         }).then((res) => {
           if (res.data.data.raw[1].cards.length === 0) {
-            console.log("nomore", res.data.data.raw)
+            // console.log("nomore", res.data.data.raw)
             that.noMore = true
             return
           }
           that.raw[1].cards = that.raw[1].cards.concat(res.data.data.raw[1].cards)
-          console.log(that.raw)
+          // console.log(that.raw)
         }).catch((err) => {
           console.error(err)
         }).finally(() => {

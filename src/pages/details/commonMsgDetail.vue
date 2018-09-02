@@ -11,12 +11,7 @@
   >
     <common-card
       v-if="msgLoaded"
-      :topic="msg.topic"
-      :content="msg.content"
-      :author="msg.author"
-      :extraInfo="msg.publishTime||msg.extraInfo"
-      :shareInfo="msg.shareInfo"
-      :lazy-load=false
+      :msg="msg"
       @onClickShareButton="handleClickShareButton"
     ></common-card>
   </MsgDetail>
@@ -26,21 +21,24 @@
   import MsgDetail from 'components/msgDetail/msgDetail'
   import CommonCard from 'components/commonCard/commonCard'
   import store from "store/store";
-  import {commonDetail as mock} from "./mock";
+  import {handleLikeAjax} from "assets/js/handleShareButtonAjax";
   import ajaxMixin from "./ajaxMixin";
 
   export default {
     name: "commonMsgDetail",
     store,
     components: {MsgDetail, CommonCard},
-    data: () => ({
-
-    }),
+    data: () => ({}),
     methods: {
       handleClickLike(info) {
         console.log("commonMsgDetail - handleClickLike", info)
       },
       handleClickShareButton(index) {
+        switch (index) {
+          case 0:
+            handleLikeAjax()
+            break
+        }
         console.log("commonMsgDetail - handleClickShareButton", index, this.msg.info)
       }
     },
