@@ -3,7 +3,7 @@
     headerTitle="评论详情"
     :show-comment=false
     :raw="raw"
-    @onClickLike="handleClickLike"
+    @onClickLike="handleClickShareButton"
     :replyPlaceholder="`回复${msg.author.name}:`"
   >
     <comment-card
@@ -12,11 +12,12 @@
       :author="msg.author"
       :publishTime="msg.publishTime"
       :photos="msg.photos"
-      :like="msg.like"
+      :shareInfo="msg.shareInfo"
       :replies="msg.replies"
       :info="msg.info"
+      :footprint="msg.footprint"
       :showComment=false
-      @onClickLike="handleClickLike(msg.info)"
+      @onClickLike="handleClickShareButton(0,msg.info,msg.footprint,msg.shareInfo)"
     ></comment-card>
   </MsgDetail>
 </template>
@@ -27,18 +28,15 @@
   import store from "store/store";
   import {commentDetail as mock} from "./mock";
   import ajaxMixin from "./ajaxMixin";
+  import sharebarMixin from "assets/js/sharebarMixin"
 
   export default {
     name: "commentDetail",
     store,
     components: {MsgDetail, CommentCard},
     data: () => ({}),
-    methods: {
-      handleClickLike(info) {
-        console.log("commentDetail - handleClickLike", info)
-      }
-    },
-    mixins: [mock, ajaxMixin]
+    methods: {},
+    mixins: [mock, ajaxMixin, sharebarMixin]
   }
 </script>
 

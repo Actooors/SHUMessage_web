@@ -22,12 +22,13 @@
         :author="item.author"
         :publishTime="item.publishTime"
         :photos="item.photos"
-        :like="item.like"
+        :shareInfo="item.shareInfo"
         :replies="item.replies"
         :info="item.info"
+        :footprint="item.footprint"
         :show-comment="showComment"
         @onClickReply="handleClickReply(item)"
-        @onClickLike="handleClickLike(item.info)"
+        @onClickLike="handleClickLike(item.info,item.footprint,item.shareInfo)"
       ></comment-card>
     </div>
     <reply-bar
@@ -101,8 +102,8 @@
           query: item.info
         })
       },
-      handleClickLike(info) {
-        this.$emit('onClickLike', info)
+      handleClickLike(info, footprint, shareInfo) {
+        this.$emit('onClickLike', 0, info, footprint, shareInfo)
       },
       handleSubmitReply() {
         this.$emit('onSubmitReply')

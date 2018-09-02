@@ -2,7 +2,7 @@
   <MsgDetail
     headerTitle="消息详情"
     :raw="raw"
-    @onClickLike="handleClickLike"
+    @onClickLike="handleClickShareButton"
     :replyPlaceholder="`回复${msg.author.name}:`"
     @loadMore="handleLoadMore"
     :noMore="noMore"
@@ -12,7 +12,7 @@
     <common-card
       v-if="msgLoaded"
       :msg="msg"
-      @onClickShareButton="handleClickShareButton"
+      @onClickShareButton="handleClickShareButton(...arguments,msg.info)"
     ></common-card>
   </MsgDetail>
 </template>
@@ -21,7 +21,7 @@
   import MsgDetail from 'components/msgDetail/msgDetail'
   import CommonCard from 'components/commonCard/commonCard'
   import store from "store/store";
-  import {handleLikeAjax} from "assets/js/handleShareButtonAjax";
+  import sharebarMixin from "assets/js/sharebarMixin";
   import ajaxMixin from "./ajaxMixin";
 
   export default {
@@ -29,20 +29,8 @@
     store,
     components: {MsgDetail, CommonCard},
     data: () => ({}),
-    methods: {
-      handleClickLike(info) {
-        console.log("commonMsgDetail - handleClickLike", info)
-      },
-      handleClickShareButton(index) {
-        switch (index) {
-          case 0:
-            handleLikeAjax()
-            break
-        }
-        console.log("commonMsgDetail - handleClickShareButton", index, this.msg.info)
-      }
-    },
-    mixins: [ajaxMixin]
+    methods: {},
+    mixins: [ajaxMixin, sharebarMixin]
   }
 </script>
 

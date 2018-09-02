@@ -9,14 +9,9 @@
     <user-message-card
       v-for="(item,index) of cards"
       :key="item.value"
-      :topic="item.topic"
-      :content="item.content"
-      :author="item.author"
-      :shareInfo="item.shareInfo"
-      :publishTime="item.publishTime"
-      :position="item.position"
+      :msg="item"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info,item.footprint,item.shareInfo)"
       class="neighborhood-card"
     ></user-message-card>
   </scroll>
@@ -28,12 +23,13 @@
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
   import store from "store/store";
+  import sharebarMixin from '../../assets/js/sharebarMixin'
 
   export default {
     name: "neighborhood",
     store,
     components: {UserMessageCard, Scroll},
-    mixins: [mock, scrollMixin],
+    mixins: [mock, scrollMixin, sharebarMixin],
     methods: {
       handleClickCard(index) {
         store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
@@ -42,9 +38,6 @@
           path: '/userMsgDetail',
           query: that.cards[index].info
         })
-      },
-      handleClickShareButton(index, info) {
-        console.log("neighborhood - handleClickShareButton", index, info)
       }
     }
   }

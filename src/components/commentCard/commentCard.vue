@@ -5,8 +5,9 @@
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author">{{author.name}}</span>
-          <span class="operation" @click="handleClickLike">{{like?like:''}}<i
-            class="icon-appreciate iconfont icon"></i></span>
+          <span class="operation" @click="handleClickLike">{{shareInfo.like?shareInfo.like:''}}
+            <i :class="`icon-appreciate iconfont icon${footprint.like?' icon-done':''}`"></i>
+          </span>
         </div>
         <div class="cardTopBar-extra">
           <span class="hasbeenfrom">{{relativeTime(publishTime)}}</span>
@@ -73,9 +74,13 @@
           return []
         }
       },
-      like: {
-        type: Number,
-        default: 0
+      shareInfo: {
+        type: Object,
+        default() {
+          return {
+            like: 0
+          }
+        }
       },
       replies: {
         type: Object,
@@ -98,6 +103,14 @@
       showComment: {
         type: Boolean,
         default: true
+      },
+      footprint: {
+        type: Object,
+        default() {
+          return {
+            like: false
+          }
+        }
       }
     },
     methods: {

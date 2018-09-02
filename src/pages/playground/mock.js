@@ -20,6 +20,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -41,6 +46,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -62,6 +72,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -83,6 +98,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -104,6 +124,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -125,6 +150,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -146,6 +176,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -167,6 +202,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -188,6 +228,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -209,6 +254,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -230,6 +280,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -251,6 +306,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -272,6 +332,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -293,6 +358,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -314,6 +384,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -335,6 +410,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -356,6 +436,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -377,6 +462,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }, {
       info: {
@@ -398,6 +488,11 @@ export const recommend = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     },]
   })
@@ -424,6 +519,11 @@ export const attention = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       }
     }]
   })
@@ -451,6 +551,11 @@ export const neighborhood = {
         like: 5348,
         comment: 221,
         share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
       },
       position: {//后端记录每条信息的position经纬度，计算后返回
         name: "栋霖科技园",

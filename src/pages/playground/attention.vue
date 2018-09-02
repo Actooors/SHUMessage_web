@@ -11,7 +11,7 @@
       :key="item.value"
       :msg="item"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item.info)"
+      @onClickShareButton="handleClickShareButton(...arguments,item.info,item.footprint,item.shareInfo)"
     ></common-card>
   </scroll>
 </template>
@@ -23,13 +23,13 @@
   import Scroll from 'components/scroll/scroll'
   import store from 'store/store'
   import axios from 'axios'
-  import {handleLikeAjax} from 'assets/js/handleShareButtonAjax'
+  import sharebarMixin from '../../assets/js/sharebarMixin'
 
   export default {
     name: "attention",
     store,
     components: {CommonCard, Scroll},
-    mixins: [scrollMixin],
+    mixins: [scrollMixin, sharebarMixin],
     data: () => ({
       cards: [],
       listApi: '/news/newsList'
@@ -59,12 +59,6 @@
           path: '/commonMsgDetail',
           query: that.cards[index].info
         })
-      },
-      handleClickShareButton(index, info) {
-        console.log("recommend - handleClickShareButton", index, info)
-        if (index === 0) {
-          handleLikeAjax(info,)
-        }
       }
     }
   }

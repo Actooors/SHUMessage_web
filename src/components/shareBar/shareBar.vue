@@ -21,7 +21,22 @@
 <script>
   export default {
     name: "shareBar",
-    props: ["hr", "like", "comment", "share", "footprint"],
+    props: {
+      hr: Boolean,
+      like: Number,
+      comment: Number,
+      share: Number,
+      footprint: {
+        type: Object,
+        default() {
+          return {
+            like: false,
+            comment: false,
+            forward: false
+          }
+        }
+      }
+    },
     methods: {
       handleClickShareButton(index) {
         this.$emit('onClickShareButton', index)
