@@ -22,13 +22,14 @@
     }
     .share-div{
       position: relative;
-      width: 100%;
+      width: 110%;
     }
     .operation {
       .row-li {
         display: inline-block;
         text-align: center;
         margin: 0 5px;
+        min-width: 48px;
         .iconfont {
           font-size: 30px;
           display: block;
@@ -43,9 +44,11 @@
       }
       .share-li{
         display: inline-block;
+        min-width: 48px;
         .shareIcon {
-          width: 35px;
-          height:35px;
+          //margin-right: 3px;
+          width: 30px;
+          height:30px;
         }
       }
     }

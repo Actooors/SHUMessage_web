@@ -2,10 +2,9 @@
   <ViewBox ref="seoViewBox" id="__viewBox">
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}"
-              :right-options="{showMore: true}"
               id="seo-XHeader"
-              @on-click-more="handleClickMore"
-    ><span class="title">{{$route.query.title}}</span>
+    ><i class="icon-more iconfont icon" slot="right" @click="handleClickMore"></i>
+      <span class="title">{{$route.query.title}}</span>
     </x-header>
     <iframe name="seo" :src="forward()" id="seo" class="seoFrame" :key="refresh"></iframe>
     <share
