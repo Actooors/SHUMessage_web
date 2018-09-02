@@ -9,11 +9,7 @@
     <common-card
       v-for="(item,index) of cards"
       :key="item.value"
-      :topic="item.topic"
-      :content="item.content"
-      :author="item.author"
-      :extraInfo="item.extraInfo"
-      :shareInfo="item.shareInfo"
+      :item="item"
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item.info)"
     ></common-card>
