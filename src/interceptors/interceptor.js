@@ -2,7 +2,7 @@ import axios from 'axios'
 
 axios.interceptors.request.use((config) => {
   // let token = window.localStorage.getItem("token")
-  let token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDAwNzc1NCIsImV4cCI6MTUzNTg3MjQ1NCwiaWF0IjoxNTM1NDQwNDU0fQ.qNm_gP6ttuPTonXKBhilb_7OBYaOtgwaQy8fbhfURJ0UaGoX4u0SkxlBAitO_fDZAyATq8l1Pfp49eYNEzjl9g`
+  let token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTUzNjQwNjUzMSwiaWF0IjoxNTM1OTc0NTMxfQ.5NqCl9cLpNB54BGJBhszMBprhMvyB_47vYsc4HLidWZNCVzd_oE6WFB7thw6TF17cBH27JAWjp_0Fy06qFlRcA`
   if (token) {
     config.headers.Authorization = token
   }

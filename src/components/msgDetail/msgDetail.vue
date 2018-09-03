@@ -105,8 +105,8 @@
       handleClickLike(info, footprint, shareInfo) {
         this.$emit('onClickLike', 0, info, footprint, shareInfo)
       },
-      handleSubmitReply() {
-        this.$emit('onSubmitReply')
+      handleSubmitReply(content, imgUrl) {
+        this.$emit('onSubmitReply', content, imgUrl)
       },
       handleScroll(event, el) {
         if (!this.noMore

@@ -73,7 +73,10 @@
         })
       },
       handleSubmit(event) {
-        this.$emit('onSubmit')
+        this.$emit('onSubmit', this.content, this.imgUrl)
+        this.content = ""
+        this.imgUrl = ""
+        this.showImg = false
         event.preventDefault()
       },
       handleInputFile(event) {
@@ -90,6 +93,7 @@
         let fr = new FileReader
         fr.readAsDataURL(file)
         fr.addEventListener('load', this.handleImageLoad)
+
       },
       validImageFormat(file) {
         let supportedFormat = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];

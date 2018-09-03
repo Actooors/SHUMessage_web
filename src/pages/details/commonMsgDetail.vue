@@ -8,6 +8,7 @@
     :noMore="noMore"
     :loadingMore="loadingMoreComments"
     :msgLoaded="msgLoaded"
+    @onSubmitReply="handleComment(...arguments,msg.info)"
   >
     <common-card
       v-if="msgLoaded"
