@@ -11,23 +11,23 @@
             <div class="share-div">
               <ul class="row operation">
                 <li class="row-li share-li" @click="sharetoqq">
-                  <img src="src/assets/images/qq.png" class="shareIcon"/>
+                  <img src="../../assets/images/qq.png" class="shareIcon"/>
                   <p class="tag">QQ</p>
                 </li>
                 <li class="row-li share-li" @click="sharetowx">
-                  <img src="src/assets/images/weixin.png" class="shareIcon"/>
+                  <img src="../../assets/images/weixin.png" class="shareIcon"/>
                   <p class="tag">微信</p>
                 </li>
                 <li class="row-li share-li" @click="sharetopyq">
-                  <img src="src/assets/images/pengyouquan.png" class="shareIcon"/>
+                  <img src="../../assets/images/pengyouquan.png" class="shareIcon"/>
                   <p class="tag">朋友圈</p>
                 </li>
                 <li class="row-li share-li" @click="sharetoweibo">
-                  <img src="src/assets/images/weibo.png" class="shareIcon"/>
+                  <img src="../../assets/images/weibo.png" class="shareIcon"/>
                   <p class="tag">微博</p>
                 </li>
                 <li class="row-li share-li" @click="sharetoqzone">
-                  <img src="src/assets/images/qzone.png" class="shareIcon"/>
+                  <img src="../../assets/images/qzone.png" class="shareIcon"/>
                   <p class="tag">QQ空间</p>
                 </li>
               </ul>
