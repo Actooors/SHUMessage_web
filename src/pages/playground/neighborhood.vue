@@ -31,12 +31,15 @@
     components: {UserMessageCard, Scroll},
     mixins: [mock, scrollMixin, sharebarMixin],
     methods: {
-      handleClickCard(index) {
+      handleClickCard(index, info) {
+        if (index === null) {
+          index = this.cards.findIndex(card => card.info === info)
+        }
         store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
         let that = this;
         this.$router.push({
-          path: '/userMsgDetail',
-          query: that.cards[index].info
+          path: `/userMsgDetail`,
+          query: {...that.cards[index].info, elComment: true}
         })
       }
     }

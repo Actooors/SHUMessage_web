@@ -1,7 +1,9 @@
 @import "../../assets/css/varies";
-#__viewBox{
+
+#__viewBox {
   overflow: hidden;
 }
+
 .justBar-box {
   height: 48px;
   position: relative;
@@ -24,6 +26,6 @@
   }
 }
 
-.justBar-box2 {
-  @extend .justBar-box;
+.comment-blocks {
+  min-height: 90vh;
 }
