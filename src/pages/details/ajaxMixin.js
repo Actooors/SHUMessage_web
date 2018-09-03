@@ -123,6 +123,24 @@ export default {
           }, 500)
         })
       }
+    },
+    handleComment(content, img, info) {
+      axios({
+        url: apiRoot + '/comment/newComment',
+        method: 'post',
+        data: {
+          ...info,
+          content,
+          img: img === "" ? null : img
+        }
+      }).then((res) => {
+        if (res.data.code === 'FAILED') {
+          this.$vux.toast.text(res.data.message)
+        }
+        this.loadComment()
+      }).catch((err) => {
+        console.error(err)
+      })
     }
   }
 }

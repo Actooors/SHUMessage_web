@@ -4,6 +4,7 @@
     :show-comment=false
     :raw="raw"
     @onClickLike="handleClickShareButton"
+    @onSubmitReply="handleComment(...arguments,msg.info)"
     :replyPlaceholder="`回复${msg.author.name}:`"
   >
     <comment-card

@@ -4,6 +4,7 @@
     :raw="raw"
     @onClickLike="handleClickLike"
     :replyPlaceholder="`回复${msg.author.name}:`"
+    @onSubmitReply="handleComment(...arguments,msg.info)"
   >
     <user-message-card
       class="userMsgDetail-card"
