@@ -9,27 +9,29 @@
       {{headerTitle}}
     </x-header>
     <slot></slot>
-    <div
-      v-for="block of raw"
-      :key="block.value"
-      class="block"
-    >
-      <div class="justBar-box"><p class="justBar"><span class="justBar-title">{{block.blockName}}</span></p></div>
-      <comment-card
-        v-for="item of block.cards"
-        :key="item.value"
-        :content="item.content"
-        :author="item.author"
-        :publishTime="item.publishTime"
-        :photos="item.photos"
-        :shareInfo="item.shareInfo"
-        :replies="item.replies"
-        :info="item.info"
-        :footprint="item.footprint"
-        :show-comment="showComment"
-        @onClickReply="handleClickReply(item)"
-        @onClickLike="handleClickLike(item.info,item.footprint,item.shareInfo)"
-      ></comment-card>
+    <div class="comment-blocks" id="comment-blocks">
+      <div
+        v-for="block of raw"
+        :key="block.value"
+        class="block"
+      >
+        <div class="justBar-box"><p class="justBar"><span class="justBar-title">{{block.blockName}}</span></p></div>
+        <comment-card
+          v-for="item of block.cards"
+          :key="item.value"
+          :content="item.content"
+          :author="item.author"
+          :publishTime="item.publishTime"
+          :photos="item.photos"
+          :shareInfo="item.shareInfo"
+          :replies="item.replies"
+          :info="item.info"
+          :footprint="item.footprint"
+          :show-comment="showComment"
+          @onClickReply="handleClickReply(item)"
+          @onClickLike="handleClickLike(item.info,item.footprint,item.shareInfo)"
+        ></comment-card>
+      </div>
     </div>
     <reply-bar
       slot="bottom"
@@ -83,9 +85,11 @@
     data: () => ({}),
     watch: {
       msgLoaded(val) {
+        let that = this
         if (val) {
           this.$nextTick(() => {
             stickybits('.justBar-box', {stickyBitStickyOffset: -1})
+            that.moveToCommentBlocks()
           })
         }
       }
@@ -93,8 +97,18 @@
     mounted() {
       let el = this.$refs.viewBox.getScrollBody()
       el.addEventListener('scroll', (event) => this.handleScroll(event, el))
+      if (this.msgLoaded) {
+        this.moveToCommentBlocks()
+      }
     },
     methods: {
+      moveToCommentBlocks() {
+        if (this.$route.query.elComment) {
+          console.log("锚过来啊")
+          let el = this.$refs.viewBox.getScrollBody()
+          el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
+        }
+      },
       handleClickReply(item) {
         store.commit("pushRouter/SET_CARD_ITEM", item)
         this.$router.push({

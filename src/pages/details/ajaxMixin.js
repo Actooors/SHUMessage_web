@@ -27,6 +27,15 @@ export default {
       if ((pushLevelCorrect || !this.msgLoaded)
         && to.name === this.$options.name//进入本组件路由
       ) {
+        //先拉白屏
+        this.msg = {
+          //防止replyPlaceholder出错
+          author: {
+            name: ""
+          }
+        }
+        this.raw = []
+
         this.loadData(pushLevelCorrect)
       }
     }
@@ -65,17 +74,26 @@ export default {
         })
       }
       Promise.all([loadMessage, this.loadComment()]).then(() => {
-        this.msgLoaded = true
+        //触发一次watch msgLoaded
+        this.msgLoaded = false
+        this.$nextTick(() => {
+          this.msgLoaded = true
+        })
       })
     },
     loadComment() {
+      let limit = [5, 10];
+      //如果是回复列表
+      if (this.$route.query.type === 2) {
+        limit = [10];
+      }
       return axios({
         url: apiRoot + "/comment/list",
         method: "get",
         params: {
           ...this.$route.query,
           page: 0,
-          limit: [5, 10].toString()
+          limit: limit.toString()
         }
       }).then((res) => {
         if (res.data.code === "FAILED") {
@@ -94,6 +112,13 @@ export default {
     },
     handleLoadMore() {
       //仅loadMore第二个，即最新评论
+      let limit = [0, 10];
+      let updateBlockIndex = 1
+      //如果是回复列表
+      if (this.$route.query.type === 2) {
+        limit = [10];
+        updateBlockIndex = 0;
+      }
       let that = this
       if (!this.loadingMoreComments) {
         ++this.page;
@@ -102,17 +127,20 @@ export default {
           url: apiRoot + "/comment/list",
           method: "get",
           params: {
-            ...this.$route.query,
+            ...that.$route.query,
             page: that.page,
-            limit: [0, 10].toString()
+            limit: limit.toString()
           }
         }).then((res) => {
-          if (res.data.data.raw[1].cards.length === 0) {
+          if (res.data.data.raw[updateBlockIndex].cards.length === 0) {
             // console.log("nomore", res.data.data.raw)
             that.noMore = true
             return
           }
-          that.raw[1].cards = that.raw[1].cards.concat(res.data.data.raw[1].cards)
+          if (res.data.data.raw.every((raw, index) => (raw.cards.length < limit[index] || !limit[index]))) {
+            that.noMore = true
+          }
+          that.raw[updateBlockIndex].cards = that.raw[updateBlockIndex].cards.concat(res.data.data.raw[updateBlockIndex].cards)
           // console.log(that.raw)
         }).catch((err) => {
           console.error(err)

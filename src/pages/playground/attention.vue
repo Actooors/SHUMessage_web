@@ -52,12 +52,15 @@
           console.error(err)
         })
       },
-      handleClickCard(index) {
+      handleClickCard(index, info) {
+        if (index === null) {
+          index = this.cards.findIndex(card => card.info === info)
+        }
         store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
         let that = this;
         this.$router.push({
           path: '/commonMsgDetail',
-          query: that.cards[index].info
+          query: {...that.cards[index].info, elComment: true}
         })
       }
     }
