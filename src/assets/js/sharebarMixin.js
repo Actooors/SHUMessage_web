@@ -21,8 +21,14 @@ export default {
           footprint.like = !footprint.like
           break;
         case 1:
-          this.handleClickCard(null, info)
+          if ("handleClickCard" in this) {
+            this.handleClickCard(null, info)
+          } else if ("maincard" in this.$refs && "handleClickCard" in this.$refs.maincard) {
+            this.$refs.maincard.handleClickCard(null, info)
+          }
           break;
+        case 4:
+
       }
     }
   }

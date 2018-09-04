@@ -2,8 +2,9 @@
   <div class="pCard">
     <div class="cardTopBar" v-if="msg.topic">
       <span class="topic">{{msg.topic.name}}</span>
-      <span class="operation"><span class="extraInfo">{{preHandleTime(msg.extraInfo)}}</span><x-icon type="ios-arrow-down"
-                                                                                                     size="15"></x-icon></span>
+      <span class="operation"><span class="extraInfo">{{preHandleTime(msg.extraInfo)}}</span><x-icon
+        type="ios-arrow-down"
+        size="15"></x-icon></span>
     </div>
     <div class="content" v-html="msg.content"></div>
     <div
@@ -39,7 +40,7 @@
 
 <script>
   import ShareBar from 'components/shareBar/shareBar'
-  import dayjs from 'dayjs'
+  import {preHandleTime} from 'assets/js/relativeTime'
 
   export default {
     name: "commonCard",
@@ -64,15 +65,7 @@
         event.stopPropagation()
       },
       preHandleTime(ex) {
-        let t = dayjs(ex)
-        if (!t.isValid()) {
-          let exp = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}\+\d{4}/
-          if (exp.test(ex)) {
-            return dayjs(ex.replace(/\+\d{4}$/, 'Z')).format('YYYY.MM.DD hh:mm')
-          }
-          return ex
-        }
-        return t.format('YYYY.MM.DD hh:mm')
+        return preHandleTime(ex)
       }
     }
   }

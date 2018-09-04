@@ -1,5 +1,6 @@
 <template>
   <MsgDetail
+    ref="maincard"
     headerTitle="评论详情"
     :show-comment=false
     :raw="raw"

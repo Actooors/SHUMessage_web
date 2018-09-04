@@ -84,7 +84,7 @@ export default {
     loadComment() {
       let limit = [5, 10];
       //如果是回复列表
-      if (this.$route.query.type === 2) {
+      if (this.$route.query.type.toString() === '2') {//query的特殊性
         limit = [10];
       }
       return axios({
@@ -115,7 +115,7 @@ export default {
       let limit = [0, 10];
       let updateBlockIndex = 1
       //如果是回复列表
-      if (this.$route.query.type === 2) {
+      if (this.$route.query.type.toString() === '2') {//query的特殊性
         limit = [10];
         updateBlockIndex = 0;
       }

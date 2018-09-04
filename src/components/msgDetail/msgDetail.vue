@@ -89,7 +89,7 @@
         if (val) {
           this.$nextTick(() => {
             stickybits('.justBar-box', {stickyBitStickyOffset: -1})
-            that.moveToCommentBlocks()
+            that.judgeAndMoveToCommentBlocks()
           })
         }
       }
@@ -98,12 +98,12 @@
       let el = this.$refs.viewBox.getScrollBody()
       el.addEventListener('scroll', (event) => this.handleScroll(event, el))
       if (this.msgLoaded) {
-        this.moveToCommentBlocks()
+        this.judgeAndMoveToCommentBlocks()
       }
     },
     methods: {
-      moveToCommentBlocks() {
-        if (this.$route.query.elComment) {
+      judgeAndMoveToCommentBlocks(judge = true) {
+        if (!judge || this.$route.query.elComment.toString() === "true") {//query的特殊性
           console.log("锚过来啊")
           let el = this.$refs.viewBox.getScrollBody()
           el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
@@ -130,6 +130,9 @@
           // console.log("loadMore")
           this.$emit('loadMore')
         }
+      },
+      handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
+        this.judgeAndMoveToCommentBlocks(false)
       }
     }
   }

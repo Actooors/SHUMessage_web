@@ -1,5 +1,6 @@
 <template>
   <MsgDetail
+    ref="maincard"
     headerTitle="消息详情"
     :raw="raw"
     @onClickLike="handleClickShareButton"

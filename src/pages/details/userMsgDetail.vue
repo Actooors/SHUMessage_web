@@ -1,5 +1,6 @@
 <template>
   <MsgDetail
+    ref="maincard"
     headerTitle="动态详情"
     :raw="raw"
     @onClickLike="handleClickLike"
