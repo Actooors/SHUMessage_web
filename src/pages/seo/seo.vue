@@ -3,7 +3,8 @@
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:''}"
               id="seo-XHeader"
-    ><i class="icon-more iconfont icon" slot="right" @click="handleClickMore"></i>
+    >
+      <i class="icon-more iconfont icon" slot="right" @click="handleClickMore"></i>
       <span class="title">{{$route.query.title}}</span>
     </x-header>
     <iframe name="seo" :src="forward()" id="seo" class="seoFrame" :key="refresh"></iframe>
@@ -19,6 +20,7 @@
 <script>
   import {ViewBox, XHeader} from 'vux'
   import Share from 'components/share/share'
+
 
   export default {
     name: "seo",
@@ -63,7 +65,6 @@
     }
   }
 </script>
-
 <style lang="scss" scoped>
   @import "seo";
 </style>
