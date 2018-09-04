@@ -39,7 +39,7 @@
         let that = this;
         this.$router.push({
           path: `/userMsgDetail`,
-          query: {...that.cards[index].info, elComment: true}
+          query: {...that.cards[index].info, elComment: !!info}
         })
       }
     }
