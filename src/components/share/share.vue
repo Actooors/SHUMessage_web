@@ -7,17 +7,18 @@
             分享到
           </p>
           <scroller lock-y :scrollbar-x=false ref="scroller">
-            <div>
+            <div class="nowrapspace">
               <div class="share-div">
               </div>
             </div>
           </scroller>
           <div class="hr"></div>
-          <scroller lock-y :scrollbar-x=false>
-            <div>
+          <scroller lock-y
+                    :scrollbar-x=false
+                    v-if="showMoreOperations">
+            <div class="nowrapspace">
               <ul class="row operation">
                 <li
-                  v-if="showRefresh"
                   class="row-li"
                   @click="$emit('onRefresh')"
                 >
@@ -59,12 +60,17 @@
         type: Boolean,
         default: false
       },
-      showRefresh: {
+      showMoreOperations: {
         type: Boolean,
         default: false
       },
       url: {
         type: String
+      },
+      title: String,
+      digest: {
+        type: String,
+        default: ''
       }
     },
     components: {Popup, Scroller},
@@ -77,6 +83,22 @@
       },
       value(val) {
         this.showPopup = val
+        let that = this
+        if (val) {
+          soshm('.share-div', {
+            // 分享的链接，默认使用location.href
+            url: that.url,
+            // 分享的标题，默认使用document.title
+            title: that.title,
+            // 分享的摘要，默认使用<meta name="description" content="">content的值
+            digest: that.digest,
+            // 分享的图片，默认获取本页面第一个img元素的src
+            pic: '',
+            // 默认显示的网站为以下六个个,支持设置的网站有
+            // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
+            sites: ['weibo', 'qq', 'qzone']
+          });
+        }
       }
     },
     mounted() {
@@ -88,19 +110,7 @@
       clipboard.on('error', (e) => {
         this.$vux.toast.text('复制链接失败!', 'default');
       });
-      soshm('.share-div', {
-        // 分享的链接，默认使用location.href
-        url: this.url,
-        // 分享的标题，默认使用document.title
-        title: document.title,
-        // 分享的摘要，默认使用<meta name="description" content="">content的值
-        digest: this.$route.query.title,
-        // 分享的图片，默认获取本页面第一个img元素的src
-        pic: '',
-        // 默认显示的网站为以下六个个,支持设置的网站有
-        // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
-        sites: ['weibo', 'qq', 'qzone']
-      });
+      let that = this
     },
     methods: {
       handleCopyURL() {

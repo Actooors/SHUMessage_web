@@ -12,7 +12,7 @@
       v-model="showPopup"
       @onRefresh="handleOnRefresh"
       :url="$route.query.url"
-      showRefresh
+      showMoreOperations
     ></share>
   </ViewBox>
 </template>
@@ -41,6 +41,7 @@
       forward() {
         // return this.$route.query.url
         return 'http://forward.api.mzz.pub:8090/getforward/get?' + encodeURI(`url=${this.$route.query.url}`)
+        // return 'http://192.168.50.111:8090/getforward/get?' + encodeURI(`url=${this.$route.query.url}`)
       },
       handleClickMore() {
         this.showPopup = true

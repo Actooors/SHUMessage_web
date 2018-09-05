@@ -46,11 +46,15 @@ const playground = {
 const pushRouter = {
   namespaced: true,
   state: {
-    cardItem: null
+    cardItem: null,
+    routeChanged: false
   },
   mutations: {
     SET_CARD_ITEM(state, item) {
       state.cardItem = item
+    },
+    SET_ROUTE_CHANGED(state, val) {
+      state.routeChanged = val
     }
   }
 }

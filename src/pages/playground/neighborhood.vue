@@ -11,9 +11,15 @@
       :key="item.value"
       :msg="item"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item.info,item.footprint,item.shareInfo)"
+      @onClickShareButton="handleClickShareButton(...arguments,item)"
       class="neighborhood-card"
     ></user-message-card>
+    <share
+      v-model="shareOptions.show"
+      :url="shareOptions.url"
+      :title="shareOptions.title"
+      :digest="shareOptions.digest"
+    ></share>
   </scroll>
 </template>
 
@@ -24,11 +30,12 @@
   import Scroll from 'components/scroll/scroll'
   import store from "store/store";
   import sharebarMixin from '../../assets/js/sharebarMixin'
+  import Share from 'components/share/share'
 
   export default {
     name: "neighborhood",
     store,
-    components: {UserMessageCard, Scroll},
+    components: {UserMessageCard, Scroll, Share},
     mixins: [mock, scrollMixin, sharebarMixin],
     methods: {
       handleClickCard(index, info) {

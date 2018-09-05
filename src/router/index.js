@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from 'store/store'
 import Router from 'vue-router'
 import Tabbar from 'pages/tabbar/tabbar'
 import Self from 'pages/self/self'
@@ -18,7 +19,7 @@ import Seo from 'pages/seo/seo'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
     {
@@ -125,3 +126,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // console.log(to, from)
+  // 简单判断并写入能否通过this.$router.go(-1)回退
+  if (from.matched.length) {
+    store.commit("pushRouter/SET_ROUTE_CHANGED", true)
+  }
+  next()
+})
+
+export default router

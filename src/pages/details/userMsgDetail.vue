@@ -11,7 +11,7 @@
       class="userMsgDetail-card"
       v-if="msgLoaded"
       :msg="msg"
-      @onClickShareButton="handleClickShareButton(...arguments,msg.info)"
+      @onClickShareButton="handleClickShareButton(...arguments,msg)"
     ></user-message-card>
   </MsgDetail>
 </template>

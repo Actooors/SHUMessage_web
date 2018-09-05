@@ -43,7 +43,7 @@
           v-for="item of block.cards"
           :key="item.value"
           :msg="item"
-          @onClickShareButton="handleClickShareButton(arguments,item.info)"
+          @onClickShareButton="handleClickShareButton(arguments,item)"
         ></user-message-card>
         <div class="block-append">
           <router-link

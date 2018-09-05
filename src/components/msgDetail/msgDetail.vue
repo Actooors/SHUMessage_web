@@ -5,7 +5,9 @@
     ref="viewBox"
   >
     <x-header slot="header" class="theme-XHeader"
-              :left-options="{backText:''}">
+              :left-options="{backText:'',preventGoBack:true}"
+              @on-click-back="handleClickBack"
+    >
       {{headerTitle}}
     </x-header>
     <slot></slot>
@@ -29,7 +31,7 @@
           :footprint="item.footprint"
           :show-comment="showComment"
           @onClickReply="handleClickReply(item)"
-          @onClickLike="handleClickLike(item.info,item.footprint,item.shareInfo)"
+          @onClickLike="handleClickLike(item)"
         ></comment-card>
       </div>
     </div>
@@ -38,6 +40,12 @@
       :placeholder="replyPlaceholder"
       @onSubmit="handleSubmitReply"
     ></reply-bar>
+    <share
+      v-model="shareOptions.show"
+      :url="shareOptions.url"
+      :title="shareOptions.title"
+      :digest="shareOptions.digest"
+    ></share>
   </ViewBox>
 </template>
 
@@ -47,11 +55,12 @@
   import stickybits from 'stickybits'
   import store from 'store/store'
   import ReplyBar from 'components/replyBar/replyBar'
+  import Share from 'components/share/share'
 
   export default {
     name: "msgDetail",
     store,
-    components: {...{ViewBox, XHeader}, CommentCard, ReplyBar},
+    components: {...{ViewBox, XHeader}, CommentCard, ReplyBar, Share},
     props: {
       headerTitle: {
         type: String,
@@ -80,6 +89,17 @@
       msgLoaded: {
         type: Boolean,
         default: false
+      },
+      shareOptions: {
+        type: Object,
+        default() {
+          return {
+            show: false,
+            url: "",
+            title: "",
+            digest: ""
+          }
+        }
       }
     },
     data: () => ({}),
@@ -92,6 +112,9 @@
             that.judgeAndMoveToCommentBlocks()
           })
         }
+      },
+      '$route'(val, pre) {
+        store.commit("pushRouter/SET_ROUTE_CHANGED", true)
       }
     },
     mounted() {
@@ -102,8 +125,19 @@
       }
     },
     methods: {
+      handleClickBack() {
+        if (store.state.pushRouter.routeChanged) {
+          this.$router.go(-1)
+          console.log("大概有进入detail的router-history")
+        } else {
+          this.$router.push('/')
+          console.log("应该没有进入detail的router-history")
+        }
+      },
       judgeAndMoveToCommentBlocks(judge = true) {
-        if (!judge || this.$route.query.elComment.toString() === "true") {//query的特殊性
+        if (!judge
+          || ('elComment' in this.$route.query && this.$route.query.elComment.toString() === "true")//query的特殊性
+        ) {
           console.log("锚过来啊")
           let el = this.$refs.viewBox.getScrollBody()
           el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
@@ -116,8 +150,8 @@
           query: item.info
         })
       },
-      handleClickLike(info, footprint, shareInfo) {
-        this.$emit('onClickLike', 0, info, footprint, shareInfo)
+      handleClickLike(msg) {
+        this.$emit('onClickLike', 0, msg)
       },
       handleSubmitReply(content, imgUrl) {
         this.$emit('onSubmitReply', content, imgUrl)

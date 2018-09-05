@@ -7,6 +7,7 @@
     @onClickLike="handleClickShareButton"
     @onSubmitReply="handleComment(...arguments,msg.info)"
     :replyPlaceholder="`回复${msg.author.name}:`"
+    :shareOptions="shareOptions"
   >
     <comment-card
       v-if="msgLoaded"
@@ -19,7 +20,7 @@
       :info="msg.info"
       :footprint="msg.footprint"
       :showComment=false
-      @onClickLike="handleClickShareButton(0,msg.info,msg.footprint,msg.shareInfo)"
+      @onClickLike="handleClickShareButton(0,msg)"
     ></comment-card>
   </MsgDetail>
 </template>

@@ -10,11 +10,12 @@
     :loadingMore="loadingMoreComments"
     :msgLoaded="msgLoaded"
     @onSubmitReply="handleComment(...arguments,msg.info)"
+    :shareOptions="shareOptions"
   >
     <common-card
       v-if="msgLoaded"
       :msg="msg"
-      @onClickShareButton="handleClickShareButton(...arguments,msg.info)"
+      @onClickShareButton="handleClickShareButton(...arguments,msg)"
     ></common-card>
   </MsgDetail>
 </template>

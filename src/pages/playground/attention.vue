@@ -11,8 +11,14 @@
       :key="item.value"
       :msg="item"
       @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item.info,item.footprint,item.shareInfo)"
+      @onClickShareButton="handleClickShareButton(...arguments,item)"
     ></common-card>
+    <share
+      v-model="shareOptions.show"
+      :url="shareOptions.url"
+      :title="shareOptions.title"
+      :digest="shareOptions.digest"
+    ></share>
   </scroll>
 </template>
 
@@ -24,11 +30,12 @@
   import store from 'store/store'
   import axios from 'axios'
   import sharebarMixin from '../../assets/js/sharebarMixin'
+  import Share from 'components/share/share'
 
   export default {
     name: "attention",
     store,
-    components: {CommonCard, Scroll},
+    components: {CommonCard, Scroll, Share},
     mixins: [scrollMixin, sharebarMixin],
     data: () => ({
       cards: [],
