@@ -132,6 +132,7 @@ router.beforeEach((to, from, next) => {
   // 简单判断并写入能否通过this.$router.go(-1)回退
   if (from.matched.length) {
     store.commit("pushRouter/SET_ROUTE_CHANGED", true)
+    store.commit("pushRouter/SET_DEFAULT_HISTORY_LENGTH", history.length)
   }
   next()
 })

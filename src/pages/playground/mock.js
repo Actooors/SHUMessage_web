@@ -539,8 +539,7 @@ export const neighborhood = {
         id: 2,
         name: "随手拍"
       },
-      content: "在仓库拉屎拉屎，还当着我的面！当我假的吗！",//文本消息
-      photos: ["", "", ""],//相关图片，前端需要按照QQ空间进行优化
+      content: "看看我家的狗，帅不帅？？？哈哈哈哈哈哈哈",//文本消息
       author: {
         id: 10001,
         avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
@@ -561,6 +560,10 @@ export const neighborhood = {
         name: "栋霖科技园",
         distance: "5km"
       },
+      media: {
+        type: "img",
+        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg"]
+      }
     }]
   })
 }

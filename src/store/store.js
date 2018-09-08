@@ -47,7 +47,8 @@ const pushRouter = {
   namespaced: true,
   state: {
     cardItem: null,
-    routeChanged: false
+    routeChanged: false,
+    defaultHistoryLength: 0
   },
   mutations: {
     SET_CARD_ITEM(state, item) {
@@ -55,6 +56,9 @@ const pushRouter = {
     },
     SET_ROUTE_CHANGED(state, val) {
       state.routeChanged = val
+    },
+    SET_DEFAULT_HISTORY_LENGTH(state, val) {
+      state.defaultHistoryLength = val
     }
   }
 }

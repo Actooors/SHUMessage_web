@@ -219,7 +219,7 @@
         this.showPop = -1
       },
       handleClickBack() {
-        if (store.state.pushRouter.routeChanged) {
+        if (store.state.pushRouter.routeChanged && store.state.pushRouter.defaultHistoryLength < history.length) {
           this.$router.go(-1)
           console.log("大概有进入detail的router-history")
         } else {
