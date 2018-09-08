@@ -36,7 +36,9 @@ export default {
           }
         }
         this.raw = []
-
+        this.noMore = false
+        this.loadingMoreComments = false
+        this.page = 0
         this.loadData(pushLevelCorrect)
       }
     }

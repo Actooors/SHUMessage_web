@@ -81,4 +81,12 @@
       color: $--theme-blue-light;
     }
   }
+  .comment-imgs {
+    height: 80px;
+    margin-top: 5px;
+    .comment-img {
+      height: 100%;
+      border-radius: 2px;
+    }
+  }
 }

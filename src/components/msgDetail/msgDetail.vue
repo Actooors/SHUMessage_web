@@ -31,10 +31,12 @@
           :replies="item.replies"
           :info="item.info"
           :footprint="item.footprint"
+          :imgs="item.imgs"
           :show-comment="showComment"
           @onClickReply="handleClickReply(item)"
           @onClickLike="handleClickLike(item)"
           @onClickCard="handleClickCommentCard(...arguments,index,item)"
+          @onClickImg="handleClickCommentImg"
         ></comment-card>
       </div>
     </div>
@@ -69,11 +71,14 @@
         </li>
       </ul>
     </Popover>
+    <div v-transfer-dom>
+      <previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>
+    </div>
   </ViewBox>
 </template>
 
 <script>
-  import {ViewBox, XHeader} from 'vux'
+  import {ViewBox, XHeader, Previewer} from 'vux'
   import CommentCard from 'components/commentCard/commentCard'
   import stickybits from 'stickybits'
   import store from 'store/store'
@@ -85,7 +90,7 @@
   export default {
     name: "msgDetail",
     store,
-    components: {...{ViewBox, XHeader}, CommentCard, ReplyBar, Share, Popover},
+    components: {...{ViewBox, XHeader, Previewer}, CommentCard, ReplyBar, Share, Popover},
     props: {
       headerTitle: {
         type: String,
@@ -133,7 +138,10 @@
       popY: 0,
       popGutter: 0,
       copyContent: "",
-      highlightItem: null
+      highlightItem: null,
+      previewerList: [],
+      previewerTarget: null,
+      previewerOptions: {},
     }),
     computed: {
       showPopBoolean() {
@@ -157,6 +165,9 @@
       }
     },
     mounted() {
+      this.previewerOptions = {
+        getThumbBoundsFn: this.getThumbBoundsFn
+      }
       let el = this.$refs.viewBox.getScrollBody()
       this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = -1)
       this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
@@ -169,6 +180,25 @@
       }
     },
     methods: {
+      //previewer需要的options函数，用于计算缩略图源位置，以显示点开时的动画效果
+      getThumbBoundsFn(index) {
+        let thumbnail = this.previewerTarget
+        let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+        let rect = thumbnail.getBoundingClientRect()
+        return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+      },
+      handleClickCommentImg(target) {
+        this.previewerList = [{
+          msrc: target.src,
+          src: target.src,
+          w: target.innerHeight,
+          h: target.innerWidth
+        }]
+        this.previewerTarget = target
+        setTimeout(() => {
+          this.$refs.previewer.show(0)
+        }, 0)
+      },
       initClipboard() {
         let clipboard = new ClipboardJS('.copy-content');
         clipboard.on('success', (e) => {

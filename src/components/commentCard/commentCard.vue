@@ -15,6 +15,17 @@
       </div>
       <div class="content" v-text="content"></div>
       <div
+        class="comment-imgs"
+        v-if="imgs && imgs.length"
+      >
+        <img
+          v-for="(src) of imgs"
+          v-lazy="src"
+          class="comment-img"
+          @click="handleClickImg($event)"
+        >
+      </div>
+      <div
         v-if="showComment && replies.count"
         class="commentBox"
         @click="handleClickReplay"
@@ -113,8 +124,7 @@
         }
       }
     },
-    data: () => ({
-    }),
+    data: () => ({}),
     methods: {
       relativeTime(t) {
         return relativeTime(t)
@@ -127,7 +137,11 @@
         event.stopPropagation()
       },
       handleClickCard(event) {
-        this.$emit('onClickCard',event.clientX, event.clientY)
+        this.$emit('onClickCard', event.clientX, event.clientY)
+        event.stopPropagation()
+      },
+      handleClickImg(event) {
+        this.$emit('onClickImg', event.target)
         event.stopPropagation()
       }
     }
