@@ -154,6 +154,7 @@ export default {
       }
     },
     handleComment(content, img, info) {
+      let that = this
       axios({
         url: apiRoot + '/comment/newComment',
         method: 'post',
@@ -167,7 +168,15 @@ export default {
           this.$vux.toast.text(res.data.message)
           return
         }
-        this.loadComment()
+        this.replyName = this.msg.author.name;
+        this.replyInfo = this.msg.info;
+        (async () => {
+          that.noMore = false
+          that.page = 0
+          await that.loadComment()
+          that.$vux.toast.text('评论成功')
+        })();
+
         // //如果是在评论界面回复评论
         // if (info.type.toString() !== this.$route.query.type.toString()) {
         //   for (let block of this.raw) {

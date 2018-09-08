@@ -19,7 +19,7 @@
           </span>
         </div>
       </div>
-      <div class="content" v-html="msg.content"></div>
+      <div class="content" v-text="msg.content"></div>
       <div
         v-if="msg.topic"
         class="topic-box"

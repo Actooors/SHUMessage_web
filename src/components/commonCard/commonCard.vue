@@ -6,7 +6,7 @@
         type="ios-arrow-down"
         size="15"></x-icon></span>
     </div>
-    <div class="content" v-html="msg.content"></div>
+    <div class="content" v-text="msg.content"></div>
     <div
       v-if="msg.media && msg.media.type==='url'"
       class="url"

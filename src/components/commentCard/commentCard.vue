@@ -13,7 +13,7 @@
           <span class="hasbeenfrom">{{relativeTime(publishTime)}}</span>
         </div>
       </div>
-      <div class="content" v-html="content"></div>
+      <div class="content" v-text="content"></div>
       <div
         v-if="showComment && replies.count"
         class="commentBox"
