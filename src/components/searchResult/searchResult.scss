@@ -10,11 +10,11 @@
       .tag {
         display: inline-block;
         background: $--background-deep;
-        padding: .3rem 1rem .3rem 1rem;
+        padding: 0 1rem 0 1rem;
         margin: .4rem .5rem;
         border-radius: .3rem;
-        height: 1.5rem;
-        line-height: 1.5rem;
+        height: 2rem;
+        line-height: 2rem;
         .icon-huo {
           color: rgb(215, 0, 0);
           //使用偏移的方式使得空出的位置不向右挤，居中感更好

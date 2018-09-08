@@ -8,7 +8,7 @@
       class="vux-popover"
       v-transfer-dom
       ref="popover"
-      :style="{right:`${pos.right}px`,bottom:`${pos.bottom+5}px`}"
+      :style="pos"
       v-show="value">
       <div :class="arrowClass" :style="{right: `${gutter}px`}"></div>
       <div @click="$emit('on-click-content')">

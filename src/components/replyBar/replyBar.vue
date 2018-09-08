@@ -2,7 +2,7 @@
   <div class="replayBar" ref="replayBar">
     <div class="inputBox">
       <textarea
-        class="input"
+        class="input needsclick"
         v-model="content"
         :placeholder="placeholder"
         id="textarea"
@@ -19,7 +19,7 @@
       placement="top"
       :gutter=18
       ref="popover"
-      :pos="{bottom:popBottom,right:5}"
+      :pos="{bottom:`${popBottom+5}px`,right:`5px`}"
       v-model="showImg"
     >
       <div slot="content" class="popover-content">
@@ -45,7 +45,7 @@
 <script>
   import autosize from 'autosize'
   //Popover改自vux以适应项目
-  import Popover from 'components/replyBar/popover/popover'
+  import Popover from 'components/popover/popover'
 
   export default {
     name: "replyBar",

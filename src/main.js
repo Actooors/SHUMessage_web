@@ -12,9 +12,9 @@ Vue.use(ToastPlugin)
 
 Vue.directive('transfer-dom', TransferDom)
 
-/* 引入FastClick会导致vux-Search组件不好用，使用class="needsclick"无法解决 */
-// const FastClick = require('fastclick')
-// FastClick.attach(document.body)
+import FastClick from 'assets/js/fastclick'
+
+FastClick.attach(document.body)
 
 // or with options
 Vue.use(VueLazyload, {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {getUserInfoFromToken} from 'assets/js/tokenTools'
 
 export default {
   data: () => ({
@@ -164,8 +165,33 @@ export default {
       }).then((res) => {
         if (res.data.code === 'FAILED') {
           this.$vux.toast.text(res.data.message)
+          return
         }
         this.loadComment()
+        // //如果是在评论界面回复评论
+        // if (info.type.toString() !== this.$route.query.type.toString()) {
+        //   for (let block of this.raw) {
+        //     let cardIndex = block.cards.findIndex((card) => {
+        //       return card.info.type === info.type && card.info.id === info.id
+        //     })
+        //     let card = block.cards[cardIndex]
+        //     if (card.replies.count < 2) {
+        //       card.replies.count++
+        //       if (!card.replies.representatives) {
+        //         card.replies.representatives = []
+        //       }
+        //       let uinfo = getUserInfoFromToken()
+        //       card.replies.representatives.push({
+        //         author: {
+        //           name: "",
+        //           id: uinfo.id
+        //         },
+        //         content: content,
+        //         imgs: img ? [img] : null
+        //       })
+        //     }
+        //   }
+        // }
       }).catch((err) => {
         console.error(err)
       })

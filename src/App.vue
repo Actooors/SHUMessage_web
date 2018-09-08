@@ -59,7 +59,7 @@
 </script>
 
 <style lang="less">
-  @import url('//at.alicdn.com/t/font_806770_lhrwsm9531e.css');
+  @import url('//at.alicdn.com/t/font_806770_3jy8nalqpbr.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
   @import '~vux/src/styles/close.less';

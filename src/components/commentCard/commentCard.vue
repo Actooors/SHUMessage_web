@@ -1,5 +1,5 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <div class="pCard">
+  <div class="pCard" @click="handleClickCard">
     <div class="left-side avatar" v-lazy:background-image="author.avatar"></div>
     <div class="right-side">
       <div class="cardTopBar">
@@ -113,6 +113,8 @@
         }
       }
     },
+    data: () => ({
+    }),
     methods: {
       relativeTime(t) {
         return relativeTime(t)
@@ -122,6 +124,10 @@
       },
       handleClickLike(event) {
         this.$emit('onClickLike')
+        event.stopPropagation()
+      },
+      handleClickCard(event) {
+        this.$emit('onClickCard',event.clientX, event.clientY)
         event.stopPropagation()
       }
     }

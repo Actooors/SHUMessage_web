@@ -4,13 +4,14 @@
     headerTitle="消息详情"
     :raw="raw"
     @onClickLike="handleClickShareButton"
-    :replyPlaceholder="`回复${msg.author.name}:`"
+    :replyPlaceholder="`回复${replyName}:`"
     @loadMore="handleLoadMore"
     :noMore="noMore"
     :loadingMore="loadingMoreComments"
     :msgLoaded="msgLoaded"
-    @onSubmitReply="handleComment(...arguments,msg.info)"
+    @onSubmitReply="handleComment(...arguments,replyInfo)"
     :shareOptions="shareOptions"
+    @onClickPopReply="handleClickPopReply"
   >
     <common-card
       v-if="msgLoaded"
@@ -31,8 +32,22 @@
     name: "commonMsgDetail",
     store,
     components: {MsgDetail, CommonCard},
-    data: () => ({}),
-    methods: {},
+    data: () => ({
+      replyName: "",
+      replyInfo: {}
+    }),
+    watch: {
+      msgLoaded() {
+        this.replyName = this.msg.author.name
+        this.replyInfo = this.msg.info
+      }
+    },
+    methods: {
+      handleClickPopReply(item) {
+        this.replyName = item.author.name
+        this.replyInfo = item.info
+      }
+    },
     mixins: [ajaxMixin, sharebarMixin]
   }
 </script>

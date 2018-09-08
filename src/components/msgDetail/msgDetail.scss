@@ -29,3 +29,35 @@
 .comment-blocks {
   min-height: 90vh;
 }
+
+.popping {
+  background-color: $--theme-gray-light4 !important;
+}
+
+.popover {
+  $pop-height: 42px;
+  display: flex;
+  height: $pop-height;
+  white-space: nowrap;
+  &-btn {
+    list-style: none;
+    padding: 0 6px;
+    height: $pop-height;
+    display: flex;
+    align-items: center;
+    .icon-label {
+      font-size: 14px;
+      line-height: $pop-height;
+    }
+    .iconfont {
+      font-size: 18px;
+    }
+    &:not(:first-of-type):before {
+      content: "";
+      position: relative;
+      left: -4px;
+      height: 45%;
+      border-left: rgba(255, 255, 255, .6) solid 1px;
+    }
+  }
+}
