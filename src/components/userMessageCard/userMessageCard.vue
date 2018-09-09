@@ -1,5 +1,5 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <div class="pCard">
+  <div class="pCard" ref="pCard">
     <div class="left-side avatar" v-lazy:background-image="msg.author.avatar" v-if="msg.lazyLoad"></div>
     <div class="left-side avatar" :style="`background-image:url(${msg.author.avatar})`" v-else></div>
     <div class="right-side" :style="{width: `${rightSideWidth}px`}">
@@ -86,16 +86,22 @@
       rightSideWidth: 0
     }),
     mounted() {
-      this.initRightSideWidth()
+      this.$nextTick(() => {
+        this.initRightSideWidth()
+      })
     },
     methods: {
+      handleClickUrl(url) {
+        this.$router.push({path: '/seo', query: {url, title: this.msg.media.title}})
+        event.stopPropagation()
+      },
       handleClickImg(event, src) {
         this.$emit('onClickImg', event.target, src)
         event.stopPropagation()
       },
       initRightSideWidth() {
         // console.log(window.getComputedStyle(document.querySelector('.neighborhood-card'))['width'])
-        let p = document.querySelector('.pCard')
+        let p = this.$refs.pCard
 
         let s = getComputedStyle(p)
         this.rightSideWidth = Number.parseInt(s['width']) - document.querySelector('.left-side').clientWidth

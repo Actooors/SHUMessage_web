@@ -24,8 +24,7 @@ export default {
   watch: {
     '$route'(to, from) {
       // console.log(this.judgePushLevel(to, from) || !this.msgLoaded)
-      let pushLevelCorrect = this.judgePushLevel(to, from)
-      if ((pushLevelCorrect || !this.msgLoaded)
+      if (!this.msgLoaded || !!this.$store.state.pushRouter.cardItem
         && to.name === this.$options.name//进入本组件路由
       ) {
         //先拉白屏
@@ -39,28 +38,19 @@ export default {
         this.noMore = false
         this.loadingMoreComments = false
         this.page = 0
-        this.loadData(pushLevelCorrect)
+        this.loadData()
       }
     }
   },
   methods: {
-    judgePushLevel(to, from) {
-      let [f, t] = [0, 0];
-      //undefined默认代表level0.
-      if (from.meta.pushLevel) {
-        f = from.meta.pushLevel
-      }
-      if (to.meta.pushLevel) {
-        t = to.meta.pushLevel
-      }
-      //push顺序没错
-      return f < t
-    },
     loadData(tryVuex = true) {
+      console.log("!")
       let loadMessage = null
       if (tryVuex && !!this.$store.state.pushRouter.cardItem) {
         //vuex里面存有状态，直接渲染
         this.msg = this.$store.state.pushRouter.cardItem
+        //渲染后销毁状态
+        this.$store.commit('pushRouter/SET_CARD_ITEM', null)
         loadMessage = Promise.resolve()
       } else {
         //老老实实axios
@@ -113,7 +103,7 @@ export default {
         console.error(err)
       })
     },
-    handleLoadMore() {
+    loadMore() {
       //仅loadMore第二个，即最新评论
       let limit = [0, 10];
       let updateBlockIndex = 1
@@ -135,6 +125,10 @@ export default {
             limit: limit.toString()
           }
         }).then((res) => {
+          if (res.data.code === 'FAILED') {
+            that.$vux.toast.text(res.data.message)
+            return
+          }
           if (res.data.data.raw[updateBlockIndex].cards.length === 0) {
             // console.log("nomore", res.data.data.raw)
             that.noMore = true

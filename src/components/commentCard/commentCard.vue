@@ -131,6 +131,7 @@
       },
       handleClickReplay() {
         this.$emit('onClickReply')
+        event.stopPropagation()
       },
       handleClickLike(event) {
         this.$emit('onClickLike')

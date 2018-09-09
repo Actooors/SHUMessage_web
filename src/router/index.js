@@ -12,9 +12,8 @@ import Recommend from 'pages/playground/recommend'
 import Neighborhood from 'pages/playground/neighborhood'
 import Moments from 'pages/moments/moments'
 import Find from 'pages/find/find'
-import CommonMsgDetail from 'pages/details/commonMsgDetail'
-import UserMsgDetail from 'pages/details/userMsgDetail'
-import CommentDetail from 'pages/details/commentDetail'
+import MsgDetail from 'pages/msgDetails/msgDetail'
+import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
 
 Vue.use(Router)
@@ -97,27 +96,13 @@ const router = new Router({
       ]
     },
     {
-      path: "/commonMsgDetail",
-      name: "commonMsgDetail",
-      meta: {
-        pushLevel: 1
-      },
-      component: CommonMsgDetail
-    },
-    {
-      path: "/userMsgDetail",
-      name: "userMsgDetail",
-      meta: {
-        pushLevel: 1
-      },
-      component: UserMsgDetail
+      path: "/msgDetail",
+      name: "msgDetail",
+      component: MsgDetail
     },
     {
       path: "/commentDetail",
       name: "commentDetail",
-      meta: {
-        pushLevel: 2
-      },
       component: CommentDetail
     },
     {

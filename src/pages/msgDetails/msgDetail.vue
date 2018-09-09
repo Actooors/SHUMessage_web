@@ -10,7 +10,33 @@
     >
       {{headerTitle}}
     </x-header>
-    <slot></slot>
+    <div class="mainMsg">
+      <common-card
+        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='0'"
+        :msg="msg"
+        @onClickShareButton="handleClickShareButton(...arguments,msg)"
+      ></common-card>
+      <user-message-card
+        class="userMsgDetail-card"
+        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='1'"
+        :msg="msg"
+        @onClickShareButton="handleClickShareButton(...arguments,msg)"
+      ></user-message-card>
+      <comment-card
+        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='2'"
+        :content="msg.content"
+        :author="msg.author"
+        :publishTime="msg.publishTime"
+        :shareInfo="msg.shareInfo"
+        :replies="msg.replies"
+        :info="msg.info"
+        :footprint="msg.footprint"
+        :imgs="msg.imgs"
+        :showComment=false
+        @onClickLike="handleClickShareButton(0,msg)"
+        @onClickImg="handleClickCommentImg"
+      ></comment-card>
+    </div>
     <div class="comment-blocks" id="comment-blocks">
       <div
         v-for="block of raw"
@@ -26,7 +52,6 @@
           :content="item.content"
           :author="item.author"
           :publishTime="item.publishTime"
-          :photos="item.photos"
           :shareInfo="item.shareInfo"
           :replies="item.replies"
           :info="item.info"
@@ -34,7 +59,7 @@
           :imgs="item.imgs"
           :show-comment="showComment"
           @onClickReply="handleClickReply(item)"
-          @onClickLike="handleClickLike(item)"
+          @onClickLike="handleClickShareButton(0,item)"
           @onClickCard="handleClickCommentCard(...arguments,index,item)"
           @onClickImg="handleClickCommentImg"
         ></comment-card>
@@ -42,8 +67,8 @@
     </div>
     <reply-bar
       slot="bottom"
-      :placeholder="replyPlaceholder"
-      @onSubmit="handleSubmitReply"
+      :placeholder="`回复${replyName}:`"
+      @onSubmit="handleComment(...arguments, replyInfo)"
       ref="replyBar"
     ></reply-bar>
     <share
@@ -79,6 +104,8 @@
 
 <script>
   import {ViewBox, XHeader, Previewer} from 'vux'
+  import CommonCard from 'components/commonCard/commonCard'
+  import UserMessageCard from "components/userMessageCard/userMessageCard";
   import CommentCard from 'components/commentCard/commentCard'
   import stickybits from 'stickybits'
   import store from 'store/store'
@@ -86,52 +113,13 @@
   import Share from 'components/share/share'
   import Popover from 'components/popover/popover'
   import ClipboardJS from 'clipboard'
+  import sharebarMixin from "assets/js/sharebarMixin";
+  import ajaxMixin from "pages/msgDetails/ajaxMixin";
 
   export default {
     name: "msgDetail",
     store,
-    components: {...{ViewBox, XHeader, Previewer}, CommentCard, ReplyBar, Share, Popover},
-    props: {
-      headerTitle: {
-        type: String,
-        default: '详情页'
-      },
-      showComment: {
-        type: Boolean,
-        default: true
-      },
-      raw: {
-        type: Array,
-        require: true
-      },
-      replyPlaceholder: {
-        type: String,
-        default: ''
-      },
-      noMore: {
-        type: Boolean,
-        default: false
-      },
-      loadingMore: {
-        type: Boolean,
-        default: false
-      },
-      msgLoaded: {
-        type: Boolean,
-        default: false
-      },
-      shareOptions: {
-        type: Object,
-        default() {
-          return {
-            show: false,
-            url: "",
-            title: "",
-            digest: ""
-          }
-        }
-      }
-    },
+    components: {...{ViewBox, XHeader, Previewer}, CommonCard, UserMessageCard, CommentCard, ReplyBar, Share, Popover},
     data: () => ({
       showPop: -1,
       popX: 0,
@@ -142,6 +130,10 @@
       previewerList: [],
       previewerTarget: null,
       previewerOptions: {},
+      headerTitle: '详情',
+      showComment: true,
+      replyName: "",
+      replyInfo: {}
     }),
     computed: {
       showPopBoolean() {
@@ -158,10 +150,13 @@
             that.judgeAndMoveToCommentBlocks()
           })
         }
+        this.replyName = this.msg.author.name
+        this.replyInfo = this.msg.info
       },
       '$route'(val, pre) {
         store.commit("pushRouter/SET_ROUTE_CHANGED", true)
         this.showPop = -1
+        this.initTitle()
       }
     },
     mounted() {
@@ -178,8 +173,26 @@
       if (this.msgLoaded) {
         this.judgeAndMoveToCommentBlocks()
       }
+      this.initTitle()
     },
     methods: {
+      initTitle() {
+        if ('type' in this.$route.query) {
+          this.showComment = true
+          switch (this.$route.query.type.toString()) {
+            case '0':
+              this.headerTitle = '消息详情'
+              break;
+            case '1':
+              this.headerTitle = '动态详情'
+              break;
+            case '2':
+              this.headerTitle = '评论详情'
+              this.showComment = false
+              break;
+          }
+        }
+      },
       //previewer需要的options函数，用于计算缩略图源位置，以显示点开时的动画效果
       getThumbBoundsFn(index) {
         let thumbnail = this.previewerTarget
@@ -212,19 +225,21 @@
       handleClickPopBtn(btnIndex) {
         switch (btnIndex) {
           case 0:
-            this.$emit('onClickPopReply', this.highlightItem)
+            this.replyName = this.highlightItem.author.name
+            this.replyInfo = this.highlightItem.info
             this.$refs.replyBar.$el.querySelector('#textarea').focus()
             break
         }
         this.showPop = -1
       },
       handleClickBack() {
-        if (store.state.pushRouter.routeChanged && store.state.pushRouter.defaultHistoryLength < history.length) {
+        // this.$router.go(-1)
+        if (store.state.pushRouter.routeChanged) {
           this.$router.go(-1)
-          console.log("大概有进入detail的router-history")
+          // console.log("大概有进入detail的router-history")
         } else {
+          // console.log("应该没有进入detail的router-history", store.state.pushRouter.routeChanged, store.state.pushRouter.defaultHistoryLength, history.length)
           this.$router.push('/')
-          console.log("应该没有进入detail的router-history")
         }
       },
       judgeAndMoveToCommentBlocks(judge = true) {
@@ -243,19 +258,12 @@
           query: item.info
         })
       },
-      handleClickLike(msg) {
-        this.$emit('onClickLike', 0, msg)
-      },
-      handleSubmitReply(content, imgUrl) {
-        this.$emit('onSubmitReply', content, imgUrl)
-      },
       handleScroll(event, el) {
         if (!this.noMore
-          && !this.loadingMore
+          && !this.loadingMoreComments
           && el.scrollTop + el.offsetHeight >= el.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
         ) {
-          // console.log("loadMore")
-          this.$emit('loadMore')
+          this.loadMore()
         }
       },
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
@@ -269,8 +277,9 @@
         this.highlightItem = item
         this.copyContent = item.content
         this.showPop = cardIndex
+        let that = this
         this.$nextTick(() => {
-          let elem = this.$refs.popover.$refs.popover
+          let elem = that.$refs.popover.$refs.popover
           let [screenHeight, screenWidth, elemHeight, elemWidth] = [
             document.documentElement.offsetHeight,
             document.documentElement.offsetWidth,
@@ -284,15 +293,16 @@
           if (clickX - elemWidth / 2 < 0) {
             overWidth = clickX - elemWidth / 2
           }
-          this.popX = clickX - elemWidth / 2 - overWidth
-          this.popY = clickY - elemHeight - 5
-          this.popGutter = elemWidth / 2 - overWidth - 5
+          that.popX = clickX - elemWidth / 2 - overWidth
+          that.popY = clickY - elemHeight - 5
+          that.popGutter = elemWidth / 2 - overWidth - 5
         })
       }
-    }
+    },
+    mixins: [sharebarMixin, ajaxMixin]
   }
 </script>
 
 <style lang="scss" scoped>
-  @import './msgDetail';
+  @import 'msgDetail';
 </style>
