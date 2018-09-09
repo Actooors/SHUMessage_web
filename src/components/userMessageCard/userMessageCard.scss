@@ -2,6 +2,7 @@
 
 .pCard {
   padding: 20.8px 16px 8px 16px;
+  box-sizing: content-box;
   //margin-bottom: 8px;
   font-size: .9rem;
   background: white;
@@ -73,5 +74,72 @@
   }
   .shareBar {
     margin-top: .5rem;
+  }
+  .url {
+    background-color: $--theme-gray-light4;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    .url-img {
+      height: 65px;
+      width: 65px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .url-side {
+      position: relative;
+      max-height: 65px;
+      flex-grow: 1;
+      padding: 8px;
+      line-height: 18px;
+      word-break: break-word;
+      overflow: hidden;
+      .url-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+      }
+      .url-domain {
+        font-size: .75rem;
+        color: $--theme-gray;
+        position: absolute;
+        bottom: 3px;
+      }
+    }
+  }
+  .media-imgs {
+    width: 100%;
+    $imgs-height: 150px;
+    //height: $imgs-height;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    .media-muti-img {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+    .imgcenter{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-bottom: 100%;
+      height: 0;
+      //background-image: url(http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg);
+      background-size: auto 100%;
+      background-position: center center;
+      img {
+        //height: 100%;
+        //width:100%;
+      }
+    }
   }
 }

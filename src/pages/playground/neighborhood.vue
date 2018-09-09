@@ -13,6 +13,7 @@
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item)"
       class="neighborhood-card"
+      @onClickImg="handleClickCardImg"
     ></user-message-card>
     <share
       v-model="shareOptions.show"
@@ -20,13 +21,18 @@
       :title="shareOptions.title"
       :digest="shareOptions.digest"
     ></share>
+    <div v-transfer-dom>
+      <previewer :list="previewerList" ref="NeiborhoodPreviewer" :options="previewerOptions"></previewer>
+    </div>
   </scroll>
 </template>
 
 <script>
+  import {Previewer} from 'vux'
   import UserMessageCard from 'components/userMessageCard/userMessageCard'
   import {neighborhood as mock} from "./mock"
   import scrollMixin from './scrollMixin'
+  import previewerMixin from './previewerMixin'
   import Scroll from 'components/scroll/scroll'
   import store from "store/store";
   import sharebarMixin from '../../assets/js/sharebarMixin'
@@ -35,8 +41,8 @@
   export default {
     name: "neighborhood",
     store,
-    components: {UserMessageCard, Scroll, Share},
-    mixins: [mock, scrollMixin, sharebarMixin],
+    components: {Previewer, UserMessageCard, Scroll, Share},
+    mixins: [mock, scrollMixin, sharebarMixin, previewerMixin],
     methods: {
       handleClickCard(index, info) {
         if (index === null) {

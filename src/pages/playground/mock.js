@@ -564,6 +564,109 @@ export const neighborhood = {
         type: "img",
         imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg"]
       }
+    }, {
+      info: {
+        type: 1,
+        id: 1
+      },
+      topic: {
+        id: 2,
+        name: "随手拍"
+      },
+      content: "看看我家的狗，帅不帅？？？哈哈哈哈哈哈哈",//文本消息
+      author: {
+        id: 10001,
+        avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
+        name: "赤膊吃西瓜"
+      },
+      publishTime: "2018-08-25T13:15:04",
+      shareInfo: {
+        like: 5348,
+        comment: 221,
+        share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
+      },
+      position: {//后端记录每条信息的position经纬度，计算后返回
+        name: "栋霖科技园",
+        distance: "5km"
+      },
+      media: {
+        type: "img",
+        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg"]
+      }
+    }, {
+      info: {
+        type: 1,
+        id: 1
+      },
+      topic: {
+        id: 2,
+        name: "随手拍"
+      },
+      content: "看看我家的狗，帅不帅？？？哈哈哈哈哈哈哈",//文本消息
+      author: {
+        id: 10001,
+        avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
+        name: "赤膊吃西瓜"
+      },
+      publishTime: "2018-08-25T13:15:04",
+      shareInfo: {
+        like: 5348,
+        comment: 221,
+        share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
+      },
+      position: {//后端记录每条信息的position经纬度，计算后返回
+        name: "栋霖科技园",
+        distance: "5km"
+      },
+      media: {
+        type: "img",
+        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg"]
+      }
+    }, {
+      info: {
+        type: 1,
+        id: 1
+      },
+      topic: {
+        id: 2,
+        name: "随手拍"
+      },
+      content: "来来来给大家分享一个搜索引擎名字叫百度",//文本消息
+      author: {
+        id: 10088,
+        avatar: "https://avatars2.githubusercontent.com/u/24954432?s=460&v=4",
+        name: "赤膊吃鸭鸭"
+      },
+      publishTime: "2018-08-25T13:15:04",
+      shareInfo: {
+        like: 5348,
+        comment: 221,
+        share: 149
+      },
+      footprint: {
+        like: false,
+        comment: false,
+        share: false
+      },
+      position: {//后端记录每条信息的position经纬度，计算后返回
+        name: "栋霖科技园",
+        distance: "5km"
+      },
+      media: {
+        type: "url",
+        value: "https://www.baidu.com/",
+        title: "这是一条通向百度的URL"
+      }
     }]
   })
 }

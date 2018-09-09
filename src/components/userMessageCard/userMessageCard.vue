@@ -2,7 +2,7 @@
   <div class="pCard">
     <div class="left-side avatar" v-lazy:background-image="msg.author.avatar" v-if="msg.lazyLoad"></div>
     <div class="left-side avatar" :style="`background-image:url(${msg.author.avatar})`" v-else></div>
-    <div class="right-side">
+    <div class="right-side" :style="{width: `${rightSideWidth}px`}">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author">{{msg.author.name}}</span>
@@ -20,6 +20,36 @@
         </div>
       </div>
       <div class="content" v-text="msg.content"></div>
+      <div
+        v-if="msg.media && msg.media.type==='url'"
+        class="url"
+        @click="handleClickUrl(msg.media.value)"
+      >
+        <img src="../../assets/images/web.jpg" class="url-img"/>
+        <div class="url-side">
+          <p class="url-title">{{msg.media.title}}</p>
+          <p class="url-domain">{{getDomain(msg.media.value)}}</p>
+        </div>
+
+      </div>
+      <div
+        class="media-imgs"
+        v-if="msg.media && msg.media.type==='img' && msg.media.imgs.length>0"
+      >
+        <div
+          v-once
+          v-for="(src) of msg.media.imgs"
+          class="media-muti-img"
+        >
+          <div class="imgcenter" v-lazy:background-image="src" @click="handleClickImg($event,src)">
+            <!--<img-->
+            <!--v-lazy="src"-->
+            <!--@click="handleClickImg($event)"-->
+            <!--&gt;-->
+          </div>
+        </div>
+      </div>
+
       <div
         v-if="msg.topic"
         class="topic-box"
@@ -52,12 +82,34 @@
         require: true,
       }
     },
+    data: () => ({
+      rightSideWidth: 0
+    }),
+    mounted() {
+      this.initRightSideWidth()
+    },
     methods: {
+      handleClickImg(event, src) {
+        this.$emit('onClickImg', event.target, src)
+        event.stopPropagation()
+      },
+      initRightSideWidth() {
+        // console.log(window.getComputedStyle(document.querySelector('.neighborhood-card'))['width'])
+        let p = document.querySelector('.pCard')
+
+        let s = getComputedStyle(p)
+        this.rightSideWidth = Number.parseInt(s['width']) - document.querySelector('.left-side').clientWidth
+      },
       relativeTime(t) {
         return relativeTime(t)
       },
-      handleClickShareButton(index){
-        this.$emit('onClickShareButton',index)
+      handleClickShareButton(index) {
+        this.$emit('onClickShareButton', index)
+      },
+      getDomain(url) {
+        let s = url.replace(/.+:\/\//, '')
+        let l = s.indexOf('/')
+        return s.substring(0, l > 0 ? l : s.length)
       }
     }
   }
