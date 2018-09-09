@@ -10,7 +10,7 @@ export default {
     }
   },
   methods: {
-    handleClickCardImg(target, srcArray, index) {
+    handleClickCardImg(targetArray, srcArray, index) {
       let that = this
       this.previewerList = new Array(srcArray.length)
       //previewer反应总是慢一点，新增一个变量来提醒它更新引用
@@ -22,18 +22,18 @@ export default {
         let img = new Image();
         img.src = srcArray[j]
         img.onload = () => {
-          let srcWidth = img.width / img.height * target.offsetHeight
+          let srcWidth = img.width / img.height * targetArray[j].offsetHeight
           img = null
           that.previewerList[j] = {
             msrc: srcArray[j],
             src: srcArray[j],
             srcWidth: srcWidth,
-            target: target
+            target: targetArray[j]
           }
           that.previewerUpdateReminder++
           if (j === index) {
             setTimeout(() => {
-              console.log(that.previewerList, index)
+              // console.log(that.previewerList, index)
               that.$refs.NeiborhoodPreviewer.show(index)
             }, 0)
           }
@@ -46,6 +46,7 @@ export default {
       let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
       let rect = thumbnail.getBoundingClientRect()
       let thumbnailWidth = this.previewerList[index].srcWidth
+      // console.log(index, rect.left - (thumbnailWidth - rect.width) / 2)
       return {x: rect.left - (thumbnailWidth - rect.width) / 2, y: rect.top + pageYScroll, w: thumbnailWidth}
     }
   }

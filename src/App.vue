@@ -9,6 +9,8 @@
 </template>
 
 <script>
+  import {getUserInfoFromToken} from 'assets/js/tokenTools'
+
   export default {
     name: 'app',
     data: () => ({
@@ -18,6 +20,8 @@
       startY: -1
     }),
     mounted() {
+      localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMTY0OSIsImV4cCI6MTUzNjkzNjc5MywidXNlck5hbWUiOiLlva3mmIrljY4iLCJpYXQiOjE1MzY1MDQ3OTN9.Dr2wwJmuzgrfMgBDVgBjBoQzMn0Xr6aFPtpHd3cALcfeskGSNM4sGiXmC8sGo8DLqpevKwatF7Xb0jxeggH7wg')
+      console.log(getUserInfoFromToken())
       //解除iOS的橡皮筋回弹效果
       let that = this;
       document.body.addEventListener('touchstart', (event) => {

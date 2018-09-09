@@ -111,6 +111,10 @@
           <i class="icon-fuzhi iconfont icon"></i>
           <span class="icon-label">复制</span>
         </li>
+        <li class="popover-btn" @click="handleClickPopBtn(2)" v-show="showPopDeleteBtn">
+          <i class="icon-fuzhi iconfont icon"></i>
+          <span class="icon-label">删除</span>
+        </li>
       </ul>
     </Popover>
     <div v-transfer-dom>
@@ -132,6 +136,7 @@
   import ClipboardJS from 'clipboard'
   import sharebarMixin from "assets/js/sharebarMixin";
   import ajaxMixin from "pages/msgDetails/ajaxMixin";
+  import {getUserInfoFromToken} from 'assets/js/tokenTools'
 
   export default {
     name: "msgDetail",
@@ -149,6 +154,7 @@
       timer: null,
       tick: 0,
       showPop: -1,
+      showPopDeleteBtn: false,
       popX: 0,
       popY: 0,
       popGutter: 0,
@@ -263,6 +269,9 @@
             this.replyInfo = this.highlightItem.info
             this.$refs.replyBar.$el.querySelector('#textarea').focus()
             break
+          case 2:
+            console.log("删除评论、回复")
+            break
         }
         this.showPop = -1
       },
@@ -303,12 +312,20 @@
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
         this.judgeAndMoveToCommentBlocks(false)
       },
+      judgeDeleteRight(commentItem) {
+        let userinfo = getUserInfoFromToken()
+        return (
+          userinfo.id === commentItem.author.id//要么是自己
+          || userinfo.id === this.msg.author.id//要么是msg的作者
+        )
+      },
       handleClickCommentCard(clickX, clickY, cardIndex, item) {
         if (this.showPop === cardIndex) {
           this.showPop = -1
           return
         }
         this.highlightItem = item
+        this.showPopDeleteBtn = this.judgeDeleteRight(item)
         this.copyContent = item.content
         this.showPop = cardIndex
         let that = this

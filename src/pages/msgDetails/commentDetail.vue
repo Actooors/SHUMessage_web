@@ -1,5 +1,5 @@
 <template>
-  <msg-detail ref="msgDetail" name="123"></msg-detail>
+  <msg-detail></msg-detail>
 </template>
 
 <script>
@@ -7,11 +7,6 @@
 
   export default {
     name: "commentDetail",
-    components: {MsgDetail},
-    watch: {
-      '$route'(to, from) {
-        // this.$refs.msgDetail.$route(to, from)
-      }
-    }
+    components: {MsgDetail}
   }
 </script>

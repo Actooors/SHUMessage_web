@@ -1,8 +1,10 @@
-export function getUserInfoFromToken() {
-  let token = window.localStorage.getItem('token')
-  let info = window.atob(token.split(/\./)[1])
+export function getUserInfoFromToken(token = '') {
+  if (!token) {
+    token = window.localStorage.getItem('token')
+  }
+  let info = JSON.parse(window.atob(token.split(/\./)[1]))
   return {
     id: info['sub'],
-    name: info['name']
+    name: info['userName']
   }
 }

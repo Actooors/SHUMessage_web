@@ -100,7 +100,7 @@
         event.stopPropagation()
       },
       handleClickImg(event, srcArray, index) {
-        this.$emit('onClickImg', event.target, srcArray, index)
+        this.$emit('onClickImg', Array.from(event.target.parentElement.parentElement.childNodes), srcArray, index)
         event.stopPropagation()
       },
       initRightSideWidth() {
