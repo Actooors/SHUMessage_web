@@ -23,11 +23,12 @@ export default {
   },
   watch: {
     '$route'(to, from) {
-      // console.log(this.judgePushLevel(to, from) || !this.allLoaded)
+      // console.log(to.name, this.$options.name, this.$parent.$options.name)
       if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
-        && to.name === this.$options.name//进入本组件路由
+        && (to.name === this.$options.name || to.name === this.$parent.$options.name)//进入本组件路由
       ) {
         //先拉白屏
+        console.log("可以的，loadData")
         this.msg = {
           //防止replyPlaceholder出错
           author: {
@@ -44,10 +45,11 @@ export default {
   },
   methods: {
     loadData(tryVuex = true) {
-      console.log("!")
+      // console.log("loadData")
       let loadMessage = null
       this.allLoaded = false
       if (tryVuex && !!this.$store.state.pushRouter.cardItem) {
+        console.log("此处直接用vuex的cardItem后销毁")
         //vuex里面存有状态，直接渲染
         this.msg = this.$store.state.pushRouter.cardItem
         //渲染后销毁状态

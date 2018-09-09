@@ -1,5 +1,5 @@
 <template>
-  <msg-detail ref="msgDetail"></msg-detail>
+  <msg-detail ref="msgDetail" name="123"></msg-detail>
 </template>
 
 <script>
