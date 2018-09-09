@@ -10,7 +10,7 @@
           </span>
         </div>
         <div class="cardTopBar-extra">
-          <span class="hasbeenfrom">{{relativeTime(publishTime)}}</span>
+          <span class="hasbeenfrom" :key="tick">{{publishTime | relativeTime}}</span>
         </div>
       </div>
       <div class="content" v-text="content"></div>
@@ -122,13 +122,21 @@
             like: false
           }
         }
+      },
+      tick: {
+        type: Number,
+        default() {
+          return Date.now()
+        }
       }
     },
     data: () => ({}),
-    methods: {
+    filters: {
       relativeTime(t) {
         return relativeTime(t)
-      },
+      }
+    },
+    methods: {
       handleClickReplay() {
         this.$emit('onClickReply')
         event.stopPropagation()

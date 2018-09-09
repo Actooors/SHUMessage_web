@@ -3,7 +3,7 @@ import {getUserInfoFromToken} from 'assets/js/tokenTools'
 
 export default {
   data: () => ({
-    msgLoaded: false,
+    allLoaded: false,
     msg: {
       //防止ajax之前渲染replyPlaceholder时出错
       author: {
@@ -16,15 +16,15 @@ export default {
     page: 0
   }),
   mounted() {
-    if (!this.msgLoaded) {
+    if (!this.allLoaded) {
       // console.log("mounted")
       this.loadData()
     }
   },
   watch: {
     '$route'(to, from) {
-      // console.log(this.judgePushLevel(to, from) || !this.msgLoaded)
-      if (!this.msgLoaded || !!this.$store.state.pushRouter.cardItem
+      // console.log(this.judgePushLevel(to, from) || !this.allLoaded)
+      if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
         && to.name === this.$options.name//进入本组件路由
       ) {
         //先拉白屏
@@ -46,6 +46,7 @@ export default {
     loadData(tryVuex = true) {
       console.log("!")
       let loadMessage = null
+      this.allLoaded = false
       if (tryVuex && !!this.$store.state.pushRouter.cardItem) {
         //vuex里面存有状态，直接渲染
         this.msg = this.$store.state.pushRouter.cardItem
@@ -61,16 +62,16 @@ export default {
           params: this.$route.query
         }).then((res) => {
           this.msg = res.data.data
-          this.msgLoaded = true
+          // this.allLoaded = true
         }).catch((err) => {
           console.error(err)
         })
       }
       Promise.all([loadMessage, this.loadComment()]).then(() => {
-        //触发一次watch msgLoaded
-        this.msgLoaded = false
+        //触发一次watch allLoaded
+        this.allLoaded = false
         this.$nextTick(() => {
-          this.msgLoaded = true
+          this.allLoaded = true
         })
       })
     },

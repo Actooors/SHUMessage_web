@@ -27,7 +27,11 @@
 }
 
 .comment-blocks {
-  min-height: 90vh;
+  //min-height: 50vh;
+  .comment-loading {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .popping {

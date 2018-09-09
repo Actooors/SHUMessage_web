@@ -12,18 +12,18 @@
     </x-header>
     <div class="mainMsg">
       <common-card
-        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='0'"
+        v-if=" 'type' in $route.query && $route.query.type.toString()==='0'"
         :msg="msg"
         @onClickShareButton="handleClickShareButton(...arguments,msg)"
       ></common-card>
       <user-message-card
         class="userMsgDetail-card"
-        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='1'"
+        v-if=" 'type' in $route.query && $route.query.type.toString()==='1'"
         :msg="msg"
         @onClickShareButton="handleClickShareButton(...arguments,msg)"
       ></user-message-card>
       <comment-card
-        v-if="msgLoaded && 'type' in $route.query && $route.query.type.toString()==='2'"
+        v-if=" 'type' in $route.query && $route.query.type.toString()==='2'"
         :content="msg.content"
         :author="msg.author"
         :publishTime="msg.publishTime"
@@ -38,6 +38,10 @@
       ></comment-card>
     </div>
     <div class="comment-blocks" id="comment-blocks">
+      <div class="comment-loading" v-if="!raw.length && !allLoaded">
+        <Spinner type="lines"></Spinner>
+      </div>
+      <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>
       <div
         v-for="block of raw"
         :key="block.value"
@@ -48,6 +52,7 @@
           v-for="(item,index) of block.cards"
           :key="item.value"
           :class="{'popping':showPop===index}"
+          :tick="tick"
 
           :content="item.content"
           :author="item.author"
@@ -103,7 +108,7 @@
 </template>
 
 <script>
-  import {ViewBox, XHeader, Previewer} from 'vux'
+  import {ViewBox, XHeader, Previewer, Spinner, LoadMore} from 'vux'
   import CommonCard from 'components/commonCard/commonCard'
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import CommentCard from 'components/commentCard/commentCard'
@@ -119,8 +124,18 @@
   export default {
     name: "msgDetail",
     store,
-    components: {...{ViewBox, XHeader, Previewer}, CommonCard, UserMessageCard, CommentCard, ReplyBar, Share, Popover},
+    components: {
+      ...{ViewBox, XHeader, Previewer, Spinner, LoadMore},
+      CommonCard,
+      UserMessageCard,
+      CommentCard,
+      ReplyBar,
+      Share,
+      Popover
+    },
     data: () => ({
+      timer: null,
+      tick: 0,
       showPop: -1,
       popX: 0,
       popY: 0,
@@ -141,7 +156,7 @@
       }
     },
     watch: {
-      msgLoaded(val) {
+      allLoaded(val) {
         let that = this
         if (val) {
           this.$nextTick(() => {
@@ -160,6 +175,7 @@
       }
     },
     mounted() {
+      let that = this
       this.previewerOptions = {
         getThumbBoundsFn: this.getThumbBoundsFn
       }
@@ -170,10 +186,16 @@
       el.addEventListener('scroll', () => this.showPop = -1)
       el.addEventListener('scroll', (event) => this.handleScroll(event, el))
 
-      if (this.msgLoaded) {
+      if (this.allLoaded) {
         this.judgeAndMoveToCommentBlocks()
       }
       this.initTitle()
+      this.timer = setInterval(() => {
+        that.tick = Date.now()
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
     },
     methods: {
       initTitle() {
