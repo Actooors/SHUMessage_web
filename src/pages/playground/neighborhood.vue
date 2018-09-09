@@ -22,7 +22,7 @@
       :digest="shareOptions.digest"
     ></share>
     <div v-transfer-dom>
-      <previewer :list="previewerList" ref="NeiborhoodPreviewer" :options="previewerOptions"></previewer>
+      <previewer :list="previewerList" ref="NeiborhoodPreviewer" :options="previewerOptions" :key="previewerUpdateReminder"></previewer>
     </div>
   </scroll>
 </template>

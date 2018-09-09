@@ -6,8 +6,10 @@
   //margin-bottom: 8px;
   font-size: .9rem;
   background: white;
-  //box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
   display: flex;
+  &.userMsgDetail-card {
+    box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
+  }
   .left-side {
     height: 46px;
     width: 46px;
@@ -126,7 +128,7 @@
       border-radius: 2px;
       margin-right: 4px;
     }
-    .imgcenter{
+    .imgcenter {
       display: flex;
       justify-content: center;
       align-items: center;

@@ -1,6 +1,7 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard" @click="handleClickCard">
-    <div class="left-side avatar" v-lazy:background-image="author.avatar"></div>
+    <div class="left-side avatar" v-if="lazyload" v-lazy:background-image="author.avatar"></div>
+    <div class="left-side avatar" v-else :style="`background-image:url(${author.avatar})`"></div>
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
@@ -128,6 +129,10 @@
         default() {
           return Date.now()
         }
+      },
+      lazyload: {
+        type: Boolean,
+        default: true
       }
     },
     data: () => ({}),

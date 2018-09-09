@@ -1,6 +1,6 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard" ref="pCard">
-    <div class="left-side avatar" v-lazy:background-image="msg.author.avatar" v-if="msg.lazyLoad"></div>
+    <div class="left-side avatar" v-lazy:background-image="msg.author.avatar" v-if="lazyload"></div>
     <div class="left-side avatar" :style="`background-image:url(${msg.author.avatar})`" v-else></div>
     <div class="right-side" :style="{width: `${rightSideWidth}px`}">
       <div class="cardTopBar">
@@ -38,10 +38,10 @@
       >
         <div
           v-once
-          v-for="(src) of msg.media.imgs"
+          v-for="(src,index) of msg.media.imgs"
           class="media-muti-img"
         >
-          <div class="imgcenter" v-lazy:background-image="src" @click="handleClickImg($event,src)">
+          <div class="imgcenter" v-lazy:background-image="src" @click="handleClickImg($event,msg.media.imgs,index)">
             <!--<img-->
             <!--v-lazy="src"-->
             <!--@click="handleClickImg($event)"-->
@@ -80,6 +80,10 @@
       msg: {
         type: Object,
         require: true,
+      },
+      lazyload: {
+        type: Boolean,
+        default: true
       }
     },
     data: () => ({
@@ -95,8 +99,8 @@
         this.$router.push({path: '/seo', query: {url, title: this.msg.media.title}})
         event.stopPropagation()
       },
-      handleClickImg(event, src) {
-        this.$emit('onClickImg', event.target, src)
+      handleClickImg(event, srcArray, index) {
+        this.$emit('onClickImg', event.target, srcArray, index)
         event.stopPropagation()
       },
       initRightSideWidth() {

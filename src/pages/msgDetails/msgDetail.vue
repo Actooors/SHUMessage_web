@@ -14,16 +14,22 @@
       <common-card
         v-if=" 'type' in $route.query && $route.query.type.toString()==='0'"
         :msg="msg"
+        :lazyload=false
+
         @onClickShareButton="handleClickShareButton(...arguments,msg)"
       ></common-card>
       <user-message-card
         class="userMsgDetail-card"
         v-if=" 'type' in $route.query && $route.query.type.toString()==='1'"
+        :lazyload=false
+
         :msg="msg"
         @onClickShareButton="handleClickShareButton(...arguments,msg)"
       ></user-message-card>
       <comment-card
         v-if=" 'type' in $route.query && $route.query.type.toString()==='2'"
+        :lazyload=false
+
         :content="msg.content"
         :author="msg.author"
         :publishTime="msg.publishTime"
@@ -69,6 +75,12 @@
           @onClickImg="handleClickCommentImg"
         ></comment-card>
       </div>
+
+      <div class="comment-loading" v-if="loadingMoreComments">
+        <Spinner type="lines"></Spinner>
+      </div>
+      <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
+
     </div>
     <reply-bar
       slot="bottom"

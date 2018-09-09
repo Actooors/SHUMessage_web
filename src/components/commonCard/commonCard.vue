@@ -20,7 +20,7 @@
 
     </div>
     <div class="author" v-if="msg.author">
-      <img v-if="msg.lazyLoad" v-lazy="msg.author.avatar" class="avatar">
+      <img v-if="lazyload" v-lazy="msg.author.avatar" class="avatar">
       <img v-else :src="msg.author.avatar" class="avatar">
       <span class="author-name">{{msg.author.name}}</span>
       <span class="author-append" v-if="msg.publishTime">{{preHandleTime(msg.publishTime)}}</span>
@@ -49,6 +49,10 @@
       msg: {
         type: Object,
         require: true
+      },
+      lazyload: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
