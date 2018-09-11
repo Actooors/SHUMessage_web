@@ -12,6 +12,8 @@
       v-model="showPopup"
       @onRefresh="handleOnRefresh"
       :url="$route.query.url"
+      :title="$route.query.title"
+      digest="分享自SHU Message"
       showMoreOperations
     ></share>
   </ViewBox>

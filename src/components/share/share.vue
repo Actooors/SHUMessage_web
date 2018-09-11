@@ -65,9 +65,13 @@
         default: false
       },
       url: {
-        type: String
+        type: String,
+        require: true
       },
-      title: String,
+      title: {
+        type: String,
+        default: ''
+      },
       digest: {
         type: String,
         default: ''
