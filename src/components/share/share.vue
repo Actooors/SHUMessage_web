@@ -72,9 +72,15 @@
         type: String,
         default: ''
       },
+      pic: {
+        type: String,
+        default() {
+          return `https://ws1.sinaimg.cn/large/006P5HMAgy1fv5vcvzj5aj3040040742.jpg`
+        }
+      },
       digest: {
         type: String,
-        default: ''
+        require: true
       }
     },
     components: {Popup, Scroller},
@@ -97,7 +103,7 @@
             // 分享的摘要，默认使用<meta name="description" content="">content的值
             digest: that.digest,
             // 分享的图片，默认获取本页面第一个img元素的src
-            pic: '',
+            pic: that.pic,
             // 默认显示的网站为以下六个个,支持设置的网站有
             // weixin,weixintimeline,qq,qzone,yixin,weibo,tqq,renren,douban,tieba
             sites: ['weibo', 'qq', 'qzone']

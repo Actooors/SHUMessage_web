@@ -13,8 +13,6 @@ export default {
     handleClickCardImg(targetArray, srcArray, index) {
       let that = this
       this.previewerList = new Array(srcArray.length)
-      //previewer反应总是慢一点，新增一个变量来提醒它更新引用
-      that.previewerUpdateReminder++
       for (let i = 0; i < srcArray.length; i++) {
         //消除闭包影响
         let j = i;
@@ -30,12 +28,13 @@ export default {
             srcWidth: srcWidth,
             target: targetArray[j]
           }
+          //previewer反应总是慢一点，新增一个变量来提醒它更新引用
           that.previewerUpdateReminder++
           if (j === index) {
             setTimeout(() => {
               // console.log(that.previewerList, index)
               that.$refs.NeiborhoodPreviewer.show(index)
-            }, 0)
+            }, 20)
           }
         }
       }

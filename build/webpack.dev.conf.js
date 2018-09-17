@@ -38,7 +38,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env'),
-      // 'apiRoot': "'http://192.168.50.223:8080/api'"
+      // 'apiRoot': "'http://192.168.50.111:8080/api'"
       'apiRoot': "'http://api.mzz.pub:8188/api'"
     }),
     new webpack.HotModuleReplacementPlugin(),

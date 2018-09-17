@@ -93,6 +93,7 @@
       this.$nextTick(() => {
         this.initRightSideWidth()
       })
+      window.addEventListener('resize', this.initRightSideWidth)
     },
     methods: {
       handleClickUrl(url) {

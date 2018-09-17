@@ -7,7 +7,7 @@
       <i class="icon-more iconfont icon" slot="right" @click="handleClickMore"></i>
       <span class="title">{{$route.query.title}}</span>
     </x-header>
-    <iframe name="seo" :src="forward()" id="seo" class="seoFrame" :key="refresh"></iframe>
+    <iframe name="seo" :src="forward()" id="seo" class="seoFrame" v-once></iframe>
     <share
       v-model="showPopup"
       @onRefresh="handleOnRefresh"
@@ -29,7 +29,6 @@
     components: {...{ViewBox, XHeader}, Share},
     data: () => ({
       showPopup: false,
-      refresh: true
     }),
     mounted() {
       //解决iframe的touch事件不能被捕获，从而导致橡皮筋现象的问题
@@ -42,7 +41,9 @@
     methods: {
       forward() {
         // return this.$route.query.url
-        return 'http://api.mzz.pub:8090/getforward/get?' + encodeURI(`url=${this.$route.query.url}`)
+        let screenWidth = window.innerWidth || document.documentElement.clientWidth
+        // return `http://192.168.50.111:8090/getforward/get?url=${this.$route.query.url}&limit=${screenWidth - 50}`
+        return `http://api.mzz.pub:8090/getforward/get?url=${this.$route.query.url}&limit=${screenWidth - 50}`
       },
       handleClickMore() {
         this.showPopup = true
