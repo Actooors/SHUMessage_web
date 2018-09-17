@@ -7,7 +7,8 @@
     @on-pullup-loading="handlePullupLoading"
     ref="scroll"
   >
-    <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
+    <Spinner type="ripple" class="center-spinner"
+             v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <common-card
       v-for="(item,index) of cards"
       :key="item.value"
@@ -49,7 +50,7 @@
     },
     methods: {
       loadData() {
-        let that=this
+        let that = this
         axios({
           url: apiRoot + this.listApi,
           method: "get",
@@ -59,7 +60,7 @@
           }
         }).then((res) => {
           this.cards = res.data.data.cards
-          this.$nextTick(()=>{
+          this.$nextTick(() => {
             that.$refs.scroll.reset()
           })
         }).catch((err) => {

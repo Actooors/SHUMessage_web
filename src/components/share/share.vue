@@ -7,9 +7,8 @@
             分享到
           </p>
           <scroller lock-y :scrollbar-x=false ref="scroller">
-            <div class="nowrapspace">
-              <div class="share-div">
-              </div>
+            <div class="nowrapspace" @click="showPopup=false">
+              <div class="share-div"></div>
             </div>
           </scroller>
           <div class="hr"></div>
@@ -95,6 +94,16 @@
         this.showPopup = val
         let that = this
         if (val) {
+          if ('outerHTML' in document.documentElement) {
+            document.querySelector('.share-div').outerHTML = `<div class="share-div"></div>`
+          } else {
+            let target = document.querySelector('.share-div')
+            let pa = target.parentElement
+            let e = document.createElement('div')
+            e.className = 'share-div'
+            pa.replaceChild(e, target)
+            e = target = null
+          }
           soshm('.share-div', {
             // 分享的链接，默认使用location.href
             url: that.url,
