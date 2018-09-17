@@ -1,11 +1,13 @@
 <template>
   <scroll
+    v-model="scrollerStatus"
     @on-scroll="handleScroll"
     :height="scrollHeight"
     @on-pulldown-loading="handlePulldownLoading"
     @on-pullup-loading="handlePullupLoading"
     ref="scroll"
   >
+    <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <common-card
       v-for="(item,index) of cards"
       :key="item.value"
@@ -30,10 +32,11 @@
   import store from "store/store";
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
+  import {Spinner} from 'vux'
 
   export default {
     name: "recommend",
-    components: {CommonCard, Scroll, Share},
+    components: {...{Spinner}, CommonCard, Scroll, Share},
     mixins: [mock, scrollMixin, sharebarMixin],
     store,
     methods: {

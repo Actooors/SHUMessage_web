@@ -59,7 +59,7 @@
         type: Function
       },
       onScroll: {
-        type:Function
+        type: Function
       }
     },
     data: () => ({
@@ -73,7 +73,11 @@
     },
     watch: {
       scrollerStatus(val) {
-        this.$emit('value', val)
+        this.$emit('input', val)
+      },
+      value(val) {
+        console.log("?")
+        this.scrollerStatus = val
       }
     },
     methods: {

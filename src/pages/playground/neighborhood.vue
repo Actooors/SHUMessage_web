@@ -1,11 +1,13 @@
 <template>
   <scroll
+    v-model="scrollerStatus"
     @on-scroll="handleScroll"
     :height="scrollHeight"
     @on-pulldown-loading="handlePulldownLoading"
     @on-pullup-loading="handlePullupLoading"
     ref="scroll"
   >
+    <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <user-message-card
       v-for="(item,index) of cards"
       :key="item.value"
@@ -38,11 +40,12 @@
   import store from "store/store";
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
+  import {Spinner} from 'vux'
 
   export default {
     name: "neighborhood",
     store,
-    components: {Previewer, UserMessageCard, Scroll, Share},
+    components: {...{Spinner}, Previewer, UserMessageCard, Scroll, Share},
     mixins: [mock, scrollMixin, sharebarMixin, previewerMixin],
     methods: {
       handleClickCard(index, info) {

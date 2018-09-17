@@ -1,11 +1,13 @@
 <template>
   <scroll
+    v-model="scrollerStatus"
     @on-scroll="handleScroll"
     :height="scrollHeight"
     @on-pulldown-loading="handlePulldownLoading"
     @on-pullup-loading="handlePullupLoading"
     ref="scroll"
   >
+    <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <common-card
       v-for="(item,index) of cards"
       :key="item.value"
@@ -31,11 +33,12 @@
   import axios from 'axios'
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
+  import {Spinner} from 'vux'
 
   export default {
     name: "attention",
     store,
-    components: {CommonCard, Scroll, Share},
+    components: {...{Spinner}, CommonCard, Scroll, Share},
     mixins: [scrollMixin, sharebarMixin],
     data: () => ({
       cards: [],
@@ -46,6 +49,7 @@
     },
     methods: {
       loadData() {
+        let that=this
         axios({
           url: apiRoot + this.listApi,
           method: "get",
@@ -55,6 +59,9 @@
           }
         }).then((res) => {
           this.cards = res.data.data.cards
+          this.$nextTick(()=>{
+            that.$refs.scroll.reset()
+          })
         }).catch((err) => {
           console.error(err)
         })
@@ -75,5 +82,10 @@
 </script>
 
 <style scoped>
-
+  .center-spinner {
+    margin: 0 auto;
+    display: table;
+    position: relative;
+    bottom: -25px;
+  }
 </style>

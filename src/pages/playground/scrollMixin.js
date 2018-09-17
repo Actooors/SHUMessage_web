@@ -5,6 +5,10 @@ import axios from 'axios'
 export default {
   store,
   data: () => ({
+    scrollerStatus: {
+      pullupStatus: 'default',
+      pulldownStatus: 'default'
+    },
     scrollHeight: "",
     slowScrollHeight: "",
     offset: 0,
@@ -121,7 +125,7 @@ export default {
       }, 200)
     },
     handlePulldownLoading() {
-
+      let that = this
       if (!this.loadingRefresh) {
         this.loadingRefresh = true
         axios({
@@ -133,16 +137,19 @@ export default {
           }
         }).then((res) => {
           //营造数据刷新的效果
-          this.cards = []
+          that.cards = []
           setTimeout(() => {
-            this.cards = res.data.data.cards
+            that.cards = res.data.data.cards
+            that.$nextTick(() => {
+              that.$refs.scroll.reset()
+            })
           }, 20)
         }).catch((err) => {
           console.error(err)
         }).finally(() => {
-          this.$refs.scroll.donePulldown()
+          that.$refs.scroll.donePulldown()
           setTimeout(() => {
-            this.loadingRefresh = false
+            that.loadingRefresh = false
           }, 1000)
         })
       }
