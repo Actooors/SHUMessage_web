@@ -70,7 +70,7 @@
           :imgs="item.imgs"
           :show-comment="showComment"
           @onClickReply="handleClickReply(item)"
-          @onClickLike="handleClickShareButton(0,item)"
+          @onClickLike="handleShare(0,item)"
           @onClickCard="handleClickCommentCard(...arguments,index,item)"
           @onClickImg="handleClickCommentImg"
         ></comment-card>
@@ -216,6 +216,16 @@
       clearInterval(this.timer)
     },
     methods: {
+      handleShare(btnIndex, msg) {
+        //对所有满足msg.info的数据进行
+        let arr = []
+        console.log("?", msg)
+        this.raw.map((block) => {
+          arr.push(...block.cards.filter(card => card.info.id === msg.info.id && card.info.type === msg.info.type))
+        });
+        console.log("!!!", arr)
+        this.handleClickShareButton(btnIndex, arr)
+      },
       initTitle() {
         if ('type' in this.$route.query) {
           this.showComment = true

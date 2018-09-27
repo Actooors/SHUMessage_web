@@ -96,6 +96,9 @@
 
       },
       validImageFormat(file) {
+        if (!file) {
+          return false
+        }
         let supportedFormat = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
         return supportedFormat.some(x => x === file.type)
       },
