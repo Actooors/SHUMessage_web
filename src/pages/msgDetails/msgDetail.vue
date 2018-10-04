@@ -49,7 +49,7 @@
       </div>
       <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>
       <div
-        v-for="block of raw"
+        v-for="(block,blockIndex) of raw"
         :key="block.value"
         class="block"
       >
@@ -57,7 +57,7 @@
         <comment-card
           v-for="(item,index) of block.cards"
           :key="item.value"
-          :class="{'popping':showPop===index}"
+          :class="{'popping':showPop[0]===blockIndex && showPop[1]===index}"
           :tick="tick"
 
           :content="item.content"
@@ -71,7 +71,7 @@
           :show-comment="showComment"
           @onClickReply="handleClickReply(item)"
           @onClickLike="handleShare(0,item)"
-          @onClickCard="handleClickCommentCard(...arguments,index,item)"
+          @onClickCard="handleClickCommentCard(...arguments,[blockIndex,index],item)"
           @onClickImg="handleClickCommentImg"
         ></comment-card>
       </div>
@@ -153,7 +153,7 @@
     data: () => ({
       timer: null,
       tick: 0,
-      showPop: -1,
+      showPop: [-1, -1],
       showPopDeleteBtn: false,
       popX: 0,
       popY: 0,
@@ -170,7 +170,7 @@
     }),
     computed: {
       showPopBoolean() {
-        return this.showPop >= 0
+        return this.showPop[0] >= 0 && this.showPop[1] >= 0
       }
     },
     watch: {
@@ -188,7 +188,7 @@
       },
       '$route'(val, pre) {
         store.commit("pushRouter/SET_ROUTE_CHANGED", true)
-        this.showPop = -1
+        this.showPop = [-1, -1]
         this.initTitle()
       }
     },
@@ -198,10 +198,10 @@
         getThumbBoundsFn: this.getThumbBoundsFn
       }
       let el = this.$refs.viewBox.getScrollBody()
-      this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = -1)
+      this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1])
       this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
-      this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = -1)
-      el.addEventListener('scroll', () => this.showPop = -1)
+      this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1])
+      el.addEventListener('scroll', () => this.showPop = [-1, -1])
       el.addEventListener('scroll', (event) => this.handleScroll(event, el))
 
       if (this.allLoaded) {
@@ -283,7 +283,7 @@
             console.log("删除评论、回复")
             break
         }
-        this.showPop = -1
+        this.showPop = [-1, -1]
       },
       handleClickBack() {
         // this.$router.go(-1)
@@ -329,15 +329,15 @@
           || userinfo.id === this.msg.author.id//要么是msg的作者
         )
       },
-      handleClickCommentCard(clickX, clickY, cardIndex, item) {
-        if (this.showPop === cardIndex) {
-          this.showPop = -1
+      handleClickCommentCard(clickX, clickY, [blockIndex, cardIndex], item) {
+        if (this.showPop[0] === blockIndex && this.showPop[1] === cardIndex) {
+          this.showPop = [-1, -1]
           return
         }
         this.highlightItem = item
         this.showPopDeleteBtn = this.judgeDeleteRight(item)
         this.copyContent = item.content
-        this.showPop = cardIndex
+        this.showPop = [blockIndex, cardIndex]
         let that = this
         this.$nextTick(() => {
           let elem = that.$refs.popover.$refs.popover
