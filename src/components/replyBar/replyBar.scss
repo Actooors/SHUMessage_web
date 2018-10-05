@@ -23,21 +23,23 @@
     margin-right: 60px;
     margin-left: .6em;
     $input-background: $--theme-gray-light4;
+    border: $--theme-gray-light25 solid 1px;
+    border-radius: $input-height / 2;
+    background-color: $input-background;
     .input {
       -webkit-appearance: none;
+      border: none;
       width: 100%;
-      border: $--theme-gray-light25 solid 1px;
-      border-radius: $input-height / 2;
-      padding: {
+      margin: {
         top: $input-height / 4;
         right: 25px;
         bottom: $input-height / 4;
         left: .9em;
       }
       box-sizing: border-box;
-      min-height: $input-height;
       background-color: $input-background;
       resize: none;
+      min-height: 15px;
       max-height: 30vh;
       overflow: hidden scroll;
       -webkit-overflow-scrolling: touch;
