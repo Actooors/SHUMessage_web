@@ -7,6 +7,7 @@ import MoreIndex from 'pages/self/more'
 import More from 'pages/self/more/more'
 import Myinfo from 'pages/self/more/myinfo'
 import Signature from 'pages/self/more/signature'
+import Checkpwd from 'pages/self/more/checkpwd'
 import Playground from 'pages/playground'
 import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
@@ -96,8 +97,8 @@ const router = new Router({
         {
           path: "myinfo",
           component: Myinfo,
-          meta:{
-            title:"我的信息"
+          meta: {
+            title: "我的信息"
           }
         },
         {
@@ -106,6 +107,14 @@ const router = new Router({
           meta: {
             title: "修改签名",
             option: "完成"
+          }
+        },
+        {
+          path: 'checkpwd',
+          component: Checkpwd,
+          meta: {
+            title: "修改密码",
+            option: "确定"
           }
         }
       ]
@@ -125,7 +134,7 @@ const router = new Router({
       component: Seo
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   // console.log(to, from)

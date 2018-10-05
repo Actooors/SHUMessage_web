@@ -92,7 +92,7 @@
       pic: {
         type: String,
         default() {
-          return `https://ws1.sinaimg.cn/large/006P5HMAgy1fv5vcvzj5aj3040040742.jpg`
+          return 'https://ws1.sinaimg.cn/large/006P5HMAgy1fv5vcvzj5aj3040040742.jpg'
         }
       },
       digest: {

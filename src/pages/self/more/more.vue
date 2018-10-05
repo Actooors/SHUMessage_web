@@ -12,7 +12,7 @@
       </cell>
     </group>
     <group class="group-safety">
-      <cell title="修改密码" is-link link="/self/more/pi">
+      <cell title="修改密码" is-link link="/self/more/checkpwd">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
       <cell title="修改手机" is-link link="/self/more/pi">
@@ -20,7 +20,7 @@
       </cell>
     </group>
     <group class="group-feedback">
-      <cell title="安利分享" is-link link="/self/more/pi">
+      <cell title="安利分享" is-link @click.native="shareToOthers">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
       <cell title="常见问题" is-link link="/self/more/pi">
@@ -33,19 +33,36 @@
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
     </group>
+    <share
+      v-model="showPopup"
+      :url="$route.query.url"
+      title="SHU Message"
+      digest="一款美观,实用,稳定的且仅为SHU师生服务的消息聚合及分享平台"
+    ></share>
+    <!--此处需要提供shu_message的主页url TODO-->
   </div>
 </template>
 
 <script>
   import {Cell, Group} from 'vux'
+  import Share from 'components/share/share'
 
   export default {
     name: "more",
     components: {
       Cell,
-      Group
+      Group,
+      Share
     },
-    created() {
+    data() {
+      return {
+        showPopup: false
+      }
+    },
+    methods: {
+      shareToOthers() {
+        this.showPopup = true
+      }
     }
   }
 </script>
