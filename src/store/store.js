@@ -56,7 +56,8 @@ const pushRouter = {
   state: {
     cardItem: null,
     routeChanged: false,
-    defaultHistoryLength: 0
+    defaultHistoryLength: 0,
+    detailScrollTop: {}
   },
   mutations: {
     SET_CARD_ITEM(state, item) {
@@ -67,6 +68,9 @@ const pushRouter = {
     },
     SET_DEFAULT_HISTORY_LENGTH(state, val) {
       state.defaultHistoryLength = val
+    },
+    SET_DETAIL_SCROLL_TOP(state, [index, val]) {
+      state.detailScrollTop[index] = val
     }
   }
 }

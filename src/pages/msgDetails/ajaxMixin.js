@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
+import {emojiDecode, emojiTest, emojiEncode} from "assets/js/handleEmoji";
+import {querystring} from 'vux'
 
 export default {
   data: () => ({
@@ -40,6 +42,13 @@ export default {
         this.loadingMoreComments = false
         this.page = 0
         this.loadData()
+      } else if (to.name === this.$options.name || to.name === this.$parent.$options.name) {
+        let query = querystring.parse()
+        let that = this
+        this.$nextTick(() => {
+          that.$refs.viewBox.scrollTo(this.$store.state.pushRouter.detailScrollTop[query.type])
+        })
+        // this.$store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", [query.type, 0])
       }
     }
   },
@@ -154,6 +163,7 @@ export default {
     },
     handleComment(content, img, info) {
       let that = this
+      content = emojiEncode(content)
       axios({
         url: apiRoot + '/comment/newComment',
         method: 'post',
@@ -169,12 +179,16 @@ export default {
         }
         this.replyName = this.msg.author.name;
         this.replyInfo = this.msg.info;
-        (async () => {
-          that.noMore = false
-          that.page = 0
-          await that.loadComment()
-          that.$vux.toast.text('评论成功')
-        })();
+        // (async () => {
+        //   that.noMore = false
+        //   that.page = 0
+        //   await that.loadComment()
+        //   that.$vux.toast.text('评论成功')
+        // })();
+        that.noMore = false
+        that.page = 0
+        that.loadComment()
+        that.$vux.toast.text('评论成功')
 
         // //如果是在评论界面回复评论
         // if (info.type.toString() !== this.$route.query.type.toString()) {

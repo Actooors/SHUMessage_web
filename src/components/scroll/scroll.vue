@@ -76,7 +76,7 @@
         this.$emit('input', val)
       },
       value(val) {
-        console.log("?")
+        // console.log("?")
         this.scrollerStatus = val
       }
     },

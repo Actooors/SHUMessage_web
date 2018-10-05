@@ -50,7 +50,7 @@
 </template>
 
 <script>
-  import autosize from 'autosize'
+  import autosize from 'assets/js/autosize'
   //Popover改自vux以适应项目
   import Popover from 'components/popover/popover'
   import {ViewBox} from 'vux'
@@ -71,14 +71,14 @@
       popBottom: 48
     }),
     mounted() {
-      autosize(this.$refs.textarea);
-      this.$refs.textarea.addEventListener("touchstart", event => event.stopPropagation())
+      autosize(this.$refs.textarea, {initOffset: -15});
+      this.$refs.textarea.addEventListener("touchstart", event => event.stopPropagation());
       document.getElementById('file').addEventListener('change', this.handleInputFile)
     },
     methods: {
       handleReplayBarResize() {
         this.$nextTick(() => {
-          this.popBottom = Number(window.getComputedStyle(this.$refs.replayBar)['height'].replace(/px/, ''))
+          this.popBottom = parseInt(window.getComputedStyle(this.$refs.replayBar)['height'].replace(/px/, ''))
         })
       },
       handleSubmit(event) {
@@ -86,6 +86,14 @@
         this.content = ""
         this.imgUrl = ""
         this.showImg = false
+        const that = this
+        this.$nextTick(() => {
+          let evt = document.createEvent("HTMLEvents")
+          evt.initEvent("input", true, false)
+          evt.data = null
+          evt.inputType = "deleteContent"
+          that.$refs.textarea.dispatchEvent(evt)
+        })
         event.preventDefault()
       },
       handleInputFile(event) {

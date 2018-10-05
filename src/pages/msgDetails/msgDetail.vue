@@ -125,6 +125,7 @@
 
 <script>
   import {ViewBox, XHeader, Previewer, Spinner, LoadMore} from 'vux'
+  import {querystring} from 'vux'
   import CommonCard from 'components/commonCard/commonCard'
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import CommentCard from 'components/commentCard/commentCard'
@@ -171,6 +172,9 @@
     computed: {
       showPopBoolean() {
         return this.showPop[0] >= 0 && this.showPop[1] >= 0
+      },
+      query() {
+        return querystring.parse(location.search)
       }
     },
     watch: {
@@ -318,6 +322,9 @@
         ) {
           this.loadMore()
         }
+
+        //记录scrollTop
+        this.$store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", [this.query.type, this.$refs.viewBox.getScrollBody().scrollTop])
       },
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
         this.judgeAndMoveToCommentBlocks(false)

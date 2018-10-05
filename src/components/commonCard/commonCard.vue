@@ -6,7 +6,7 @@
         type="ios-arrow-down"
         size="15"></x-icon></span>
     </div>
-    <pre class="content" v-text="msg.content"></pre>
+    <pre class="content">{{msg.content | emojiDecode}}</pre>
     <div
       v-if="msg.media && msg.media.type==='url'"
       class="url"
@@ -41,6 +41,7 @@
 <script>
   import ShareBar from 'components/shareBar/shareBar'
   import {preHandleTime} from 'assets/js/relativeTime'
+  import {emojiDecode} from "assets/js/handleEmoji";
 
   export default {
     name: "commonCard",
@@ -53,6 +54,11 @@
       lazyload: {
         type: Boolean,
         default: true
+      }
+    },
+    filters: {
+      emojiDecode(text) {
+        return emojiDecode(text)
       }
     },
     methods: {
