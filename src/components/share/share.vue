@@ -53,6 +53,9 @@
     </popup>
     <div>
       <x-dialog v-model="showXDialog" class="xDialog" hide-on-blur>
+        <div class="close">
+          <i class="icon-close-circle iconfont icon" @click="closeDialog"></i>
+        </div>
         <div class="qrcode">
           <qrcode :value="webUrl" type="img"></qrcode>
         </div>
@@ -161,10 +164,20 @@
       share2weixin() {
         this.showXDialog = true
         console.log(this.webUrl)
+      },
+      closeDialog(){
+        this.showXDialog = false;
       }
     }
   }
 </script>
 <style lang="scss" scoped>
   @import "share";
+</style>
+<style lang="scss" scoped>
+  .close{
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
 </style>

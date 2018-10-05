@@ -30,9 +30,7 @@
 
   export default {
     name: "myinfo",
-    store,
     created() {
-      store.commit("top/CHANGE_HEADER_TITLE", "我的信息")
     },
     data() {
       return {}

@@ -95,7 +95,10 @@ const router = new Router({
         },
         {
           path: "myinfo",
-          component: Myinfo
+          component: Myinfo,
+          meta:{
+            title:"我的信息"
+          }
         },
         {
           path: "signature",
