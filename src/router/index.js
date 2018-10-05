@@ -6,6 +6,7 @@ import Self from 'pages/self/self'
 import MoreIndex from 'pages/self/more'
 import More from 'pages/self/more/more'
 import Myinfo from 'pages/self/more/myinfo'
+import Signature from 'pages/self/more/signature'
 import Playground from 'pages/playground'
 import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
@@ -87,11 +88,22 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: More
+          component: More,
+          meta: {
+            title: "更多"
+          }
         },
         {
           path: "myinfo",
           component: Myinfo
+        },
+        {
+          path: "signature",
+          component: Signature,
+          meta: {
+            title: "修改签名",
+            option: "完成"
+          }
         }
       ]
     },

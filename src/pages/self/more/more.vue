@@ -4,7 +4,7 @@
       <cell title="更改个人信息" is-link link="/self/more/myinfo">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="更改签名" is-link link="/self/more/pi">
+      <cell title="更改签名" is-link link="/self/more/signature">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
       <cell title="添加兴趣" is-link link="/self/more/pi">
@@ -38,17 +38,14 @@
 
 <script>
   import {Cell, Group} from 'vux'
-  import store from 'store/store'
 
   export default {
     name: "more",
-    store,
     components: {
       Cell,
       Group
     },
     created() {
-      store.commit("top/CHANGE_HEADER_TITLE", "更多")
     }
   }
 </script>
@@ -59,7 +56,7 @@
 <style lang="scss">
   .force-black {
     .vux-header-title, .vux-header-back, .vux-header-left, .vux-header-right {
-      color: black !important;
+      /*color: black !important;*/
     }
   }
 </style>

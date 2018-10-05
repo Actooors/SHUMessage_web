@@ -7,10 +7,18 @@ const top = {
   namespaced: true,
   state: {
     header_title: "SHU_Message",
+    optionMethod: function () {
+    }
   },
   mutations: {
     CHANGE_HEADER_TITLE(state, title) {
       state.header_title = title
+    },
+    CHANGE_HEADER_OPTION(state, option) {
+      state.header_option = option
+    },
+    CHANGE_HEADER_OPTION_METHOD(state, m) {
+      state.optionMethod = m
     }
   }
 }

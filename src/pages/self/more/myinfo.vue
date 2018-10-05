@@ -1,21 +1,48 @@
 <template>
   <div class="more-wrapper">
-
+    <group class="group1">
+      <cell title="更改头像" is-link>
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="个性标签" is-link>
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
+    <group class="group2">
+      <cell title="更改生日" is-link>
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+      <cell title="更改性别" is-link>
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
+    <group class="group3">
+      <cell title="绑定邮箱" value="未绑定" is-link>
+        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
+      </cell>
+    </group>
   </div>
 </template>
 
 <script>
   import store from 'store/store'
+  import {Cell, Group} from 'vux'
 
   export default {
     name: "myinfo",
     store,
     created() {
       store.commit("top/CHANGE_HEADER_TITLE", "我的信息")
-    }
+    },
+    data() {
+      return {}
+    },
+    components: {Cell, Group}
   }
 </script>
-
+<style lang="scss" scoped>
+  @import "more";
+</style>
 <style scoped>
 
 </style>
