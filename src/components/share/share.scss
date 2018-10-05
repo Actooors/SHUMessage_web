@@ -25,9 +25,20 @@
     }
     .share-div {
       position: relative;
-      width: 110%;
+      //width: 110%;
     }
     .operation {
+      .weixin {
+        display: inline-block;
+        text-align: center;
+        margin: 5px 0px;
+        min-width: 30px;
+        .weixintag {
+          font-size: 11px;
+          color: #6c6c6c;
+          margin-top: 5px;
+        }
+      }
       .row-li {
         display: inline-block;
         text-align: center;
@@ -61,3 +72,12 @@
     text-align: center;
   }
 }
+.xDialog{
+  .qrcode {
+    margin: 20%;
+  }
+  .save{
+    margin-bottom: 20px;
+  }
+}
+

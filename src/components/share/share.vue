@@ -8,7 +8,14 @@
           </p>
           <scroller lock-y :scrollbar-x=false ref="scroller">
             <div class="nowrapspace" @click="showPopup=false">
-              <div class="share-div"></div>
+              <div class="share-div">
+              </div>
+              <ul class="row operation">
+                <li class="weixin" @click="share2weixin">
+                  <img src="../../assets/images/weixin.png" style="height: 30px;width: 30px;">
+                  <p class="weixintag">微信</p>
+                </li>
+              </ul>
             </div>
           </scroller>
           <div class="hr"></div>
@@ -44,11 +51,19 @@
         <div class="cancel" @click="showPopup=false">取消</div>
       </div>
     </popup>
+    <div>
+      <x-dialog v-model="showXDialog" class="xDialog" hide-on-blur>
+        <div class="qrcode">
+          <qrcode :value="webUrl" type="img"></qrcode>
+        </div>
+        <div class="save">长按保存二维码</div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
 <script>
-  import {Popup, Scroller} from 'vux'
+  import {Popup, Scroller, Qrcode, Divider, XDialog} from 'vux'
   import ClipboardJS from 'clipboard'
   import soshm from 'components/soshm/src/js'
 
@@ -82,10 +97,14 @@
         require: true
       }
     },
-    components: {Popup, Scroller},
-    data: () => ({
-      showPopup: false
-    }),
+    components: {Popup, Scroller, Qrcode, Divider, XDialog},
+    data() {
+      return {
+        showPopup: false,
+        showXDialog: false,
+        webUrl: this.url
+      }
+    },
     watch: {
       showPopup(val) {
         this.$emit('input', val)
@@ -139,6 +158,10 @@
         window.open(this.url, "_blank")
         this.showPopup = false
       },
+      share2weixin() {
+        this.showXDialog = true
+        console.log(this.webUrl)
+      }
     }
   }
 </script>

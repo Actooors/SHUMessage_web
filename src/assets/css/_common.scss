@@ -12,6 +12,7 @@
 
 //消除换行带来的元素之间的间隙
 .nowrapspace {
+  display: flex;
   letter-spacing: -1px;
   font-size: 0;
   > * {
