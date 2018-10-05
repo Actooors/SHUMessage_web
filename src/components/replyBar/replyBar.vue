@@ -71,8 +71,8 @@
       popBottom: 48
     }),
     mounted() {
-      autosize(this.$refs.textarea, {initOffset: -15, contentTip: this.content});
-      this.$refs.textarea.addEventListener("touchstart", event => event.stopPropagation())
+      autosize(this.$refs.textarea, {initOffset: -15});
+      this.$refs.textarea.addEventListener("touchstart", event => event.stopPropagation());
       document.getElementById('file').addEventListener('change', this.handleInputFile)
     },
     methods: {

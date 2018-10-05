@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
 import {emojiDecode, emojiTest, emojiEncode} from "assets/js/handleEmoji";
+import {querystring} from 'vux'
 
 export default {
   data: () => ({
@@ -41,6 +42,13 @@ export default {
         this.loadingMoreComments = false
         this.page = 0
         this.loadData()
+      } else if (to.name === this.$options.name || to.name === this.$parent.$options.name) {
+        let query = querystring.parse()
+        let that = this
+        this.$nextTick(() => {
+          that.$refs.viewBox.scrollTo(this.$store.state.pushRouter.detailScrollTop[query.type])
+        })
+        // this.$store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", [query.type, 0])
       }
     }
   },
