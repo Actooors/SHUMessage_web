@@ -39,7 +39,7 @@
       background-color: $input-background;
       resize: none;
       max-height: 30vh;
-      overflow: scroll;
+      overflow: hidden scroll;
       -webkit-overflow-scrolling: touch;
       &:focus {
         outline: none;
