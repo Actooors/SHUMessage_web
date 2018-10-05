@@ -2,13 +2,20 @@
   <div class="replayBar" ref="replayBar">
     <div class="inputBox">
       <textarea
-        class="input needsclick"
+        class="input needsclick needsscroll"
         v-model="content"
         :placeholder="placeholder"
         id="textarea"
         @input="handleReplayBarResize"
         ref="textarea"
       ></textarea>
+      <!--<div-->
+      <!--ref="textarea"-->
+      <!--id="textarea"-->
+      <!--class="input needsclick needsfocus"-->
+      <!--contenteditable="true"-->
+      <!--@input="handleReplayBarResize"-->
+      <!--aria-placeholder="sadf"></div>-->
       <i
         class="icon-enter1 iconfont icon"
         @click="handleSubmit"
@@ -46,10 +53,11 @@
   import autosize from 'autosize'
   //Popover改自vux以适应项目
   import Popover from 'components/popover/popover'
+  import {ViewBox} from 'vux'
 
   export default {
     name: "replyBar",
-    components: {Popover},
+    components: {Popover, ViewBox},
     props: {
       placeholder: {
         type: String,
@@ -64,6 +72,7 @@
     }),
     mounted() {
       autosize(this.$refs.textarea);
+      this.$refs.textarea.addEventListener("touchstart", event => event.stopPropagation())
       document.getElementById('file').addEventListener('change', this.handleInputFile)
     },
     methods: {

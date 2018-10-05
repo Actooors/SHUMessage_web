@@ -199,7 +199,7 @@
       }
       let el = this.$refs.viewBox.getScrollBody()
       this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1])
-      this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
+      // this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
       this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1])
       el.addEventListener('scroll', () => this.showPop = [-1, -1])
       el.addEventListener('scroll', (event) => this.handleScroll(event, el))
@@ -277,7 +277,7 @@
           case 0:
             this.replyName = this.highlightItem.author.name
             this.replyInfo = this.highlightItem.info
-            this.$refs.replyBar.$el.querySelector('#textarea').focus()
+            // this.$refs.replyBar.$el.querySelector('#textarea').focus()
             break
           case 2:
             console.log("删除评论、回复")

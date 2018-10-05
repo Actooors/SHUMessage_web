@@ -19,7 +19,7 @@
           </span>
         </div>
       </div>
-      <div class="content" v-text="msg.content"></div>
+      <pre class="content" v-text="msg.content"></pre>
       <div
         v-if="msg.media && msg.media.type==='url'"
         class="url"

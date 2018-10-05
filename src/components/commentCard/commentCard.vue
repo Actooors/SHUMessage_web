@@ -14,7 +14,7 @@
           <span class="hasbeenfrom" :key="tick">{{publishTime | relativeTime}}</span>
         </div>
       </div>
-      <div class="content" v-text="content"></div>
+      <pre class="content" v-text="content"></pre>
       <div
         class="comment-imgs"
         v-if="imgs && imgs.length"

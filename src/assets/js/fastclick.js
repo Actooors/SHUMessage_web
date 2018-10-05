@@ -251,7 +251,7 @@ FastClick.prototype.needsClick = function (target) {
       return true;
   }
 
-  return (/\bneedsclick\b/).test(target.className);
+  return (/\bneedsclick\b/).test(target.className) || (/\bneedsclick\b/).test(target.parentElement.className);
 };
 
 
@@ -399,10 +399,12 @@ FastClick.prototype.onTouchStart = function (event) {
   targetElement = this.getTargetElementFromEventTarget(event.target);
   tagName = targetElement.tagName.toLowerCase()
   touch = event.targetTouches[0];
-
+  if (this.needsClick(targetElement)) {
+    return true
+  }
   if (deviceIsIOS) {
     //fix点击input[type='search']和textarea出现bug的问题
-    if (tagName === 'textarea' || tagName === 'input' && targetElement.type === 'search') {
+    if (tagName === 'textarea' || tagName === 'input' && (targetElement.type === 'search') || this.needsClick(targetElement)) {
       return true
     }
     // Only trusted events will deselect text on iOS (issue #49)

@@ -37,6 +37,10 @@
       document.body.addEventListener('touchmove', (event) => {
         let nodeViewBox = document.querySelector('#__viewBox #vux_view_box_body')
         let moveY = event.touches[0].pageY
+        //事实上所有的needsscroll都需要按照viewBox的模式进行处理，这里暂不做处理。
+        if((/\bneedsscroll\b/).test(event.target.className)){
+          return
+        }
         //如果target是可滚动的viewBox，先看看会不会超出边界
         if (nodeViewBox && that.isChildOrItself(nodeViewBox, event.target) &&
           !(that.scrollTop === 0 && moveY - that.startY > 0) &&//已经到最顶了，还想往上滚
@@ -46,6 +50,7 @@
           return
         }
         //阻止滚动
+        console.log("* 已阻止可能导致橡皮筋效果的touchmove事件")
         event.preventDefault()
       }, {passive: false})
     },

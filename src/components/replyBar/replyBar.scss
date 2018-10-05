@@ -35,11 +35,11 @@
         left: .9em;
       }
       box-sizing: border-box;
-      height: $input-height;
+      min-height: $input-height;
       background-color: $input-background;
       resize: none;
       max-height: 30vh;
-      overflow: auto;
+      overflow: scroll;
       -webkit-overflow-scrolling: touch;
       &:focus {
         outline: none;
