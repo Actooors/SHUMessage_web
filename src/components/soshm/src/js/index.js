@@ -156,30 +156,6 @@ function shareTo(site, data) {
         return;
       }
     }
-
-    if (device.isQQBrowser) {
-      if (nativeShareApps[site]) app = nativeShareApps[site][2];
-      if (app !== undefined) {
-        if (window.browser) {
-          shareInfo = {
-            url: data.url,
-            title: data.title,
-            description: data.digest,
-            img_url: data.pic,
-            img_title: data.title,
-            to_app: app,
-            cus_txt: ''
-          };
-
-          browser.app && browser.app.share(shareInfo);
-        } else {
-          loadScript('//jsapi.qq.com/get?api=app.share', function () {
-            shareTo(site, data);
-          });
-        }
-        return;
-      }
-    }
   }
 
   // 在普通浏览器里，使用URL Scheme唤起QQ客户端进行分享
@@ -300,14 +276,15 @@ function getQueryVariable(variable) {
  * @param  {Function} done  [脚本完毕回调函数]
  */
 function loadScript(url, done) {
+  console.log(url, done)
   var script = doc.createElement('script');
   script.src = url;
-  script.onload = onreadystatechange = function () {
+  script.onload = script.onreadystatechange = function () {
     if (!this.readyState ||
       this.readyState === 'load' ||
       this.readyState === 'complete') {
       done && done();
-      script.onload = onreadystatechange
+      script.onload = script.onreadystatechange
       script.parentNode.removeChild(script);
     }
   };
