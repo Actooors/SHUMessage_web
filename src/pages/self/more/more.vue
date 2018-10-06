@@ -29,7 +29,7 @@
       <cell title="新版功能" is-link link="/self/more/pi">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="用户反馈" is-link link="/self/more/pi">
+      <cell title="用户反馈" is-link link="/self/more/feedback">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
     </group>

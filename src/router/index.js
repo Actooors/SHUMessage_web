@@ -8,6 +8,7 @@ import More from 'pages/self/more/more'
 import Myinfo from 'pages/self/more/myinfo'
 import Signature from 'pages/self/more/signature'
 import Checkpwd from 'pages/self/more/checkpwd'
+import Feedback from 'pages/self/more/feedback'
 import Playground from 'pages/playground'
 import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
@@ -115,6 +116,13 @@ const router = new Router({
           meta: {
             title: "修改密码",
             option: "确定"
+          }
+        },
+        {
+          path: 'feedback',
+          component: Feedback,
+          meta: {
+            title: '意见反馈'
           }
         }
       ]
