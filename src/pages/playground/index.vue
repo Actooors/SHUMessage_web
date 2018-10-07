@@ -55,7 +55,7 @@
       this.initTab()
     },
     mounted() {
-      stickybits('.topBar');
+      // stickybits('.topBar');
       this.initHeaderScroll();
     },
     methods: {

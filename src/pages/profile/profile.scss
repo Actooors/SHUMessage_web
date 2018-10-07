@@ -1,0 +1,129 @@
+@import "../../assets/css/varies";
+
+.profile-viewbox {
+  font-size: .7rem;
+  color: $--theme-gray-light5;
+  $row-gap: 7px;
+  .gallery {
+    background: url("https://s2.music.126.net/style/web2/img/down/bg.jpg?555a00dc3f44ed524eb92d70bbd60bc0");
+    height: 310px;
+    padding: 70px 20px 0;
+    position: relative;
+    .toprow {
+      @extend .row;
+      justify-content: space-between;
+      .avatar {
+        @extend .round-shadow;
+        height: 64px;
+        width: 64px;
+      }
+      .chat {
+        @extend .round;
+        color: $--theme-gray-light25;
+        height: 30px;
+        width: 30px;
+        border: none;
+        background: $--background-profile-tag;
+        > .iconfont {
+          font-size: 1.15rem;
+        }
+      }
+      .follow {
+        @extend .row;
+        color: $--theme-gray-light25;
+        margin-left: 20px;
+        justify-content: center;
+        height: 30px;
+        width: 80px;
+        border: none;
+        border-radius: 15px;
+        background: $--theme-blue-deep2;
+        > .iconfont {
+          font-weight: bold;
+        }
+        > span {
+          @extend .row;
+          position: relative;
+          left: -1px;
+        }
+      }
+    }
+    .username {
+      margin: $row-gap 0 $row-gap/2;
+      font-size: 1.1rem;
+    }
+    .signature {
+      //margin: 0 0 10px;
+    }
+    .tag {
+      margin: $row-gap 5px $row-gap 0;
+      height: 1rem;
+      line-height: 1rem;
+      font-size: .65rem;
+      border-radius: .5rem;
+      background: $--background-profile-tag;
+      padding: 0 6px;
+    }
+    .tip {
+      color: $--theme-gray-light3;
+    }
+    .gallery-bottom {
+      $gallery-bottom-height: 60px;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      height: $gallery-bottom-height;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      > div {
+        flex: 1;
+        text-align: center;
+        .num {
+          font-size: .9rem;
+        }
+      }
+    }
+  }
+  .main-list {
+    color: black;
+    position: relative;
+    top: -10px;
+    .list-top {
+      border-radius: 7px 7px 0 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgb(229, 229, 229);
+      z-index: 1;
+      * {
+        background: none !important;
+      }
+      .tab {
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.round {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+}
+
+.round-shadow {
+  @extend .round;
+  @extend .shadow;
+}

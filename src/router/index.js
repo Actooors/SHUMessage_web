@@ -18,6 +18,7 @@ import Find from 'pages/find/find'
 import MsgDetail from 'pages/msgDetails/msgDetail'
 import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
+import Profile from 'pages/profile/profile'
 
 Vue.use(Router)
 
@@ -140,6 +141,10 @@ const router = new Router({
     {
       path: "/seo",
       component: Seo
+    },
+    {
+      path: "/profile",
+      component: Profile
     }
   ]
 });
