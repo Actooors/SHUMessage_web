@@ -4,6 +4,35 @@
   font-size: .7rem;
   color: $--theme-gray-light5;
   $row-gap: 7px;
+  #profile-XHeader {
+    .iconfont {
+      font-size: 24px;
+    }
+    .headerInfo {
+      @extend .row;
+      position: relative;
+      align-items: center;
+      text-align: left;
+      height: 100%;
+      font-size: 12px;
+      line-height: 1rem;
+      animation-duration: 350ms;
+      .avatar {
+        height: 32px;
+        width: 32px;
+        @extend %round;
+        margin: 0 10px;
+      }
+      .follow {
+        @extend %follow-basic;
+        background: $--theme-blue-deep;
+        height: 24px;
+        width: 54px;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
   .gallery {
     background: url("https://s2.music.126.net/style/web2/img/down/bg.jpg?555a00dc3f44ed524eb92d70bbd60bc0");
     height: 310px;
@@ -13,12 +42,12 @@
       @extend .row;
       justify-content: space-between;
       .avatar {
-        @extend .round-shadow;
+        @extend %round-shadow;
         height: 64px;
         width: 64px;
       }
       .chat {
-        @extend .round;
+        @extend %round;
         color: $--theme-gray-light25;
         height: 30px;
         width: 30px;
@@ -29,23 +58,11 @@
         }
       }
       .follow {
-        @extend .row;
-        color: $--theme-gray-light25;
-        margin-left: 20px;
-        justify-content: center;
+        @extend %follow-basic;
+        background: $--theme-blue-deep2;
         height: 30px;
         width: 80px;
-        border: none;
-        border-radius: 15px;
-        background: $--theme-blue-deep2;
-        > .iconfont {
-          font-weight: bold;
-        }
-        > span {
-          @extend .row;
-          position: relative;
-          left: -1px;
-        }
+        margin-left: 20px;
       }
     }
     .username {
@@ -81,6 +98,7 @@
         text-align: center;
         .num {
           font-size: .9rem;
+          font-weight: bold;
         }
       }
     }
@@ -89,18 +107,31 @@
     color: black;
     position: relative;
     top: -10px;
-    .list-top {
-      border-radius: 7px 7px 0 0;
-      overflow: hidden;
-      background: white;
-      border-bottom: 1px solid rgb(229, 229, 229);
-      z-index: 1;
-      * {
-        background: none !important;
+    min-height: calc(100vh - 56px);
+    .moments-row {
+      @extend .row;
+      padding: 5px 20px;
+      color: $--theme-gray;
+      .iconfont {
+        margin-right: .2em;
       }
-      .tab {
-        width: 200px;
-        margin: 0 auto;
+    }
+    .list-top-box {
+      background: url("https://s2.music.126.net/style/web2/img/down/bg.jpg?555a00dc3f44ed524eb92d70bbd60bc0");
+      background-position-y: -310px;
+      z-index: 1;
+      .list-top {
+        border-radius: 7px 7px 0 0;
+        overflow: hidden;
+        background: white;
+        border-bottom: 1px solid rgb(229, 229, 229);
+        * {
+          background: none !important;
+        }
+        .tab {
+          width: 61.8%;
+          margin: 0 auto;
+        }
       }
     }
   }
@@ -109,21 +140,45 @@
 .row {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
-.round {
+%round {
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.shadow {
+%shadow {
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
 }
 
-.round-shadow {
-  @extend .round;
-  @extend .shadow;
+%round-shadow {
+  @extend %round;
+  @extend %shadow;
+}
+
+%follow-basic {
+  @extend .row;
+  color: $--theme-gray-light25;
+  justify-content: center;
+  border: none;
+  border-radius: 15px;
+  > .iconfont {
+    font-weight: bold;
+  }
+  > span {
+    @extend .row;
+    position: relative;
+    left: -1px;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 300ms;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+  transform: translateY(100%);
 }
