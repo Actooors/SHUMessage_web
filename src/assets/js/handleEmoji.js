@@ -1,7 +1,7 @@
-const regexpUnicode16 = XRegExp(`\\pS`, 'Ag');
+const regexpUnicode16 = XRegExp(`\\pS|\\pL`, 'Ag');
 
 function emojiEncode(txt) {
-  console.log(txt)
+  console.log(txt,txt[0].charCodeAt(0),txt[1].charCodeAt(0))
   if (!regexpUnicode16.test(txt)) {
     console.log("txt", txt)
     return txt
