@@ -134,6 +134,7 @@
 
 <script>
   import {ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview} from 'vux'
+  import "animate.css";
   import UserMessageCard from 'components/userMessageCard/userMessageCard'
   import mockMixin from './mock'
   import stickybits from 'stickybits'
@@ -210,7 +211,6 @@
 <style lang="scss" scoped>
   @import "./profile";
   @import "../moments/moments";
-  @import "~animate.css";
 </style>
 
 <style lang="scss">
