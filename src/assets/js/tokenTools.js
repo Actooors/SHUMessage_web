@@ -1,5 +1,3 @@
-var iconv = require('iconv-lite');
-
 export function getUserInfoFromToken(token = '') {
   if (!token) {
     token = window.localStorage.getItem('token')
