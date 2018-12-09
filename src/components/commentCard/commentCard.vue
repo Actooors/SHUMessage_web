@@ -39,7 +39,7 @@
           <span class="authorName">
             {{item.author.name}}
           </span>
-          <span>{{item.content}}</span>
+          <span>{{item.content | emojiDecode}}</span>
         </div>
         <span
           v-if="replies.count>2"

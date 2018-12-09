@@ -42,7 +42,7 @@ export function preHandleTime(ex) {
   if (!t.isValid()) {
     return ex
   }
-  return t.format('YYYY.MM.DD hh:mm')
+  return t.format('YYYY.MM.DD HH:mm')
 }
 
 function transferISO8601extra(ex) {
