@@ -21,7 +21,7 @@
       startY: -1
     }),
     mounted() {
-      localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTU0MjgxNTUwOSwidXNlck5hbWUiOiIlRTklODMlQUQlRTUlQUQlOUYlRTclODQlQjYiLCJpYXQiOjE1Mzc2MzE1MDl9.rsf2EQxeEs1B9_ZLERZ66pnoUPrYI7mn4g0ycTOU289GfzkdYciOR1m5a9osIXFt7UpAFfWET02NIi-RbgXmEA')
+      localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTg1NjM3MDkzMSwidXNlck5hbWUiOiLpg63lrZ_nhLYiLCJpYXQiOjE1NDUzMzA5MzF9.xmeHnjdFMj6sTDl9qJoJnRwUu-I1iUX2VXznQal9DL6kAw8CyGWoKsNDgIAejqPriOksy9Faee96tZkCeZ5W5w')
       console.log(getUserInfoFromToken())
       //解除iOS的橡皮筋回弹效果
       let that = this;
