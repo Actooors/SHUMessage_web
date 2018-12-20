@@ -21,7 +21,6 @@
     "delegate": "^3.2.0",
     "easy-classlist": "^0.0.1",
     "fastclick": "^1.0.6",
-    "iconv-lite": "^0.4.24",
     "js-base64": "^2.5.0",
     "normalize.css": "^8.0.0",
     "stickybits": "^3.4.1",

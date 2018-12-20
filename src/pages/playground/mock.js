@@ -562,7 +562,7 @@ export const neighborhood = {
       },
       media: {
         type: "img",
-        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg"]
+        imgs: ["http://mzzeast.0ggmr0.cn/18-9-8/83429141.jpg", "http://mzzeast.0ggmr0.cn/18-9-8/25348271.jpg", "http://mzzeast.0ggmr0.cn/18-9-8/25348271.jpg"]
       }
     }, {
       info: {
@@ -596,7 +596,7 @@ export const neighborhood = {
       },
       media: {
         type: "img",
-        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg", "http://p6g1c83vx.bkt.clouddn.com/18-9-8/25348271.jpg"]
+        imgs: ["http://mzzeast.0ggmr0.cn/18-9-8/83429141.jpg", "http://mzzeast.0ggmr0.cn/18-9-8/25348271.jpg"]
       }
     }, {
       info: {
@@ -630,7 +630,7 @@ export const neighborhood = {
       },
       media: {
         type: "img",
-        imgs: ["http://p6g1c83vx.bkt.clouddn.com/18-9-8/83429141.jpg"]
+        imgs: ["http://mzzeast.0ggmr0.cn/18-9-8/83429141.jpg"]
       }
     }, {
       info: {
