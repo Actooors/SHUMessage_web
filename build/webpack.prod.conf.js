@@ -10,6 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+// const PrerenderSPAPlugin = require('prerender-spa-plugin')
+// const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 const env = require('../config/prod.env')
 
@@ -17,7 +19,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
-      extract: true,
+      extract: false,
       usePostCSS: true
     })
   },
@@ -28,6 +30,19 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    // //骨架屏
+    // new PrerenderSPAPlugin({
+    //   staticDir: path.join(__dirname, '../dist'),
+    //   routes: ['/'],
+    //
+    //   renderer: new Renderer({
+    //     inject: {
+    //       foo: 'bar'
+    //     },
+    //     headless: false,
+    //     renderAfterDocumentEvent: 'render-event'
+    //   })
+    // }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env,
@@ -110,7 +125,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
 
     // service worker caching
-    new SWPrecacheWebpackPlugin({cacheId: 'my-vue-app', filename: 'service-worker.js', minify: true})
+    new SWPrecacheWebpackPlugin({cacheId: 'SHUMessage', filename: 'service-worker.js', minify: true})
   ]
 })
 

@@ -29,5 +29,10 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  // mounted() {
+  //   告知prerender-spa-plugin可以移除骨架屏了
+    // document.dispatchEvent(new Event('render-event'));
+    // document.getElementById('prerender').remove();
+  // }
 }).$mount('#app-box')
