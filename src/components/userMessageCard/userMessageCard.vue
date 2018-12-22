@@ -19,7 +19,7 @@
           </span>
         </div>
       </div>
-      <pre class="content">{{msg.content | emojiDecode}}</pre>
+      <pre class="content">{{msg.content}}</pre>
       <div
         v-if="msg.media && msg.media.type==='url'"
         class="url"
@@ -72,7 +72,6 @@
 <script>
   import ShareBar from 'components/shareBar/shareBar'
   import relativeTime from 'assets/js/relativeTime'
-  import {emojiDecode} from "assets/js/handleEmoji";
 
   export default {
     name: "userMessageCard",
@@ -95,11 +94,6 @@
         this.initRightSideWidth()
       })
       window.addEventListener('resize', this.initRightSideWidth)
-    },
-    filters: {
-      emojiDecode(text) {
-        return emojiDecode(text)
-      }
     },
     methods: {
       handleClickUrl(url) {

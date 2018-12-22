@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
-import {emojiDecode, emojiTest, emojiEncode} from "assets/js/handleEmoji";
 import {querystring} from 'vux'
 
 export default {
@@ -163,7 +162,6 @@ export default {
     },
     handleComment(content, img, info) {
       let that = this
-      content = emojiEncode(content)
       axios({
         url: apiRoot + '/comment/newComment',
         method: 'post',

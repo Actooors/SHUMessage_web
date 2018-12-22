@@ -14,7 +14,7 @@
           <span class="hasbeenfrom" :key="tick">{{publishTime | relativeTime}}</span>
         </div>
       </div>
-      <pre class="content">{{content | emojiDecode}}</pre>
+      <pre class="content">{{content}}</pre>
       <div
         class="comment-imgs"
         v-if="imgs && imgs.length"
@@ -39,7 +39,7 @@
           <span class="authorName">
             {{item.author.name}}
           </span>
-          <span>{{item.content | emojiDecode}}</span>
+          <span>{{item.content}}</span>
         </div>
         <span
           v-if="replies.count>2"
@@ -54,7 +54,6 @@
 <script>
   import relativeTime from 'assets/js/relativeTime'
   import store from 'store/store'
-  import {emojiDecode} from "assets/js/handleEmoji";
 
   export default {
     name: "commentCard",
@@ -140,9 +139,6 @@
     filters: {
       relativeTime(t) {
         return relativeTime(t)
-      },
-      emojiDecode(text) {
-        return emojiDecode(text)
       }
     },
     methods: {
