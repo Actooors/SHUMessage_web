@@ -46,7 +46,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env,
-      'apiRoot': "'http://api.mzz.pub:8188/api'"
+      'apiRoot': "'/api'"
+      // 'apiRoot': "'http://api.mzz.pub:8188/api'"
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new webpack.optimize.UglifyJsPlugin({
