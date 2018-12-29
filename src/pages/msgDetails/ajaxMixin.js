@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
 import {querystring} from 'vux'
 
@@ -66,7 +66,7 @@ export default {
       } else {
         //老老实实axios
         console.log("此处应该有ajax", this.$route.query)
-        loadMessage = axios({
+        loadMessage = this.$axios({
           url: apiRoot + '/common/message',
           method: "get",
           params: this.$route.query
@@ -91,7 +91,7 @@ export default {
       if ('type' in this.$route.query && this.$route.query.type.toString() === '2') {//query的特殊性
         limit = [10];
       }
-      return axios({
+      return this.$axios({
         url: apiRoot + "/comment/list",
         method: "get",
         params: {
@@ -127,7 +127,7 @@ export default {
       if (!this.loadingMoreComments) {
         ++this.page;
         this.loadingMoreComments = true
-        axios({
+        this.$axios({
           url: apiRoot + "/comment/list",
           method: "get",
           params: {
@@ -162,7 +162,7 @@ export default {
     },
     handleComment(content, img, info) {
       let that = this
-      axios({
+      this.$axios({
         url: apiRoot + '/comment/newComment',
         method: 'post',
         data: {

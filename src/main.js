@@ -7,6 +7,9 @@ import {TransferDom, ToastPlugin} from 'vux'
 import 'normalize.css'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
+import axios from 'axios'
+
+Object.defineProperty(Vue.prototype, '$axios', {value: axios})
 
 Vue.use(ToastPlugin)
 
@@ -32,7 +35,7 @@ new Vue({
   render: h => h(App),
   // mounted() {
   //   告知prerender-spa-plugin可以移除骨架屏了
-    // document.dispatchEvent(new Event('render-event'));
-    // document.getElementById('prerender').remove();
+  // document.dispatchEvent(new Event('render-event'));
+  // document.getElementById('prerender').remove();
   // }
 }).$mount('#app-box')

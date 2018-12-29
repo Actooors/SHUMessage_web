@@ -1,6 +1,6 @@
 import store from "store/store";
 import {mapState} from 'vuex'
-import axios from 'axios'
+
 
 export default {
   store,
@@ -128,7 +128,7 @@ export default {
       let that = this
       if (!this.loadingRefresh) {
         this.loadingRefresh = true
-        axios({
+        this.$axios({
           url: apiRoot + this.listApi,
           method: "get",
           params: {
@@ -160,7 +160,7 @@ export default {
         console.log("yes")
         this.loadingMore = true
         this.page++;
-        axios({
+        this.$axios({
           url: apiRoot + this.listApi,
           method: "get",
           params: {

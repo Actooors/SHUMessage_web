@@ -31,7 +31,7 @@
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
   import store from 'store/store'
-  import axios from 'axios'
+
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
   import {Spinner} from 'vux'
@@ -51,7 +51,7 @@
     methods: {
       loadData() {
         let that = this
-        axios({
+        this.$axios({
           url: apiRoot + this.listApi,
           method: "get",
           params: {
