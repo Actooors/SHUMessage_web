@@ -5,7 +5,8 @@
     id="__viewBox"
     ref="viewBox"
   >
-    <div>
+    <Spinner type="ripple" class="spinner" v-show="showLoadIcon"></Spinner>
+    <div class="body">
       <slot></slot>
     </div>
     <div class="loading" v-if="loadingMore">
@@ -35,6 +36,10 @@
         type: Boolean,
         default: false,
       },
+      showLoadIcon: {
+        type: Boolean,
+        default: true
+      },
       pulldownCallback: {
         //the function should return a promsie
         type: Function,
@@ -60,7 +65,8 @@
     methods: {
       async handleScroll(event) {
         //position: Object{top,left}
-        this.$emit('on-scroll', {top: this.scrollBody.scrollTop})
+        this.$emit('on-scroll', {top: this.scrollBody.scrollTop});
+
         if (
           typeof this.pullupCallback === "function"
           && !this.noMore
@@ -78,4 +84,10 @@
 
 <style lang="scss" scoped>
   @import "scroll";
+</style>
+
+<style>
+  .pulltorefresh--ptr {
+    background-color: #fbf9fe;
+  }
 </style>
