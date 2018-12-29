@@ -1,11 +1,9 @@
 <template>
   <scroll
-    v-model="scrollerStatus"
     @on-scroll="handleScroll"
-    :height="scrollHeight"
-    @on-pulldown-loading="handlePulldownLoading"
-    @on-pullup-loading="handlePullupLoading"
-    ref="scroll"
+    :noMore="noMore"
+    :pulldownCallback="handlePulldownLoading"
+    :pullupCallback="handlePullupLoading"
   >
     <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <user-message-card

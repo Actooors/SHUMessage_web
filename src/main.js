@@ -8,12 +8,14 @@ import 'normalize.css'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
 import axios from 'axios'
+import PullToRefreshDirective from 'assets/js/pullToRefreshDirective'
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios})
 
 Vue.use(ToastPlugin)
 
 Vue.directive('transfer-dom', TransferDom)
+Vue.directive('pull-to-refresh', PullToRefreshDirective)
 
 import FastClick from 'assets/js/fastclick'
 

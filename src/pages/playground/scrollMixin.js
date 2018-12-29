@@ -15,7 +15,8 @@ export default {
     scrollTop: -1,
     page: 0,
     loadingMore: false,
-    loadingRefresh: false
+    loadingRefresh: false,
+    noMore: false
   }),
   mounted() {
     //这个方法应该在ajax回调的时候调用
@@ -88,7 +89,7 @@ export default {
           this.offset = 0
           ok = true
           //如果向下滚动的距离比较大，或者已经开始拉搜索框了，则拉出搜索框
-        } else if ((-dist >= 30 || this.offset < oh) && this.offset > 0) {
+        } else if ((-dist >= 40 || this.offset < oh) && this.offset > 0) {
           this.offset += dist
           ok = true
           //向上滚动，则推入搜索框
@@ -128,7 +129,7 @@ export default {
       let that = this
       if (!this.loadingRefresh) {
         this.loadingRefresh = true
-        this.$axios({
+        return this.$axios({
           url: apiRoot + this.listApi,
           method: "get",
           params: {
@@ -140,14 +141,10 @@ export default {
           that.cards = []
           setTimeout(() => {
             that.cards = res.data.data.cards
-            that.$nextTick(() => {
-              that.$refs.scroll.reset()
-            })
           }, 20)
         }).catch((err) => {
           console.error(err)
         }).finally(() => {
-          that.$refs.scroll.donePulldown()
           setTimeout(() => {
             that.loadingRefresh = false
           }, 1000)
@@ -160,7 +157,7 @@ export default {
         console.log("yes")
         this.loadingMore = true
         this.page++;
-        this.$axios({
+        return this.$axios({
           url: apiRoot + this.listApi,
           method: "get",
           params: {
@@ -170,22 +167,19 @@ export default {
         }).then((res) => {
           if (res.data.code === 'FAILED') {
             this.$vux.toast.text(res.data.message)
+            this.noMore = true;
             return
           }
           this.cards = this.cards.concat(res.data.data.cards)
-          this.$nextTick(() => {
-            this.$refs.scroll.reset()
-          })
         }).catch((err) => {
           console.error(err)
         }).finally(() => {
-          this.$refs.scroll.donePullup()
           setTimeout(() => {
             this.loadingMore = false
           }, 1000)
         })
       }
-
+      return Promise.resolve();
     }
   }
 }

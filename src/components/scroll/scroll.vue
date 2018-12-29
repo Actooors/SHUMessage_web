@@ -1,44 +1,26 @@
 <template>
-  <scroller lock-x
-            scrollbar-y
-            use-pulldown
-            use-pullup
-            @on-pulldown-loading="handlePulldownLoading"
-            @on-pullup-loading="handlePullupLoading"
-            v-model="scrollerStatus"
-            :height="height"
-            ref="scroller"
-            @on-scroll="handleScroll"
+  <ViewBox
+    v-pull-to-refresh="pulldownCallback"
+    class="needsscroll"
+    id="__viewBox"
+    ref="viewBox"
   >
     <div>
       <slot></slot>
     </div>
-    <div slot="pulldown" class="xs-plugin-pulldown-container xs-plugin-pulldown-down">
-      <span v-show="scrollerStatus.pulldownStatus === 'default'"></span>
-      <span class="pulldown-arrow"
-            v-show="scrollerStatus.pulldownStatus === 'down' || scrollerStatus.pulldownStatus === 'up'"
-            :class="{'rotate': scrollerStatus.pulldownStatus === 'up'}"><x-icon type="ios-circle-outline"
-                                                                                size="18"
-                                                                                class="xicon-circle-outline"></x-icon></span>
-      <span v-show="scrollerStatus.pulldownStatus === 'loading'"><spinner type="ripple"></spinner></span>
+    <div class="loading" v-if="loadingMore">
+      <Spinner type="lines"></Spinner>
     </div>
-    <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up">
-      <span v-show="scrollerStatus.pullupStatus === 'default'"></span>
-      <span class="pullup-arrow"
-            v-show="scrollerStatus.pullupStatus === 'down' || scrollerStatus.pullupStatus === 'up'"
-            :class="{'rotate': scrollerStatus.pullupStatus === 'up'}"><i
-        class="icon-threedots iconfont icon"></i></span>
-      <span v-show="scrollerStatus.pullupStatus === 'loading'"><spinner type="dots"></spinner></span>
-    </div>
-  </scroller>
+    <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
+  </ViewBox>
 </template>
 
 <script>
-  import {Scroller, Spinner} from 'vux'
+  import {Spinner, ViewBox, LoadMore} from 'vux'
 
   export default {
     name: "scroll",
-    components: {Scroller, Spinner},
+    components: {Spinner, ViewBox, LoadMore},
     props: {
       value: {
         type: Object,
@@ -49,16 +31,17 @@
           }
         }
       },
-      height: {
-        type: String
+      noMore: {
+        type: Boolean,
+        default: false,
       },
-      onPulldownLoading: {
-        type: Function
+      pulldownCallback: {
+        //the function should return a promsie
+        type: Function,
+        required: true
       },
-      onPullupLoading: {
-        type: Function
-      },
-      onScroll: {
+      pullupCallback: {
+        //the function should return a promsie
         type: Function
       }
     },
@@ -67,38 +50,32 @@
         pullupStatus: 'default',
         pulldownStatus: 'default'
       },
+      scrollBody: null,
+      loadingMore: false
     }),
     mounted() {
-
+      this.scrollBody = this.$refs.viewBox.getScrollBody();
+      this.scrollBody.addEventListener('scroll', this.handleScroll)
     },
-    watch: {
-      scrollerStatus(val) {
-        this.$emit('input', val)
-      },
-      value(val) {
-        // console.log("?")
-        this.scrollerStatus = val
-      }
+    beforeDestroy() {
+      this.scrollBody.removeEventListener('scroll', this.handleScroll)
     },
+    watch: {},
     methods: {
-      handlePulldownLoading() {
-        this.$emit('on-pulldown-loading')
-      },
-      handlePullupLoading() {
-        this.$emit('on-pullup-loading')
-      },
-      handleScroll(position) {
+      handleScroll(event) {
         //position: Object{top,left}
-        this.$emit('on-scroll', position)
-      },
-      donePulldown() {
-        this.$refs.scroller.donePulldown()
-      },
-      donePullup() {
-        this.$refs.scroller.donePullup()
-      },
-      reset() {
-        this.$refs.scroller.reset(...arguments)
+        this.$emit('on-scroll', {top: this.scrollBody.scrollTop})
+        if (
+          typeof this.pullupCallback === "function"
+          && !this.noMore
+          && !this.loadingMore
+          && this.scrollBody.scrollTop + this.scrollBody.offsetHeight >= this.scrollBody.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
+        ) {
+          this.loadingMore = true;
+          this.pullupCallback().finally(() => {
+            this.loadingMore = false;
+          })
+        }
       }
     }
   }

@@ -28,7 +28,7 @@
       </tab>
     </div>
     <keep-alive>
-      <router-view id="view"></router-view>
+      <router-view></router-view>
     </keep-alive>
   </ViewBox>
 </template>

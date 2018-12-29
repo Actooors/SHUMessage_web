@@ -3,6 +3,7 @@
     id="__viewBox"
     body-padding-bottom="93px"
     ref="viewBox"
+    v-pull-to-refresh="reloadData"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:'',preventGoBack:true}"
@@ -10,77 +11,80 @@
     >
       {{headerTitle}}
     </x-header>
-    <div class="mainMsg">
-      <common-card
-        v-if=" 'type' in $route.query && $route.query.type.toString()==='0'"
-        :msg="msg"
-        :lazyload=false
+    <div
+      class="viewBox-body"
+    >
+      <div class="mainMsg">
+        <common-card
+          v-if=" 'type' in $route.query && $route.query.type.toString()==='0'"
+          :msg="msg"
+          :lazyload=false
 
-        @onClickShareButton="handleClickShareButton(...arguments,msg)"
-      ></common-card>
-      <user-message-card
-        class="userMsgDetail-card"
-        v-if=" 'type' in $route.query && $route.query.type.toString()==='1'"
-        :lazyload=false
+          @onClickShareButton="handleClickShareButton(...arguments,msg)"
+        ></common-card>
+        <user-message-card
+          class="userMsgDetail-card"
+          v-if=" 'type' in $route.query && $route.query.type.toString()==='1'"
+          :lazyload=false
 
-        :msg="msg"
-        @onClickShareButton="handleClickShareButton(...arguments,msg)"
-      ></user-message-card>
-      <comment-card
-        v-if=" 'type' in $route.query && $route.query.type.toString()==='2'"
-        :lazyload=false
-
-        :content="msg.content"
-        :author="msg.author"
-        :publishTime="msg.publishTime"
-        :shareInfo="msg.shareInfo"
-        :replies="msg.replies"
-        :info="msg.info"
-        :footprint="msg.footprint"
-        :imgs="msg.imgs"
-        :showComment=false
-        @onClickLike="handleClickShareButton(0,msg)"
-        @onClickImg="handleClickCommentImg"
-      ></comment-card>
-    </div>
-    <div class="comment-blocks" id="comment-blocks">
-      <div class="comment-loading" v-if="!raw.length && !allLoaded">
-        <Spinner type="lines"></Spinner>
-      </div>
-      <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>
-      <div
-        v-for="(block,blockIndex) of raw"
-        :key="block.value"
-        class="block"
-      >
-        <div class="justBar-box"><p class="justBar"><span class="justBar-title">{{block.blockName}}</span></p></div>
+          :msg="msg"
+          @onClickShareButton="handleClickShareButton(...arguments,msg)"
+        ></user-message-card>
         <comment-card
-          v-for="(item,index) of block.cards"
-          :key="item.value"
-          :class="{'popping':showPop[0]===blockIndex && showPop[1]===index}"
-          :tick="tick"
+          v-if=" 'type' in $route.query && $route.query.type.toString()==='2'"
+          :lazyload=false
 
-          :content="item.content"
-          :author="item.author"
-          :publishTime="item.publishTime"
-          :shareInfo="item.shareInfo"
-          :replies="item.replies"
-          :info="item.info"
-          :footprint="item.footprint"
-          :imgs="item.imgs"
-          :show-comment="showComment"
-          @onClickReply="handleClickReply(item)"
-          @onClickLike="handleShare(0,item)"
-          @onClickCard="handleClickCommentCard(...arguments,[blockIndex,index],item)"
+          :content="msg.content"
+          :author="msg.author"
+          :publishTime="msg.publishTime"
+          :shareInfo="msg.shareInfo"
+          :replies="msg.replies"
+          :info="msg.info"
+          :footprint="msg.footprint"
+          :imgs="msg.imgs"
+          :showComment=false
+          @onClickLike="handleClickShareButton(0,msg)"
           @onClickImg="handleClickCommentImg"
         ></comment-card>
       </div>
+      <div class="comment-blocks" id="comment-blocks">
+        <div class="comment-loading" v-if="!raw.length && !allLoaded">
+          <Spinner type="lines"></Spinner>
+        </div>
+        <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>
+        <div
+          v-for="(block,blockIndex) of raw"
+          :key="block.value"
+          class="block"
+        >
+          <div class="justBar-box"><p class="justBar"><span class="justBar-title">{{block.blockName}}</span></p></div>
+          <comment-card
+            v-for="(item,index) of block.cards"
+            :key="item.value"
+            :class="{'popping':showPop[0]===blockIndex && showPop[1]===index}"
+            :tick="tick"
 
-      <div class="comment-loading" v-if="loadingMoreComments">
-        <Spinner type="lines"></Spinner>
+            :content="item.content"
+            :author="item.author"
+            :publishTime="item.publishTime"
+            :shareInfo="item.shareInfo"
+            :replies="item.replies"
+            :info="item.info"
+            :footprint="item.footprint"
+            :imgs="item.imgs"
+            :show-comment="showComment"
+            @onClickReply="handleClickReply(item)"
+            @onClickLike="handleShare(0,item)"
+            @onClickCard="handleClickCommentCard(...arguments,[blockIndex,index],item)"
+            @onClickImg="handleClickCommentImg"
+          ></comment-card>
+        </div>
+
+        <div class="comment-loading" v-if="loadingMoreComments">
+          <Spinner type="lines"></Spinner>
+        </div>
+        <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
       </div>
-      <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
-
     </div>
     <reply-bar
       slot="bottom"
@@ -317,7 +321,7 @@
       },
       handleScroll(event, el) {
         if (!this.noMore
-          && !this.loadingMoreComments
+          && !this.loadingMore
           && el.scrollTop + el.offsetHeight >= el.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
         ) {
           this.loadMore()

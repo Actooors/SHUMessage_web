@@ -24,9 +24,12 @@ dependencies:
 devDependencies:
   autoprefixer: 7.2.6
   babel-core: 6.26.3
+  babel-helper-vue-jsx-merge-props: 2.0.3
   babel-helpers: 6.24.1
   babel-loader: 7.1.5
+  babel-plugin-syntax-jsx: 6.18.0
   babel-plugin-transform-runtime: 6.23.0
+  babel-plugin-transform-vue-jsx: 3.7.0
   babel-preset-env: 1.7.0
   babel-preset-stage-2: 6.24.1
   babel-register: 6.26.0
@@ -50,6 +53,7 @@ devDependencies:
   portfinder: 1.0.20
   postcss-import: 11.1.0
   postcss-loader: 2.1.6
+  pulltorefreshjs: 0.1.16
   rimraf: 2.6.2
   sass-loader: 7.1.0
   semver: 5.6.0
@@ -650,6 +654,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-v22/5Dk40XNpohPKiov3S2qQqxo=
+  /babel-helper-vue-jsx-merge-props/2.0.3:
+    dev: true
+    resolution:
+      integrity: sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==
   /babel-helpers/6.24.1:
     dependencies:
       babel-runtime: 6.26.0
@@ -706,6 +714,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-nufoM3KQ2pUoggGmpX9BcDF4MN4=
+  /babel-plugin-syntax-jsx/6.18.0:
+    dev: true
+    resolution:
+      integrity: sha1-CvMqmm4Tyno/1QaeYtew9Y0NiUY=
   /babel-plugin-syntax-object-rest-spread/6.13.0:
     dev: true
     resolution:
@@ -951,6 +963,14 @@ packages:
     dev: true
     resolution:
       integrity: sha1-1fr3qleKZbvlkc9e2uBKDGcCB1g=
+  /babel-plugin-transform-vue-jsx/3.7.0:
+    dependencies:
+      esutils: 2.0.2
+    dev: true
+    peerDependencies:
+      babel-helper-vue-jsx-merge-props: ^2.0.0
+    resolution:
+      integrity: sha512-W39X07/n3oJMQd8tALBO+440NraGSF//Lo1ydd/9Nme3+QiRGFBb1Q39T9iixh0jZPPbfv3so18tNoIgLatymw==
   /babel-preset-env/1.7.0:
     dependencies:
       babel-plugin-check-es2015-constants: 6.22.0
@@ -1305,7 +1325,7 @@ packages:
       integrity: sha512-yWu5cXT7Av6mVwzWc8lMsJMHWn4xyjSuGYi4IozbVTLUOEYPSagUB8kiMDUHA1fS3zjr8nkxkn9jdvug4BBRmA==
   /browserslist/3.2.8:
     dependencies:
-      caniuse-lite: 1.0.30000923
+      caniuse-lite: 1.0.30000925
       electron-to-chromium: 1.3.96
     dev: true
     hasBin: true
@@ -1441,6 +1461,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-j5ur7eeluOFjjPUkydtXP4KFAsmH3XaQNch5tvWSO+dLHYt5PE+VgJZLWtbVOodfWij6m6zas28T4gB/cLYq1w==
+  /caniuse-lite/1.0.30000925:
+    dev: true
+    resolution:
+      integrity: sha512-zcYupoUxtW46rOikuDF7vfL9N1Qe9ZuUBTz3n3q8fFsoJIs/h9UN6Vg/0QpjsmvImXw9mVc3g+ZBfqvUz/iALA==
   /capture-stack-trace/1.0.1:
     dev: false
     engines:
@@ -5839,6 +5863,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-zVpa8oKZSz5bTMTFClc1fQOnyyEzpl5ozpi1B5YcvBrdohMjH2rfsBtyXcuNuwjsDIXmBYlF2N5FlJYhR29t8Q==
+  /pulltorefreshjs/0.1.16:
+    dev: true
+    resolution:
+      integrity: sha512-F3K+LhEzpkrajVEG6p6tU+QTmNihhzl0vzOnw46iTZM5gXTfvrv9VGsi8xVC+g5VE5is0ObGPdICk7j0ffv2pw==
   /pump/2.0.1:
     dependencies:
       end-of-stream: 1.4.1
@@ -7968,9 +7996,12 @@ specifiers:
   autosize: ^4.0.2
   axios: ^0.18.0
   babel-core: ^6.22.1
+  babel-helper-vue-jsx-merge-props: ^2.0.3
   babel-helpers: ^6.24.1
   babel-loader: ^7.1.1
+  babel-plugin-syntax-jsx: ^6.18.0
   babel-plugin-transform-runtime: ^6.22.0
+  babel-plugin-transform-vue-jsx: ^3.7.0
   babel-preset-env: ^1.7.0
   babel-preset-stage-2: ^6.22.0
   babel-register: ^6.22.0
@@ -8003,6 +8034,7 @@ specifiers:
   portfinder: ^1.0.13
   postcss-import: ^11.0.0
   postcss-loader: ^2.0.8
+  pulltorefreshjs: ^0.1.16
   rimraf: ^2.6.0
   sass-loader: ^7.0.3
   semver: ^5.3.0

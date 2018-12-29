@@ -1,4 +1,3 @@
-
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
 import {querystring} from 'vux'
 
@@ -13,7 +12,7 @@ export default {
     },
     raw: [],
     noMore: false,
-    loadingMoreComments: false,
+    loadingMore: false,
     page: 0
   }),
   mounted() {
@@ -52,6 +51,10 @@ export default {
     }
   },
   methods: {
+    reloadData() {
+      this.$store.commit('pushRouter/SET_CARD_ITEM', null);
+      return this.loadData(false);
+    },
     loadData(tryVuex = true) {
       // console.log("loadData")
       let loadMessage = null
@@ -77,7 +80,7 @@ export default {
           console.error(err)
         })
       }
-      Promise.all([loadMessage, this.loadComment()]).then(() => {
+      return Promise.all([loadMessage, this.loadComment()]).then(() => {
         //触发一次watch allLoaded
         this.allLoaded = false
         this.$nextTick(() => {
@@ -124,7 +127,7 @@ export default {
         updateBlockIndex = 0;
       }
       let that = this
-      if (!this.loadingMoreComments) {
+      if (!this.loadingMore) {
         ++this.page;
         this.loadingMoreComments = true
         this.$axios({
@@ -155,7 +158,7 @@ export default {
         }).finally(() => {
           //500ms内不要重复ajax
           setTimeout(() => {
-            that.loadingMoreComments = false
+            that.loadingMore = false
           }, 500)
         })
       }

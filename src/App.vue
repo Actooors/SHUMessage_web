@@ -36,6 +36,12 @@
         }
         return !!child
       },
+      judgeAncestors(el, func) {
+        while (el && !func(el)) {
+          el = el.parentElement;
+        }
+        return !!el;
+      },
       InitAginstRubberBand() {
         let that = this;
         document.body.addEventListener('touchstart', (event) => {
@@ -51,7 +57,7 @@
           let nodeViewBox = document.querySelector('#__viewBox #vux_view_box_body')
           let moveY = event.touches[0].pageY
           //事实上所有的needsscroll都需要按照viewBox的模式进行处理，这里暂不做处理。
-          if ((/\bneedsscroll\b/).test(event.target.className)) {
+          if (this.judgeAncestors(event.target,(el)=>(/\bneedsscroll\b/).test(el.className))) {
             return
           }
           //如果target是可滚动的viewBox，先看看会不会超出边界
