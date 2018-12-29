@@ -16,9 +16,8 @@
     </div>
     <scroll
       :height="scrollHeight"
-      @on-pulldown-loading="handlePulldownLoading"
-      @on-pullup-loading="handlePullupLoading"
-      ref="scroll"
+      :pulldownCallback="handlePulldownLoading"
+      :pullupCallback="handlePullupLoading"
     >
         <Tab
           :line-width="2"

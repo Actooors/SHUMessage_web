@@ -13,11 +13,9 @@
       </div>
     </x-header>
     <scroll
-      :height="scrollHeight"
-      @on-pulldown-loading="handlePulldownLoading"
-      @on-pullup-loading="handlePullupLoading"
+      :pulldownCallback="handlePulldownLoading"
+      :pullupCallback="handlePullupLoading"
       @on-scroll="handleScroll"
-      ref="scroll"
     >
       <div class="publishMoments" @click="handlePublicMoments">
         <div v-lazy:background-image="avatar" class="avatar"></div>

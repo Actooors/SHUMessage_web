@@ -25,13 +25,11 @@ export default {
     handlePulldownLoading() {
       console.log("pulldown")
       setTimeout(() => {
-        this.$refs.scroll.donePulldown()
       }, 1000)
     },
     handlePullupLoading() {
       console.log("pullup")
       setTimeout(() => {
-        this.$refs.scroll.donePullup()
       }, 1000)
     },
     updateJBSticky({offsetTop = 0} = {}) {

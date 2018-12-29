@@ -12,7 +12,7 @@ export default {
     },
     raw: [],
     noMore: false,
-    loadingMore: false,
+    loadingMoreComments: false,
     page: 0
   }),
   mounted() {
@@ -127,7 +127,7 @@ export default {
         updateBlockIndex = 0;
       }
       let that = this
-      if (!this.loadingMore) {
+      if (!this.loadingMoreComments) {
         ++this.page;
         this.loadingMoreComments = true
         this.$axios({
@@ -158,7 +158,7 @@ export default {
         }).finally(() => {
           //500ms内不要重复ajax
           setTimeout(() => {
-            that.loadingMore = false
+            that.loadingMoreComments = false
           }, 500)
         })
       }

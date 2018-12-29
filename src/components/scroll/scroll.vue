@@ -46,10 +46,6 @@
       }
     },
     data: () => ({
-      scrollerStatus: {
-        pullupStatus: 'default',
-        pulldownStatus: 'default'
-      },
       scrollBody: null,
       loadingMore: false
     }),
@@ -62,7 +58,7 @@
     },
     watch: {},
     methods: {
-      handleScroll(event) {
+      async handleScroll(event) {
         //position: Object{top,left}
         this.$emit('on-scroll', {top: this.scrollBody.scrollTop})
         if (
@@ -72,9 +68,8 @@
           && this.scrollBody.scrollTop + this.scrollBody.offsetHeight >= this.scrollBody.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
         ) {
           this.loadingMore = true;
-          this.pullupCallback().finally(() => {
-            this.loadingMore = false;
-          })
+          await this.pullupCallback();
+          this.loadingMore = false;
         }
       }
     }

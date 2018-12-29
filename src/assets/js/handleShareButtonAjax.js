@@ -1,8 +1,8 @@
-
+import axios from 'axios'
 
 export function handleLikeAjax(info, like) {
   let ret = ""
-  this.$axios({
+  axios({
     url: apiRoot + "/common/like",
     method: "post",
     data: {

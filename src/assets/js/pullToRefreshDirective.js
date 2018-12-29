@@ -62,7 +62,6 @@ const directive = {
             }
           },
           render(h) {
-            console.log(this.loading);
             if (!this.loading) {
               return h('icon', {
                 props: {
@@ -82,7 +81,7 @@ const directive = {
     });
   },
   unbind(el) {
-    el.__pullToRefresh.destroy();
+    el.__pullToRefresh && el.__pullToRefresh.destroy();
   }
 };
 
