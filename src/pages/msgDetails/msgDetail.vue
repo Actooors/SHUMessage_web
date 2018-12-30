@@ -1,9 +1,11 @@
 <template>
-  <ViewBox
-    id="__viewBox"
-    body-padding-bottom="93px"
+  <scroll
+    :noMore="noMore"
+    :pulldownCallback="reloadData"
+    :pullupCallback="loadMore"
+    :showLoadIcon="showLoadIcon"
     ref="viewBox"
-    v-pull-to-refresh="reloadData"
+    body-padding-bottom="85px"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:'',preventGoBack:true}"
@@ -79,11 +81,6 @@
             @onClickImg="handleClickCommentImg"
           ></comment-card>
         </div>
-
-        <div class="comment-loading" v-if="loadingMoreComments">
-          <Spinner type="lines"></Spinner>
-        </div>
-        <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
       </div>
     </div>
     <reply-bar
@@ -124,15 +121,16 @@
     <div v-transfer-dom>
       <previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>
     </div>
-  </ViewBox>
+  </scroll>
 </template>
 
 <script>
-  import {ViewBox, XHeader, Previewer, Spinner, LoadMore} from 'vux'
+  import {XHeader, Previewer, Spinner, LoadMore} from 'vux'
   import {querystring} from 'vux'
   import CommonCard from 'components/commonCard/commonCard'
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import CommentCard from 'components/commentCard/commentCard'
+  import Scroll from 'components/scroll/scroll'
   import stickybits from 'stickybits'
   import store from 'store/store'
   import ReplyBar from 'components/replyBar/replyBar'
@@ -147,15 +145,17 @@
     name: "msgDetail",
     store,
     components: {
-      ...{ViewBox, XHeader, Previewer, Spinner, LoadMore},
+      ...{XHeader, Previewer, Spinner, LoadMore},
       CommonCard,
       UserMessageCard,
       CommentCard,
       ReplyBar,
       Share,
-      Popover
+      Popover,
+      Scroll
     },
     data: () => ({
+      showLoadIcon: true,
       timer: null,
       tick: 0,
       showPop: [-1, -1],
@@ -171,7 +171,8 @@
       headerTitle: '详情',
       showComment: true,
       replyName: "",
-      replyInfo: {}
+      replyInfo: {},
+      scrollBody: null
     }),
     computed: {
       showPopBoolean() {
@@ -194,23 +195,46 @@
         this.replyName = this.msg.author.name
         this.replyInfo = this.msg.info
       },
-      '$route'(val, pre) {
-        store.commit("pushRouter/SET_ROUTE_CHANGED", true)
-        this.showPop = [-1, -1]
-        this.initTitle()
+      '$route'(to, from) {
+        const that = this;
+        store.commit("pushRouter/SET_ROUTE_CHANGED", true);
+        this.showPop = [-1, -1];
+        this.initTitle();
+
+        // console.log(to.name, this.$options.name, this.$parent.$options.name)
+        if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
+          && (to.name === this.$options.name || to.name === this.$parent.$options.name)//进入本组件路由
+        ) {
+          //先拉白屏
+          console.log("可以的，loadData");
+          this.msg = {
+            //防止replyPlaceholder出错
+            author: {
+              name: ""
+            }
+          };
+          this.raw = [];
+          this.noMore = false;
+          this.loadingMoreComments = false;
+          this.page = 0;
+          this.loadData().finally(() => {
+            that.showLoadIcon = false
+          })
+        }
       }
     },
     mounted() {
-      let that = this
+      let that = this;
       this.previewerOptions = {
         getThumbBoundsFn: this.getThumbBoundsFn
       }
-      let el = this.$refs.viewBox.getScrollBody()
+      const el = this.$refs.viewBox.getScrollBody()
+      this.scrollBody = el;
       this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1])
       // this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
       this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1])
       el.addEventListener('scroll', () => this.showPop = [-1, -1])
-      el.addEventListener('scroll', (event) => this.handleScroll(event, el))
+      // el.addEventListener('scroll', (event) => this.handleScroll(event, el))
 
       if (this.allLoaded) {
         this.judgeAndMoveToCommentBlocks()
@@ -219,9 +243,17 @@
       this.timer = setInterval(() => {
         that.tick = Date.now()
       }, 1000)
+      if (!this.allLoaded) {
+        // console.log("mounted")
+        this.loadData().finally(() => {
+          that.showLoadIcon = false
+        })
+      }
     },
     beforeDestroy() {
       clearInterval(this.timer)
+      const el = this.$refs.viewBox.getScrollBody()
+      el.removeEventListener('scroll', () => this.showPop = [-1, -1])
     },
     methods: {
       handleShare(btnIndex, msg) {
@@ -308,7 +340,7 @@
           || ('elComment' in this.$route.query && this.$route.query.elComment.toString() === "true")//query的特殊性
         ) {
           console.log("锚过来啊")
-          let el = this.$refs.viewBox.getScrollBody()
+          let el = this.scrollBody;
           el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
         }
       },
@@ -318,17 +350,6 @@
           path: '/commentDetail',
           query: item.info
         })
-      },
-      handleScroll(event, el) {
-        if (!this.noMore
-          && !this.loadingMoreComments
-          && el.scrollTop + el.offsetHeight >= el.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
-        ) {
-          this.loadMore()
-        }
-
-        //记录scrollTop
-        this.$store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", [this.query.type, this.$refs.viewBox.getScrollBody().scrollTop])
       },
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
         this.judgeAndMoveToCommentBlocks(false)

@@ -69,7 +69,7 @@ const pushRouter = {
     SET_DEFAULT_HISTORY_LENGTH(state, val) {
       state.defaultHistoryLength = val
     },
-    SET_DETAIL_SCROLL_TOP(state, [index, val]) {
+    SET_DETAIL_SCROLL_TOP(state, {index, val}) {
       state.detailScrollTop[index] = val
     }
   }

@@ -9,7 +9,6 @@ export default {
       pullupStatus: 'default',
       pulldownStatus: 'default'
     },
-    scrollHeight: "",
     slowScrollHeight: "",
     offset: 0,
     scrollTop: -1,
@@ -125,58 +124,29 @@ export default {
         })
       }, 200)
     },
-    handlePulldownLoading() {
+    handlePulldownLoading(listApi) {
       let that = this
       if (!this.loadingRefresh) {
         this.loadingRefresh = true
-        return this.$axios({
-          url: apiRoot + this.listApi,
-          method: "get",
-          params: {
-            page: 0,
-            pageSize: 20
-          }
-        }).then((res) => {
-          //营造数据刷新的效果
-          that.cards = []
-          setTimeout(() => {
-            that.cards = res.data.data.cards
-          }, 20)
-        }).catch((err) => {
-          console.error(err)
-        }).finally(() => {
+        return this.xhrRequestList(listApi).finally(() => {
           setTimeout(() => {
             that.loadingRefresh = false
+            this.page = 0;
+            this.noMore=false;
           }, 1000)
         })
       }
     },
-    handlePullupLoading() {
-      console.log("?")
+    handlePullupLoading(listApi) {
+      // console.log("?")
       if (!this.loadingMore) {
-        console.log("yes")
-        this.loadingMore = true
+        // console.log("yes")
+        this.loadingMore = true;
         this.page++;
-        return this.$axios({
-          url: apiRoot + this.listApi,
-          method: "get",
-          params: {
-            page: this.page,
-            pageSize: 20
-          }
-        }).then((res) => {
-          if (res.data.code === 'FAILED') {
-            this.$vux.toast.text(res.data.message)
-            this.noMore = true;
-            return
-          }
-          this.cards = this.cards.concat(res.data.data.cards)
-        }).catch((err) => {
-          console.error(err)
-        }).finally(() => {
+        return this.xhrRequestMore(listApi).finally(() => {
           setTimeout(() => {
             this.loadingMore = false
-          }, 1000)
+          }, 500)
         })
       }
       return Promise.resolve();

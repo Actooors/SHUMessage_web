@@ -6,7 +6,8 @@
     :pullupCallback="handlePullupLoading"
     :showLoadIcon="showLoadIcon"
   >
-    <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
+    <Spinner type="ripple" class="center-spinner"
+             v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <user-message-card
       v-for="(item,index) of cards"
       :key="item.value"
@@ -40,12 +41,13 @@
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
   import {Spinner} from 'vux'
+  import xhrMixin from './xhrMixin'
 
   export default {
     name: "neighborhood",
     store,
     components: {...{Spinner}, Previewer, UserMessageCard, Scroll, Share},
-    mixins: [mock, scrollMixin, sharebarMixin, previewerMixin],
+    mixins: [mock, scrollMixin, sharebarMixin, previewerMixin, xhrMixin],
     data: () => ({
       showLoadIcon: true
     }),

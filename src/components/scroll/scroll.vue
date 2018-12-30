@@ -1,12 +1,11 @@
 <template>
   <ViewBox
     v-pull-to-refresh="pulldownCallback"
-    class="needsscroll"
-    id="__viewBox"
+    class="needsscroll noscroll"
     ref="viewBox"
-    :height="scrollTop"
     :body-padding-bottom="bodyPaddingBottom"
   >
+    <slot name="header" slot="header"></slot>
     <Spinner type="ripple" class="spinner" v-show="showLoadIcon"></Spinner>
     <div class="body">
       <slot></slot>
@@ -15,20 +14,18 @@
       <Spinner type="lines"></Spinner>
     </div>
     <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
+    <slot name="bottom" slot="bottom"></slot>
   </ViewBox>
 </template>
 
 <script>
   import {Spinner, ViewBox, LoadMore} from 'vux'
+  import store from 'store/store'
 
   export default {
     name: "scroll",
     components: {Spinner, ViewBox, LoadMore},
     props: {
-      scrollTop: {
-        type: String,
-        default: "0"
-      },
       noMore: {
         type: Boolean,
         default: false,
@@ -48,7 +45,7 @@
       },
       bodyPaddingBottom: {
         type: String,
-        default: "32px"
+        default: "45px"
       }
     },
     data: () => ({
@@ -62,8 +59,23 @@
     beforeDestroy() {
       this.scrollBody.removeEventListener('scroll', this.handleScroll)
     },
-    watch: {},
+    watch: {
+      '$route'(to, from) {
+        //进入本页面
+        let that = this;
+        this.$nextTick(() => {
+          /*
+          FIXME:将to.path的scroll直接拿来用，这限制了一个路由只能有一个scroll组件
+           */
+          // console.log("!")
+          that.$refs.viewBox.scrollTo(this.$store.state.pushRouter.detailScrollTop[to.path])
+        })
+      }
+    },
     methods: {
+      getScrollBody() {
+        return this.$refs.viewBox.getScrollBody();
+      },
       async handleScroll(event) {
         //position: Object{top,left}
         this.$emit('on-scroll', {top: this.scrollBody.scrollTop});
@@ -78,6 +90,11 @@
           await this.pullupCallback();
           this.loadingMore = false;
         }
+
+        store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", {
+          index: this.$route.path,
+          val: this.scrollBody.scrollTop
+        })
       }
     }
   }

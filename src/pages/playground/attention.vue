@@ -2,9 +2,8 @@
   <scroll
     @on-scroll="handleScroll"
     :noMore="noMore"
-    :pulldownCallback="handlePulldownLoading"
-    :pullupCallback="handlePullupLoading"
-    :scrollTop="scrollHeight"
+    :pulldownCallback="()=>handlePulldownLoading('/news/newsList')"
+    :pullupCallback="()=>handlePullupLoading('/news/newsList')"
     :showLoadIcon="showLoadIcon"
   >
     <common-card

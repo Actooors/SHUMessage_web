@@ -15,41 +15,6 @@ export default {
     loadingMoreComments: false,
     page: 0
   }),
-  mounted() {
-    if (!this.allLoaded) {
-      // console.log("mounted")
-      this.loadData()
-    }
-  },
-  watch: {
-    '$route'(to, from) {
-      // console.log(to.name, this.$options.name, this.$parent.$options.name)
-      if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
-        && (to.name === this.$options.name || to.name === this.$parent.$options.name)//进入本组件路由
-      ) {
-        //先拉白屏
-        console.log("可以的，loadData")
-        this.msg = {
-          //防止replyPlaceholder出错
-          author: {
-            name: ""
-          }
-        }
-        this.raw = []
-        this.noMore = false
-        this.loadingMoreComments = false
-        this.page = 0
-        this.loadData()
-      } else if (to.name === this.$options.name || to.name === this.$parent.$options.name) {
-        let query = querystring.parse()
-        let that = this
-        this.$nextTick(() => {
-          that.$refs.viewBox.scrollTo(this.$store.state.pushRouter.detailScrollTop[query.type])
-        })
-        // this.$store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", [query.type, 0])
-      }
-    }
-  },
   methods: {
     reloadData() {
       this.$store.commit('pushRouter/SET_CARD_ITEM', null);
