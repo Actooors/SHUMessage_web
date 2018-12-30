@@ -7,6 +7,7 @@ axios.interceptors.request.use((config) => {
   }
   return config
 }, (err) => {
+  console.log("request interceptor:", err, err.request);
   return Promise.reject(err)
 })
 
@@ -18,5 +19,6 @@ axios.interceptors.response.use((res) => {
   }
   return res
 }, (err) => {
+  console.log("response interceptor:", err, err.response);
   return Promise.reject(err)
 })

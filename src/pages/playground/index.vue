@@ -1,5 +1,8 @@
 <template>
-  <ViewBox ref="playground">
+  <ViewBox
+    body-padding-bottom="0"
+    ref="playground"
+  >
     <div slot="header" class="topBar" id="topBar">
       <Search
         placeholder="搜索"

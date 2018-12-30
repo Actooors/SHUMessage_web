@@ -4,6 +4,8 @@
     class="needsscroll"
     id="__viewBox"
     ref="viewBox"
+    :height="scrollTop"
+    :body-padding-bottom="bodyPaddingBottom"
   >
     <Spinner type="ripple" class="spinner" v-show="showLoadIcon"></Spinner>
     <div class="body">
@@ -23,14 +25,9 @@
     name: "scroll",
     components: {Spinner, ViewBox, LoadMore},
     props: {
-      value: {
-        type: Object,
-        default() {
-          return {
-            pullupStatus: 'default',
-            pulldownStatus: 'default'
-          }
-        }
+      scrollTop: {
+        type: String,
+        default: "0"
       },
       noMore: {
         type: Boolean,
@@ -48,6 +45,10 @@
       pullupCallback: {
         //the function should return a promsie
         type: Function
+      },
+      bodyPaddingBottom: {
+        type: String,
+        default: "32px"
       }
     },
     data: () => ({

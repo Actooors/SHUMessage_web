@@ -47,7 +47,7 @@ export default {
 
       let t = 10
 
-      function delayHandler(f) {
+      function delayHandler(callback) {
         //不在playground，不要考虑了
         if (!judgeRoute()) {
           return
@@ -57,13 +57,13 @@ export default {
           t *= 1.25
           if (that.nodeTopBar && that.nodeTabbar) {
             setTimeout(() => {
-              delayHandler(f)
+              delayHandler(callback)
             }, t)
           }
           // console.log("不通过", that.$route)
           return
         }
-        f();
+        callback();
       }
 
       delayHandler(() => {

@@ -4,6 +4,7 @@
     :noMore="noMore"
     :pulldownCallback="handlePulldownLoading"
     :pullupCallback="handlePullupLoading"
+    :showLoadIcon="showLoadIcon"
   >
     <Spinner type="ripple" class="center-spinner" v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>
     <user-message-card
@@ -45,7 +46,16 @@
     store,
     components: {...{Spinner}, Previewer, UserMessageCard, Scroll, Share},
     mixins: [mock, scrollMixin, sharebarMixin, previewerMixin],
+    data: () => ({
+      showLoadIcon: true
+    }),
+    mounted() {
+      this.loadData();
+    },
     methods: {
+      loadData() {
+        this.showLoadIcon = false
+      },
       handleClickCard(index, info) {
         if (index === null) {
           index = this.cards.findIndex(card => card.info === info)

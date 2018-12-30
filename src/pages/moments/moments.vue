@@ -1,5 +1,9 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
-  <ViewBox ref="momentsViewBox" id="momentsViewBox">
+  <ViewBox
+    body-padding-bottom="0px"
+    ref="momentsViewBox"
+    id="momentsViewBox"
+  >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"
@@ -16,6 +20,8 @@
       :pulldownCallback="handlePulldownLoading"
       :pullupCallback="handlePullupLoading"
       @on-scroll="handleScroll"
+      bodyPaddingBottom="200px"
+      :showLoadIcon="showLoadIcon"
     >
       <div class="publishMoments" @click="handlePublicMoments">
         <div v-lazy:background-image="avatar" class="avatar"></div>
@@ -68,13 +74,18 @@
     components: {...{ViewBox, XHeader}, UserMessageCard, Scroll},
     data: () => ({
       avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
+      showLoadIcon: true
     }),
     mounted() {
       let viewBoxBody = this.$refs.momentsViewBox.getScrollBody()
       viewBoxBody.style.overflow = 'hidden'
       viewBoxBody.parentElement.style.overflow = 'hidden'
+      this.loadData();
     },
     methods: {
+      loadData() {
+        this.showLoadIcon = false
+      },
       handlePublicMoments() {
         console.log("发表新动态")
       },

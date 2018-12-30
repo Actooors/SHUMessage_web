@@ -4,6 +4,8 @@
     :noMore="noMore"
     :pulldownCallback="handlePulldownLoading"
     :pullupCallback="handlePullupLoading"
+    :scrollTop="scrollHeight"
+    :showLoadIcon="showLoadIcon"
   >
     <common-card
       v-for="(item,index) of cards"
@@ -31,37 +33,25 @@
   import sharebarMixin from '../../assets/js/sharebarMixin'
   import Share from 'components/share/share'
   import {Spinner} from 'vux'
+  import xhrMixin from './xhrMixin'
 
   export default {
     name: "attention",
     store,
     components: {...{Spinner}, CommonCard, Scroll, Share},
-    mixins: [scrollMixin, sharebarMixin],
+    mixins: [scrollMixin, sharebarMixin, xhrMixin],
     data: () => ({
       cards: [],
-      listApi: '/news/newsList'
+      showLoadIcon: true
     }),
     mounted() {
       this.loadData()
     },
     methods: {
       loadData() {
-        let that = this
-        this.$axios({
-          url: apiRoot + this.listApi,
-          method: "get",
-          params: {
-            page: 0,
-            pageSize: 20
-          }
-        }).then((res) => {
-          this.cards = res.data.data.cards
-          this.$nextTick(() => {
-            // that.$refs.scroll.reset()
-          })
-        }).catch((err) => {
-          console.error(err)
-        })
+        this.xhrRequestList('/news/newsList').finally(() => {
+          this.showLoadIcon = false
+        });
       },
       handleClickCard(index, info) {
         if (index === null) {
