@@ -6,8 +6,8 @@
     :body-padding-bottom="bodyPaddingBottom"
   >
     <slot name="header" slot="header"></slot>
-    <Spinner type="ripple" class="spinner" v-show="showLoadIcon"></Spinner>
-    <div class="body">
+    <Spinner type="ripple" class="spinner" v-if="showLoadIcon"></Spinner>
+    <div class="body" v-else>
       <slot></slot>
     </div>
     <div class="loading" v-if="loadingMore">
