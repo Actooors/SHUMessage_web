@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import store from 'store/store'
 import Router from 'vue-router'
-import PageTransition from 'components/pageTransition/pageTransition'
 import Tabbar from 'pages/tabbar/tabbar'
 import Self from 'pages/self/self'
 import MoreIndex from 'pages/self/more'
@@ -34,135 +33,125 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      component: PageTransition,
+      component: Tabbar,
       children: [
         {
           path: '',
-          redirect: 'm'
+          redirect: 'playground'
         },
         {
-          path: '/m',
-          component: Tabbar,
-          children: [
-            {
-              path: '',
-              redirect: 'playground'
-            },
-            {
-              path: 'playground',
-              meta: {
-                tabbarIndex: 0
-              },
-              component: Playground,
-              children: [{
-                path: '',
-                redirect: 'recommend'
-              }, {
-                path: 'attention',
-                component: Attention,
-                meta: {
-                  tabIndex: 0
-                }
-              }, {
-                path: 'recommend',
-                component: Recommend,
-                meta: {
-                  tabIndex: 1
-                }
-              }, {
-                path: 'neighborhood',
-                component: Neighborhood,
-                meta: {
-                  tabIndex: 2
-                }
-              }]
-            },
-            {
-              path: 'moments',
-              meta: {
-                tabbarIndex: 1
-              },
-              component: Moments,
-            },
-            {
-              path: 'find',
-              meta: {
-                tabbarIndex: 2
-              },
-              component: Find,
-            },
-            {
-              path: 'self',
-              component: Self,
-              meta: {
-                tabbarIndex: 3
-              }
-            },
-          ]
-        },
-        {
-          path: '/m/self/more',
-          component: MoreIndex,
-          children: [
-            {
-              path: "",
-              component: More,
-              meta: {
-                title: "更多"
-              }
-            },
-            {
-              path: "myinfo",
-              component: Myinfo,
-              meta: {
-                title: "我的信息"
-              }
-            },
-            {
-              path: "signature",
-              component: Signature,
-              meta: {
-                title: "修改签名",
-                option: "完成"
-              }
-            },
-            {
-              path: 'checkpwd',
-              component: Checkpwd,
-              meta: {
-                title: "修改密码",
-                option: "确定"
-              }
-            },
-            {
-              path: 'feedback',
-              component: Feedback,
-              meta: {
-                title: '意见反馈'
-              }
+          path: 'playground',
+          meta: {
+            tabbarIndex: 0
+          },
+          component: Playground,
+          children: [{
+            path: '',
+            redirect: 'recommend'
+          }, {
+            path: 'attention',
+            component: Attention,
+            meta: {
+              tabIndex: 0
             }
-          ]
+          }, {
+            path: 'recommend',
+            component: Recommend,
+            meta: {
+              tabIndex: 1
+            }
+          }, {
+            path: 'neighborhood',
+            component: Neighborhood,
+            meta: {
+              tabIndex: 2
+            }
+          }]
         },
         {
-          path: "/detail/msg",
-          name: "msgDetail",
-          component: MsgDetail
+          path: 'moments',
+          meta: {
+            tabbarIndex: 1
+          },
+          component: Moments,
         },
         {
-          path: "/detail/comment",
-          name: "commentDetail",
-          component: CommentDetail
+          path: 'find',
+          meta: {
+            tabbarIndex: 2
+          },
+          component: Find,
         },
         {
-          path: "/seo",
-          component: Seo
+          path: 'self',
+          component: Self,
+          meta: {
+            tabbarIndex: 3
+          }
+        },
+      ]
+    },
+    {
+      path: '/self/more',
+      component: MoreIndex,
+      children: [
+        {
+          path: "",
+          component: More,
+          meta: {
+            title: "更多"
+          }
         },
         {
-          path: "/profile",
-          component: Profile
+          path: "myinfo",
+          component: Myinfo,
+          meta: {
+            title: "我的信息"
+          }
+        },
+        {
+          path: "signature",
+          component: Signature,
+          meta: {
+            title: "修改签名",
+            option: "完成"
+          }
+        },
+        {
+          path: 'checkpwd',
+          component: Checkpwd,
+          meta: {
+            title: "修改密码",
+            option: "确定"
+          }
+        },
+        {
+          path: 'feedback',
+          component: Feedback,
+          meta: {
+            title: '意见反馈'
+          }
         }
       ]
     },
+    {
+      path: "/detail/msg",
+      name: "msgDetail",
+      component: MsgDetail
+    },
+    {
+      path: "/detail/comment",
+      name: "commentDetail",
+      component: CommentDetail
+    },
+    {
+      path: "/seo",
+      component: Seo
+    },
+    {
+      path: "/profile",
+      component: Profile
+    }
   ]
 });
 

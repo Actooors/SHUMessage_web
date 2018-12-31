@@ -25,9 +25,9 @@
         class="topBar-tab animate-quick"
         id="tab"
       >
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/m/playground/attention',index)}">关注</tab-item>
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/m/playground/recommend',index)}">推荐</tab-item>
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/m/playground/neighborhood',index)}">附近</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">关注</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/recommend',index)}">推荐</tab-item>
+        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">附近</tab-item>
       </tab>
     </div>
     <keep-alive>

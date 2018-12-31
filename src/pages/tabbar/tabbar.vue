@@ -1,23 +1,23 @@
 <template>
   <ViewBox>
     <tabbar slot="bottom" v-model="selectedIndex" id="tabbar">
-      <tabbar-item :link="`/m/playground${$store.state.playground.playgroundNow}`">
+      <tabbar-item :link="`/playground${$store.state.playground.playgroundNow}`">
         <img slot="icon-active" src="../../assets/images/文档.png">
         <img slot="icon" src="../../assets/images/文档gray.png">
         <span slot="label">广场</span>
       </tabbar-item>
-      <tabbar-item link="/m/moments">
+      <tabbar-item link="/moments">
         <img slot="icon-active" src="../../assets/images/信息.png">
         <img slot="icon" src="../../assets/images/信息gray.png">
         <span slot="label">动态</span>
       </tabbar-item>
       <button class="weui-tabbar__item plus-btn" @click="handleClickPlus"></button>
-      <tabbar-item link="/m/find">
+      <tabbar-item link="/find">
         <img slot="icon-active" src="../../assets/images/灵感.png">
         <img slot="icon" src="../../assets/images/灵感gray.png">
         <span slot="label">发现</span>
       </tabbar-item>
-      <tabbar-item link="/m/self">
+      <tabbar-item link="/self">
         <img slot="icon-active" src="../../assets/images/用户.png">
         <img slot="icon" src="../../assets/images/用户gray.png">
         <span slot="label">自己</span>

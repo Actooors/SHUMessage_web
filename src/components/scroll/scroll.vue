@@ -6,8 +6,9 @@
     :body-padding-bottom="bodyPaddingBottom"
   >
     <slot name="header" slot="header"></slot>
-    <Spinner type="ripple" class="spinner" v-show="showLoadIcon"></Spinner>
-    <div class="body">
+    <Spinner type="ripple" class="spinner" v-if="showLoadIcon"></Spinner>
+    <!--这里v-else的作用，一是优化体验，二是防止白屏（我也不知道为什么白屏）-->
+    <div class="body" v-else>
       <slot></slot>
     </div>
     <div class="loading" v-if="loadingMore">

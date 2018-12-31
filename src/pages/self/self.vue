@@ -54,7 +54,7 @@
     methods: {
       handleClickMore() {
         console.log("Click more")
-        this.$router.push("/m/self/more")
+        this.$router.push("/self/more")
       }
     }
   }
