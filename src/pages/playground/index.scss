@@ -1,6 +1,15 @@
 .topBar {
   z-index: 1;
-  .animate-quick{
-    transition: all .1s linear;
-  }
+  height: 44px;
+}
+
+.animate-quick {
+  transition: top .15s linear;
+  will-change: top;
+}
+
+.tab {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
 }

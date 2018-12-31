@@ -5,78 +5,21 @@ import {mapState} from 'vuex'
 export default {
   store,
   data: () => ({
-    scrollerStatus: {
-      pullupStatus: 'default',
-      pulldownStatus: 'default'
-    },
-    slowScrollHeight: "",
     offset: 0,
-    scrollTop: -1,
     page: 0,
     loadingMore: false,
     loadingRefresh: false,
     noMore: false
   }),
-  mounted() {
-    //这个方法应该在ajax回调的时候调用
-    this.$nextTick(() => {
-      this.computeScrollHeight()
-    })
-  },
   computed: {
     ...mapState('playground', ['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight'])
   },
   methods: {
-    computeScrollHeight() {
-      //判断topTopBarHeight+tabbarHeight是否符合规矩
-      let that = this;
-      let topBarHeight;
-      let tabbarHeight;
-
-      function judgeRoute() {
-        let str = that.$route.path
-        return str.substring(1, str.indexOf('/', 1)) === 'playground'
-      }
-
-      function judge() {
-        topBarHeight = Number(window.getComputedStyle(that.nodeTopBar)["height"].replace(/px/, ''))
-        tabbarHeight = Number(window.getComputedStyle(that.nodeTabbar)["height"].replace(/px/, ''))
-        return !(Number.isNaN(topBarHeight + tabbarHeight) || topBarHeight + tabbarHeight === 0)
-      }
-
-      let t = 10
-
-      function delayHandler(callback) {
-        //不在playground，不要考虑了
-        if (!judgeRoute()) {
-          return
-        }
-        if (!judge()) {
-          //说明界面还没渲染好或者出现异常数据，1.25*t ms后再考虑，递归调用
-          t *= 1.25
-          if (that.nodeTopBar && that.nodeTabbar) {
-            setTimeout(() => {
-              delayHandler(callback)
-            }, t)
-          }
-          // console.log("不通过", that.$route)
-          return
-        }
-        callback();
-      }
-
-      delayHandler(() => {
-        that.scrollHeight = (-(topBarHeight + tabbarHeight)).toString()
-        that.slowScrollHeight = that.scrollHeight
-        //slowScrollHeight仅在该函数追踪scrollHeight的最新变化
-        // console.log(topBarHeight, tabbarHeight, that.scrollHeight)
-      })
-    },
     handleScroll({top}, set = false) {
-      let st = top
-      let oh = this.searchHeight
-      let ok = false
-      let tab = this.nodeTab
+      let st = top;
+      let oh = this.searchHeight;//定高44px
+      let ok = false;
+      let tab = this.nodeTab;
       if (!(search && tab)) {
         return
       }
@@ -84,16 +27,18 @@ export default {
       if (set || this.scrollTop > -1) {
         let dist = st - this.scrollTop
         //触顶了！！立刻显出搜索框全貌
-        if (st <= 0) {
-          this.offset = 0
+        if (st <= 44) {
+          this.offset = 0;
           ok = true
-          //如果向下滚动的距离比较大，或者已经开始拉搜索框了，则拉出搜索框
-        } else if ((-dist >= 40 || this.offset < oh) && this.offset > 0) {
-          this.offset += dist
+          //如果向下滚动的距离比较大，或者已经开始拉搜索框了，或触顶了，则拉出搜索框
+        } else if ((-dist >= 30 || this.offset < oh) && this.offset > 0) {
+          // this.offset = 0;//直接拉完
+          this.offset += dist;//慢慢拉
           ok = true
-          //向上滚动，则推入搜索框
+          //向上滚动小距离，则推入搜索框
         } else if (dist > 0 && this.offset < oh) {
-          this.offset += dist
+          // this.offset = oh;//直接推完
+          this.offset += dist;//慢慢推
           ok = true
         }
         if (set || ok) {
@@ -102,27 +47,12 @@ export default {
           } else if (this.offset < 0) {
             this.offset = 0
           }
-          search.style.position = "relative"
-          tab.style.top = `${-this.offset}px`
-          tab.style.paddingTop = `${oh - this.offset}px`
-          search.style.top = tab.style.top
-          //搜索框高度变化的话要立刻调整scroller的高度
-          !set && this.$nextTick(() => {
-            let s = Number(this.slowScrollHeight) + this.offset
-            if (!isNaN(s) && s) {
-              this.scrollHeight = s.toString()
-            }
-          })
+          search.style.position = "relative";
+          tab.style.top = `${oh - this.offset}px`;
+          search.style.top = `${-this.offset}px`
         }
       }
       this.scrollTop = st;
-      //平时也要记得动态调整scroller的height，但是间隔可以大一点
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        this.$nextTick(() => {
-          this.computeScrollHeight()
-        })
-      }, 200)
     },
     handlePulldownLoading(listApi) {
       let that = this
@@ -132,7 +62,7 @@ export default {
           setTimeout(() => {
             that.loadingRefresh = false
             this.page = 0;
-            this.noMore=false;
+            this.noMore = false;
           }, 1000)
         })
       }

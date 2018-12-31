@@ -24,15 +24,17 @@
         // console.log('commit', from.path, document.querySelector('#scrollComponentBody').scrollTop);
         let scrollBody = document.querySelector('#scrollComponentBody')
         if (scrollBody) {
-          store.dispatch("pushRouter/SET_DETAIL_SCROLL_TOP", {
+          store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", {
             index: from.fullPath,
             val: scrollBody.scrollTop
           });
+          // console.log("from", scrollBody.scrollTop)
         }
         this.$nextTick(() => {
           const instance = to.matched[to.matched.length - 1].instances.default
           //复用这个变量名
           scrollBody = instance.$el.querySelector('#scrollComponentBody');
+          // console.log(instance, scrollBody, store.state.pushRouter.detailScrollTop[to.fullPath])
           if (instance && scrollBody) {
             scrollBody.scrollTop = store.state.pushRouter.detailScrollTop[to.fullPath] || 0
           }

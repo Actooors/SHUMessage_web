@@ -1,9 +1,10 @@
+<!--TODO: 开发header的动画效果，不要那么卡顿-->
 <template>
-  <ViewBox
-    body-padding-bottom="0"
+  <div
     ref="playground"
+    style="height:100%"
   >
-    <div slot="header" class="topBar" id="topBar">
+    <div class="topBar" id="topBar">
       <Search
         placeholder="搜索"
         @on-submit="handleSearch"
@@ -16,28 +17,28 @@
       >
         <search-result :value="searchValue"></search-result>
       </Search>
-      <tab
-        :line-width="2"
-        custom-bar-width="20px"
-        bar-active-color="#2196F3"
-        active-color="#2196F3"
-        v-model="tabIndex"
-        class="topBar-tab animate-quick"
-        id="tab"
-      >
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">关注</tab-item>
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/recommend',index)}">推荐</tab-item>
-        <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">附近</tab-item>
-      </tab>
     </div>
+    <tab
+      :line-width="2"
+      custom-bar-width="20px"
+      bar-active-color="#2196F3"
+      active-color="#2196F3"
+      v-model="tabIndex"
+      class="tab animate-quick"
+      id="tab"
+    >
+      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">关注</tab-item>
+      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/recommend',index)}">推荐</tab-item>
+      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">附近</tab-item>
+    </tab>
     <keep-alive>
-      <router-view></router-view>
+      <router-view class="playground-content"></router-view>
     </keep-alive>
-  </ViewBox>
+  </div>
 </template>
 
 <script>
-  import {ViewBox, Tab, TabItem, Search, Scroller, Spinner} from 'vux'
+  import {ViewBox, Tab, TabItem, Search, Spinner} from 'vux'
   import SearchResult from 'components/searchResult/searchResult'
   import stickybits from 'stickybits'
   import store from 'store/store'
@@ -46,7 +47,7 @@
   export default {
     name: "playground",
     store,
-    components: {...{ViewBox, Tab, TabItem, Search, Scroller, Spinner}, SearchResult},
+    components: {...{ViewBox, Tab, TabItem, Search, Spinner}, SearchResult},
     data: () => ({
       searchValue: "",
       tabIndex: 1,
@@ -58,7 +59,7 @@
       this.initTab()
     },
     mounted() {
-      // stickybits('.topBar');
+      stickybits('.topBar');
       this.initHeaderScroll();
     },
     methods: {
@@ -68,10 +69,6 @@
         store.commit('playground/SET_NODE_TAB', document.querySelector('#tab'))
         store.commit('playground/SET_NODE_TOPBAR', document.querySelector("#topBar"))
         store.commit('playground/SET_NODE_TABBAR', document.querySelector('#tabbar'))
-        //禁用viewBoxBody的滚动
-        let viewBoxBody = this.$refs.playground.getScrollBody()
-        viewBoxBody.style.overflow = 'hidden'
-        viewBoxBody.parentElement.style.overflow = 'hidden'
       },
       handleClickTabItem(pushExpression) {
         this.$router.push(pushExpression)
@@ -100,4 +97,14 @@
 
 <style lang="scss" scoped>
   @import "index";
+</style>
+
+<style lang="scss">
+  .playground-content {
+    .scrollComponentBodyContent, .pulltorefresh--ptr {
+      position: relative;
+      top: 44px;
+      left: 0;
+    }
+  }
 </style>
