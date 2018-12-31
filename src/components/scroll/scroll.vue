@@ -6,7 +6,7 @@
     :body-padding-bottom="bodyPaddingBottom"
   >
     <slot name="header" slot="header"></slot>
-    <Spinner type="ripple" class="spinner" v-if="showLoadIcon"></Spinner>
+    <Spinner type="ripple" class="spinner-loadIcon" v-if="showLoadIcon" :style="{top:loadIconTop}"></Spinner>
     <!--这里v-else的作用，一是优化体验，二是防止白屏（我也不知道为什么白屏）-->
     <div class="scrollComponentBodyContent" v-else>
       <slot></slot>
@@ -47,6 +47,10 @@
       bodyPaddingBottom: {
         type: String,
         default: "45px"
+      },
+      loadIconTop: {
+        type: String,
+        default: "9px"
       }
     },
     data: () => ({

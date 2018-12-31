@@ -111,5 +111,8 @@
     .pulltorefresh--ptr {
       z-index: 1;
     }
+    .spinner-loadIcon {
+      top: 53px !important;
+    }
   }
 </style>
