@@ -34,9 +34,9 @@
     }
   }
   .gallery {
-    background: url("https://s2.music.126.net/style/web2/img/down/bg.jpg?555a00dc3f44ed524eb92d70bbd60bc0");
-    height: 310px;
-    padding: 70px 20px 0;
+    background: url("http://mzzeast.0ggmr0.cn/18-12-31/12524706.jpg");
+    height: 330px;
+    padding: 80px 20px 0;
     position: relative;
     .toprow {
       @extend .row;
@@ -117,11 +117,10 @@
       }
     }
     .list-top-box {
-      background: url("https://s2.music.126.net/style/web2/img/down/bg.jpg?555a00dc3f44ed524eb92d70bbd60bc0");
-      background-position-y: -310px;
       z-index: 1;
+      border-radius: 7px 7px 0 0;
+      overflow: hidden;
       .list-top {
-        border-radius: 7px 7px 0 0;
         overflow: hidden;
         background: white;
         border-bottom: 1px solid rgb(229, 229, 229);
