@@ -9,6 +9,8 @@ import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
 import axios from 'axios'
 import PullToRefreshDirective from 'assets/js/pullToRefreshDirective'
+import 'assets/js/iNoBounce'
+// iNoBounce.enable();
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios})
 

@@ -57,7 +57,8 @@ const pushRouter = {
     cardItem: null,
     routeChanged: false,
     defaultHistoryLength: 0,
-    detailScrollTop: {}
+    scrollTop: {},
+    topBarOffset: {}
   },
   mutations: {
     SET_CARD_ITEM(state, item) {
@@ -69,13 +70,19 @@ const pushRouter = {
     SET_DEFAULT_HISTORY_LENGTH(state, val) {
       state.defaultHistoryLength = val
     },
-    SET_DETAIL_SCROLL_TOP(state, {index, val}) {
-      state.detailScrollTop[index] = val
+    SET_SCROLL_TOP(state, {index, val}) {
+      state.scrollTop[index] = val
+    },
+    SET_TOP_BAR_OFFSET(state, {index, val}) {
+      state.topBarOffset[index] = val
     }
   },
   actions: {
-    SET_DETAIL_SCROLL_TOP({commit}, option) {
-      commit('SET_DETAIL_SCROLL_TOP', option)
+    SET_SCROLL_TOP({commit}, option) {
+      commit('SET_SCROLL_TOP', option)
+    },
+    SET_TOP_BAR_OFFSET({commit}, option) {
+      commit('SET_TOP_BAR_OFFSET', option)
     }
   }
 };

@@ -4,7 +4,10 @@
     ref="playground"
     style="height:100%"
   >
-    <div class="topBar" id="topBar">
+    <div
+      class="topBar animate-quick"
+      id="topBar"
+    >
       <Search
         placeholder="搜索"
         @on-submit="handleSearch"
@@ -13,7 +16,6 @@
         v-model="searchValue"
         cancel-text="返回"
         id="search"
-        class="animate-quick"
       >
         <search-result :value="searchValue"></search-result>
       </Search>
@@ -64,7 +66,7 @@
     },
     methods: {
       initHeaderScroll() {
-        let search = document.querySelector('#search')
+        // let search = document.querySelector('#search')
         store.commit('playground/SET_SEARCH_HEIGHT', search.offsetHeight)
         store.commit('playground/SET_NODE_TAB', document.querySelector('#tab'))
         store.commit('playground/SET_NODE_TOPBAR', document.querySelector("#topBar"))
@@ -105,6 +107,9 @@
       position: relative;
       top: 44px;
       left: 0;
+    }
+    .pulltorefresh--ptr {
+      z-index: 1;
     }
   }
 </style>

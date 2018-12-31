@@ -20,6 +20,7 @@ export default {
       let oh = this.searchHeight;//定高44px
       let ok = false;
       let tab = this.nodeTab;
+      let topBar = this.nodeTopBar;
       if (!(search && tab)) {
         return
       }
@@ -30,13 +31,13 @@ export default {
         if (st <= 44) {
           this.offset = 0;
           ok = true
-          //如果向下滚动的距离比较大，或者已经开始拉搜索框了，或触顶了，则拉出搜索框
+          //如果上拉的距离比较大，或者已经开始拉搜索框了，或触顶了，则拉出搜索框
         } else if ((-dist >= 30 || this.offset < oh) && this.offset > 0) {
           // this.offset = 0;//直接拉完
           this.offset += dist;//慢慢拉
           ok = true
-          //向上滚动小距离，则推入搜索框
-        } else if (dist > 0 && this.offset < oh) {
+          //下拉小距离，则推入搜索框
+        } else if (dist > 0 && this.offset <= oh) {
           // this.offset = oh;//直接推完
           this.offset += dist;//慢慢推
           ok = true
@@ -47,9 +48,9 @@ export default {
           } else if (this.offset < 0) {
             this.offset = 0
           }
-          search.style.position = "relative";
+          topBar.style.position = "relative";
           tab.style.top = `${oh - this.offset}px`;
-          search.style.top = `${-this.offset}px`
+          topBar.style.top = `${-this.offset}px`
         }
       }
       this.scrollTop = st;

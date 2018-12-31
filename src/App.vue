@@ -21,33 +21,63 @@
     }),
     watch: {
       '$route'(to, from) {
-        // console.log('commit', from.path, document.querySelector('#scrollComponentBody').scrollTop);
-        let scrollBody = document.querySelector('#scrollComponentBody')
-        if (scrollBody) {
-          store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", {
-            index: from.fullPath,
-            val: scrollBody.scrollTop
-          });
-          // console.log("from", scrollBody.scrollTop)
-        }
-        this.$nextTick(() => {
-          const instance = to.matched[to.matched.length - 1].instances.default
-          //复用这个变量名
-          scrollBody = instance.$el.querySelector('#scrollComponentBody');
-          // console.log(instance, scrollBody, store.state.pushRouter.detailScrollTop[to.fullPath])
-          if (instance && scrollBody) {
-            scrollBody.scrollTop = store.state.pushRouter.detailScrollTop[to.fullPath] || 0
-          }
-        })
+        this.storeAndRestoreScrollState(to, from);
       }
     },
     mounted() {
       localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTg1NjM3MDkzMSwidXNlck5hbWUiOiLpg63lrZ_nhLYiLCJpYXQiOjE1NDUzMzA5MzF9.xmeHnjdFMj6sTDl9qJoJnRwUu-I1iUX2VXznQal9DL6kAw8CyGWoKsNDgIAejqPriOksy9Faee96tZkCeZ5W5w')
       console.log(getUserInfoFromToken())
       //解除iOS的橡皮筋回弹效果
-      this.InitAginstRubberBand()
+      // this.InitAginstRubberBand()
     },
     methods: {
+      storeAndRestoreScrollState(to, from) {
+        //store
+        let scrollBody = document.querySelector('#scrollComponentBody')
+        if (scrollBody) {
+          store.commit("pushRouter/SET_SCROLL_TOP", {
+            index: from.fullPath,
+            val: scrollBody.scrollTop
+          });
+        }
+
+        //restore
+        const topBar = document.querySelector('#topBar');
+        const tab = document.querySelector('#tab');
+        const topBarTop = topBar.style.top;
+        const tabTop = tab.style.top;
+        this.$nextTick(() => {
+          const instance = to.matched[to.matched.length - 1].instances.default
+          if (instance) {
+            //复用变量名
+            scrollBody = instance.$el.querySelector('#scrollComponentBody');
+            if (scrollBody) {
+              scrollBody.scrollTop = store.state.pushRouter.scrollTop[to.fullPath] || 0;
+              if (
+                //有topBar（在background界面）
+                topBar
+                //这个页面曾经往下滚了滚但没滚多少，在别的页面的topBar盖不住灰色padding（策略是切换时尽量不使topBar变化）
+                && -parseInt(topBar.style.top) > (store.state.pushRouter.scrollTop[to.fullPath] || 0)
+              ) {
+                //是否有访问过该页（该页在缓存的话，设置scrollTop为>0的值才有用）
+                if (store.state.pushRouter.scrollTop[to.fullPath] != null) {
+                  scrollBody.scrollTop = -parseInt(topBar.style.top);
+                } else {
+                  //没办法，只能让topBar拉下来了
+                  topBar.style.top = `0px`;
+                  tab.style.top = `${store.state.playground.searchHeight}px`
+                }
+              } else if (topBar) {
+                //本身是不需要置top的，但不知怎的，这里必须重写top。这里使用setTimeout而不是nextTick
+                setTimeout(() => {
+                  topBar.style.top = topBarTop;
+                  tab.style.top = tabTop
+                }, 20)
+              }
+            }
+          }
+        })
+      },
       isChildOrItself(parent, child) {
         if (child === parent) {
           return true
