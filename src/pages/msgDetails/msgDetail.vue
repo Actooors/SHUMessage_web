@@ -127,6 +127,7 @@
 <script>
   import {XHeader, Previewer, Spinner, LoadMore} from 'vux'
   import {querystring} from 'vux'
+  import {isRouteEnter} from 'assets/js/routeTools';
   import CommonCard from 'components/commonCard/commonCard'
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import CommentCard from 'components/commentCard/commentCard'
@@ -197,10 +198,10 @@
       },
       '$route'(to, from) {
         const that = this;
-        //进入本路由（由于commentCard引用了msgDetail，所以要这么处理来表示进入本路由）
-        const isEnter = (to.name === this.$options.name && !this.$parent.$options.name) || to.name === this.$parent.$options.name
+        const isEnter = isRouteEnter(this, to);
+        // console.log(isEnter)
         if (isEnter) {
-          console.log("initTitle", to.name, this.$options.name, this.$parent.$options.name, this.$parent)
+          // console.log("isEnter->initTitle", to.name, this.$options.name, this.$parent.$options.name, this.$parent)
           store.commit("pushRouter/SET_ROUTE_CHANGED", true);
           this.showPop = [-1, -1];
           this.initTitle();
@@ -220,8 +221,10 @@
           this.noMore = false;
           this.loadingMoreComments = false;
           this.page = 0;
-          this.loadData().finally(() => {
-            that.showLoadIcon = false
+          this.$nextTick(() => {
+            that.loadData().finally(() => {
+              that.showLoadIcon = false
+            })
           })
         }
       }

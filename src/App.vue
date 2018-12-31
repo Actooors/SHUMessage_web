@@ -44,8 +44,12 @@
         //restore
         const topBar = document.querySelector('#topBar');
         const tab = document.querySelector('#tab');
-        const topBarTop = topBar.style.top;
-        const tabTop = tab.style.top;
+        let topBarTop;
+        let tabTop;
+        if (topBar) {
+          topBarTop = topBar.style.top;
+          tabTop = tab.style.top;
+        }
         this.$nextTick(() => {
           const instance = to.matched[to.matched.length - 1].instances.default
           if (instance) {
