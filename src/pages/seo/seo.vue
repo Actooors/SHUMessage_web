@@ -1,7 +1,8 @@
 <template>
-  <ViewBox ref="seoViewBox" id="__viewBox">
+  <ViewBox ref="seoViewBox" class="needsscroll">
     <x-header slot="header" class="theme-XHeader"
-              :left-options="{backText:''}"
+              :left-options="{backText:'',preventGoBack:true}"
+              @on-click-back="handleClickBack"
               id="seo-XHeader"
     >
       <i class="icon-more iconfont icon" slot="right" @click="handleClickMore"></i>
@@ -39,6 +40,9 @@
       scrollBody.style.width = '100%';
     },
     methods: {
+      handleClickBack() {
+        this.$router.go(-1);
+      },
       forward() {
         // return this.$route.query.url
         let screenWidth = window.innerWidth || document.documentElement.clientWidth

@@ -36,7 +36,7 @@ export default {
           }
           break;
         case 3:
-          this.shareOptions.url = `${window.location.protocol}//${window.location.host}/msgDetail?type=${msgs[0].info.type}&id=${msgs[0].info.id}`
+          this.shareOptions.url = `${window.location.protocol}//${window.location.host}/detail/msg?type=${msgs[0].info.type}&id=${msgs[0].info.id}`
           this.shareOptions.title = "SHU Message"
           this.shareOptions.digest = `${msgs[0].author.name}: ${msgs[0].content}`
           // console.log(this.shareOptions)

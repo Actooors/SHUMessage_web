@@ -1,5 +1,5 @@
 <template>
-  <ViewBox ref="viewbox" class="profile-viewbox" id="__viewBox" body-padding-bottom="0">
+  <ViewBox ref="viewbox" class="profile-viewbox needsscroll" body-padding-bottom="0">
     <x-header
       slot="header"
       :left-options="{showBack: false}"
@@ -17,8 +17,8 @@
         <div class="headerInfo" v-show="showHeaderInfo">
           <img src="/static/testAvatar.JPG" class="avatar">
           <div>
-            <p>--正--</p>
-            <p>412人关注</p>
+            <p>{{userInfo.username}}</p>
+            <p>{{userInfo.starNum}}人关注</p>
           </div>
           <button class="follow">关注</button>
         </div>
@@ -39,27 +39,27 @@
             </button>
           </div>
         </div>
-        <h1 class="username">--正--</h1>
-        <p class="signature">Nice to meet you :) 多一点字啊看一看啊快过来看看</p>
+        <h1 class="username">{{userInfo.username}}</h1>
+        <p class="signature">{{userInfo.signature}}</p>
         <div class="row">
-          <span class="tag" v-for="tag of tags" :key="tag.value">{{tag.name}}</span>
+          <span class="tag" v-for="tag of userInfo.tags" :key="tag.value">{{tag.name}}</span>
         </div>
-        <p class="tip">她也关注了主题“校园新动向”</p>
+        <p class="tip">{{userInfo.tipToYou}}</p>
         <div class="gallery-bottom">
           <div>
-            <p class="num">0</p>
+            <p class="num">{{userInfo.createThemeNum}}</p>
             <p>创建的主题</p>
           </div>
           <div>
-            <p class="num">447</p>
+            <p class="num">{{userInfo.starThemeNum}}</p>
             <p>关注的主题</p>
           </div>
           <div>
-            <p class="num">97</p>
+            <p class="num">{{userInfo.starOthersNum}}</p>
             <p>她关注的人</p>
           </div>
           <div>
-            <p class="num">48</p>
+            <p class="num">{{userInfo.starNum}}</p>
             <p>关注她的人</p>
           </div>
         </div>
@@ -84,7 +84,7 @@
           <div v-show="tabIndex===0">
             <div class="moments-row">
               <span>
-                <i class="icon-appreciate iconfont icon"></i>动态获得 3.5k 次赞
+                <i class="icon-appreciate iconfont icon"></i>动态获得 {{userInfo.likeSum}} 次赞
               </span>
             </div>
             <div class="blocks">
@@ -114,7 +114,7 @@
             <Group title="签名">
               <CellFormPreview
                 class="signature-cell"
-                :list="[{label:'Nice to meet you :) 多一点字啊看一看啊快过来看看',value:''}]"
+                :list="[{label:userInfo.signature,value:''}]"
               ></CellFormPreview>
             </Group>
           </div>
@@ -141,39 +141,23 @@
     },
     data: () => ({
       tabIndex: 0,
-      userInfo: {
-        basic: [
-          {
-            label: "性别",
-            value: "女"
-          },
-          {
-            label: "星座",
-            value: "巨蟹座"
-          },
-          {
-            label: "所在地",
-            value: "山西 - 太原"
-          }
-        ]
-      },
       scrollStatus: {
         scrollTop: 0,
         lastScrollTime: 0
       },
       showHeaderInfo: false,
+      stickied: false
     }),
     mounted() {
       this.resetViewBoxPropertities();
-      this.$nextTick(() => {
-        stickybits(".list-top-box", {stickyBitStickyOffset: 46});
-      });
-      this.$refs.viewbox
-        .getScrollBody()
-        .addEventListener("scroll", this.handleScroll);
       XHeaderBackElement = document.getElementById(
         "profile-XHeader-back"
       )
+      this.$nextTick(() => {
+        stickybits(".list-top-box", {stickyBitStickyOffset: 46});
+      });
+      this.$refs.viewbox.getScrollBody().addEventListener("scroll", this.handleScroll);
+      this.handleScroll({target: this.$refs.viewbox.getScrollBody()});
     },
     methods: {
       resetViewBoxPropertities() {
@@ -184,22 +168,25 @@
         e.style.width = "100%";
       },
       handleScroll(event) {
-        // let now = Date.now();
-        // if (now - this.scrollStatus.lastScrollTime < 20) {
-        //   return;
-        // }
-        // this.scrollStatus.lastScrollTime = now;
         let top = event.target.scrollTop;
         let that = this;
         //330是gallery的高度，52是headbar的高度
-        XHeaderBackElement.style.backgroundPositionY = `${-Math.min(top - 5, 330 - 52)}px`;
+        XHeaderBackElement.style.backgroundPositionY = `${-Math.min(top - 5, 330 - 52 - 1)}px`;
+        //drop-shadow
+        let tmp = 320 - 52 - top + 5;//距list-top的距离
+        //可能会有微弱的性能提升
+        if (tmp <= 0) {
+          XHeaderBackElement.style.filter = '';
+        } else if (tmp < 10) {
+          XHeaderBackElement.style.filter = `drop-shadow(0px 5px 10px rgba(0,0,0,${(tmp * 0.03).toFixed(2)}))`;
+        } else {
+          XHeaderBackElement.style.filter = `drop-shadow(0px 5px 10px rgba(0,0,0,0.3))`;
+        }
         //超过头像的时候浮现关注。gallery的padding-top为80px；头像即toprow，高64px；headbar高52px
         const keyY = 70 + 80 - 52;
         //如果top和scrollTop分布于keyY两端，则更改showHeaderInfo的状态
         if (((top - keyY) ^ (this.scrollStatus.scrollTop - keyY)) < 0) {
           let k = top - this.scrollStatus.scrollTop > 0;
-          // console.log(k, top - this.scrollStatus.scrollTop)
-          // this.test = top - this.scrollStatus.scrollTop
           this.$nextTick(() => {
             that.showHeaderInfo = k;
           });
@@ -224,13 +211,13 @@
     padding: 3px 0 3px;
     border: none;
     #profile-XHeader-back {
+      z-index: -1;
       position: absolute;
       top: -5px;
       left: 0;
       width: 100%;
       height: 52px;
       background: url("http://mzzeast.0ggmr0.cn/18-12-31/12524706.jpg");
-      filter: drop-shadow(0px 5px 10px rgba(black, 0.3));
       background-position-x: 0;
       background-position-y: 5px;
     }

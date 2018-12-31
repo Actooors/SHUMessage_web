@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const top = {
   namespaced: true,
@@ -21,7 +21,7 @@ const top = {
       state.optionMethod = m
     }
   }
-}
+};
 
 const playground = {
   namespaced: true,
@@ -49,7 +49,7 @@ const playground = {
       state.playgroundNow = NOW
     }
   }
-}
+};
 
 const pushRouter = {
   namespaced: true,
@@ -72,8 +72,13 @@ const pushRouter = {
     SET_DETAIL_SCROLL_TOP(state, {index, val}) {
       state.detailScrollTop[index] = val
     }
+  },
+  actions: {
+    SET_DETAIL_SCROLL_TOP({commit}, option) {
+      commit('SET_DETAIL_SCROLL_TOP', option)
+    }
   }
-}
+};
 
 
 export default new Vuex.Store({

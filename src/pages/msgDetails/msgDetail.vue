@@ -197,13 +197,16 @@
       },
       '$route'(to, from) {
         const that = this;
-        store.commit("pushRouter/SET_ROUTE_CHANGED", true);
-        this.showPop = [-1, -1];
-        this.initTitle();
-
-        // console.log(to.name, this.$options.name, this.$parent.$options.name)
+        //进入本路由（由于commentCard引用了msgDetail，所以要这么处理来表示进入本路由）
+        const isEnter = (to.name === this.$options.name && !this.$parent.$options.name) || to.name === this.$parent.$options.name
+        if (isEnter) {
+          console.log("initTitle", to.name, this.$options.name, this.$parent.$options.name, this.$parent)
+          store.commit("pushRouter/SET_ROUTE_CHANGED", true);
+          this.showPop = [-1, -1];
+          this.initTitle();
+        }
         if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
-          && (to.name === this.$options.name || to.name === this.$parent.$options.name)//进入本组件路由
+          && isEnter
         ) {
           //先拉白屏
           console.log("可以的，loadData");
@@ -347,7 +350,7 @@
       handleClickReply(item) {
         store.commit("pushRouter/SET_CARD_ITEM", item)
         this.$router.push({
-          path: '/commentDetail',
+          path: '/detail/comment',
           query: item.info
         })
       },

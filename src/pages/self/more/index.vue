@@ -26,10 +26,9 @@
       ViewBox,
       XHeader,
     },
-    watch: {
-      '$route'(to) {
-        this.loadMeta(to)
-      }
+    beforeRouteUpdate(to, from, next) {
+      this.loadMeta(to);
+      next();
     },
     created() {
       this.loadMeta(this.$route)

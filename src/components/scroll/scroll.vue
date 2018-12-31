@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {Spinner, ViewBox, LoadMore} from 'vux'
+  import {LoadMore, Spinner, ViewBox} from 'vux'
   import store from 'store/store'
 
   export default {
@@ -54,23 +54,11 @@
     }),
     mounted() {
       this.scrollBody = this.$refs.viewBox.getScrollBody();
+      this.scrollBody.id = 'scrollComponentBody';
       this.scrollBody.addEventListener('scroll', this.handleScroll)
     },
     beforeDestroy() {
       this.scrollBody.removeEventListener('scroll', this.handleScroll)
-    },
-    watch: {
-      '$route'(to, from) {
-        //进入本页面
-        let that = this;
-        this.$nextTick(() => {
-          /*
-          FIXME:将to.path的scroll直接拿来用，这限制了一个路由只能有一个scroll组件
-           */
-          // console.log("!")
-          that.$refs.viewBox.scrollTo(this.$store.state.pushRouter.detailScrollTop[to.path])
-        })
-      }
     },
     methods: {
       getScrollBody() {
@@ -91,10 +79,8 @@
           this.loadingMore = false;
         }
 
-        store.commit("pushRouter/SET_DETAIL_SCROLL_TOP", {
-          index: this.$route.path,
-          val: this.scrollBody.scrollTop
-        })
+        // console.log("commit", this.scrollBody.scrollTop)
+
       }
     }
   }

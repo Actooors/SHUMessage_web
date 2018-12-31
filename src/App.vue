@@ -11,6 +11,7 @@
 
 <script>
   import {getUserInfoFromToken} from 'assets/js/tokenTools'
+  import store from 'store/store'
 
   export default {
     name: 'app',
@@ -20,6 +21,26 @@
       clientHeight: -1,
       startY: -1
     }),
+    watch: {
+      '$route'(to, from) {
+        // console.log('commit', from.path, document.querySelector('#scrollComponentBody').scrollTop);
+        let scrollBody = document.querySelector('#scrollComponentBody')
+        if (scrollBody) {
+          store.dispatch("pushRouter/SET_DETAIL_SCROLL_TOP", {
+            index: from.fullPath,
+            val: scrollBody.scrollTop
+          });
+        }
+        this.$nextTick(() => {
+          const instance = to.matched[to.matched.length - 1].instances.default
+          //复用这个变量名
+          scrollBody = instance.$el.querySelector('#scrollComponentBody');
+          if (instance && scrollBody) {
+            scrollBody.scrollTop = store.state.pushRouter.detailScrollTop[to.fullPath] || 0
+          }
+        })
+      }
+    },
     mounted() {
       localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTg1NjM3MDkzMSwidXNlck5hbWUiOiLpg63lrZ_nhLYiLCJpYXQiOjE1NDUzMzA5MzF9.xmeHnjdFMj6sTDl9qJoJnRwUu-I1iUX2VXznQal9DL6kAw8CyGWoKsNDgIAejqPriOksy9Faee96tZkCeZ5W5w')
       console.log(getUserInfoFromToken())
@@ -57,7 +78,7 @@
           let nodeViewBox = document.querySelector('#__viewBox #vux_view_box_body')
           let moveY = event.touches[0].pageY
           //事实上所有的needsscroll都需要按照viewBox的模式进行处理，这里暂不做处理。
-          if (this.judgeAncestors(event.target,(el)=>(/\bneedsscroll\b/).test(el.className))) {
+          if (this.judgeAncestors(event.target, (el) => (/\bneedsscroll\b/).test(el.className))) {
             return
           }
           //如果target是可滚动的viewBox，先看看会不会超出边界

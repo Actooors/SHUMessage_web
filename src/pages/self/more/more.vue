@@ -1,21 +1,21 @@
 <template>
   <div class="more-wrapper">
     <group class="group-person">
-      <cell title="更改个人信息" is-link link="/self/more/myinfo">
+      <cell title="更改个人信息" is-link link="/m/self/more/myinfo">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="更改签名" is-link link="/self/more/signature">
+      <cell title="更改签名" is-link link="/m/self/more/signature">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="添加兴趣" is-link link="/self/more/pi">
+      <cell title="添加兴趣" is-link link="/m/self/more/pi">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
     </group>
     <group class="group-safety">
-      <cell title="修改密码" is-link link="/self/more/checkpwd">
+      <cell title="修改密码" is-link link="/m/self/more/checkpwd">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="修改手机" is-link link="/self/more/pi">
+      <cell title="修改手机" is-link link="/m/self/more/pi">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
     </group>
@@ -23,13 +23,13 @@
       <cell title="安利分享" is-link @click.native="shareToOthers">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="常见问题" is-link link="/self/more/pi">
+      <cell title="常见问题" is-link link="/m/self/more/pi">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="新版功能" is-link link="/self/more/pi">
+      <cell title="新版功能" is-link link="/m/self/more/pi">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
-      <cell title="用户反馈" is-link link="/self/more/feedback">
+      <cell title="用户反馈" is-link link="/m/self/more/feedback">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/avatar.png')">
       </cell>
     </group>

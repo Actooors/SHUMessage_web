@@ -1,16 +1,6 @@
 export default {
   data: () => ({
-    tags: [{
-      name: "Message合伙人"
-    }, {
-      name: "♀"
-    }, {
-      name: "太原"
-    }, {
-      name: "天秤座"
-    },],
     raw: [{
-      blockName: "我的关注",
       cards: [{
         info: {
           type: 1,
@@ -58,6 +48,39 @@ export default {
           name: "莫之章"
         },
       }]
-    }]
+    }],
+    userInfo: {
+      username: '--正--',
+      starNum: 352,
+      createThemeNum: 0,
+      starThemeNum: 447,
+      starOthersNum: 97,
+      likeSum: "3.5k",
+      signature: 'Nice to meet you :) 多一点字啊看一看啊快过来看看',
+      basic: [
+        {
+          label: "性别",
+          value: "女"
+        },
+        {
+          label: "星座",
+          value: "巨蟹座"
+        },
+        {
+          label: "所在地",
+          value: "山西 - 太原"
+        },
+      ],
+      tags: [{
+        name: "Message合伙人"
+      }, {
+        name: "♀"
+      }, {
+        name: "太原"
+      }, {
+        name: "天秤座"
+      },],
+      tipToYou: "她也关注了主题“校园新动向”",
+    }
   })
 }

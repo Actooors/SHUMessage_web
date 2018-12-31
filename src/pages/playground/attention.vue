@@ -59,7 +59,7 @@
         store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
         let that = this;
         this.$router.push({
-          path: '/msgDetail',
+          path: '/detail/msg',
           query: {...that.cards[index].info, elComment: !!info}
         })
       }
