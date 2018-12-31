@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <transition :name="transitionName">
-      <keep-alive>
-        <router-view class="child-view"></router-view>
-      </keep-alive>
-    </transition>
-  </div>
+  <transition :name="transitionName">
+    <keep-alive>
+      <router-view class="child-view"></router-view>
+    </keep-alive>
+  </transition>
 </template>
 
 <script>

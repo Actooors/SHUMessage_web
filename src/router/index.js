@@ -34,7 +34,6 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'pageTransition',
       component: PageTransition,
       children: [
         {
