@@ -1,0 +1,66 @@
+@charset "UTF-8";
+#menubj #navigation, #breadcrumbs, #copyright, a[typeof='skos:Concept'], footer * {
+  display: none; }
+
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 99999999;
+  pointer-events: none;
+  background: url("logo.jpeg") center no-repeat;
+  background-size: 200px 200px;
+  opacity: 0.2; }
+
+footer {
+  min-height: 30px; }
+
+.title {
+  line-height: 1.5em;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif; }
+
+#logo {
+  margin: 0 auto;
+  text-align: center; }
+  #logo a {
+    pointer-events: none; }
+
+p {
+  font-size: 16px;
+  line-height: 2em; }
+
+#Body {
+  overflow-x: hidden; }
+  #Body > table .side1 > tbody > tr:first-child, #Body > table .side1 > tbody > tr:last-child {
+    display: none; }
+  #Body > table .side1 > tbody > tr:nth-child(2) > :first-child > :first-child > :first-child > :first-child > :first-child {
+    display: none; }
+  #Body > table .side1 form[name="_newscontent_fromname"] {
+    max-width: calc(100vw - 50px); }
+  #Body #dnn_ctr63596_ArtDetail_tr1, #Body #dnn_ctr63596_ArtDetail_lblViewNumber, #Body #dnn_ctr63596_ArtDetail_lblViews, #Body #dnn_ctr63596_ArtDetail_lblViews + a {
+    display: none; }
+  #Body #dnn_ctr63596_ArtDetail_hypFirst:not(:empty):before {
+    content: '作者: ';
+    margin-left: 10px; }
+  #Body #dnn_ctr63596_ArtDetail_lblTitle {
+    line-height: 1.5em;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: left;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif; }
+  #Body #dnn_ctr63596_ArtDetail_Table2 > :first-child > :first-child > :first-child {
+    text-align: left; }
+  #Body span {
+    text-indent: 0 !important; }
+    #Body span :after {
+      content: "";
+      display: block;
+      height: 0.5em; }
+  #Body img {
+    max-width: calc(100vw - 50px);
+    height: unset; }
+
+/*# sourceMappingURL=normal.css.map */
