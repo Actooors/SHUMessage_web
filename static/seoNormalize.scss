@@ -1,5 +1,9 @@
-#menubj #navigation, #breadcrumbs, #copyright, a[typeof='skos:Concept'], footer * {
-  display: none;
+body {
+  overflow-x: hidden;
+  img {
+    max-width: calc(100vw - 50px);
+    height: unset;
+  }
 }
 
 body:after {
@@ -25,6 +29,26 @@ footer {
   font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
 }
 
+p {
+  font-size: 16px;
+  line-height: 2em;
+}
+
+//以上是公共样式
+html > body {
+  position: relative;
+  body.html {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0 !important;
+  }
+}
+
+#menubj #navigation, #breadcrumbs, #copyright, a[typeof='skos:Concept'], footer * {
+  display: none;
+}
+
 #logo {
   margin: 0 auto;
   text-align: center;
@@ -33,15 +57,13 @@ footer {
   }
 }
 
-p {
-  font-size: 16px;
-  line-height: 2em;
-}
-
 // 以上是兼容图书馆页面
 
 #Body {
   overflow-x: hidden;
+  td[background="../../dfiles/12880/portals/682/skins/bkzs/bg.jpg"] {
+    background: none !important;
+  }
   > table .side1 {
     > tbody > {
       tr:first-child, tr:last-child {
@@ -85,4 +107,5 @@ p {
     height: unset;
   }
 }
+
 // 以上css为了兼容上海大学本科招生网
