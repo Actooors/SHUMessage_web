@@ -29,6 +29,27 @@ html, body, #app {
 * {
   box-sizing: border-box;
 }
-.weui-tab__panel{
+
+.weui-tab__panel {
   background-color: #fbf9fe;
+}
+
+.weui-toast__content {
+  padding: 0 !important;
+  .greenStyle {
+    border: 1px solid #e1f3d8;
+    border-radius: 4px;
+    background-color: #f0f9eb;
+    font-size: 14px;
+    color: #67c23a;
+    height: 41px;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.weui-toast.vux-toast-top {
+  top: 30px;
 }

@@ -1,0 +1,65 @@
+@charset "UTF-8";
+.clear-decoration {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+html, body, #app {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; }
+
+.vux-tab-ink-bar-transition-backward, .vux-tab-ink-bar-transition-forward {
+  /* 全局封杀tab的animate, 防止tab出现什么幺蛾子 */
+  transition: none !important; }
+
+.theme-XHeader {
+  background-color: #fff !important;
+  border-bottom: rgba(0, 15, 80, 0.08) solid 1px; }
+  .theme-XHeader .vux-header-left, .theme-XHeader .vux-header-title, .theme-XHeader .vux-header-right, .theme-XHeader .vux-header-back {
+    color: #000 !important; }
+  .theme-XHeader .vux-header-more {
+    color: #3c3c3c !important; }
+  .theme-XHeader .vux-header-title {
+    margin: 0 52px !important; }
+
+* {
+  box-sizing: border-box; }
+
+.weui-tab__panel {
+  background-color: #fbf9fe; }
+
+.weui-toast__content {
+  padding: 0 !important; }
+  .weui-toast__content .greenStyle {
+    border: 1px solid #e1f3d8;
+    border-radius: 4px;
+    background-color: #f0f9eb;
+    font-size: 14px;
+    color: #67c23a;
+    height: 41px;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
+.weui-toast.vux-toast-top {
+  top: 30px; }
+
+/*# sourceMappingURL=reset.css.map */

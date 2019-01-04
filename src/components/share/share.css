@@ -1,0 +1,77 @@
+.clear-decoration {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+.popup > * {
+  border-radius: 12px;
+  margin: 0 8px 8px 8px;
+  background-color: white;
+  color: #6c6c6c; }
+.popup .content .title {
+  text-align: center;
+  font-size: .8rem;
+  padding-top: 15px;
+  padding-bottom: 5px; }
+.popup .content .row {
+  padding: 8px; }
+.popup .content .hr {
+  border-top: 1px solid rgba(0, 15, 80, 0.16);
+  width: 100%; }
+.popup .content .share-div {
+  position: relative; }
+.popup .content .operation .weixin {
+  display: inline-block;
+  text-align: center;
+  margin: 5px 0px;
+  min-width: 30px; }
+  .popup .content .operation .weixin .weixintag {
+    font-size: 11px;
+    color: #6c6c6c;
+    margin-top: 5px; }
+.popup .content .operation .row-li {
+  display: inline-block;
+  text-align: center;
+  margin: 0 5px;
+  min-width: 48px; }
+  .popup .content .operation .row-li .iconfont {
+    font-size: 30px;
+    display: block;
+    width: 45px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto; }
+  .popup .content .operation .row-li .tag {
+    font-size: 11px; }
+.popup .content .operation .share-li {
+  display: inline-block;
+  min-width: 48px; }
+  .popup .content .operation .share-li .shareIcon {
+    width: 30px;
+    height: 30px; }
+.popup .cancel {
+  padding: 12px;
+  text-align: center; }
+
+.xDialog .qrcode {
+  margin: 20%; }
+.xDialog .save {
+  margin-bottom: 20px; }
+
+/*# sourceMappingURL=share.css.map */

@@ -1,0 +1,42 @@
+.clear-decoration {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy, .searchResult {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+.searchResult {
+  height: 100vh; }
+  .searchResult .results {
+    padding: 1rem; }
+    .searchResult .results .hots .tag, .searchResult .results .hots .more {
+      display: inline-block;
+      background: rgba(0, 15, 80, 0.08);
+      padding: 0 1rem 0 1rem;
+      margin: .4rem .5rem;
+      border-radius: .3rem;
+      height: 2rem;
+      line-height: 2rem; }
+      .searchResult .results .hots .tag .icon-huo, .searchResult .results .hots .more .icon-huo {
+        color: #d70000;
+        position: relative;
+        left: -0.2rem; }
+    .searchResult .results .hots .more {
+      color: rgba(215, 0, 0, 0.7);
+      background: rgba(215, 0, 0, 0.12); }
+
+/*# sourceMappingURL=searchResult.css.map */

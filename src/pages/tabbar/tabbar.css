@@ -1,0 +1,27 @@
+@charset "UTF-8";
+.clear-decoration, .plus-btn {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+.plus-btn {
+  background: url("../../assets/images/增加.png") no-repeat center;
+  background-size: 40px 40px; }
+
+/*# sourceMappingURL=tabbar.css.map */

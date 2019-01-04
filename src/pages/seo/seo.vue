@@ -46,8 +46,8 @@
       forward() {
         // return this.$route.query.url
         let screenWidth = window.innerWidth || document.documentElement.clientWidth
-        // return `http://192.168.50.111:8090/getforward/get?url=${this.$route.query.url}&limit=${screenWidth - 50}`
-        return `https://proxy.shumsg.cn/getforward/get?url=${this.$route.query.url}&limit=${screenWidth - 50}`
+        // return `http://192.168.50.111:8090/getforward/get?__url=${this.$route.query.url}&limit=${screenWidth - 50}`
+        return `https://proxy.shumsg.cn/getforward/get?__url=${this.$route.query.url}&limit=${screenWidth - 50}`
       },
       handleClickMore() {
         this.showPopup = true
