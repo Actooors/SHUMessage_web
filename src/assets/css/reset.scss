@@ -53,3 +53,7 @@ html, body, #app {
 .weui-toast.vux-toast-top {
   top: 30px;
 }
+
+.vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
+  display: none
+}

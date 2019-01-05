@@ -1,5 +1,5 @@
 <template>
-  <ViewBox ref="seoViewBox" class="needsscroll">
+  <ViewBox ref="seoViewBox" bodyPaddingBottom="30px" class="needsscroll">
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:'',preventGoBack:true}"
               @on-click-back="handleClickBack"
@@ -9,6 +9,7 @@
       <span class="title">{{$route.query.title}}</span>
     </x-header>
     <iframe name="seo" :src="forward()" id="seo" class="seoFrame" v-once></iframe>
+    <i class="logo"></i>
     <share
       v-model="showPopup"
       @onRefresh="handleOnRefresh"
@@ -36,8 +37,7 @@
       //解决iframe在iPhone的Safari显示不全的问题（iframe内页面的自适应问题很奇妙就解决了，我也不知道怎么搞的）
       //无法解决安卓QQ浏览器的橡皮筋
       let scrollBody = this.$refs.seoViewBox.getScrollBody()
-      scrollBody.style.position = 'fixed';
-      scrollBody.style.width = '100%';
+      scrollBody.style="position:fixed;left:0;top:47px;width:100%;overflow-scrolling: touch"
     },
     methods: {
       handleClickBack() {

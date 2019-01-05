@@ -1,23 +1,9 @@
 body {
-  overflow-x: hidden;
+  overflow: scroll;
   img {
-    max-width: calc(100vw - 50px);
+    max-width: -100vw;
     height: unset;
   }
-}
-
-body:after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  z-index: 99999999;
-  pointer-events: none;
-  background: url("logo.jpeg") center no-repeat;
-  background-size: 200px 200px;
-  opacity: 0.2;
 }
 
 footer {
@@ -35,14 +21,8 @@ p {
 }
 
 //以上是公共样式
-html > body {
-  position: relative;
-  body.html {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 0 !important;
-  }
+html > body body.html {
+  margin: 0 !important;
 }
 
 #menubj #navigation, #breadcrumbs, #copyright, a[typeof='skos:Concept'], footer * {
@@ -60,21 +40,15 @@ html > body {
 // 以上是兼容图书馆页面
 
 #Body {
-  overflow-x: hidden;
   td[background="../../dfiles/12880/portals/682/skins/bkzs/bg.jpg"] {
     background: none !important;
   }
+  td[background="../../dfiles/12880/portals/682/skins/bkzs/bk_01.jpg"], td[bgcolor="#81adcc"], td[bgcolor="#F3FEFE"], td[background="../../dfiles/12880/portals/682/skins/bkzs/bk_53.jpg"] {
+    display: none !important;
+  }
   > table .side1 {
-    > tbody > {
-      tr:first-child, tr:last-child {
-        display: none;
-      }
-    }
-    > tbody > tr:nth-child(2) > :first-child > :first-child > :first-child > :first-child > :first-child {
-      display: none;
-    }
     form[name="_newscontent_fromname"] {
-      max-width: calc(100vw - 50px);
+      max-width: -100vw;
     }
   }
   #dnn_ctr63596_ArtDetail_tr1, #dnn_ctr63596_ArtDetail_lblViewNumber, #dnn_ctr63596_ArtDetail_lblViews, #dnn_ctr63596_ArtDetail_lblViews + a {
@@ -96,14 +70,14 @@ html > body {
   }
   span {
     text-indent: 0 !important;
-    :after {
-      content: "";
-      display: block;
-      height: 0.5em;
-    }
+    //:after {
+    //  content: "";
+    //  display: block;
+    //  height: 0.5em;
+    //}
   }
   img {
-    max-width: calc(100vw - 50px);
+    max-width: -100vw;
     height: unset;
   }
 }
