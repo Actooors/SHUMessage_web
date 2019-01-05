@@ -23,6 +23,7 @@ export default {
           comment: 73,
           share: 2
         },
+        footprint: {like: false, comment: false, forward: false},
         showStar: false
         // position: {//后端记录每条信息的position经纬度，计算后返回
         //   name: "栋霖科技园",
@@ -51,6 +52,7 @@ export default {
     }],
     userInfo: {
       username: '--正--',
+      sex: '女',
       starNum: 352,
       createThemeNum: 0,
       starThemeNum: 447,

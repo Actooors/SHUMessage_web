@@ -56,11 +56,11 @@
           </div>
           <div>
             <p class="num">{{userInfo.starOthersNum}}</p>
-            <p>她关注的人</p>
+            <p>{{userInfo.sex==='女'?'她':'他'}}关注的人</p>
           </div>
           <div>
             <p class="num">{{userInfo.starNum}}</p>
-            <p>关注她的人</p>
+            <p>关注{{userInfo.sex==='女'?'她':'他'}}的人</p>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
                   v-for="item of block.cards"
                   :key="item.value"
                   :msg="item"
-                  @onClickShareButton="handleClickShareButton(arguments,item)"
+                  @onClickShareButton="handleClickShareButton(...arguments,item)"
                 ></user-message-card>
                 <div class="block-append">
                   <router-link
@@ -121,23 +121,34 @@
         </div>
       </div>
     </div>
+    <share
+      v-model="shareOptions.show"
+      :url="shareOptions.url"
+      :title="shareOptions.title"
+      :digest="shareOptions.digest"
+      v-transfer-dom
+    ></share>
   </ViewBox>
 </template>
 
 <script>
   import {ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview} from "vux";
+  import Share from 'components/share/share'
   import "animate.css";
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import mockMixin from "./mock";
+  import sharebarMixin from "assets/js/sharebarMixin";
   import stickybits from "stickybits";
 
-  var XHeaderBackElement = null;
+  let XHeaderBackElement = null;
 
   export default {
     name: "profile",
+    mixins: [sharebarMixin, mockMixin],
     components: {
       ...{ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview},
-      UserMessageCard
+      UserMessageCard,
+      Share
     },
     data: () => ({
       tabIndex: 0,
@@ -149,18 +160,21 @@
       stickied: false
     }),
     mounted() {
-      this.resetViewBoxPropertities();
-      XHeaderBackElement = document.getElementById(
-        "profile-XHeader-back"
-      )
+      this.initViewBoxPropertities();
+      XHeaderBackElement = document.getElementById("profile-XHeader-back")
       this.$nextTick(() => {
         stickybits(".list-top-box", {stickyBitStickyOffset: 46});
       });
       this.$refs.viewbox.getScrollBody().addEventListener("scroll", this.handleScroll);
       this.handleScroll({target: this.$refs.viewbox.getScrollBody()});
+
+      this.loadData()
     },
     methods: {
-      resetViewBoxPropertities() {
+      loadData(){
+
+      },
+      initViewBoxPropertities() {
         let e = this.$refs.viewbox.getScrollBody();
         e.style.position = "absolute";
         e.style.left = "0";
@@ -174,7 +188,7 @@
         XHeaderBackElement.style.backgroundPositionY = `${-Math.min(top - 5, 330 - 52 - 1)}px`;
         //drop-shadow
         let tmp = 320 - 52 - top + 5;//距list-top的距离
-        //可能会有微弱的性能提升
+        //使用if代替Math函数可能会有微弱的性能提升
         if (tmp <= 0) {
           XHeaderBackElement.style.filter = '';
         } else if (tmp < 10) {
@@ -194,7 +208,6 @@
         this.scrollStatus.scrollTop = top;
       }
     },
-    mixins: [mockMixin]
   };
 </script>
 

@@ -16,6 +16,7 @@ export default {
       if (!('length' in msgs)) {
         msgs = [msgs]
       }
+      console.log("sharebarMixin - btnIndex", btnIndex)
       switch (btnIndex) {
         case 0:
           handleLikeAjax(msgs[0].info, !msgs[0].footprint.like)

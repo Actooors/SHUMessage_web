@@ -1,6 +1,7 @@
 @charset "UTF-8";
 body {
-  overflow: scroll; }
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch; }
   body img {
     max-width: -100vw !important;
     height: unset !important; }

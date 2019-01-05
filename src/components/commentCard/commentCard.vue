@@ -1,11 +1,13 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard" @click="handleClickCard">
-    <div class="left-side avatar" v-if="lazyload" v-lazy:background-image="author.avatar"></div>
-    <div class="left-side avatar" v-else :style="`background-image:url(${author.avatar})`"></div>
+    <div @click="pushProfile(author.id)">
+      <div class="left-side avatar" v-if="lazyload" v-lazy:background-image="author.avatar"></div>
+      <div class="left-side avatar" v-else :style="`background-image:url(${author.avatar})`"></div>
+    </div>
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
-          <span class="author">{{author.name}}</span>
+          <span class="author" @click="pushProfile(author.id)">{{author.name}}</span>
           <span class="operation" @click="handleClickLike">{{shareInfo.like?shareInfo.like:''}}
             <i :class="`icon-appreciate iconfont icon${footprint.like?' icon-done':''}`"></i>
           </span>
@@ -142,6 +144,10 @@
       }
     },
     methods: {
+      pushProfile(uid){
+        this.$router.push({path: '/profile', query: {uid}})
+        event.stopPropagation()
+      },
       handleClickReplay() {
         this.$emit('onClickReply')
         event.stopPropagation()

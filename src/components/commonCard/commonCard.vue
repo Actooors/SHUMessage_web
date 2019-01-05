@@ -20,9 +20,11 @@
 
     </div>
     <div class="author" v-if="msg.author">
-      <img v-if="lazyload" v-lazy="msg.author.avatar" class="avatar">
-      <img v-else :src="msg.author.avatar" class="avatar">
-      <span class="author-name">{{msg.author.name}}</span>
+      <div class="author" @click="pushProfile(msg.author.id)">
+        <img v-if="lazyload" v-lazy="msg.author.avatar" class="avatar">
+        <img v-else :src="msg.author.avatar" class="avatar">
+        <span class="author-name">{{msg.author.name}}</span>
+      </div>
       <span class="author-append" v-if="msg.publishTime">{{preHandleTime(msg.publishTime)}}</span>
     </div>
     <share-bar
@@ -56,6 +58,10 @@
       }
     },
     methods: {
+      pushProfile(uid){
+        this.$router.push({path: '/profile', query: {uid}})
+        event.stopPropagation()
+      },
       handleClickShareButton(index) {
         this.$emit('onClickShareButton', index)
       },

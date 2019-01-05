@@ -32,13 +32,6 @@
     data: () => ({
       showPopup: false,
     }),
-    mounted() {
-      //解决iframe的touch事件不能被捕获，从而导致橡皮筋现象的问题
-      //解决iframe在iPhone的Safari显示不全的问题（iframe内页面的自适应问题很奇妙就解决了，我也不知道怎么搞的）
-      //无法解决安卓QQ浏览器的橡皮筋
-      let scrollBody = this.$refs.seoViewBox.getScrollBody()
-      scrollBody.style="position:fixed;left:0;top:47px;width:100%;overflow-scrolling: touch"
-    },
     methods: {
       handleClickBack() {
         this.$router.go(-1);
