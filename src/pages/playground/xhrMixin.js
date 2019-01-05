@@ -27,7 +27,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 'FAILED') {
-          this.$vux.toast.text(res.data.message)
+          this.$toast({text: res.data.message, type: 'error'});
           this.noMore = true;
           return
         }

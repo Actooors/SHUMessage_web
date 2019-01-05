@@ -10,11 +10,11 @@
     <!--这里v-else的作用，一是优化体验，二是防止白屏（我也不知道为什么白屏）-->
     <div class="scrollComponentBodyContent" v-else>
       <slot></slot>
+      <div class="loading" v-if="loadingMore">
+        <Spinner type="lines"></Spinner>
+      </div>
+      <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
     </div>
-    <div class="loading" v-if="loadingMore">
-      <Spinner type="lines"></Spinner>
-    </div>
-    <LoadMore :show-loading=false tip="没有更多了" v-if="noMore"></LoadMore>
     <slot name="bottom" slot="bottom"></slot>
   </ViewBox>
 </template>
@@ -46,7 +46,7 @@
       },
       bodyPaddingBottom: {
         type: String,
-        default: "45px"
+        default: "75px"
       },
       loadIconTop: {
         type: String,

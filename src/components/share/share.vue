@@ -145,11 +145,11 @@
     mounted() {
       let clipboard = new ClipboardJS('.copy-link');
       clipboard.on('success', (e) => {
-        this.$vux.toast.text('复制链接成功!', 'default');
+        this.$toast({text: '复制链接成功!'});
         e.clearSelection();
       });
       clipboard.on('error', (e) => {
-        this.$vux.toast.text('复制链接失败!', 'default');
+        this.$toast({text: '复制链接失败!', type: 'warning'});
       });
       let that = this
     },
@@ -165,7 +165,7 @@
         this.showXDialog = true
         console.log(this.webUrl)
       },
-      closeDialog(){
+      closeDialog() {
         this.showXDialog = false;
       }
     }
@@ -175,7 +175,7 @@
   @import "share";
 </style>
 <style lang="scss" scoped>
-  .close{
+  .close {
     float: right;
     margin-top: 5px;
     margin-right: 10px;

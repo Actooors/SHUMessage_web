@@ -38,9 +38,9 @@
       },
       submit() {
         if(this.feedback.length===0) {
-          this.$vux.toast.text('请填写反馈内容~')
+          this.$toast({text: '请填写反馈内容~', type: 'warning'});
         }else {
-          this.$vux.toast.text('反馈成功~')
+          this.$toast({text: '反馈成功~'});
         }
       }
     }

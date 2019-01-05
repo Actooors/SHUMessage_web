@@ -311,11 +311,11 @@
       initClipboard() {
         let clipboard = new ClipboardJS('.copy-content');
         clipboard.on('success', (e) => {
-          this.$vux.toast.text('复制成功!', 'default');
+          this.$toast({text: '复制成功!'});
           e.clearSelection();
         });
         clipboard.on('error', (e) => {
-          this.$vux.toast.text('复制失败!', 'default');
+          this.$toast({text: '复制失败!', type: 'warning'});
         });
       },
       handleClickPopBtn(btnIndex) {

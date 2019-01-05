@@ -45,19 +45,33 @@ html, body, #app {
 .weui-tab__panel {
   background-color: #fbf9fe; }
 
-.weui-toast__content {
-  padding: 0 !important; }
-  .weui-toast__content .greenStyle {
-    border: 1px solid #e1f3d8;
-    border-radius: 4px;
-    background-color: #f0f9eb;
-    font-size: 14px;
-    color: #67c23a;
-    height: 41px;
-    line-height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
+.weui-toast {
+  min-width: fit-content !important; }
+  .weui-toast .weui-toast__content {
+    padding: 0 !important;
+    display: table;
+    min-width: calc(100% + 2px); }
+    .weui-toast .weui-toast__content .toast-common-style, .weui-toast .weui-toast__content .toast-greenStyle, .weui-toast .weui-toast__content .toast-yellowStyle, .weui-toast .weui-toast__content .toast-redStyle {
+      padding: 0 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      height: 41px;
+      line-height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    .weui-toast .weui-toast__content .toast-greenStyle {
+      border: 1px solid #e1f3d8;
+      background-color: #f0f9eb;
+      color: #67c23a; }
+    .weui-toast .weui-toast__content .toast-yellowStyle {
+      border: 1px solid #FFD77A;
+      background-color: #FFF9E6;
+      color: #FF9900; }
+    .weui-toast .weui-toast__content .toast-redStyle {
+      border: 1px solid #FFB08F;
+      background-color: #FFEFE6;
+      color: #ED4014; }
 
 .weui-toast.vux-toast-top {
   top: 30px; }

@@ -17,6 +17,7 @@ export default {
   }),
   methods: {
     reloadData() {
+      this.$route.query.elComment = false
       this.$store.commit('pushRouter/SET_CARD_ITEM', null);
       return this.loadData(false);
     },
@@ -105,7 +106,7 @@ export default {
           }
         }).then((res) => {
           if (res.data.code === 'FAILED') {
-            that.$vux.toast.text(res.data.message)
+            this.$toast({text: res.data.message, type: 'error'});
             return
           }
           if (res.data.data.raw[updateBlockIndex].cards.length === 0) {
@@ -140,7 +141,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.code === 'FAILED') {
-          this.$vux.toast.text(res.data.message)
+          this.$toast({text: res.data.message, type: 'error'});
           return
         }
         this.replyName = this.msg.author.name;
@@ -154,7 +155,7 @@ export default {
         that.noMore = false
         that.page = 0
         that.loadComment()
-        that.$vux.toast.text('评论成功')
+        this.$toast({text: '评论成功'});
 
         // //如果是在评论界面回复评论
         // if (info.type.toString() !== this.$route.query.type.toString()) {

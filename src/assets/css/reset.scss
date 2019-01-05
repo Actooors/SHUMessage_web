@@ -34,19 +34,44 @@ html, body, #app {
   background-color: #fbf9fe;
 }
 
-.weui-toast__content {
-  padding: 0 !important;
-  .greenStyle {
-    border: 1px solid #e1f3d8;
-    border-radius: 4px;
-    background-color: #f0f9eb;
-    font-size: 14px;
-    color: #67c23a;
-    height: 41px;
-    line-height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.weui-toast {
+  min-width: fit-content !important;
+  //transform: none;
+  //left: 0;
+  //right: 0;
+  //margin: 0 auto !important;
+  .weui-toast__content {
+    padding: 0 !important;
+    display: table;
+    min-width: calc(100% + 2px);
+    .toast-common-style {
+      padding: 0 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      height: 41px;
+      line-height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .toast-greenStyle {
+      @extend .toast-common-style;
+      border: 1px solid #e1f3d8;
+      background-color: #f0f9eb;
+      color: #67c23a;
+    }
+    .toast-yellowStyle {
+      @extend .toast-common-style;
+      border: 1px solid #FFD77A;
+      background-color: #FFF9E6;
+      color: #FF9900;
+    }
+    .toast-redStyle {
+      @extend .toast-common-style;
+      border: 1px solid #FFB08F;
+      background-color: #FFEFE6;
+      color: #ED4014;
+    }
   }
 }
 

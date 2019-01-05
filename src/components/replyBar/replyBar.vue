@@ -100,11 +100,11 @@
         //只能上传一个图片
         let file = document.getElementById('file').files[0];
         if (!this.validImageFormat(file)) {
-          this.$vux.toast.text('只能选择图片哦')
+          this.$toast({text: '只能选择图片哦', type: 'warning'});
           return
         }
         if (file.size > 1024 * 1024 * 3) {
-          this.$vux.toast.text('图片大小不能超过3M哦')
+          this.$toast({text: '图片大小不能超过3M哦', type: 'warning'});
           return
         }
         let fr = new FileReader

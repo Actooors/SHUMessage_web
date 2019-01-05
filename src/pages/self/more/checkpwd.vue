@@ -36,30 +36,15 @@
       },
       finish() {
         if (this.newPwd1 === '' || this.newPwd2 === '' || this.oldPwd === '') {
-          this.$vux.toast.show({
-            type: 'warn',
-            text: '请设置密码'
-          })
+          this.$toast({text: '请设置密码', type: 'warning'});
         } else if (this.oldPwd !== "123123") {//不等于旧密码 //TODO
-          this.$vux.toast.show({
-            type: 'warn',
-            text: '原密码不匹配'
-          })
+          this.$toast({text: '原密码不匹配', type: 'warning'});
         } else if ((this.newPwd1.length < 6 || this.newPwd2.length < 6) && (this.newPwd1 === this.newPwd2)) {
-          this.$vux.toast.show({
-            type: 'warn',
-            text: '密码长度不能小于6位'
-          })
+          this.$toast({text: '密码长度不能小于6位', type: 'warning'});
         } else if (this.newPwd1 !== this.newPwd2) {
-          this.$vux.toast.show({
-            type: 'warn',
-            text: '两次密码不一致'
-          })
+          this.$toast({text: '两次密码不一致', type: 'warning'});
         } else if (!(this.newPwd1.length < 6 || this.newPwd2.length < 6) && (this.newPwd1 === this.newPwd2) && (this.newPwd1 === this.newPwd2)) {
-          this.$vux.toast.show({
-            type: 'success',
-            text: 'Loading'
-          })
+          this.$toast({text: 'Loading'});
         }
       }
     },
