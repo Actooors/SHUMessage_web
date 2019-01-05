@@ -2,8 +2,22 @@
 body {
   overflow: scroll; }
   body img {
-    max-width: -100vw;
-    height: unset; }
+    max-width: -100vw !important;
+    height: unset !important; }
+  body p > img:only-child {
+    display: block; }
+  body:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: -100vw;
+    z-index: 99999;
+    pointer-events: none;
+    background: url("https://shumsg.cn/static/logo.jpeg") center no-repeat;
+    background-size: 200px 200px;
+    opacity: 0.2; }
 
 footer {
   min-height: 30px; }
@@ -21,6 +35,16 @@ html > body body.html {
 
 #menubj #navigation, #breadcrumbs, #copyright, a[typeof='skos:Concept'], footer * {
   display: none; }
+
+#primary.container {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #primary.container section#content2 p {
+    margin-left: auto;
+    margin-right: auto; }
+    #primary.container section#content2 p img {
+      width: 100% !important; }
 
 #logo {
   margin: 0 auto;
@@ -49,8 +73,5 @@ html > body body.html {
   text-align: left; }
 #Body span {
   text-indent: 0 !important; }
-#Body img {
-  max-width: -100vw;
-  height: unset; }
 
 /*# sourceMappingURL=seoNormalize.css.map */
