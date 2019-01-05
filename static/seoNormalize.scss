@@ -15,7 +15,7 @@ body {
     top: 0;
     left: 0;
     height: 100vh;
-    width: -100vw;
+    width: calc(-100vw + 50px);
     z-index: 99999;
     pointer-events: none;
     background: url("https://shumsg.cn/static/logo.jpeg") center no-repeat;
@@ -34,8 +34,10 @@ footer {
 }
 
 p {
-  font-size: 16px;
-  line-height: 2em;
+  font-size: 16px !important;
+  line-height: 2em !important;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 //以上是公共样式

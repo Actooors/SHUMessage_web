@@ -12,7 +12,7 @@ body {
     top: 0;
     left: 0;
     height: 100vh;
-    width: -100vw;
+    width: calc(-100vw + 50px);
     z-index: 99999;
     pointer-events: none;
     background: url("https://shumsg.cn/static/logo.jpeg") center no-repeat;
@@ -27,8 +27,10 @@ footer {
   font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif; }
 
 p {
-  font-size: 16px;
-  line-height: 2em; }
+  font-size: 16px !important;
+  line-height: 2em !important;
+  word-break: break-all;
+  word-wrap: break-word; }
 
 html > body body.html {
   margin: 0 !important; }
