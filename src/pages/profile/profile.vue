@@ -137,7 +137,7 @@
   import "animate.css";
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import mockMixin from "./mock";
-  import sharebarMixin from "assets/js/sharebarMixin";
+  import sharebarMixin from "assets/js/sharebarMixin/index";
   import stickybits from "stickybits";
 
   let XHeaderBackElement = null;

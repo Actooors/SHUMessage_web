@@ -58,12 +58,12 @@
       }
     },
     methods: {
-      pushProfile(uid){
+      pushProfile(uid) {
         this.$router.push({path: '/profile', query: {uid}})
         event.stopPropagation()
       },
-      handleClickShareButton(index) {
-        this.$emit('onClickShareButton', index)
+      handleClickShareButton() {
+        this.$emit('onClickShareButton', ...arguments)
       },
       getDomain(url) {
         let s = url.replace(/.+:\/\//, '')

@@ -120,8 +120,8 @@
       relativeTime(t) {
         return relativeTime(t)
       },
-      handleClickShareButton(index) {
-        this.$emit('onClickShareButton', index)
+      handleClickShareButton() {
+        this.$emit('onClickShareButton', ...arguments)
       },
       getDomain(url) {
         let s = url.replace(/.+:\/\//, '')

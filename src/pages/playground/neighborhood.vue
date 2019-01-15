@@ -17,12 +17,6 @@
       class="neighborhood-card"
       @onClickImg="handleClickCardImg"
     ></user-message-card>
-    <share
-      v-model="shareOptions.show"
-      :url="shareOptions.url"
-      :title="shareOptions.title"
-      :digest="shareOptions.digest"
-    ></share>
     <div v-transfer-dom>
       <previewer :list="previewerList" ref="NeiborhoodPreviewer" :options="previewerOptions"
                  :key="previewerUpdateReminder"></previewer>
@@ -38,15 +32,14 @@
   import previewerMixin from './previewerMixin'
   import Scroll from 'components/scroll/scroll'
   import store from "store/store";
-  import sharebarMixin from '../../assets/js/sharebarMixin'
-  import Share from 'components/share/share'
+  import sharebarMixin from '../../assets/js/sharebarMixin/index'
   import {Spinner} from 'vux'
   import xhrMixin from './xhrMixin'
 
   export default {
     name: "neighborhood",
     store,
-    components: {...{Spinner}, Previewer, UserMessageCard, Scroll, Share},
+    components: {...{Spinner}, Previewer, UserMessageCard, Scroll},
     mixins: [mock, scrollMixin, sharebarMixin, previewerMixin, xhrMixin],
     data: () => ({
       showLoadIcon: true

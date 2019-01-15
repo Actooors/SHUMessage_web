@@ -13,12 +13,6 @@
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item)"
     ></common-card>
-    <share
-      v-model="shareOptions.show"
-      :url="shareOptions.url"
-      :title="shareOptions.title"
-      :digest="shareOptions.digest"
-    ></share>
   </scroll>
 </template>
 
@@ -28,16 +22,14 @@
   import scrollMixin from './scrollMixin'
   import Scroll from 'components/scroll/scroll'
   import store from 'store/store'
-
-  import sharebarMixin from '../../assets/js/sharebarMixin'
-  import Share from 'components/share/share'
+  import sharebarMixin from '../../assets/js/sharebarMixin/index'
   import {Spinner} from 'vux'
   import xhrMixin from './xhrMixin'
 
   export default {
     name: "attention",
     store,
-    components: {...{Spinner}, CommonCard, Scroll, Share},
+    components: {...{Spinner}, CommonCard, Scroll},
     mixins: [scrollMixin, sharebarMixin, xhrMixin],
     data: () => ({
       cards: [],

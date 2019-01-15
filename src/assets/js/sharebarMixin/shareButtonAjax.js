@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export function handleLikeAjax(info, like) {
-  let ret = ""
+export function requestLike(info, like) {
+  let ret = "";
   axios({
     url: apiRoot + "/common/like",
     method: "post",
@@ -15,6 +15,6 @@ export function handleLikeAjax(info, like) {
     }
   }).catch((err) => {
     ret = err.toString()
-  })
+  });
   return ret
 }

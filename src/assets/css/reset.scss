@@ -82,3 +82,7 @@ html, body, #app {
 .vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
   display: none
 }
+
+.vux-popup-mask.vux-popup-show {
+  cursor: auto;
+}

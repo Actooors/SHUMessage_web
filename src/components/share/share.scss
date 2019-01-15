@@ -29,6 +29,7 @@
     }
     .operation {
       .weixin {
+        cursor: pointer;
         display: inline-block;
         text-align: center;
         margin: 5px 0px;
@@ -72,11 +73,12 @@
     text-align: center;
   }
 }
-.xDialog{
+
+.xDialog {
   .qrcode {
     margin: 20%;
   }
-  .save{
+  .save {
     margin-bottom: 20px;
   }
 }

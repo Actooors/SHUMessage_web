@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App'
-import {TransferDom} from 'vux'
+import {TransferDom, querystring} from 'vux'
 import 'normalize.css'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
@@ -11,7 +11,9 @@ import axios from 'axios'
 import PullToRefreshDirective from 'assets/js/pullToRefreshDirective'
 import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
+
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
+Object.defineProperty(Vue.prototype, '$querystring', {value: querystring});
 
 //重新封装toast, type可为success/warning/error, width请设为偶数，否则由于居中方式的问题可能将导致模糊
 Vue.use(ShumsgToastPlugin);

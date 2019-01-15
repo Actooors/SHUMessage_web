@@ -89,12 +89,6 @@
       @onSubmit="handleComment(...arguments, replyInfo)"
       ref="replyBar"
     ></reply-bar>
-    <share
-      v-model="shareOptions.show"
-      :url="shareOptions.url"
-      :title="shareOptions.title"
-      :digest="shareOptions.digest"
-    ></share>
     <Popover
       :pos="{left:`${popX}px`,top:`${popY}px`}"
       v-model="showPopBoolean"
@@ -135,10 +129,9 @@
   import stickybits from 'stickybits'
   import store from 'store/store'
   import ReplyBar from 'components/replyBar/replyBar'
-  import Share from 'components/share/share'
   import Popover from 'components/popover/popover'
   import ClipboardJS from 'clipboard'
-  import sharebarMixin from "assets/js/sharebarMixin";
+  import sharebarMixin from "assets/js/sharebarMixin/index";
   import ajaxMixin from "pages/msgDetails/ajaxMixin";
   import {getUserInfoFromToken} from 'assets/js/tokenTools'
 
@@ -199,7 +192,6 @@
       '$route'(to, from) {
         const that = this;
         const isEnter = isRouteEnter(this, to);
-        // console.log(isEnter)
         if (isEnter) {
           // console.log("isEnter->initTitle", to.name, this.$options.name, this.$parent.$options.name, this.$parent)
           store.commit("pushRouter/SET_ROUTE_CHANGED", true);
@@ -334,6 +326,7 @@
       handleClickBack() {
         // this.$router.go(-1)
         if (store.state.pushRouter.routeChanged) {
+          console.log("!",store.state.pushRouter.routeChanged)
           this.$router.go(-1)
           // console.log("大概有进入detail的router-history")
         } else {
@@ -343,9 +336,9 @@
       },
       judgeAndMoveToCommentBlocks(judge = true) {
         if (!judge
-          || ('elComment' in this.$route.query && this.$route.query.elComment.toString() === "true")//query的特殊性
+          || ('elComment' in this.$route.query && this.$querystring.parse().elComment === "true")//query的特殊性
         ) {
-          console.log("锚过来啊")
+          console.log("锚过来啊");
           let el = this.scrollBody;
           el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
         }
