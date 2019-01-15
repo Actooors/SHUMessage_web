@@ -230,7 +230,7 @@
       left: 0;
       width: 100%;
       height: 52px;
-      background: url("http://mzzeast.0ggmr0.cn/18-12-31/12524706.jpg");
+      background: url("http://mzzeast.shumsg.cn/18-12-31/12524706.jpg");
       background-position-x: 0;
       background-position-y: 5px;
     }

@@ -144,7 +144,6 @@
       UserMessageCard,
       CommentCard,
       ReplyBar,
-      Share,
       Popover,
       Scroll
     },

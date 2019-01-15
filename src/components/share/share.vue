@@ -57,7 +57,7 @@
           <i class="icon-close-circle iconfont icon" @click="closeDialog"></i>
         </div>
         <div class="qrcode">
-          <qrcode :value="webUrl" type="img"></qrcode>
+          <qrcode :value="url" type="img"></qrcode>
         </div>
         <div class="save">长按保存二维码</div>
       </x-dialog>
@@ -104,8 +104,7 @@
     data() {
       return {
         showPopup: false,
-        showXDialog: false,
-        webUrl: this.url
+        showXDialog: false
       }
     },
     watch: {
@@ -158,12 +157,12 @@
         this.showPopup = false
       },
       handleOpenBlank() {
-        window.open(this.url, "_blank")
+        window.open(this.url, "_blank");
         this.showPopup = false
       },
       share2weixin() {
-        this.showXDialog = true
-        console.log(this.webUrl)
+        this.showXDialog = true;
+        console.log(this.url)
       },
       closeDialog() {
         this.showXDialog = false;
