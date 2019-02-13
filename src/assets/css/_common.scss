@@ -1,3 +1,5 @@
+@import "varies";
+
 .clear-decoration {
   text-decoration: none;
   border: none;
@@ -28,4 +30,25 @@
 .more-loading {
   display: flex;
   justify-content: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+%button-basic {
+  @extend .row;
+  color: $--theme-gray-light25;
+  justify-content: center;
+  border: none;
+  border-radius: 15px;
+  > .iconfont {
+    font-weight: bold;
+  }
+  > span {
+    @extend .row;
+    position: relative;
+    left: -1px;
+  }
 }

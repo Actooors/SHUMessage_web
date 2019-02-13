@@ -12,6 +12,10 @@ html, body, #app {
   transition: none !important;
 }
 
+.vux-header .vux-header-left, .vux-header .vux-header-right {
+  top: 12px !important;
+}
+
 .theme-XHeader {
   background-color: #fff !important;
   border-bottom: $--background-deep solid 1px;
@@ -28,6 +32,10 @@ html, body, #app {
 
 * {
   box-sizing: border-box;
+}
+
+.weui-tab {
+  overflow: hidden;
 }
 
 .weui-tab__panel {
@@ -112,4 +120,8 @@ html, body, #app {
   .icon-back {
     filter: drop-shadow(0 0 1px black); //描边
   }
+}
+
+.vux-cell-box {
+  font-size: 16px !important;
 }

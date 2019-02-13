@@ -1,0 +1,46 @@
+<template>
+  <ViewBox
+    class="momentPublish-wrapper"
+    body-padding-bottom="46px"
+  >
+    <x-header slot="header" class="theme-XHeader"
+              :left-options="{showBack: true,backText:''}"
+              :right-options="{showMore: false}"
+    >发布新动态
+      <div slot="right">
+        <button class="button">发布</button>
+      </div>
+    </x-header>
+    <textarea
+      ref="textarea"
+      class="textarea"
+      placeholder="SHU Message, 让纸飞机捎去你的点滴生活"
+    ></textarea>
+    <Group class="needsclick" gutter="0">
+      <CellBox is-link>
+        选择圈子
+      </CellBox>
+      <CellBox is-link>
+        你在哪里？
+      </CellBox>
+    </Group>
+  </ViewBox>
+</template>
+
+<script>
+  import {ViewBox, XHeader, Group} from 'vux'
+  import CellBox from 'components/cell-box'
+  import autosize from 'autosize'
+
+  export default {
+    name: "momentPublish",
+    components: {...{ViewBox, XHeader, Group}, CellBox},
+    mounted() {
+      autosize(this.$refs.textarea, {initOffset: 0});
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "momentPublish";
+</style>

@@ -1,0 +1,30 @@
+@import "../../assets/css/common";
+.momentPublish-wrapper{
+  font-size:16px;
+  .textarea-box {
+    padding: 1em;
+
+  }
+
+  .textarea {
+    margin: 1em;
+    min-height: 100px;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    resize: none;
+    width: 100%;
+  }
+
+  .button {
+    @extend %button-basic;
+    background: $--theme-blue-deep;
+    height: 24px;
+    width: 54px;
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    color: white !important;
+  }
+
+}

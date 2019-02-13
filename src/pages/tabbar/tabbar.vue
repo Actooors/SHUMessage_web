@@ -57,7 +57,7 @@
     },
     methods: {
       handleClickPlus() {
-        console.log("点击了发布新动态")
+        this.$router.push('/publish')
       },
       initSelectedIndex() {
         // 从后向前遍历，有tabbarIndex的就更新

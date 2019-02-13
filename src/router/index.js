@@ -14,6 +14,7 @@ import Attention from 'pages/playground/attention'
 import Recommend from 'pages/playground/recommend'
 import Neighborhood from 'pages/playground/neighborhood'
 import Moments from 'pages/moments/moments'
+import MomentPublish from 'pages/momentPublish/momentPublish'
 import Find from 'pages/find/find'
 import MsgDetail from 'pages/msgDetails/msgDetail'
 import CommentDetail from 'pages/msgDetails/commentDetail'
@@ -151,6 +152,10 @@ const router = new Router({
     {
       path: "/profile",
       component: Profile
+    },
+    {
+      path:"/publish",
+      component: MomentPublish
     }
   ]
 });

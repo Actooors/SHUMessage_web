@@ -87,10 +87,10 @@
       loadData() {
         setTimeout(() => {
           this.showLoadIcon = false
-        }, 1000)
+        }, 500)
       },
       handlePublicMoments() {
-        console.log("发表新动态")
+        this.$router.push('/publish')
       },
       handleClickShareButton([index], info) {
         console.log("moments - handleClickShareButton", index, info)

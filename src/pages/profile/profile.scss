@@ -1,4 +1,5 @@
 @import "../../assets/css/varies";
+@import "../../assets/css/common";
 
 .profile-viewbox {
   font-size: .7rem;
@@ -24,7 +25,7 @@
         margin: 0 10px;
       }
       .follow {
-        @extend %follow-basic;
+        @extend %button-basic;
         background: $--theme-blue-deep;
         height: 24px;
         width: 54px;
@@ -58,7 +59,7 @@
         }
       }
       .follow {
-        @extend %follow-basic;
+        @extend %button-basic;
         background: $--theme-blue-deep2;
         height: 30px;
         width: 80px;
@@ -136,11 +137,6 @@
   }
 }
 
-.row {
-  display: flex;
-  align-items: center;
-}
-
 %round {
   border-radius: 50%;
   display: flex;
@@ -155,22 +151,6 @@
 %round-shadow {
   @extend %round;
   @extend %shadow;
-}
-
-%follow-basic {
-  @extend .row;
-  color: $--theme-gray-light25;
-  justify-content: center;
-  border: none;
-  border-radius: 15px;
-  > .iconfont {
-    font-weight: bold;
-  }
-  > span {
-    @extend .row;
-    position: relative;
-    left: -1px;
-  }
 }
 
 .fade-enter-active, .fade-leave-active {
