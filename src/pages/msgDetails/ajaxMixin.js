@@ -83,7 +83,7 @@ export default {
         console.error(err)
       })
     },
-    loadMore() {
+    loadMore(callback) {
       //仅loadMore第二个，即最新评论
       let limit = [0, 10];
       let updateBlockIndex = 1
@@ -122,6 +122,7 @@ export default {
         }).catch((err) => {
           console.error(err)
         }).finally(() => {
+          callback();
           //500ms内不要重复ajax
           setTimeout(() => {
             that.loadingMoreComments = false

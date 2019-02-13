@@ -17,9 +17,9 @@
       </div>
     </x-header>
     <scroll
+      :noMore="noMore"
       :pulldownCallback="handlePulldownLoading"
       :pullupCallback="handlePullupLoading"
-      @on-scroll="handleScroll"
       bodyPaddingBottom="200px"
       :showLoadIcon="showLoadIcon"
     >
@@ -74,7 +74,8 @@
     components: {...{ViewBox, XHeader}, UserMessageCard, Scroll},
     data: () => ({
       avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
-      showLoadIcon: true
+      showLoadIcon: true,
+      noMore: false
     }),
     mounted() {
       let viewBoxBody = this.$refs.momentsViewBox.getScrollBody()
@@ -84,7 +85,9 @@
     },
     methods: {
       loadData() {
-        this.showLoadIcon = false
+        setTimeout(() => {
+          this.showLoadIcon = false
+        }, 1000)
       },
       handlePublicMoments() {
         console.log("发表新动态")

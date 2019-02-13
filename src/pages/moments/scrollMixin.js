@@ -12,8 +12,8 @@ export default {
   }),
   mounted() {
     this.$nextTick(() => {
-      this.initScrollHeight()
-      this.updateJBSticky({offsetTop: 0})
+      // this.initScrollHeight()
+      // this.updateJBSticky({offsetTop: 0})
     })
   },
   methods: {
@@ -27,9 +27,11 @@ export default {
       setTimeout(() => {
       }, 1000)
     },
-    handlePullupLoading() {
-      console.log("pullup")
+    handlePullupLoading(callback) {
+      console.log("pullup");
       setTimeout(() => {
+        callback();
+        this.noMore = true;
       }, 1000)
     },
     updateJBSticky({offsetTop = 0} = {}) {

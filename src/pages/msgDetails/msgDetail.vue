@@ -50,7 +50,7 @@
         ></comment-card>
       </div>
       <div class="comment-blocks" id="comment-blocks">
-        <div class="comment-loading" v-if="!raw.length && !allLoaded">
+        <div class="more-loading" v-if="!raw.length && !allLoaded">
           <Spinner type="lines"></Spinner>
         </div>
         <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>

@@ -1,3 +1,5 @@
+@import "../../assets/css/common";
+
 .xs-plugin-pulldown-down {
   position: absolute;
   width: 100%;
@@ -25,11 +27,6 @@
 .xicon-circle-outline {
   position: relative;
   bottom: -14.8px;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
 }
 
 .spinner-loadIcon {
