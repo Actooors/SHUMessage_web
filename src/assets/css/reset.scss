@@ -86,3 +86,30 @@ html, body, #app {
 .vux-popup-mask.vux-popup-show {
   cursor: auto;
 }
+
+.vux-header .vux-header-left {
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+  width: 42px;
+  > div {
+    line-height: 46px;
+    > i {
+      position: relative;
+      left: 10px;
+    }
+  }
+  .left-arrow {
+    top: 0 !important;
+    height: 46px !important;
+    width: 100% !important;
+    left: 0 !important;
+    &:before {
+      left: 20px !important;
+      top: 15px !important;
+    }
+  }
+  .icon-back {
+    filter: drop-shadow(0 0 1px black); //描边
+  }
+}

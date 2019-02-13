@@ -161,7 +161,8 @@
     }),
     mounted() {
       this.initViewBoxPropertities();
-      XHeaderBackElement = document.getElementById("profile-XHeader-back")
+      XHeaderBackElement = document.getElementById("profile-XHeader-back");
+      XHeaderBackElement.style.willChange = "background-position-y";
       this.$nextTick(() => {
         stickybits(".list-top-box", {stickyBitStickyOffset: 46});
       });
@@ -171,7 +172,7 @@
       this.loadData()
     },
     methods: {
-      loadData(){
+      loadData() {
 
       },
       initViewBoxPropertities() {
