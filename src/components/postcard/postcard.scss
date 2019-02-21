@@ -1,0 +1,33 @@
+@import "../../assets/css/common";
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.desc {
+  font-size: 12px;
+  color: $--theme-gray-deep0;
+}
+
+.button {
+  @extend %button-basic;
+  background: $--theme-blue-deep;
+  height: 26px;
+  width: 54px;
+  position: absolute;
+  right: 25px;
+  font-size: 12px;
+  color: white !important;
+  vertical-align: middle;
+  &[disable] {
+    background: $--theme-gray-light0;
+  }
+}
+
+.avatar {
+  height: 44px;
+  width: 44px;
+  @extend %round;
+  margin: 0 10px;
+}

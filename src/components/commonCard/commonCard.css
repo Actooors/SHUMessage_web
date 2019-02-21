@@ -1,0 +1,91 @@
+@charset "UTF-8";
+.pCard {
+  padding: 16px 16px 8px 16px;
+  margin-bottom: 8px;
+  font-size: .9rem;
+  background: white;
+  box-shadow: 0 0 1rem 0.1rem rgba(0, 0, 0, 0.05); }
+  .pCard .cardTopBar {
+    position: relative;
+    font-size: 12px;
+    height: 32px; }
+    .pCard .cardTopBar .topic {
+      background: rgba(0, 15, 80, 0.08);
+      padding: 4px 12.8px;
+      border-radius: 16px;
+      color: #2196F3; }
+    .pCard .cardTopBar .operation {
+      font-size: 12px;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      right: 0;
+      top: 0;
+      fill: gray;
+      color: gray; }
+      .pCard .cardTopBar .operation .extraInfo {
+        margin-right: 9.6px; }
+  .pCard .url {
+    background-color: #f4f4f4;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px; }
+    .pCard .url .url-img {
+      height: 65px;
+      width: 65px;
+      border-radius: 2px;
+      flex-shrink: 0; }
+    .pCard .url .url-side {
+      position: relative;
+      max-height: 65px;
+      flex-grow: 1;
+      padding: 8px;
+      line-height: 18px;
+      word-break: break-word;
+      overflow: hidden; }
+      .pCard .url .url-side .url-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden; }
+      .pCard .url .url-side .url-domain {
+        font-size: .75rem;
+        color: #808080;
+        position: absolute;
+        bottom: 3px; }
+  .pCard .content {
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+    word-break: break-word; }
+  .pCard .author {
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 12px; }
+    .pCard .author .avatar {
+      height: 1.5rem;
+      width: 1.5rem;
+      min-height: 24px;
+      min-width: 24px;
+      border-radius: 50%;
+      margin-right: .3rem;
+      flex-shrink: 0; }
+    .pCard .author-name:after, .pCard .author .author-append {
+      margin-left: 4.8px;
+      color: gray;
+      content: "发布"; }
+    .pCard .author .author-append {
+      position: absolute;
+      right: 0;
+      margin-right: 3px; }
+  .pCard .shareBar {
+    margin-top: .3rem; }
+
+/*# sourceMappingURL=commonCard.css.map */

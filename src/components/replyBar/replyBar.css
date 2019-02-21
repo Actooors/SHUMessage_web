@@ -1,0 +1,94 @@
+.replayBar {
+  padding: 6px 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  z-index: 500;
+  font-size: .85rem;
+  border-top: #dedede solid 1px;
+  border-bottom: #dedede solid 1px;
+  box-shadow: 2px 0 5px 2px rgba(0, 0, 0, 0.02); }
+  .replayBar .inputBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 60px;
+    margin-left: .6em;
+    border: #e4e4e4 solid 1px;
+    border-radius: 16.5px;
+    background-color: #f4f4f4; }
+    .replayBar .inputBox .input {
+      -webkit-appearance: none;
+      border: none;
+      width: 100%;
+      margin-top: 8.25px;
+      margin-right: 25px;
+      margin-bottom: 8.25px;
+      margin-left: .9em;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      resize: none;
+      min-height: 15px;
+      max-height: 30vh;
+      overflow: hidden scroll;
+      -webkit-overflow-scrolling: touch; }
+      .replayBar .inputBox .input:focus {
+        outline: none; }
+    .replayBar .inputBox > .iconfont {
+      position: absolute;
+      right: 4px;
+      bottom: 5px;
+      font-size: 16px;
+      padding: 0 5px;
+      color: #606060;
+      border-radius: 25%; }
+  .replayBar .updateImage {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto 10px auto 0;
+    width: 30px;
+    height: 33px;
+    overflow: hidden; }
+    .replayBar .updateImage .iconfont {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 23px;
+      color: #40a1ef;
+      line-height: 33px; }
+    .replayBar .updateImage #file {
+      opacity: 0;
+      height: 100%;
+      width: 100%; }
+
+.popover-content {
+  position: relative; }
+  .popover-content .img {
+    height: 80px;
+    width: 80px;
+    border: silver solid 1px;
+    border-radius: 2px;
+    overflow: hidden;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat; }
+    .popover-content .img > .iconfont {
+      position: absolute;
+      right: 2px;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
+      background-image: url(../../assets/images/close-circle.png);
+      background-size: 100% 100%;
+      background-position: center center; }
+
+/*# sourceMappingURL=replyBar.css.map */

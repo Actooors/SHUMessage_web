@@ -20,6 +20,14 @@
 .noscroll {
   overflow: hidden; }
 
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
 html, body, #app {
   height: 100%;
   width: 100%;
@@ -28,6 +36,9 @@ html, body, #app {
 .vux-tab-ink-bar-transition-backward, .vux-tab-ink-bar-transition-forward {
   /* 全局封杀tab的animate, 防止tab出现什么幺蛾子 */
   transition: none !important; }
+
+.vux-header .vux-header-left, .vux-header .vux-header-right {
+  top: 12px !important; }
 
 .theme-XHeader {
   background-color: #fff !important;
@@ -78,5 +89,32 @@ html, body, #app {
 
 .vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
   display: none; }
+
+.vux-popup-mask.vux-popup-show {
+  cursor: auto; }
+
+.vux-header .vux-header-left {
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+  width: 42px; }
+  .vux-header .vux-header-left > div {
+    line-height: 46px; }
+    .vux-header .vux-header-left > div > i {
+      position: relative;
+      left: 10px; }
+  .vux-header .vux-header-left .left-arrow {
+    top: 0 !important;
+    height: 46px !important;
+    width: 100% !important;
+    left: 0 !important; }
+    .vux-header .vux-header-left .left-arrow:before {
+      left: 20px !important;
+      top: 15px !important; }
+  .vux-header .vux-header-left .icon-back {
+    filter: drop-shadow(0 0 1px black); }
+
+.vux-cell-box {
+  font-size: 16px !important; }
 
 /*# sourceMappingURL=reset.css.map */

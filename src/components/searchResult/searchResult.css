@@ -19,6 +19,14 @@
 .noscroll {
   overflow: hidden; }
 
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
 .searchResult {
   height: 100vh; }
   .searchResult .results {

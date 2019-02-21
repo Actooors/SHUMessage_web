@@ -20,6 +20,14 @@
 .noscroll {
   overflow: hidden; }
 
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
 .plus-btn {
   background: url("../../assets/images/增加.png") no-repeat center;
   background-size: 40px 40px; }

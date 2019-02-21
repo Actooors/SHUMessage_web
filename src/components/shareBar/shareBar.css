@@ -1,0 +1,35 @@
+.shareBar {
+  position: relative;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  color: gray; }
+  .shareBar, .shareBar > * {
+    height: 32px;
+    line-height: 32px; }
+  .shareBar .iconfont {
+    transition: all .4s ease 0s; }
+    .shareBar .iconfont.icon-done {
+      color: rgba(215, 0, 0, 0.7); }
+  .shareBar .share {
+    position: absolute;
+    right: -15px;
+    padding: 0 15px 0 5px; }
+    .shareBar .share .icon {
+      margin-right: 3.2px;
+      font-weight: bold;
+      font-size: 14.4px; }
+  .shareBar .btn {
+    width: 30%;
+    max-width: 90px;
+    display: flex;
+    align-items: center; }
+    .shareBar .btn .icon {
+      margin-right: 3px;
+      font-weight: bold; }
+  .shareBar .clicked {
+    color: rgba(215, 0, 0, 0.7); }
+  .shareBar.hr {
+    border-top: 1px solid rgba(0, 15, 80, 0.16); }
+
+/*# sourceMappingURL=shareBar.css.map */

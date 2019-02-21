@@ -21,7 +21,11 @@
         default: true
       },
       noFlex: Boolean,
-      alignItems: String
+      alignItems: String,
+      arrow: {
+        type: Boolean,
+        default: true
+      }
     },
     computed: {
       style() {
@@ -34,7 +38,7 @@
       className() {
         return {
           'vux-tap-active': this.isLink || !!this.link,
-          'weui-cell_access': this.isLink || !!this.link,
+          'weui-cell_access': (this.isLink || !!this.link) && this.arrow,
           'vux-cell-no-border-intent': !this.borderIntent,
           'needsclick': true
         }

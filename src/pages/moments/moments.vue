@@ -9,7 +9,7 @@
               :right-options="{showMore: false}"
               id="moments-XHeader"
     >动态
-      <div slot="left">
+      <div slot="left" @click="$router.push('/addFriend')">
         <i class="icon-tianjiahaoyou iconfont icon"></i>
       </div>
       <div slot="right">
@@ -73,7 +73,7 @@
     name: "moments",
     components: {...{ViewBox, XHeader}, UserMessageCard, Scroll},
     data: () => ({
-      avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
+      avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=2",
       showLoadIcon: true,
       noMore: false
     }),

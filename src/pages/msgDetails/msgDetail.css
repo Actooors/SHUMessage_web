@@ -1,0 +1,77 @@
+.clear-decoration {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
+#__viewBox {
+  overflow: hidden; }
+
+.justBar-box {
+  height: 48px;
+  position: relative;
+  background: #FBF9FE;
+  z-index: 1; }
+  .justBar-box .justBar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-size: 13px;
+    background: white;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: #e9e9e9 solid 1px;
+    border-top: #f4f4f4 solid 1px;
+    box-shadow: 0 -5px 5px 1px rgba(0, 0, 0, 0.025); }
+    .justBar-box .justBar .justBar-title {
+      padding-left: 16px; }
+
+.popping {
+  background-color: #f4f4f4 !important; }
+
+.popover {
+  display: flex;
+  height: 42px;
+  white-space: nowrap; }
+  .popover-btn {
+    list-style: none;
+    padding: 0 6px;
+    height: 42px;
+    display: flex;
+    align-items: center; }
+    .popover-btn .icon-label {
+      font-size: 14px;
+      line-height: 42px; }
+    .popover-btn .iconfont {
+      font-size: 18px; }
+    .popover-btn:not(:first-of-type):before {
+      content: "";
+      position: relative;
+      left: -4px;
+      height: 45%;
+      border-left: rgba(255, 255, 255, 0.6) solid 1px; }
+
+/*# sourceMappingURL=msgDetail.css.map */

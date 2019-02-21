@@ -19,6 +19,14 @@
 .noscroll {
   overflow: hidden; }
 
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
 .popup > * {
   border-radius: 12px;
   margin: 0 8px 8px 8px;
@@ -37,6 +45,7 @@
 .popup .content .share-div {
   position: relative; }
 .popup .content .operation .weixin {
+  cursor: pointer;
   display: inline-block;
   text-align: center;
   margin: 5px 0px;

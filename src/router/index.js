@@ -20,6 +20,7 @@ import MsgDetail from 'pages/msgDetails/msgDetail'
 import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
 import Profile from 'pages/profile/profile'
+import AddFriend from 'pages/addFriend/addFriend'
 
 Vue.use(Router);
 Router.prototype.go = function (delta) {
@@ -154,8 +155,12 @@ const router = new Router({
       component: Profile
     },
     {
-      path:"/publish",
+      path: "/publish",
       component: MomentPublish
+    },
+    {
+      path: "/addFriend",
+      component: AddFriend
     }
   ]
 });

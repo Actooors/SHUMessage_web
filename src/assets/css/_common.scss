@@ -52,3 +52,10 @@
     left: -1px;
   }
 }
+
+%round {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
