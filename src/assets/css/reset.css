@@ -117,4 +117,7 @@ html, body, #app {
 .vux-cell-box {
   font-size: 16px !important; }
 
+.weui-cells.vux-search_show .weui-cell:last-child {
+  margin-bottom: unset !important; }
+
 /*# sourceMappingURL=reset.css.map */
