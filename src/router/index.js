@@ -21,7 +21,6 @@ import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
 import Profile from 'pages/profile/profile'
 import AddFriend from 'pages/addFriend/addFriend'
-import SelectGroup from 'components/selectGroup/selectGroup'
 
 Vue.use(Router);
 Router.prototype.go = function (delta) {
@@ -162,10 +161,6 @@ const router = new Router({
     {
       path: "/addFriend",
       component: AddFriend
-    },
-    {
-      path: "/selectGroup",
-      component: SelectGroup
     }
   ]
 });

@@ -2,12 +2,7 @@ import {requestLike} from './shareButtonAjax'
 import Vue from 'vue'
 import Share from 'components/share/share'
 import store from 'store/store'
-import {mapState} from 'vuex'
 
-const bComponent = Vue.extend({
-  props: ['text'],
-  template: '<li>B Component: {{ text }}</li>'
-})
 export default {
   store,
   mounted() {
@@ -49,7 +44,7 @@ export default {
             },
             on: {
               input: function (val) {
-                store.commit('sharebar/SET_SHARE_OPTIONS_SHOW',val)
+                store.commit('sharebar/SET_SHARE_OPTIONS_SHOW', val)
               }
             }
           }),

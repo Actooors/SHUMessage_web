@@ -2,12 +2,12 @@
   <Search
     placeholder="搜索更多圈子"
     cancel-text="返回"
-    @on-cancel="$emit('on-cancel')"
+    @on-cancel="handleCancel"
     ref="search"
   >
     <div class="flex">
       <ul class="leftul" @click="handleClickLeftUL">
-        <li class="selected">推荐</li>
+        <li class="selected" @click="handleCancel">推荐</li>
         <li>已加入</li>
         <li>已加入</li>
         <li>已加入</li>
@@ -48,12 +48,14 @@
 </template>
 
 <script>
-  import {Search, Group} from 'vux'
+  import {Group} from 'vux'
   import postcard from 'components/postcard/postcard'
+  import Search from 'components/search'
+  import CellBox from 'components/cell-box'
 
   export default {
     name: "selectGroup",
-    components: {Search, Group, postcard},
+    components: {Search, Group, postcard, CellBox},
     mounted() {
       const that = this;
       this.$refs.search.setFocus();
@@ -69,6 +71,9 @@
           }
           event.target.classList.add('selected')
         }
+      },
+      handleCancel(){
+        this.$emit('on-cancel');
       }
     }
   }
