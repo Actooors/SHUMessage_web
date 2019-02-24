@@ -26,8 +26,16 @@ const directive = {
         //调用下拉刷新
         if (typeof value === 'function') {
           el.__pullToRefresh_iconVue.loading = true;
-          const promise = value();
-          if (promise) {
+
+          let promise = this.value(function callback() {
+            that.$toast({
+              text: '刷新好啦～',
+              emoji: true
+            });
+            el.__pullToRefresh_iconVue.loading = false;
+            reset();
+          });
+          if (promise && typeof promise.then === "function") {
             const minDelay = new Promise(resolve => {
               setTimeout(() => {
                 resolve();
@@ -38,13 +46,12 @@ const directive = {
               text: '刷新好啦～',
               emoji: true
             });
-          } else {
-            that.$toast({
-              text: '刷新太快了哦～',
-              type: 'warning',
-              emoji: true
-            });
           }
+          // that.$toast({
+          //   text: '刷新太快了哦～',
+          //   type: 'warning',
+          //   emoji: true
+          // });
         } else {
           console.error('Directive v-pull-to-refresh needs a function as value.')
         }
