@@ -4,7 +4,7 @@
       <div class="left-side avatar" v-lazy:background-image="msg.author.avatar" v-if="lazyload"></div>
       <div class="left-side avatar" :style="`background-image:url(${msg.author.avatar})`" v-else></div>
     </div>
-    <div class="right-side" :style="{width: `${rightSideWidth}px`}">
+    <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
           <span class="author" @click="pushProfile(msg.author.id)">{{msg.author.name}}</span>
@@ -92,10 +92,10 @@
       rightSideWidth: 0
     }),
     mounted() {
-      this.$nextTick(() => {
-        this.initRightSideWidth()
-      })
-      window.addEventListener('resize', this.initRightSideWidth)
+      // this.$nextTick(() => {
+      //   this.initRightSideWidth()
+      // })
+      // window.addEventListener('resize', this.initRightSideWidth)
     },
     methods: {
       pushProfile(uid){

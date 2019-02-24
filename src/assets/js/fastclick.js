@@ -227,6 +227,9 @@ var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
  * @returns {boolean} Returns true if the element needs a native click
  */
 FastClick.prototype.needsClick = function (target) {
+  if ((/\bneedsclick\b/).test(target.className) || (/\bneedsclick\b/).test(target.parentElement.className)) {
+    return true;
+  }
   switch (target.nodeName.toLowerCase()) {
 
     // Don't send a synthetic click to disabled inputs (issue #62)
@@ -609,6 +612,7 @@ FastClick.prototype.onTouchEnd = function (event) {
   // real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
   if (!this.needsClick(targetElement)) {
     event.preventDefault();
+    console.log("fastclick: preventDefault. className:", targetElement.className);
     this.sendClick(targetElement, event);
   }
 

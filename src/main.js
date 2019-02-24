@@ -11,6 +11,10 @@ import axios from 'axios'
 import PullToRefreshDirective from 'assets/js/pullToRefreshDirective'
 import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
+import ApolloClient from 'apollo-boost'
+import VueApollo from 'vue-apollo'
+
+Vue.use(VueApollo);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
 Object.defineProperty(Vue.prototype, '$querystring', {value: querystring});
@@ -31,17 +35,24 @@ Vue.use(VueLazyload, {
   // error: 'dist/error.png',
   // loading: 'dist/loading.gif',
   attempt: 5
-})
+});
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
+const apolloClient = new ApolloClient({
+  // 你需要在这里使用绝对路径
+  uri: 'http://129.204.71.113/graphql'
+});
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+});
 new Vue({
   router,
+  apolloProvider,
   render: h => h(App),
   // mounted() {
   //   告知prerender-spa-plugin可以移除骨架屏了
   // document.dispatchEvent(new Event('render-event'));
   // document.getElementById('prerender').remove();
   // }
-}).$mount('#app-box')
+}).$mount('#app-box');

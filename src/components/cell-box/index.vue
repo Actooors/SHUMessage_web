@@ -46,7 +46,8 @@
     },
     methods: {
       onClick() {
-        this.link && go(this.link, this.$router)
+        this.link && go(this.link, this.$router);
+        this.$emit('click', event);
       }
     }
   }
