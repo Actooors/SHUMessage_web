@@ -87,12 +87,32 @@ const pushRouter = {
   }
 };
 
+const sharebar = {
+  namespaced: true,
+  state: {
+    shareOptions: {
+      show: false,
+      url: "",
+      title: "",
+      digest: ""
+    }
+  },
+  mutations: {
+    SET_SHARE_OPTIONS(state, obj) {
+      Vue.set(state, 'shareOptions', obj)
+    },
+    SET_SHARE_OPTIONS_SHOW(state, status) {
+      Vue.set(state.shareOptions, 'show', status)
+    }
+  },
+};
 
 export default new Vuex.Store({
   modules: {
     top,
     playground,
-    pushRouter
+    pushRouter,
+    sharebar
   },
 })
 

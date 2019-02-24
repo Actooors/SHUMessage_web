@@ -1,11 +1,12 @@
 <template>
   <div class="flex">
-    <img :src="avatar" class="avatar">
+    <img :src="avatar" class="avatar" :style="{height:`${avatarSize}px`,width:`${avatarSize}px`}">
     <div>
       <p>{{uname}}</p>
       <p class="desc">{{desc}}</p>
     </div>
-    <button class="button" :disable="!value" @click="handleClickButton">{{value?"关注":"已关注"}}</button>
+    <button class="button" :disable="!value" @click="handleClickButton" v-if="!buttonTitle">{{value?"关注":"已关注"}}</button>
+    <button class="button" :disable="!value" @click="handleClickButton" v-else>{{buttonTitle}}</button>
   </div>
 </template>
 
@@ -19,11 +20,17 @@
       value: {
         type: Boolean,
         default: true
-      }
+      },
+      avatarSize: {
+        type: Number,
+        default: 44
+      },
+      buttonTitle: String
     },
     methods: {
       handleClickButton() {
-        console.log("!")
+        console.log("!");
+        this.$emit('on-click-button')
       }
     }
   }

@@ -1,20 +1,15 @@
 import {requestLike} from './shareButtonAjax'
 import Vue from 'vue'
 import Share from 'components/share/share'
+import store from 'store/store'
+import {mapState} from 'vuex'
 
 const bComponent = Vue.extend({
   props: ['text'],
   template: '<li>B Component: {{ text }}</li>'
 })
 export default {
-  data: () => ({
-    shareOptions: {
-      show: false,
-      url: "",
-      title: "",
-      digest: ""
-    }
-  }),
+  store,
   mounted() {
     console.log(this._getShareVN(), 'sharebarMixin: mounted');
   },
@@ -37,18 +32,24 @@ export default {
       if (!existShare) {
         let el = document.createElement("div");
         this.$root.$el.appendChild(el);
+        store.commit('sharebar/SET_SHARE_OPTIONS', {
+          url: ``,
+          title: '',
+          digest: ``,
+          show: false
+        });
         el = new Vue({
           components: {Share},
           render: h => h('Share', {
             props: {
-              value: that.shareOptions.show,
-              url: that.shareOptions.url,
-              title: that.shareOptions.title,
-              digest: that.shareOptions.digest,
+              value: store.state.sharebar.shareOptions.show,
+              url: store.state.sharebar.shareOptions.url,
+              title: store.state.sharebar.shareOptions.title,
+              digest: store.state.sharebar.shareOptions.digest,
             },
             on: {
               input: function (val) {
-                that.shareOptions.show = val;
+                store.commit('sharebar/SET_SHARE_OPTIONS_SHOW',val)
               }
             }
           }),
@@ -91,11 +92,12 @@ export default {
           break;
         case 3:
           //3是分享
-          this.shareOptions.url = `${window.location.protocol}//${window.location.host}/detail/msg?type=${msgs[0].info.type}&id=${msgs[0].info.id}`
-          this.shareOptions.title = "SHU Message";
-          this.shareOptions.digest = `${msgs[0].author.name}: ${msgs[0].content}`;
-          // console.log(this.shareOptions)
-          this.shareOptions.show = true;
+          store.commit('sharebar/SET_SHARE_OPTIONS', {
+            url: `${window.location.protocol}//${window.location.host}/detail/msg?type=${msgs[0].info.type}&id=${msgs[0].info.id}`,
+            title: 'SHU Message',
+            digest: `${msgs[0].author.name}: ${msgs[0].content}`,
+            show: true
+          });
           break;
       }
     }

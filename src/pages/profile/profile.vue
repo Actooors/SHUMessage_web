@@ -121,19 +121,11 @@
         </div>
       </div>
     </div>
-    <share
-      v-model="shareOptions.show"
-      :url="shareOptions.url"
-      :title="shareOptions.title"
-      :digest="shareOptions.digest"
-      v-transfer-dom
-    ></share>
   </ViewBox>
 </template>
 
 <script>
   import {ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview} from "vux";
-  import Share from 'components/share/share'
   import "animate.css";
   import UserMessageCard from "components/userMessageCard/userMessageCard";
   import mockMixin from "./mock";
@@ -147,8 +139,7 @@
     mixins: [sharebarMixin, mockMixin],
     components: {
       ...{ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview},
-      UserMessageCard,
-      Share
+      UserMessageCard
     },
     data: () => ({
       tabIndex: 0,
