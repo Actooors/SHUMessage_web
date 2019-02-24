@@ -1,5 +1,10 @@
 <template>
-  <ViewBox>
+  <Scroll
+    :noMore="noMore"
+    :pulldownCallback="handlePulldownCallback"
+    :pullupCallback="handlePullupCallback"
+    :showLoadIcon="showLoadIcon"
+  >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"
@@ -9,12 +14,14 @@
     <div class="img-flex">
       <div v-for="item in imgItems" @click="viewDetails(item.url)">
         <div class="bottom-info">
-          <strong class="title">{{item.title}}
-          </strong>
+          <div class="title">{{item.title}}
+          </div>
           <div class="display-info">
-            <p style="float: left"><i class="iconfont" style="margin-right: 2px;vertical-align: middle">&#xe6a0;</i>{{item.heat}}℃
+            <p style="float: left"><i class="iconfont"
+                                      style="margin-right: 2px;vertical-align: middle">&#xe6a0;</i>{{item.heat}}℃
             </p>
-            <p style="float: right;"><i class="iconfont" style="margin-right: 2px;vertical-align: middle">&#xe625;</i>{{item.comments}}
+            <p style="float: right;"><i class="iconfont"
+                                        style="margin-right: 3px;vertical-align: middle">&#xe625;</i>{{item.comments}}
             </p>
           </div>
         </div>
@@ -22,7 +29,7 @@
         <img :src="item.url">
       </div>
     </div>
-  </ViewBox>
+  </Scroll>
 </template>
 
 <script>
@@ -39,6 +46,7 @@
       searchValue: "",
       tabIndex: 0,
       showLoadIcon: true,
+      noMore: false,
       imgItems: [
         {
           url: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3933083456,1504476515&fm=26&gp=0.jpg',
@@ -48,25 +56,25 @@
         },
         {
           url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1270002162,3998837834&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
+          title: "钢铁侠好看图片",
+          heat: '503',
+          comments: '10'
+        },
+        {
+          url: 'https://n.sinaimg.cn/news/transform/579/w340h239/20190224/YOHX-htknpmi2407787.jpg',
+          title: "美国总统特朗普会见刘鹤 现场气氛融洽",
+          heat: '500W',
+          comments: '102W'
+        },
+        {
+          url: 'https://n.sinaimg.cn/news/transform/60/w520h340/20190130/Ljbd-hshmsti4278270.png',
+          title: "西安副市长回应“网红城市” ：“我们不红 始皇不容”",
           heat: '1233',
           comments: '426'
         },
         {
-          url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2524602711,212193926&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
-          heat: '1233',
-          comments: '426'
-        },
-        {
-          url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1677996687,1384321741&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
-          heat: '1233',
-          comments: '426'
-        },
-        {
-          url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3715193964,3488957786&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
+          url: 'http://n.sinaimg.cn/edu/11_img/upload/cf89c528/700/w900h600/20180817/feVT-hhvciiw4592611.jpg',
+          title: "组图：烈日下的新生军训 只为锻炼身体磨练意志",
           heat: '1233',
           comments: '426'
         },
@@ -83,20 +91,20 @@
           comments: '426'
         },
         {
-          url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2398260693,455559214&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
+          url: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2186922185,3849210673&fm=173&app=49&f=JPEG?w=531&h=404&s=129176864E535BC44213743303001068',
+          title: "副省长落马，省委书记连发6问",
           heat: '1233',
           comments: '426'
         },
         {
-          url: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2906046236,3228299063&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
+          url: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1144702703,3998692881&fm=58&bpow=800&bpoh=820',
+          title: "张泉灵个人简介",
           heat: '1233',
           comments: '426'
         },
         {
-          url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3702521294,2990570505&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查",
+          url: 'http://www.chinanews.com/2019/02-24/U86P4T8D8763365F5012DT20190224183123.jpg',
+          title: "兴凯湖坚冰融化",
           heat: '1233',
           comments: '426'
         }
@@ -109,6 +117,16 @@
       viewDetails(val) {
         console.log("view_details", val)
 
+      },
+      handlePulldownCallback(callback) {
+        setTimeout(() => {
+          callback();
+        }, 500)
+      },
+      handlePullupCallback(callback) {
+        setTimeout(() => {
+          callback()
+        }, 500)
       }
     },
     mounted() {
@@ -153,16 +171,15 @@
   }
 
   .bottom-info {
-    color: #fff;
+    color: #fff9fb;
+    background: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, .5), transparent);
     position: absolute;
     font-size: 10px;
     z-index: 2;
     left: 0;
     bottom: 0;
     width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 3px;
+    padding: 20px 10px 5px;
     font-size: 13px;
     .title {
       font-weight: bold;

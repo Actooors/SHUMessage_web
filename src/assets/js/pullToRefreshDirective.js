@@ -26,27 +26,27 @@ const directive = {
         //调用下拉刷新
         if (typeof value === 'function') {
           el.__pullToRefresh_iconVue.loading = true;
+          //下面代码实现支持两种方式表示下拉刷新结束：1，调用callback函数; 2，返回一个promise
+          let promise = new Promise((resolve) => {
+          });//promise代表value这个函数返回的promise. 一开始设为永远不会结束的Promise
+          let promise2 = new Promise((resolve) => {
+            let tmp = value(resolve)
+            if (tmp && typeof tmp.then === 'function') {
+              promise = tmp;
+            }
+          });//promise2代表传入的callback被调用了
+          let f = Promise.race([promise, promise2]);
 
-          let promise = this.value(function callback() {
-            that.$toast({
-              text: '刷新好啦～',
-              emoji: true
-            });
-            el.__pullToRefresh_iconVue.loading = false;
-            reset();
+          const minDelay = new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+            }, 500)
           });
-          if (promise && typeof promise.then === "function") {
-            const minDelay = new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-              }, 500)
-            });
-            await Promise.all([promise, minDelay]);
-            that.$toast({
-              text: '刷新好啦～',
-              emoji: true
-            });
-          }
+          await Promise.all([f, minDelay]);
+          that.$toast({
+            text: '刷新好啦～',
+            emoji: true
+          });
           // that.$toast({
           //   text: '刷新太快了哦～',
           //   type: 'warning',
