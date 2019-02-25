@@ -16,7 +16,14 @@ import VueApollo from 'vue-apollo'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
 
-Vue.use(preview)
+Vue.use(preview, {
+  shareEl: true,
+  tapToToggleControls: false,
+  tapToClose: true,
+  shareButtons: [
+    {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
+  ],
+});
 Vue.use(VueApollo);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
