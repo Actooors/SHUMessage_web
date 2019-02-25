@@ -22,12 +22,12 @@ Object.defineProperty(Vue.prototype, '$querystring', {value: querystring});
 //重新封装toast, type可为success/warning/error, width请设为偶数，否则由于居中方式的问题可能将导致模糊
 Vue.use(ShumsgToastPlugin);
 
-Vue.directive('transfer-dom', TransferDom)
-Vue.directive('pull-to-refresh', PullToRefreshDirective)
+Vue.directive('transfer-dom', TransferDom);
+Vue.directive('pull-to-refresh', PullToRefreshDirective);
 
 import FastClick from 'assets/js/fastclick'
 
-FastClick.attach(document.body)
+FastClick.attach(document.body);
 
 // or with options
 Vue.use(VueLazyload, {

@@ -6,8 +6,8 @@
     ref="search"
   >
     <div class="flex">
-      <ul class="leftul" @click="handleClickLeftUL">
-        <li class="selected" @click="handleCancel">推荐</li>
+      <ul class="leftul needsclick" @click="handleClickLeftUL">
+        <li class="selected">推荐</li>
         <li>已加入</li>
         <li>已加入</li>
         <li>已加入</li>
@@ -72,7 +72,7 @@
           event.target.classList.add('selected')
         }
       },
-      handleCancel(){
+      handleCancel() {
         this.$emit('on-cancel');
       }
     }
@@ -105,7 +105,11 @@
     flex-grow: 1;
     .postcard {
       font-size: 14px;
-      margin: .8em .5em;
     }
+  }
+</style>
+<style lang="scss">
+  .rightdiv .vux-cell-box {
+    padding: 10px 15px !important;
   }
 </style>

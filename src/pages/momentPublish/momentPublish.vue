@@ -1,33 +1,37 @@
 <template>
-  <ViewBox
-    class="momentPublish-wrapper"
-    body-padding-bottom="46px"
-  >
-    <x-header slot="header" class="theme-XHeader"
-              :left-options="{showBack: true,backText:''}"
-              :right-options="{showMore: false}"
-    >发布新动态
-      <div slot="right">
-        <button class="button">发布</button>
-      </div>
-    </x-header>
-    <div>
+  <div>
+    <SelectGroup v-if="selectGroup" @on-cancel="handleCancelSelectGroup"></SelectGroup>
+    <ViewBox
+      v-show="!selectGroup"
+      class="momentPublish-wrapper"
+      body-padding-bottom="46px"
+    >
+      <x-header slot="header" class="theme-XHeader"
+                :left-options="{showBack: true,backText:''}"
+                :right-options="{showMore: false}"
+      >发布新动态
+        <div slot="right">
+          <button class="button">发布</button>
+        </div>
+      </x-header>
+      <div>
       <textarea
         ref="textarea"
         class="textarea"
         placeholder="SHU Message, 让纸飞机捎去你的点滴生活"
       ></textarea>
-      <Group class="needsclick" gutter="0">
-        <CellBox is-link @click="selectGroup=true">
-          <p style="display: block">选择圈子</p>
-        </CellBox>
-        <CellBox is-link>
-          你在哪里？
-        </CellBox>
-      </Group>
-    </div>
-    <SelectGroup style="z-index:100" v-if="selectGroup" @on-cancel="handleCancelSelectGroup"></SelectGroup>
-  </ViewBox>
+        <Group class="needsclick" gutter="0">
+          <CellBox is-link @click="selectGroup=true">
+            <p style="display: block">选择圈子</p>
+          </CellBox>
+          <CellBox is-link>
+            你在哪里？
+          </CellBox>
+        </Group>
+      </div>
+    </ViewBox>
+  </div>
+
 </template>
 
 <script>
@@ -49,7 +53,7 @@
     },
     methods: {
       handleCancelSelectGroup() {
-        this.$nextTick(()=>{
+        this.$nextTick(() => {
           this.selectGroup = false;
         })
       }
