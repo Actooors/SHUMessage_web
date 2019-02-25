@@ -13,7 +13,10 @@ import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
 import ApolloClient from 'apollo-boost'
 import VueApollo from 'vue-apollo'
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
 
+Vue.use(preview)
 Vue.use(VueApollo);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});

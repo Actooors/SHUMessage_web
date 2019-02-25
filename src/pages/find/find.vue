@@ -12,28 +12,26 @@
     >发现
     </x-header>
     <div class="img-flex">
-      <div v-for="item in imgItems" @click="viewDetails(item.url)">
+      <div v-for="(item,index) in imgItems" @click="viewDetails(item.url)">
         <div class="bottom-info">
           <div class="title">{{item.title}}
           </div>
           <div class="display-info">
-            <p style="float: left"><i class="iconfont"
-                                      style="margin-right: 2px;vertical-align: middle">&#xe6a0;</i>{{item.heat}}℃
+            <p style="float: left"><i class="iconfont" style="margin-right: 2px;vertical-align: middle">&#xe6a0;</i>{{item.heat}}℃
             </p>
-            <p style="float: right;"><i class="iconfont"
-                                        style="margin-right: 3px;vertical-align: middle">&#xe625;</i>{{item.comments}}
+            <p style="float: right;"><i class="iconfont" style="margin-right: 3px;vertical-align: middle">&#xe625;</i>{{item.comments}}
             </p>
           </div>
         </div>
-        <i :style="{background:`url(${item.url}) no-repeat 0/cover`}"></i>
-        <img :src="item.url">
+        <i :style="{background:`url() no-repeat 0/cover`}" v-lazy:background-image="item.url"></i>
+        <img v-lazy="item.url" :preview="index" :preview-text="item.title">
       </div>
     </div>
   </Scroll>
 </template>
 
 <script>
-  import {ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem} from 'vux'
+  import {Previewer, ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem} from 'vux'
   import Scroll from 'components/scroll/scroll'
   import scrollMixin from './scrollMixin'
   import mock from './mock'
@@ -41,12 +39,13 @@
 
   export default {
     name: "find",
-    components: {...{ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem}, Scroll},
+    components: {...{Previewer, ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem}, Scroll},
     data: () => ({
       searchValue: "",
       tabIndex: 0,
       showLoadIcon: true,
       noMore: false,
+      previewerList: [],
       imgItems: [
         {
           url: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3933083456,1504476515&fm=26&gp=0.jpg',
@@ -91,13 +90,13 @@
           comments: '426'
         },
         {
-          url: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2186922185,3849210673&fm=173&app=49&f=JPEG?w=531&h=404&s=129176864E535BC44213743303001068',
+          url: 'http://img1.imgtn.bdimg.com/it/u=4183263680,2554962051&fm=15&gp=0.jpg',
           title: "副省长落马，省委书记连发6问",
           heat: '1233',
           comments: '426'
         },
         {
-          url: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1144702703,3998692881&fm=58&bpow=800&bpoh=820',
+          url: 'http://img0.imgtn.bdimg.com/it/u=1096712855,2802578479&fm=15&gp=0.jpg',
           title: "张泉灵个人简介",
           heat: '1233',
           comments: '426'
@@ -106,7 +105,7 @@
           url: 'http://www.chinanews.com/2019/02-24/U86P4T8D8763365F5012DT20190224183123.jpg',
           title: "兴凯湖坚冰融化",
           heat: '1233',
-          comments: '426'
+          comments: '422226'
         }
       ]
     }),
@@ -116,7 +115,8 @@
       },
       viewDetails(val) {
         console.log("view_details", val)
-
+        console.log("!@#@")
+        // this.previewerList.push(val)
       },
       handlePulldownCallback(callback) {
         setTimeout(() => {
@@ -124,8 +124,10 @@
         }, 500)
       },
       handlePullupCallback(callback) {
+        const that = this;
         setTimeout(() => {
-          callback()
+          callback();
+          that.noMore = true;
         }, 500)
       }
     },
@@ -164,7 +166,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        filter: blur(5px) brightness(0.3);
+        filter: blur(4.5px) brightness(0.4);
         transform: scale(1.2);
       }
     }
@@ -189,7 +191,7 @@
       white-space: nowrap;
     }
     .display-info {
-      width: 100%
+      width: 100%;
     }
   }
 </style>
