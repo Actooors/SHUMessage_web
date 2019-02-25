@@ -567,7 +567,7 @@ export const neighborhood = {
     }, {
       info: {
         type: 1,
-        id: 1
+        id: 2
       },
       topic: {
         id: 2,
@@ -601,7 +601,7 @@ export const neighborhood = {
     }, {
       info: {
         type: 1,
-        id: 1
+        id: 3
       },
       topic: {
         id: 2,
@@ -635,7 +635,7 @@ export const neighborhood = {
     }, {
       info: {
         type: 1,
-        id: 1
+        id: 4
       },
       topic: {
         id: 2,

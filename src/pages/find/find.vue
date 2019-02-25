@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import {Previewer, ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem} from 'vux'
+  import {ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem} from 'vux'
   import Scroll from 'components/scroll/scroll'
   import scrollMixin from './scrollMixin'
   import mock from './mock'
@@ -39,7 +39,7 @@
 
   export default {
     name: "find",
-    components: {...{Previewer, ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem}, Scroll},
+    components: {...{ViewBox, XHeader, Search, Tab, TabItem, Scroller, Flexbox, FlexboxItem}, Scroll},
     data: () => ({
       searchValue: "",
       tabIndex: 0,
