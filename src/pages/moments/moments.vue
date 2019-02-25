@@ -68,6 +68,7 @@
   import Scroll from 'components/scroll/scroll'
   import mock from './mock'
   import scrollMixin from './scrollMixin'
+  import stickybits from 'stickybits'
 
   export default {
     name: "moments",
@@ -82,11 +83,15 @@
       viewBoxBody.style.overflow = 'hidden'
       viewBoxBody.parentElement.style.overflow = 'hidden'
       this.loadData();
+
     },
     methods: {
       loadData() {
         setTimeout(() => {
-          this.showLoadIcon = false
+          this.showLoadIcon = false;
+          this.$nextTick(() => {
+            stickybits('.justBar-box', {stickyBitStickyOffset: -1})
+          })
         }, 500)
       },
       handlePublicMoments() {
