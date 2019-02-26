@@ -3,7 +3,7 @@
     <group>
       <x-textarea :max="15" v-model="value" @keypress.native="handleTextareKeypress($event)">
         <img slot="label" width="23" style="display:block;margin-right:1rem;"
-             :src="require('assets/images/avatar.png')">
+             :src="require('assets/images/签名设置.png')">
       </x-textarea>
     </group>
     <toast v-model="showSuccess" @on-hide="pageBack">修改成功</toast>
