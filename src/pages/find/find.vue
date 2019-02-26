@@ -23,8 +23,9 @@
             </p>
           </div>
         </div>
-        <i :style="{background:`url() no-repeat 0/cover`}" v-lazy:background-image="item.url"></i>
-        <img v-lazy="`${item.url}#${index}`" :preview="index" :preview-text="item.title">
+        <i :style="{background:`url() no-repeat 0/cover`}" v-lazy:background-image="item.url[0]"></i>
+        <img v-lazy="`${item.url}#${index}`" :preview="index" :preview-text="`${item.title}（点击查看详情）`">
+        <img v-for="(img,i) in item.url" :src="img" style="display: none;" :preview="index" v-if="i!==0" :preview-text="`${item.title}（点击查看详情）`">
       </div>
     </div>
   </Scroll>
@@ -49,8 +50,8 @@
       previewInited: false,
       imgItems: [
         {
-          url: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3933083456,1504476515&fm=26&gp=0.jpg',
-          title: "VUX 开发者调查开发者调开发者调开发者调开发者调",
+          url: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3933083456,1504476515&fm=26&gp=0.jpg', 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1270002162,3998837834&fm=26&gp=0.jpg'],
+          title: "VUX 开发者调查开发者调开发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发者调开发者调开发者调发",
           heat: '1233',
           comments: '426',
           msg: {
@@ -59,7 +60,7 @@
           }
         },
         {
-          url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1270002162,3998837834&fm=26&gp=0.jpg',
+          url: ['https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1270002162,3998837834&fm=26&gp=0.jpg'],
           title: "钢铁侠好看图片",
           heat: '503',
           comments: '10',
@@ -69,7 +70,7 @@
           }
         },
         {
-          url: 'https://n.sinaimg.cn/news/transform/579/w340h239/20190224/YOHX-htknpmi2407787.jpg',
+          url: ['https://n.sinaimg.cn/news/transform/579/w340h239/20190224/YOHX-htknpmi2407787.jpg'],
           title: "美国总统特朗普会见刘鹤 现场气氛融洽",
           heat: '500W',
           comments: '102W',
@@ -79,7 +80,7 @@
           }
         },
         {
-          url: 'https://n.sinaimg.cn/news/transform/60/w520h340/20190130/Ljbd-hshmsti4278270.png',
+          url: ['https://n.sinaimg.cn/news/transform/60/w520h340/20190130/Ljbd-hshmsti4278270.png'],
           title: "西安副市长回应“网红城市” ：“我们不红 始皇不容”",
           heat: '1233',
           comments: '426',
@@ -89,7 +90,7 @@
           }
         },
         {
-          url: 'http://n.sinaimg.cn/edu/11_img/upload/cf89c528/700/w900h600/20180817/feVT-hhvciiw4592611.jpg',
+          url: ['http://n.sinaimg.cn/edu/11_img/upload/cf89c528/700/w900h600/20180817/feVT-hhvciiw4592611.jpg'],
           title: "组图：烈日下的新生军训 只为锻炼身体磨练意志",
           heat: '1233',
           comments: '426',
@@ -99,7 +100,7 @@
           }
         },
         {
-          url: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2124043723,4106778327&fm=26&gp=0.jpg',
+          url: ['https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2124043723,4106778327&fm=26&gp=0.jpg'],
           title: "VUX 开发者调查",
           heat: '1233',
           comments: '426',
@@ -109,7 +110,7 @@
           }
         },
         {
-          url: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3143580056,1576011344&fm=26&gp=0.jpg',
+          url: ['https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3143580056,1576011344&fm=26&gp=0.jpg'],
           title: "VUX 开发者调查",
           heat: '1233',
           comments: '426',
@@ -119,7 +120,7 @@
           }
         },
         {
-          url: 'http://img1.imgtn.bdimg.com/it/u=4183263680,2554962051&fm=15&gp=0.jpg',
+          url: ['http://img1.imgtn.bdimg.com/it/u=4183263680,2554962051&fm=15&gp=0.jpg'],
           title: "副省长落马，省委书记连发6问",
           heat: '1233',
           comments: '426',
@@ -129,7 +130,7 @@
           }
         },
         {
-          url: 'http://img0.imgtn.bdimg.com/it/u=1096712855,2802578479&fm=15&gp=0.jpg',
+          url: ['http://img0.imgtn.bdimg.com/it/u=1096712855,2802578479&fm=15&gp=0.jpg'],
           title: "张泉灵个人简介",
           heat: '1233',
           comments: '426',
@@ -139,7 +140,7 @@
           }
         },
         {
-          url: 'http://www.chinanews.com/2019/02-24/U86P4T8D8763365F5012DT20190224183123.jpg',
+          url: ['http://www.chinanews.com/2019/02-24/U86P4T8D8763365F5012DT20190224183123.jpg'],
           title: "兴凯湖坚冰融化",
           heat: '1233',
           comments: '422226',
@@ -173,7 +174,7 @@
       },
       handleClickPreviewText(index, close) {
         close();
-        this.$router.push({path: '/detail/msg', query: this.imgItems[index].msg})
+        this.$router.push({path: '/detail/msg', query: this.imgItems[index].msg})//点击图片文字查看详情
       }
     },
     mounted() {
