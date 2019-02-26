@@ -22,9 +22,10 @@ export default {
       let headerHeight = Number(window.getComputedStyle(document.getElementById('moments-XHeader'))['height'].replace(/px/, ''))
       this.scrollHeight = (-(tabbarHeight + headerHeight)).toString()
     },
-    handlePulldownLoading() {
+    handlePulldownLoading(callback) {
       console.log("pulldown")
       setTimeout(() => {
+        callback()
       }, 1000)
     },
     handlePullupLoading(callback) {

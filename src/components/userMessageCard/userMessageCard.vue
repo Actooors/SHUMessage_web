@@ -9,7 +9,7 @@
         <div class="cardTopBar-top">
           <span class="author" @click="pushProfile(msg.author.id)">{{msg.author.name}}</span>
           <span v-if="msg.band" class="band"> {{msg.band}} </span>
-          <span v-if="msg.extraUser"  @click="pushProfile(msg.extraUser.id)">{{msg.extraUser.name}}</span>
+          <span v-if="msg.extraUser" @click="pushProfile(msg.extraUser.id)">{{msg.extraUser.name}}</span>
           <span class="operation" v-if="!msg.hideExtra"><span class="star" v-if="msg.showStar">关注</span><x-icon
             type="ios-arrow-down"
             size="15"></x-icon></span>
@@ -43,12 +43,13 @@
           v-for="(src,index) of msg.media.imgs"
           class="media-muti-img"
         >
-          <div class="imgcenter" v-lazy:background-image="src" @click="handleClickImg($event,msg.media.imgs,index)">
-            <!--<img-->
-            <!--v-lazy="src"-->
-            <!--@click="handleClickImg($event)"-->
-            <!--&gt;-->
-          </div>
+          <img
+            class="imgcenter"
+            v-lazy="src"
+            v-lazy:background-image="src"
+            @click="$event.stopPropagation()"
+            :preview="`id${msg.info.id}type${msg.info.type}`"
+          >
         </div>
       </div>
 
@@ -98,7 +99,7 @@
       // window.addEventListener('resize', this.initRightSideWidth)
     },
     methods: {
-      pushProfile(uid){
+      pushProfile(uid) {
         this.$router.push({path: '/profile', query: {uid}})
         event.stopPropagation()
       },
@@ -106,17 +107,17 @@
         this.$router.push({path: '/seo', query: {url, title: this.msg.media.title}})
         event.stopPropagation()
       },
-      handleClickImg(event, srcArray, index) {
-        this.$emit('onClickImg', Array.from(event.target.parentElement.parentElement.childNodes), srcArray, index)
-        event.stopPropagation()
-      },
-      initRightSideWidth() {
-        // console.log(window.getComputedStyle(document.querySelector('.neighborhood-card'))['width'])
-        let p = this.$refs.pCard
-
-        let s = getComputedStyle(p)
-        this.rightSideWidth = Number.parseInt(s['width']) - document.querySelector('.left-side').clientWidth
-      },
+      // handleClickImg(event, srcArray, index) {
+      //   // this.$emit('onClickImg', Array.from(event.target.parentElement.parentElement.childNodes), srcArray, index)
+      //   event.stopPropagation()
+      // },
+      // initRightSideWidth() {
+      //   // console.log(window.getComputedStyle(document.querySelector('.neighborhood-card'))['width'])
+      //   let p = this.$refs.pCard
+      //
+      //   let s = getComputedStyle(p)
+      //   this.rightSideWidth = Number.parseInt(s['width']) - document.querySelector('.left-side').clientWidth
+      // },
       relativeTime(t) {
         return relativeTime(t)
       },

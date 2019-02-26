@@ -46,7 +46,6 @@
           :imgs="msg.imgs"
           :showComment=false
           @onClickLike="handleClickShareButton(0,msg)"
-          @onClickImg="handleClickCommentImg"
         ></comment-card>
       </div>
       <div class="comment-blocks" id="comment-blocks">
@@ -78,7 +77,6 @@
             @onClickReply="handleClickReply(item)"
             @onClickLike="handleShare(0,item)"
             @onClickCard="handleClickCommentCard(...arguments,[blockIndex,index],item)"
-            @onClickImg="handleClickCommentImg"
           ></comment-card>
         </div>
       </div>
@@ -112,14 +110,14 @@
         </li>
       </ul>
     </Popover>
-    <div v-transfer-dom>
-      <previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>
-    </div>
+    <!--<div v-transfer-dom>-->
+      <!--<previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>-->
+    <!--</div>-->
   </scroll>
 </template>
 
 <script>
-  import {XHeader, Previewer, Spinner, LoadMore} from 'vux'
+  import {XHeader, Spinner, LoadMore} from 'vux'
   import {querystring} from 'vux'
   import {isRouteEnter} from 'assets/js/routeTools';
   import CommonCard from 'components/commonCard/commonCard'
@@ -139,7 +137,7 @@
     name: "msgDetail",
     store,
     components: {
-      ...{XHeader, Previewer, Spinner, LoadMore},
+      ...{XHeader, Spinner, LoadMore},
       CommonCard,
       UserMessageCard,
       CommentCard,
@@ -222,9 +220,9 @@
     },
     mounted() {
       let that = this;
-      this.previewerOptions = {
-        getThumbBoundsFn: this.getThumbBoundsFn
-      }
+      // this.previewerOptions = {
+      //   getThumbBoundsFn: this.getThumbBoundsFn
+      // }
       const el = this.$refs.viewBox.getScrollBody()
       this.scrollBody = el;
       this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1])
@@ -280,25 +278,25 @@
           }
         }
       },
-      //previewer需要的options函数，用于计算缩略图源位置，以显示点开时的动画效果
-      getThumbBoundsFn(index) {
-        let thumbnail = this.previewerTarget
-        let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
-        let rect = thumbnail.getBoundingClientRect()
-        return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
-      },
-      handleClickCommentImg(target) {
-        this.previewerList = [{
-          msrc: target.src,
-          src: target.src,
-          w: target.innerHeight,
-          h: target.innerWidth
-        }]
-        this.previewerTarget = target
-        setTimeout(() => {
-          this.$refs.previewer.show(0)
-        }, 0)
-      },
+      // //previewer需要的options函数，用于计算缩略图源位置，以显示点开时的动画效果
+      // getThumbBoundsFn(index) {
+      //   let thumbnail = this.previewerTarget
+      //   let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
+      //   let rect = thumbnail.getBoundingClientRect()
+      //   return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
+      // },
+      // handleClickCommentImg(target) {
+      //   this.previewerList = [{
+      //     msrc: target.src,
+      //     src: target.src,
+      //     w: target.innerHeight,
+      //     h: target.innerWidth
+      //   }]
+      //   this.previewerTarget = target
+      //   setTimeout(() => {
+      //     this.$refs.previewer.show(0)
+      //   }, 0)
+      // },
       initClipboard() {
         let clipboard = new ClipboardJS('.copy-content');
         clipboard.on('success', (e) => {

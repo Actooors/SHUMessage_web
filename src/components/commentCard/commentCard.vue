@@ -25,7 +25,8 @@
           v-for="(src) of imgs"
           v-lazy="src"
           class="comment-img"
-          @click="handleClickImg($event)"
+          @click="$event.stopPropagation()"
+          :preview="`id${msg.info.id}type${msg.info.type}`"
         >
       </div>
       <div
@@ -144,7 +145,7 @@
       }
     },
     methods: {
-      pushProfile(uid){
+      pushProfile(uid) {
         this.$router.push({path: '/profile', query: {uid}})
         event.stopPropagation()
       },
@@ -160,10 +161,10 @@
         this.$emit('onClickCard', event.clientX, event.clientY)
         event.stopPropagation()
       },
-      handleClickImg(event) {
-        this.$emit('onClickImg', event.target)
-        event.stopPropagation()
-      }
+      // handleClickImg(event) {
+      //   this.$emit('onClickImg', event.target)
+      //   event.stopPropagation()
+      // }
     }
   }
 </script>

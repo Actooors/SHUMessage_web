@@ -13,7 +13,19 @@ import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
 import ApolloClient from 'apollo-boost'
 import VueApollo from 'vue-apollo'
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
 
+Vue.use(preview, {
+  shareEl: true,
+  tapToToggleControls: false,
+  tapToClose: true,
+  loop: false,
+  arrowEl: false,
+  shareButtons: [
+    {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
+  ],
+});
 Vue.use(VueApollo);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
