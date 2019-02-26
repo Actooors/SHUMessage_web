@@ -1,0 +1,153 @@
+@import "../../assets/css/varies";
+@import "../../assets/css/common";
+
+.row {
+  padding: 0 16px 4px 16px;
+  box-sizing: content-box;
+  //margin-bottom: 8px;
+  font-size: .9rem;
+  background: white;
+  display: flex;
+  &.top-row {
+    padding: 20.8px 16px 0 16px;
+  }
+  .inline-icon {
+    height: 1.25em;
+    margin-right: .2em
+  }
+  .left-side {
+    height: 46px;
+    width: 46px;
+    flex-shrink: 0; //头像坚决不能缩，不然就压扁了
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: 48px 48px;
+    background-position: center;
+    border: $--background-deep solid 1px;
+    position: relative;
+    top: -.4rem;
+  }
+  .right-side {
+    margin-left: .5rem;
+    width: 100%;
+    .cardTopBar {
+      line-height: 19.6px;
+      min-height: 45px;
+      .cardTopBar-top {
+        position: relative;
+        .band {
+          color: $--theme-gray-deep;
+        }
+        .operation {
+          font-size: 12px;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          right: 0;
+          top: 0;
+          fill: gray;
+          color: gray;
+          .star {
+            margin-right: 9.6px;
+            font-size: 12.8px;
+            color: $--theme-blue;
+          }
+        }
+      }
+      .cardTopBar-extra {
+        color: gray;
+        font-size: 11.2px;
+        display: inline-flex;
+        align-items: center;
+        .position {
+          display: inline-flex;
+          align-items: center;
+          .icon {
+            font-size: 14.4px;
+          }
+        }
+      }
+    }
+  }
+  .content {
+    margin-bottom: .5rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .topic {
+    font-size: 12px;
+    background: $--background-deep;
+    padding: 4px 12.8px;
+    border-radius: 16px;
+    color: $--theme-blue;
+  }
+  .shareBar {
+    margin-top: .5rem;
+  }
+  .url {
+    background-color: $--theme-gray-light4;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    width: 100%;
+    .url-img {
+      height: 65px;
+      width: 65px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      background-position: center center;
+      background-size: cover;
+    }
+    .url-side {
+      display: flex;
+      align-items: center;
+      max-height: 65px;
+      flex-grow: 1;
+      padding: 8px;
+      line-height: 18px;
+      word-break: break-word;
+      overflow: hidden;
+      .url-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        font-size: 0.85em;
+        line-height: 18px;
+      }
+      .url-domain {
+        font-size: .75rem;
+        color: $--theme-gray;
+        position: absolute;
+        bottom: 3px;
+      }
+    }
+  }
+  .media-imgs {
+    width: 100%;
+    $imgs-height: 150px;
+    //height: $imgs-height;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    .media-muti-img {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+    .imgcenter {
+      width: 100%;
+      padding-bottom: 100%;
+      height: 0;
+      //background-image: url(http://mzzeast.shumsg.cn/18-9-8/25348271.jpg);
+      background-size: auto 100%;
+      background-position: center center;
+    }
+  }
+}

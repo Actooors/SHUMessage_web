@@ -4,6 +4,10 @@
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"
     >SHU Message
+      <div slot="left" @click="handleClickMessage" style="position: relative;">
+        <i class="icon-mail iconfont icon"></i>
+        <span class="badge" v-show="hasMessage"></span>
+      </div>
       <div slot="right" @click="handleClickMore">
         <i class="icon-shezhi iconfont icon"></i>
       </div>
@@ -39,22 +43,25 @@
 </template>
 
 <script>
-  import {ViewBox, Tab, TabItem, XImg, Timeline, TimelineItem, XHeader} from "vux";
+  import {ViewBox, Tab, TabItem, XImg, Timeline, TimelineItem, XHeader, Badge} from "vux";
 
   export default {
     name: "self",
-    components: {Timeline, ViewBox, Tab, TabItem, XImg, TimelineItem, XHeader},
+    components: {Timeline, ViewBox, Tab, TabItem, XImg, TimelineItem, XHeader, Badge},
     data() {
       return {
         avatar: require('assets/images/avatar.png'),
         username: "喵的之章！",
         tips: "29天, 3个订阅",
+        hasMessage: true
       }
     },
     methods: {
       handleClickMore() {
-        console.log("Click more")
         this.$router.push("/self/more")
+      },
+      handleClickMessage() {
+        this.$router.push('/myMessage')
       }
     }
   }
