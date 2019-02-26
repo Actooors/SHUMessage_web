@@ -20,6 +20,8 @@ Vue.use(preview, {
   shareEl: true,
   tapToToggleControls: false,
   tapToClose: true,
+  loop: false,
+  arrowEl: false,
   shareButtons: [
     {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
   ],
