@@ -74,6 +74,7 @@
       //margin: 0 0 10px;
     }
     .tag {
+      text-align: center;
       margin: $row-gap 5px $row-gap 0;
       height: 1rem;
       line-height: 1rem;
@@ -95,6 +96,7 @@
       display: flex;
       align-items: center;
       > div {
+        @extend %stroke;
         flex: 1;
         text-align: center;
         .num {
@@ -153,4 +155,12 @@
 .fade-enter, .fade-leave-active {
   opacity: 0;
   transform: translateY(100%);
+}
+
+%stroke {
+  filter: drop-shadow(0 0 1px black); //描边
+}
+
+.stroke {
+  @extend %stroke;
 }

@@ -14,8 +14,8 @@
     </x-header>
     <div class="show-bar">
       <div class="center-content">
-        <XImg :src="avatar" class="avatar"></XImg>
-        <p class="username">{{username}}</p>
+        <img :src="info.avatar" class="avatar" @click="$router.push({path:'/profile',query:{uid:info.id}})">
+        <p class="username">{{info.name}}</p>
         <p class="tips">{{tips}}</p>
       </div>
     </div>
@@ -43,17 +43,20 @@
 </template>
 
 <script>
-  import {ViewBox, Tab, TabItem, XImg, Timeline, TimelineItem, XHeader, Badge} from "vux";
+  import {ViewBox, Tab, TabItem, Timeline, TimelineItem, XHeader, Badge} from "vux";
 
   export default {
     name: "self",
-    components: {Timeline, ViewBox, Tab, TabItem, XImg, TimelineItem, XHeader, Badge},
+    components: {Timeline, ViewBox, Tab, TabItem, TimelineItem, XHeader, Badge},
     data() {
       return {
-        avatar: require('assets/images/avatar.png'),
-        username: "赤膊吃西瓜",
         tips: "29天, 3个订阅",
-        hasMessage: true
+        hasMessage: true,
+        info: {
+          avatar: require('assets/images/avatar.png'),
+          name: "赤膊吃西瓜",
+          id: 10001,
+        }
       }
     },
     methods: {

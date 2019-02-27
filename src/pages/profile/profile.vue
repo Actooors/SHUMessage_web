@@ -14,8 +14,8 @@
       </div>
       <div id="profile-XHeader-back"></div>
       <transition name="fade" mode="out-in">
-        <div class="headerInfo" v-show="showHeaderInfo">
-          <img src="/static/testAvatar.JPG" class="avatar">
+        <div class="headerInfo stroke" v-show="showHeaderInfo">
+          <img :src="userInfo.avatar" class="avatar">
           <div>
             <p>{{userInfo.username}}</p>
             <p>{{userInfo.starNum}}人关注</p>
@@ -26,8 +26,8 @@
     </x-header>
     <div class="content">
       <div class="gallery">
-        <div class="row toprow">
-          <img src="/static/testAvatar.JPG" class="avatar">
+        <div class="row toprow stroke">
+          <img :src="userInfo.avatar" class="avatar">
           <div class="row">
             <button class="chat">
               <i class="icon-message-fill iconfont icon"></i>
@@ -39,12 +39,12 @@
             </button>
           </div>
         </div>
-        <h1 class="username">{{userInfo.username}}</h1>
-        <p class="signature">{{userInfo.signature}}</p>
-        <div class="row">
+        <h1 class="username stroke">{{userInfo.username}}</h1>
+        <p class="signature stroke">{{userInfo.signature}}</p>
+        <div class="row stroke">
           <span class="tag" v-for="tag of userInfo.tags" :key="tag.value">{{tag.name}}</span>
         </div>
-        <p class="tip">{{userInfo.tipToYou}}</p>
+        <p class="tip stroke">{{userInfo.tipToYou}}</p>
         <div class="gallery-bottom">
           <div>
             <p class="num">{{userInfo.createThemeNum}}</p>
