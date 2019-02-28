@@ -76,6 +76,9 @@
       document.getElementById('file').addEventListener('change', this.handleInputFile)
     },
     methods: {
+      setFocus() {
+        this.$refs.textarea.focus();
+      },
       handleReplayBarResize() {
         this.$nextTick(() => {
           this.popBottom = parseInt(window.getComputedStyle(this.$refs.replayBar)['height'].replace(/px/, ''))

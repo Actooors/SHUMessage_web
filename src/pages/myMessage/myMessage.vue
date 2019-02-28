@@ -5,6 +5,7 @@
     :pulldownCallback="handlePulldownCallback"
     :pullupCallback="handlePullupCallback"
     :showLoadIcon="showLoadIcon"
+    ref="scroll"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: true,backText:''}"
@@ -19,10 +20,12 @@
           :key="item.value"
           :msg="item"
           @onClickShareButton="handleClickShareButton(...arguments,item)"
-          @onClickReply="handleClickReply(index)"
+          @onClickReply="handleClickReply(index,item)"
         ></message-card>
       </div>
     </div>
+    <reply-bar :placeholder="replyBarPlaceholder" v-show="showReply" ref="replyBar"
+               class="replyBar" @onSubmit="handleSubmit"></reply-bar>
   </Scroll>
 </template>
 
@@ -33,22 +36,48 @@
   import mockMixin from "./mock";
   import stickybits from 'stickybits'
   import MessageCard from "components/messageCard/messageCard";
+  import ReplyBar from "components/replyBar/replyBar";
+
 
   export default {
     name: "myMessage",
-    components: {MessageCard, ...{ViewBox, XHeader}, Scroll},
+    components: {MessageCard, ...{ViewBox, XHeader}, Scroll, ReplyBar},
     mixins: [mockMixin],
     data: () => ({
       showLoadIcon: false,
       noMore: false,
+      showReply: false,
+      replyBarPlaceholder: ''
     }),
     mounted() {
       autosize(this.$refs.textarea, {initOffset: 0});
-      stickybits('.vux-header')
+      stickybits('.vux-header');
+      this.$refs.scroll.getScrollBody().addEventListener('click', () => {
+        this.showReply = false
+      });
+      this.$refs.replyBar.$el.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
+    },
+    beforeDestroy() {
+      this.$refs.scroll.getScrollBody().removeEventListener('click', () => {
+        this.showReply = false
+      });
+      this.$refs.replyBar.$el.removeEventListener('click', (event) => {
+        event.stopPropagation();
+      });
     },
     methods: {
-      handleClickReply(index) {
-        console.log("点击了reply，应该弹出回复框", index)
+      handleSubmit(){
+        this.showReply = false;
+      },
+      handleClickReply(index, item) {
+        event.stopPropagation();
+        this.showReply = true;
+        this.replyBarPlaceholder = `回复${item.author.name}:`;
+        this.$nextTick(() => {
+          this.$refs.replyBar.setFocus();
+        })
       },
       handlePulldownCallback(callback) {
         setTimeout(() => {
@@ -83,5 +112,9 @@
     &:not(:first-child) {
       margin-top: 10px;
     }
+  }
+
+  .replyBar {
+    left: 0;
   }
 </style>

@@ -70,6 +70,9 @@
       getScrollBody() {
         return this.$refs.viewBox.getScrollBody();
       },
+      scrollTo() {
+        return this.$refs.viewBox.scrollTo(...arguments);
+      },
       async handleScroll(event) {
         const that = this;
         //position: Object{top,left}
