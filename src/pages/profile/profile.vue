@@ -15,12 +15,14 @@
       <div id="profile-XHeader-back"></div>
       <transition name="fade" mode="out-in">
         <div class="headerInfo stroke" v-show="showHeaderInfo">
-          <img :src="userInfo.avatar" class="avatar">
-          <div>
-            <p>{{userInfo.username}}</p>
-            <p>{{userInfo.starNum}}人关注</p>
+          <div class="row">
+            <img :src="userInfo.avatar" class="avatar">
+            <div>
+              <p>{{userInfo.username}}</p>
+              <p>{{userInfo.starNum}}人关注</p>
+            </div>
           </div>
-          <button class="follow">关注</button>
+          <button class="follow" v-if="!isUser">关注</button>
         </div>
       </transition>
     </x-header>
@@ -28,14 +30,12 @@
       <div class="gallery">
         <div class="row toprow stroke">
           <div class="avatarInfo">
-            <img :src="userInfo.avatar" class="avatar" v-show="isUser">
-            <img :src="userInfo.avatar" class="avatar" preview="0" v-show="!isUser">
+            <img :src="userInfo.avatar" class="avatar" preview="0" ref="avatar">
           </div>
-
-          <div class="modifyAvatar" v-show="isUser">
+          <div class="modifyAvatar" v-if="isUser" @click="handleClickAvatar">
             <div @click="modifyAvatar">修改</div>
           </div>
-          <div class="row">
+          <div class="row" v-if="!isUser">
             <button class="chat">
               <i class="icon-message-fill iconfont icon"></i>
             </button>
@@ -51,7 +51,7 @@
         <div class="row stroke">
           <span class="tag" v-for="tag of userInfo.tags" :key="tag.value">{{tag.name}}</span>
         </div>
-        <p class="tip stroke">{{userInfo.tipToYou}}</p>
+        <p class="tip stroke" v-if="!isUser">{{userInfo.tipToYou}}</p>
         <div class="gallery-bottom">
           <div>
             <p class="num">{{userInfo.createThemeNum}}</p>
@@ -63,11 +63,11 @@
           </div>
           <div>
             <p class="num">{{userInfo.starOthersNum}}</p>
-            <p>{{userInfo.sex==='女'?'她':'他'}}关注的人</p>
+            <p>{{isUser?'我':userInfo.sex==='女'?'她':'他'}}关注的人</p>
           </div>
           <div>
             <p class="num">{{userInfo.starNum}}</p>
-            <p>关注{{userInfo.sex==='女'?'她':'他'}}的人</p>
+            <p>关注{{isUser?'我':userInfo.sex==='女'?'她':'他'}}的人</p>
           </div>
         </div>
       </div>
@@ -171,8 +171,16 @@
       this.loadData()
     },
     methods: {
+      handleClickAvatar() {
+        let evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", false, false);
+        this.$nextTick(() => {
+          this.$refs.avatar.dispatchEvent(evt)
+        })
+      },
       modifyAvatar() {
-        this.$router.push('/self/more/myinfo')
+        this.$router.push('/self/more/myinfo');
+        event.stopPropagation();
       },
       loadData() {
 
@@ -216,7 +224,6 @@
 
 <style lang="scss" scoped>
   @import "./profile";
-  @import "../moments/moments";
 </style>
 
 <style lang="scss">

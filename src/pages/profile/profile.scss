@@ -18,19 +18,20 @@
       font-size: 12px;
       line-height: 1rem;
       animation-duration: 350ms;
+      justify-content: space-around;
       .avatar {
         height: 32px;
         width: 32px;
         @extend %round;
-        margin: 0 10px;
+        margin: 0 10px 0 1px;
       }
       .follow {
         @extend %button-basic;
         background: $--theme-blue-deep;
         height: 24px;
         width: 54px;
-        position: absolute;
-        right: 0;
+        //position: absolute;
+        //right: 0;
       }
     }
   }
@@ -42,6 +43,7 @@
     .toprow {
       @extend .row;
       justify-content: space-between;
+      position: relative;
       .avatarInfo {
         @extend %round;
         height: 64px;
@@ -54,19 +56,22 @@
         }
       }
       .modifyAvatar {
+        background: transparent;
         height: 64px;
         width: 64px;
         border-radius: 50%;
         overflow: hidden;
         position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: flex-end;
         > div {
           background: rgba(0, 0, 0, 0.62);
-          position: absolute;
-          bottom: 2px;
           text-align: center;
           width: 100%;
           line-height: 18px;
-          vertical-align: top;
+          //vertical-align: top;
           color: white;
         }
       }

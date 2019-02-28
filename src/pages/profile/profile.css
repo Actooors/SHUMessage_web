@@ -38,7 +38,7 @@
     position: relative;
     left: -1px; }
 
-.profile-viewbox #profile-XHeader .headerInfo .avatar, .profile-viewbox .gallery .toprow .chat, .profile-viewbox .gallery .toprow .avatar {
+.profile-viewbox #profile-XHeader .headerInfo .avatar, .profile-viewbox .gallery .toprow .avatarInfo, .profile-viewbox .gallery .toprow .chat, .profile-viewbox .gallery .toprow .avatarInfo .avatar {
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -59,27 +59,48 @@
     height: 100%;
     font-size: 12px;
     line-height: 1rem;
-    animation-duration: 350ms; }
+    animation-duration: 350ms;
+    justify-content: space-around; }
     .profile-viewbox #profile-XHeader .headerInfo .avatar {
       height: 32px;
       width: 32px;
-      margin: 0 10px; }
+      margin: 0 10px 0 1px; }
     .profile-viewbox #profile-XHeader .headerInfo .follow {
       background: #218dea;
       height: 24px;
-      width: 54px;
-      position: absolute;
-      right: 0; }
+      width: 54px; }
   .profile-viewbox .gallery {
     background: url("http://mzzeast.shumsg.cn/18-12-31/12524706.jpg");
     height: 330px;
     padding: 80px 20px 0;
     position: relative; }
     .profile-viewbox .gallery .toprow {
-      justify-content: space-between; }
-      .profile-viewbox .gallery .toprow .avatar {
+      justify-content: space-between;
+      position: relative; }
+      .profile-viewbox .gallery .toprow .avatarInfo {
         height: 64px;
-        width: 64px; }
+        width: 64px;
+        overflow: hidden; }
+        .profile-viewbox .gallery .toprow .avatarInfo .avatar {
+          height: 64px;
+          width: 64px; }
+      .profile-viewbox .gallery .toprow .modifyAvatar {
+        background: transparent;
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: flex-end; }
+        .profile-viewbox .gallery .toprow .modifyAvatar > div {
+          background: rgba(0, 0, 0, 0.62);
+          text-align: center;
+          width: 100%;
+          line-height: 18px;
+          color: white; }
       .profile-viewbox .gallery .toprow .chat {
         color: #e4e4e4;
         height: 30px;
@@ -145,7 +166,7 @@
           width: 61.8%;
           margin: 0 auto; }
 
-.profile-viewbox .gallery .toprow .avatar {
+.profile-viewbox .gallery .toprow .avatarInfo .avatar {
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1); }
 
 .fade-enter-active, .fade-leave-active {

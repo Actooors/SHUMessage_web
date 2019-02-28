@@ -1,0 +1,13 @@
+.more-wrapper {
+  margin-top: 54px; }
+  .more-wrapper .avatar {
+    display: block;
+    margin-right: 1rem;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: rgba(220, 212, 210, 0.7); }
+  .more-wrapper #file {
+    height: 0;
+    width: 0; }
+
+/*# sourceMappingURL=more.css.map */
