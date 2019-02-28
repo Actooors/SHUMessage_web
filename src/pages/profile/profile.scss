@@ -42,11 +42,35 @@
     .toprow {
       @extend .row;
       justify-content: space-between;
-      .avatar {
-        @extend %round-shadow;
+      .avatarInfo {
+        @extend %round;
         height: 64px;
         width: 64px;
+        overflow: hidden;
+        .avatar {
+          @extend %round-shadow;
+          height: 64px;
+          width: 64px;
+        }
       }
+      .modifyAvatar {
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        > div {
+          background: rgba(0, 0, 0, 0.62);
+          position: absolute;
+          bottom: 2px;
+          text-align: center;
+          width: 100%;
+          line-height: 18px;
+          vertical-align: top;
+          color: white;
+        }
+      }
+
       .chat {
         @extend %round;
         color: $--theme-gray-light25;

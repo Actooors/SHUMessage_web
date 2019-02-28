@@ -27,7 +27,14 @@
     <div class="content">
       <div class="gallery">
         <div class="row toprow stroke">
-          <img :src="userInfo.avatar" class="avatar">
+          <div class="avatarInfo">
+            <img :src="userInfo.avatar" class="avatar" v-show="isUser">
+            <img :src="userInfo.avatar" class="avatar" preview="0" v-show="!isUser">
+          </div>
+
+          <div class="modifyAvatar" v-show="isUser">
+            <div @click="modifyAvatar">修改</div>
+          </div>
           <div class="row">
             <button class="chat">
               <i class="icon-message-fill iconfont icon"></i>
@@ -142,6 +149,7 @@
       UserMessageCard
     },
     data: () => ({
+      isUser: true,
       tabIndex: 0,
       scrollStatus: {
         scrollTop: 0,
@@ -163,6 +171,9 @@
       this.loadData()
     },
     methods: {
+      modifyAvatar() {
+        this.$router.push('/self/more/myinfo')
+      },
       loadData() {
 
       },
