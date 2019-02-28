@@ -36,9 +36,13 @@
       >
         <img v-lazy:background-image="msg.media.img" class="url-img" v-if="msg.media.img"/>
         <div class="url-side">
-          <p class="url-title"><span class="clickable">{{msg.author.name}}</span>: {{msg.media.title}}</p>
+          <p class="url-title"><span class="clickable" @click="handleClickAuthor(msg.media.author.id)">{{msg.media.author.name}}</span>:
+            {{msg.media.title}}</p>
         </div>
       </div>
+    </div>
+    <div class="row replyBar" v-if="!msg.band">
+      <p class="replyBar" @click="$emit('onClickReply')">回复{{msg.author.name}}:</p>
     </div>
   </div>
 </template>
@@ -70,6 +74,10 @@
       // window.addEventListener('resize', this.initRightSideWidth)
     },
     methods: {
+      handleClickAuthor(uid) {
+        event.stopPropagation();
+        this.$router.push({path: '/profile', query: {uid}});
+      },
       pushProfile(uid) {
         this.$router.push({path: '/profile', query: {uid}});
         event.stopPropagation()

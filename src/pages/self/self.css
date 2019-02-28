@@ -1,0 +1,50 @@
+.wrapper {
+  background: white; }
+  .wrapper .self-XHeader {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.25); }
+    .wrapper .self-XHeader .iconfont {
+      font-size: 1.25rem;
+      color: white; }
+  .wrapper .show-bar {
+    height: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/back.jpg");
+    background-size: cover; }
+    .wrapper .show-bar .center-content {
+      margin-top: 60px;
+      text-align: center;
+      color: white;
+      line-height: 2rem; }
+      .wrapper .show-bar .center-content .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%; }
+  .wrapper .tab {
+    background: transparent; }
+  .wrapper .timeline h4 {
+    font-weight: normal;
+    font-size: .9em; }
+  .wrapper .timeline p {
+    color: gray;
+    font-size: .7em; }
+  .wrapper .timeline h4, .wrapper .timeline p {
+    text-indent: .5em; }
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f74c31; }
+
+/*# sourceMappingURL=self.css.map */

@@ -28,6 +28,9 @@
   display: flex;
   align-items: center; }
 
+.clickable {
+  color: #1e5caf; }
+
 html, body, #app {
   height: 100%;
   width: 100%;

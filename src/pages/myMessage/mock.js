@@ -6,12 +6,8 @@ export default {
           type: 1,
           id: 1
         },
-        topic: {
-          id: 21,
-          name: "今天不开心"
-        },
-        isLike: true,
         content: "赞了我",//文本消息
+        isLike: true,
         photos: ["", "", ""],//相关图片，前端需要按照QQ空间进行优化
         author: {
           id: 10001,
@@ -19,18 +15,12 @@ export default {
           name: "--正--"
         },
         publishTime: "2018-08-26T02:15:04",
-        shareInfo: {
-          like: 64,
-          comment: 73,
-          share: 2
-        },
-        footprint: {like: false, comment: false, forward: false},
-        showStar: false,
-        // position: {//后端记录每条信息的position经纬度，计算后返回
-        //   name: "栋霖科技园",
-        //   distance: "5km"
-        // },
         media: {
+          author: {
+            id: 10001,
+            avatar: "/static/img/avatar.png",
+            name: "赤膊吃西瓜"
+          },
           img: "http://mzzeast.shumsg.cn/18-9-8/83429141.jpg",
           title: "看看我家的狗，帅不帅？？？哈哈哈哈哈哈哈"
         }
@@ -48,6 +38,7 @@ export default {
         },
         publishTime: "2018-08-26T00:15:04",
         hideExtra: true,
+        showStar: true,
         band: "关注了",
         extraUser: {
           id: 10002,

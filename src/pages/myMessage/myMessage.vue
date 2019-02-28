@@ -1,8 +1,10 @@
 <template>
-  <ViewBox
-    v-show="!selectGroup"
-    class="momentPublish-wrapper"
-    body-padding-bottom="46px"
+  <Scroll
+    class="myMessage-wrapper"
+    :noMore="noMore"
+    :pulldownCallback="handlePulldownCallback"
+    :pullupCallback="handlePullupCallback"
+    :showLoadIcon="showLoadIcon"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: true,backText:''}"
@@ -13,20 +15,20 @@
       <div v-for="block of raw" :key="block.value" class="block">
         <message-card
           class="message-card"
-          v-for="item of block.cards"
+          v-for="(item,index) of block.cards"
           :key="item.value"
           :msg="item"
           @onClickShareButton="handleClickShareButton(...arguments,item)"
+          @onClickReply="handleClickReply(index)"
         ></message-card>
       </div>
     </div>
-  </ViewBox>
-
+  </Scroll>
 </template>
 
 <script>
   import {ViewBox, XHeader} from 'vux'
-  import UserMessageCard from 'components/userMessageCard/userMessageCard'
+  import Scroll from 'components/scroll/scroll'
   import autosize from 'autosize'
   import mockMixin from "./mock";
   import stickybits from 'stickybits'
@@ -34,16 +36,32 @@
 
   export default {
     name: "myMessage",
-    components: {MessageCard, ...{ViewBox, XHeader}, UserMessageCard},
+    components: {MessageCard, ...{ViewBox, XHeader}, Scroll},
     mixins: [mockMixin],
     data: () => ({
-      selectGroup: false
+      showLoadIcon: false,
+      noMore: false,
     }),
     mounted() {
       autosize(this.$refs.textarea, {initOffset: 0});
       stickybits('.vux-header')
     },
     methods: {
+      handleClickReply(index) {
+        console.log("点击了reply，应该弹出回复框", index)
+      },
+      handlePulldownCallback(callback) {
+        setTimeout(() => {
+          callback();
+        }, 500)
+      },
+      handlePullupCallback(callback) {
+        const that = this;
+        setTimeout(() => {
+          callback();
+          that.noMore = true;
+        }, 500)
+      },
       handleCancelSelectGroup() {
         this.$nextTick(() => {
           this.selectGroup = false;
@@ -56,7 +74,14 @@
 <style lang="scss" scoped>
   @import "../../assets/css/varies";
 
+  .myMessage-wrapper {
+    background-color: $--background-deep2;
+  }
+
   .message-card {
-    border-bottom: $--theme-gray-light3 solid 1px;
+    box-shadow: $--theme-gray-light3 0 5px 20px;
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
   }
 </style>

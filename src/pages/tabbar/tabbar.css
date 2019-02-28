@@ -28,6 +28,9 @@
   display: flex;
   align-items: center; }
 
+.clickable {
+  color: #1e5caf; }
+
 .plus-btn {
   background: url("../../assets/images/增加.png") no-repeat center;
   background-size: 40px 40px; }

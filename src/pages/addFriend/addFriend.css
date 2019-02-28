@@ -38,6 +38,9 @@
     position: relative;
     left: -1px; }
 
+.clickable {
+  color: #1e5caf; }
+
 .momentPublish-wrapper {
   font-size: 16px; }
   .momentPublish-wrapper .textarea-box {

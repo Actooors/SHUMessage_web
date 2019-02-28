@@ -117,8 +117,7 @@
         -webkit-line-clamp: 2;
         line-clamp: 2;
         overflow: hidden;
-        font-size: 0.85em;
-        line-height: 18px;
+        font-size: 0.9em;
       }
       .url-domain {
         font-size: .75rem;
@@ -149,5 +148,15 @@
       background-size: auto 100%;
       background-position: center center;
     }
+  }
+  .replyBar {
+    background: $--theme-gray-light4;
+    width: 100%;
+    font-size: .85em;
+    color: $--theme-gray;
+    padding: 3px 10px;
+  }
+  &.replyBar {
+    padding-bottom: 10px;
   }
 }

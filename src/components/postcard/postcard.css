@@ -44,6 +44,9 @@
   justify-content: center;
   align-items: center; }
 
+.clickable {
+  color: #1e5caf; }
+
 .flex {
   display: flex;
   align-items: center; }
@@ -57,7 +60,7 @@
   height: 26px;
   width: 54px;
   position: absolute;
-  right: 25px;
+  right: 15px;
   font-size: 12px;
   color: white !important;
   vertical-align: middle; }
@@ -65,6 +68,6 @@
     background: #a8a8a8; }
 
 .avatar {
-  margin: 0 10px; }
+  margin: 0 10px 0 0; }
 
 /*# sourceMappingURL=postcard.css.map */

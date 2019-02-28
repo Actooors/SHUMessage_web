@@ -1,0 +1,163 @@
+.clear-decoration {
+  text-decoration: none;
+  border: none;
+  outline: none; }
+
+.vuxfy {
+  background: #FBF9FE;
+  color: #666;
+  font-size: .9rem; }
+
+.nowrapspace {
+  display: flex;
+  letter-spacing: -1px;
+  font-size: 0; }
+  .nowrapspace > * {
+    letter-spacing: normal;
+    font-size: inherit; }
+
+.noscroll {
+  overflow: hidden; }
+
+.more-loading {
+  display: flex;
+  justify-content: center; }
+
+.row {
+  display: flex;
+  align-items: center; }
+
+.clickable {
+  color: #1e5caf; }
+
+.row {
+  padding: 0 16px 4px 16px;
+  box-sizing: content-box;
+  font-size: .9rem;
+  background: white;
+  display: flex; }
+  .row.top-row {
+    padding: 20.8px 16px 0 16px; }
+  .row .inline-icon {
+    height: 1.25em;
+    margin-right: 0.2em; }
+  .row .left-side {
+    height: 46px;
+    width: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: 48px 48px;
+    background-position: center;
+    border: rgba(0, 15, 80, 0.08) solid 1px;
+    position: relative;
+    top: -.4rem; }
+  .row .right-side {
+    margin-left: .5rem;
+    width: 100%; }
+    .row .right-side .cardTopBar {
+      line-height: 19.6px;
+      min-height: 45px; }
+      .row .right-side .cardTopBar .cardTopBar-top {
+        position: relative; }
+        .row .right-side .cardTopBar .cardTopBar-top .band {
+          color: #606060; }
+        .row .right-side .cardTopBar .cardTopBar-top .operation {
+          font-size: 12px;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          right: 0;
+          top: 0;
+          fill: gray;
+          color: gray; }
+          .row .right-side .cardTopBar .cardTopBar-top .operation .star {
+            margin-right: 9.6px;
+            font-size: 12.8px;
+            color: #2196F3; }
+      .row .right-side .cardTopBar .cardTopBar-extra {
+        color: gray;
+        font-size: 11.2px;
+        display: inline-flex;
+        align-items: center; }
+        .row .right-side .cardTopBar .cardTopBar-extra .position {
+          display: inline-flex;
+          align-items: center; }
+          .row .right-side .cardTopBar .cardTopBar-extra .position .icon {
+            font-size: 14.4px; }
+  .row .content {
+    margin-bottom: .5rem;
+    white-space: pre-wrap;
+    word-break: break-word; }
+  .row .topic {
+    font-size: 12px;
+    background: rgba(0, 15, 80, 0.08);
+    padding: 4px 12.8px;
+    border-radius: 16px;
+    color: #2196F3; }
+  .row .shareBar {
+    margin-top: .5rem; }
+  .row .url {
+    background-color: #f4f4f4;
+    display: flex;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    width: 100%; }
+    .row .url .url-img {
+      height: 65px;
+      width: 65px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      background-position: center center;
+      background-size: cover; }
+    .row .url .url-side {
+      display: flex;
+      align-items: center;
+      max-height: 65px;
+      flex-grow: 1;
+      padding: 8px;
+      line-height: 18px;
+      word-break: break-word;
+      overflow: hidden; }
+      .row .url .url-side .url-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        font-size: 0.9em; }
+      .row .url .url-side .url-domain {
+        font-size: .75rem;
+        color: #808080;
+        position: absolute;
+        bottom: 3px; }
+  .row .media-imgs {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    display: flex; }
+    .row .media-imgs .media-muti-img {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-right: 4px; }
+    .row .media-imgs .imgcenter {
+      width: 100%;
+      padding-bottom: 100%;
+      height: 0;
+      background-size: auto 100%;
+      background-position: center center; }
+  .row .replyBar {
+    background: #f4f4f4;
+    width: 100%;
+    font-size: .85em;
+    color: #808080;
+    padding: 3px 10px; }
+  .row.replyBar {
+    padding-bottom: 10px; }
+
+/*# sourceMappingURL=messageCard.css.map */

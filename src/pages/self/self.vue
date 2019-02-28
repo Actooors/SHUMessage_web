@@ -51,7 +51,7 @@
     data() {
       return {
         avatar: require('assets/images/avatar.png'),
-        username: "喵的之章！",
+        username: "赤膊吃西瓜",
         tips: "29天, 3个订阅",
         hasMessage: true
       }

@@ -44,6 +44,9 @@
   justify-content: center;
   align-items: center; }
 
+.clickable {
+  color: #1e5caf; }
+
 .profile-viewbox {
   font-size: .7rem;
   color: #fafafa; }
