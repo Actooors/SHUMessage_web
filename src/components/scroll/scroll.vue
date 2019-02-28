@@ -107,4 +107,8 @@
   .pulltorefresh--ptr {
     background-color: #fbf9fe;
   }
+
+  .scrollComponentBodyContent {
+    height: 100%;
+  }
 </style>

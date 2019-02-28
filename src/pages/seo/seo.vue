@@ -24,7 +24,7 @@
 <script>
   import {ViewBox, XHeader} from 'vux'
   import Share from 'components/share/share'
-
+  import stickybits from 'stickybits'
 
   export default {
     name: "seo",
@@ -32,6 +32,9 @@
     data: () => ({
       showPopup: false,
     }),
+    mounted(){
+      stickybits('.vux-header')
+    },
     methods: {
       handleClickBack() {
         this.$router.go(-1);
