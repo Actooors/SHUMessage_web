@@ -4,7 +4,7 @@
     :pulldownCallback="handlePulldownCallback"
     :pullupCallback="handlePullupCallback"
     :showLoadIcon="showLoadIcon"
-    bodyPaddingBottom="125px"
+    bodyPaddingBottom="47px"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: false}"

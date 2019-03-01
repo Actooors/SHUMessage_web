@@ -18,13 +18,14 @@ import 'vue-photo-preview/dist/skin.css'
 
 Vue.use(preview, {
   shareEl: true,
+  arrowEl: false,
+  zoomEl: false,
   tapToToggleControls: false,
   tapToClose: true,
   loop: false,
-  arrowEl: false,
   shareButtons: [
     {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
-  ],
+  ]
 });
 Vue.use(VueApollo);
 

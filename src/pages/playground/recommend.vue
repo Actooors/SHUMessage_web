@@ -5,6 +5,7 @@
     :pulldownCallback="handlePulldownLoading"
     :pullupCallback="handlePullupLoading"
     :showLoadIcon="showLoadIcon"
+    body-padding-bottom="47px"
   >
     <common-card
       v-for="(item,index) of cards"

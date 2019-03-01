@@ -5,6 +5,7 @@
     :pulldownCallback="()=>handlePulldownLoading('/news/newsList')"
     :pullupCallback="()=>handlePullupLoading('/news/newsList')"
     :showLoadIcon="showLoadIcon"
+    body-padding-bottom="47px"
   >
     <common-card
       v-for="(item,index) of cards"

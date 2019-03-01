@@ -5,6 +5,7 @@
     :pulldownCallback="handlePulldownLoading"
     :pullupCallback="handlePullupLoading"
     :showLoadIcon="showLoadIcon"
+    body-padding-bottom="47px"
   >
     <Spinner type="ripple" class="center-spinner"
              v-if="!cards.length && scrollerStatus.pulldownStatus==='default'"></Spinner>

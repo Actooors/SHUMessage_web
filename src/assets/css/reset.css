@@ -123,8 +123,4 @@ html, body, #app {
 .weui-cells.vux-search_show .weui-cell:last-child {
   margin-bottom: unset !important; }
 
-.vux-loadmore.weui-loadmore_line {
-  padding-bottom: 100px;
-  margin-bottom: 50px; }
-
 /*# sourceMappingURL=reset.css.map */

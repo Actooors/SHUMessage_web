@@ -10,4 +10,33 @@
     height: 0;
     width: 0; }
 
+.popup {
+  background-color: white; }
+  .popup .tip {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: white;
+    font-size: 12px;
+    color: #999999; }
+  .popup .tip {
+    border-bottom: 1px solid #d9d9d9;
+    transform-origin: 0 100%;
+    width: 93%;
+    margin: 0 auto; }
+  .popup .confirm {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background-color: white;
+    color: #EA5859; }
+  .popup .cancel {
+    padding-top: 10px;
+    height: 55px;
+    background-color: #E8E3E3; }
+    .popup .cancel > div {
+      line-height: 45px;
+      text-align: center;
+      background-color: white; }
+
 /*# sourceMappingURL=more.css.map */

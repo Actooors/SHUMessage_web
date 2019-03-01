@@ -20,7 +20,7 @@
       :noMore="noMore"
       :pulldownCallback="handlePulldownLoading"
       :pullupCallback="handlePullupLoading"
-      bodyPaddingBottom="200px"
+      bodyPaddingBottom="47px"
       :showLoadIcon="showLoadIcon"
     >
       <div class="publishMoments" @click="handlePublicMoments">

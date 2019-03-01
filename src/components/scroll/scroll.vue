@@ -9,7 +9,9 @@
     <Spinner type="ripple" class="spinner-loadIcon" v-if="showLoadIcon" :style="{top:loadIconTop}"></Spinner>
     <!--这里v-else的作用，一是优化体验，二是防止白屏（我也不知道为什么白屏）-->
     <div class="scrollComponentBodyContent" v-else>
-      <slot></slot>
+      <div class="scrollContent">
+        <slot></slot>
+      </div>
       <div class="more-loading" v-if="loadingMore">
         <Spinner type="lines"></Spinner>
       </div>
@@ -61,6 +63,7 @@
     mounted() {
       this.scrollBody = this.$refs.viewBox.getScrollBody();
       this.scrollBody.id = 'scrollComponentBody';
+      this.scrollBody.style = this.bodyPaddingBottom === '0' ? `` : `height:calc(100% - ${this.bodyPaddingBottom})`;
       this.scrollBody.addEventListener('scroll', this.handleScroll)
     },
     beforeDestroy() {

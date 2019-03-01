@@ -5,7 +5,7 @@
     :pullupCallback="loadMore"
     :showLoadIcon="showLoadIcon"
     ref="viewBox"
-    body-padding-bottom="85px"
+    body-padding-bottom="94px"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{backText:'',preventGoBack:true}"
