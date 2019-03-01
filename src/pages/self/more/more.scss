@@ -13,38 +13,39 @@
   }
 }
 
-//
-//.popup {
-//  background-color: white;
-//  .takePhoto {
-//    height: 45px;
-//    line-height: 45px;
-//    text-align: center;
-//    background-color: white;
-//  }
-//  .takePhoto {
-//    border-bottom: 1px solid #d9d9d9;
-//    transform-origin: 0 100%;
-//    width: 93%;
-//    margin: 0 auto;
-//  }
-//
-//  .fromAlbum {
-//    height: 45px;
-//    line-height: 45px;
-//    text-align: center;
-//    background-color: white;
-//
-//  }
-//
-//  .cancel {
-//    padding-top: 10px;
-//    height: 55px;
-//    background-color: #E8E3E3;
-//    > div {
-//      line-height: 45px;
-//      text-align: center;
-//      background-color: white;
-//    }
-//  }
-//}
+.popup {
+  background-color: white;
+  .tip {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: white;
+    font-size: 12px;
+    color: #999999;
+  }
+  .tip {
+    border-bottom: 1px solid #d9d9d9;
+    transform-origin: 0 100%;
+    width: 93%;
+    margin: 0 auto;
+  }
+
+  .confirm {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background-color: white;
+    color: #EA5859;
+  }
+
+  .cancel {
+    padding-top: 10px;
+    height: 55px;
+    background-color: #E8E3E3;
+    > div {
+      line-height: 45px;
+      text-align: center;
+      background-color: white;
+    }
+  }
+}

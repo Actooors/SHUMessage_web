@@ -33,18 +33,28 @@
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/用户反馈.png')">
       </cell>
     </group>
+    <x-button type="warn" style="width:80%;margin-top: 20px" @click.native="handleLogout">退出登录</x-button>
     <share
       v-model="showPopup"
       :url="$route.query.url"
       title="SHU Message"
       digest="一款美观,实用,稳定的且仅为SHU师生服务的消息聚合及分享平台"
     ></share>
+    <div v-transfer-dom>
+      <popup v-model="logout" height="160px" class="popup">
+        <div class="tip">退出后不会删除任何历史数据，下次登录依然可以使用本账号。</div>
+        <div class="confirm">确认退出</div>
+        <div class="cancel">
+          <div @click="handleCancel">取消</div>
+        </div>
+      </popup>
+    </div>
     <!--此处需要提供shu_message的主页url TODO-->
   </div>
 </template>
 
 <script>
-  import {Cell, Group} from 'vux'
+  import {Cell, Group, XButton, Popup} from 'vux'
   import Share from 'components/share/share'
 
   export default {
@@ -52,16 +62,25 @@
     components: {
       Cell,
       Group,
-      Share
+      Share,
+      XButton,
+      Popup
     },
     data() {
       return {
-        showPopup: false
+        showPopup: false,
+        logout: false,
       }
     },
     methods: {
       shareToOthers() {
         this.showPopup = true
+      },
+      handleLogout() {
+        this.logout = true
+      },
+      handleCancel() {
+        this.logout = false
       }
     }
   }
