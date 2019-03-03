@@ -18,7 +18,6 @@ import 'assets/js/vue-photo-preview/dist/skin.css'
 
 Vue.use(preview, {
   shareEl: true,
-  arrowEl: false,
   zoomEl: false,
   tapToToggleControls: false,
   tapToClose: true,
