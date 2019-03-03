@@ -41,7 +41,7 @@
       digest="一款美观,实用,稳定的且仅为SHU师生服务的消息聚合及分享平台"
     ></share>
     <div v-transfer-dom>
-      <popup v-model="logout" height="160px" class="popup">
+      <popup v-model="logout" class="popup">
         <div class="tip">退出后不会删除任何历史数据，下次登录依然可以使用本账号。</div>
         <div class="confirm">确认退出</div>
         <div class="cancel">
