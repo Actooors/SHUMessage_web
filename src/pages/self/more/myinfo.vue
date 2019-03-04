@@ -10,9 +10,10 @@
       </cell>
     </group>
     <group class="group2">
-      <cell title="更改生日" is-link>
-        <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/生日.png')">
-      </cell>
+      <datetime v-model="birthday" @on-change="changeBirth" >
+        <img width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/生日.png')">
+        更改生日
+      </datetime>
       <cell title="更改性别" is-link>
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/性别.png')">
       </cell>
@@ -22,37 +23,32 @@
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/at.png')">
       </cell>
     </group>
-    <!--<div v-transfer-dom>-->
-    <!--<popup v-model="modifyAvatar" height="145px" class="popup">-->
-    <!--<div class="takePhoto">拍照</div>-->
-    <!--<div class="fromAlbum">从手机相册选择</div>-->
-    <!--<div class="cancel">-->
-    <!--<div>取消</div>-->
-    <!--</div>-->
-    <!--</popup>-->
-    <!--</div>-->
     <input type="file" accept="image/png,image/jpeg,image/gif,image/bmp" id="file" class="needsclick" ref="file">
   </div>
 </template>
 
 <script>
   import store from 'store/store'
-  import {Cell, Group, Popup} from 'vux'
+  import {Cell, Group, Popup, Datetime} from 'vux'
 
   export default {
     name: "myinfo",
-    components: {Cell, Group, Popup},
+    components: {Cell, Group, Popup, Datetime},
     created() {
     },
     data() {
       return {
         modifyAvatar: false,
+        birthday: '',
       }
     },
     mounted() {
       document.getElementById('file').addEventListener('change', this.handleInputFile)
     },
     methods: {
+      changeBirth(val) {
+        console.log("birth:" + val);
+      },
       modify() {
         let evt = document.createEvent("MouseEvents");
         evt.initEvent("click", false, false);
