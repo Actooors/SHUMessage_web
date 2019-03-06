@@ -1,7 +1,7 @@
 <template>
   <div class="more-wrapper">
     <group class="group1">
-      <cell title="更改头像" is-link @click.native="modify" class="needsclick">
+      <cell title="更改头像" is-link @click.native="modifyAvatar" class="needsclick">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/相机.png')">
         <img width="45" class="avatar" :src="require('assets/images/avatar.png')">
       </cell>
@@ -13,7 +13,7 @@
       <datetime v-model="birthday" title="更改生日" @on-change="changeBirth">
         <img width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/生日.png')">
       </datetime>
-      <cell title="更改性别" is-link>
+      <cell title="更改性别" value="男" is-link @click.native="modifySex">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/性别.png')">
       </cell>
     </group>
@@ -23,6 +23,13 @@
       </cell>
     </group>
     <input type="file" accept="image/png,image/jpeg,image/gif,image/bmp" id="file" class="needsclick" ref="file">
+    <popup v-model="checkSex">
+      <div style="display:flex" is-transparent>
+        <div style="width: 80%;text-align: center;">男</div>
+        <div style="width: 80%;text-align: center;">女</div>
+      </div>
+      <div style="text-align: center;">取消</div>
+    </popup>
   </div>
 </template>
 
@@ -40,6 +47,7 @@
       return {
         modifyAvatar: false,
         birthday: '2015-11-12',
+        checkSex: false,
       }
     },
     mounted() {
@@ -49,7 +57,7 @@
       changeBirth(val) {
         console.log("birth:" + val);
       },
-      modify() {
+      modifyAvatar() {
         let evt = document.createEvent("MouseEvents");
         evt.initEvent("click", false, false);
         this.$nextTick(() => {
@@ -91,6 +99,10 @@
         //重画元素，以使得change事件可由相同的文件触发（如果不重画元素，如果再选择相同文件将不触发change事件）
         file.outerHTML = file.outerHTML;
         document.getElementById('file').addEventListener('change', this.handleInputFile)
+      },
+      modifySex() {
+        console.log("modifySex")
+        this.checkSex = true
       }
     }
   }
