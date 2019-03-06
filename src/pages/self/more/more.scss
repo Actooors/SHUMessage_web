@@ -51,3 +51,23 @@
     }
   }
 }
+
+.sex-tab {
+  display: flex;
+  background: white;
+  .content{
+
+  }
+  .title {
+    color: #FFB08F;
+  }
+  > div {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.sex-cancel {
+  text-align: center;
+  color: red;
+}

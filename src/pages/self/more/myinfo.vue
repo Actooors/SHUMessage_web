@@ -1,7 +1,7 @@
 <template>
   <div class="more-wrapper">
     <group class="group1">
-      <cell title="更改头像" is-link @click.native="modifyAvatar" class="needsclick">
+      <cell title="更改头像" is-link @click.native="handleModifyAvatar" class="needsclick">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/相机.png')">
         <img width="45" class="avatar" :src="require('assets/images/avatar.png')">
       </cell>
@@ -23,12 +23,15 @@
       </cell>
     </group>
     <input type="file" accept="image/png,image/jpeg,image/gif,image/bmp" id="file" class="needsclick" ref="file">
-    <popup v-model="checkSex">
-      <div style="display:flex" is-transparent>
-        <div style="width: 80%;text-align: center;">男</div>
-        <div style="width: 80%;text-align: center;">女</div>
+    <popup v-model="checkSex" is-transparent >
+      <div class="sex-tab">
+        <div class="content">
+          <p class="title">选择性别</p>
+          <div>男</div>
+          <div>女</div>
+        </div>
       </div>
-      <div style="text-align: center;">取消</div>
+      <div class='sex-cancel'>取消</div>
     </popup>
   </div>
 </template>
@@ -57,7 +60,7 @@
       changeBirth(val) {
         console.log("birth:" + val);
       },
-      modifyAvatar() {
+      handleModifyAvatar() {
         let evt = document.createEvent("MouseEvents");
         evt.initEvent("click", false, false);
         this.$nextTick(() => {
