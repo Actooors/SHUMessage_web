@@ -10,9 +10,8 @@
       </cell>
     </group>
     <group class="group2">
-      <datetime v-model="birthday" @on-change="changeBirth" >
+      <datetime v-model="birthday" title="更改生日" @on-change="changeBirth">
         <img width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/生日.png')">
-        更改生日
       </datetime>
       <cell title="更改性别" is-link>
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/性别.png')">
@@ -29,7 +28,8 @@
 
 <script>
   import store from 'store/store'
-  import {Cell, Group, Popup, Datetime} from 'vux'
+  import {Cell, Group, Popup} from 'vux'
+  import Datetime from 'components/datetime'
 
   export default {
     name: "myinfo",
@@ -39,7 +39,7 @@
     data() {
       return {
         modifyAvatar: false,
-        birthday: '',
+        birthday: '2015-11-12',
       }
     },
     mounted() {
