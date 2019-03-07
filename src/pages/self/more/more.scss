@@ -52,22 +52,41 @@
   }
 }
 
-.sex-tab {
-  display: flex;
-  background: white;
-  .content{
-
+.sex-popup {
+  box-sizing: border-box;
+  .content {
+    border-radius: 12px;
+    margin: 0 8px 8px;
+    color: #6c6c6c;
+    .selectSex {
+      display: flex;
+      > div {
+        margin: 0 3px;
+        border-radius: 12px;
+        width: 100%;
+        text-align: center;
+        line-height: 30px;
+        color: #363636;
+        > img {
+          width: 40px;
+          margin-bottom: -15px;
+          margin-top: 2px;
+        }
+      }
+      .male {
+        background-color: #5b95f0;
+      }
+      .female {
+        background-color: #ff5e95;
+      }
+    }
   }
-  .title {
-    color: #FFB08F;
-  }
-  > div {
-    width: 100%;
+  .sex-cancel {
+    border-radius: 12px;
+    margin: 0 8px 8px;
+    color: #6c6c6c;
+    background-color: #fff;
+    padding: 12px;
     text-align: center;
   }
-}
-
-.sex-cancel {
-  text-align: center;
-  color: red;
 }

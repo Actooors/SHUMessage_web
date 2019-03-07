@@ -13,7 +13,7 @@
       <datetime v-model="birthday" title="更改生日" @on-change="changeBirth">
         <img width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/生日.png')">
       </datetime>
-      <cell title="更改性别" value="男" is-link @click.native="modifySex">
+      <cell title="更改性别" :value="sex" is-link @click.native="modifySex">
         <img slot="icon" width="20" style="display:block;margin-right:1rem;" :src="require('assets/images/性别.png')">
       </cell>
     </group>
@@ -23,15 +23,16 @@
       </cell>
     </group>
     <input type="file" accept="image/png,image/jpeg,image/gif,image/bmp" id="file" class="needsclick" ref="file">
-    <popup v-model="checkSex" is-transparent >
-      <div class="sex-tab">
-        <div class="content">
-          <p class="title">选择性别</p>
-          <div>男</div>
-          <div>女</div>
+    <popup v-model="checkSex" class="sex-popup" is-transparent>
+      <div class="content">
+        <div class="selectSex">
+          <div class="male" @click="selectSex('男')"><img src="../../../assets/images/男.png">
+            <p>男生</p></div>
+          <div class="female" @click="selectSex('女')"><img src="../../../assets/images/女.png">
+            <p>女生</p></div>
         </div>
       </div>
-      <div class='sex-cancel'>取消</div>
+      <div class='sex-cancel' @click="sexCancel">取消</div>
     </popup>
   </div>
 </template>
@@ -51,6 +52,7 @@
         modifyAvatar: false,
         birthday: '2015-11-12',
         checkSex: false,
+        sex: '',
       }
     },
     mounted() {
@@ -106,6 +108,13 @@
       modifySex() {
         console.log("modifySex")
         this.checkSex = true
+      },
+      selectSex(sex) {
+        this.sex = sex
+        this.checkSex = false
+      },
+      sexCancel() {
+        this.checkSex = false
       }
     }
   }
