@@ -180,4 +180,8 @@ router.beforeEach((to, from, next) => {
   next()
 });
 
+router.afterEach((to, from) => {
+  ga('set', 'page', to.path);
+  ga('send', 'pageview');
+});
 export default router
