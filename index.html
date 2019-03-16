@@ -19,15 +19,16 @@
   <link rel="manifest" href="/static/manifest.json">
   <!--<script src="https://unpkg.com/xregexp/xregexp-all.js"></script>-->
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="/static/gtag.js?id=UA-136233942-1"></script>
+  <!--<script src="/static/gtag.js?id=UA-136233942-1"></script>-->
+  <script src="/static/analytics.js"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-136233942-1');
-    gtag('set', {'user_id': 'UA-136233942-1'}); // 使用已登录的 user_id 来设置用户 ID。
-    ga('set', 'userId', 'UA-136233942-1'); // 使用已登录的 user_id 来设置用户 ID。
+    // window.dataLayer = window.dataLayer || [];
+    // function gtag(){dataLayer.push(arguments);}
+    // gtag('js', new Date());
+    //
+    // gtag('config', 'UA-136233942-1');
+    ga('create', 'UA-136233942-1', 'auto');
+    ga('send', 'pageview');
   </script>
 
   <title>SHU Message</title>

@@ -181,7 +181,8 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-  ga('set', 'page', to.path);
+  // ga('create', 'UA-136233942-1', 'auto');
+  ga('set', 'page', to.fullPath);
   ga('send', 'pageview');
 });
 export default router
