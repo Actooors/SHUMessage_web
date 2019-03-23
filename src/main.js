@@ -55,7 +55,7 @@ Vue.config.productionTip = false;
 
 const apolloClient = new ApolloClient({
   // 你需要在这里使用绝对路径
-  uri: 'http://129.204.71.113/graphql'
+  uri: 'http://localhost:4466'
 });
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
