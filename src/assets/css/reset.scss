@@ -92,9 +92,9 @@ html, body, #app {
   top: 30px;
 }
 
-.vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
-  display: none
-}
+//.vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
+//  display: none
+//}
 
 .vux-popup-mask.vux-popup-show {
   cursor: auto;

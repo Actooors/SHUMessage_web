@@ -1,38 +1,38 @@
 <template>
   <div class="pCard">
-    <div class="cardTopBar" v-if="msg.topic">
-      <span class="topic">{{msg.topic.name}}</span>
-      <span class="operation"><span class="extraInfo">{{preHandleTime(msg.extraInfo)}}</span><x-icon
+    <div class="cardTopBar">
+      <span class="topic" v-if="msg.labels.length">{{msg.labels[0].name}}</span>
+      <span class="operation"><span class="extraInfo">{{preHandleTime("官方新闻")}}</span><x-icon
         type="ios-arrow-down"
         size="15"></x-icon></span>
     </div>
-    <pre class="content">{{msg.content}}</pre>
+    <pre class="content">{{msg.description || msg.content}}</pre>
     <div
-      v-if="msg.media && msg.media.type==='url'"
+      v-if="msg.media_type==='URL'"
       class="url"
-      @click="handleClickUrl(msg.media.value)"
+      @click="handleClickUrl(msg.media_url)"
     >
       <img src="../../assets/images/web.jpg" class="url-img"/>
       <div class="url-side">
-        <p class="url-title">{{msg.media.title}}</p>
-        <p class="url-domain">{{getDomain(msg.media.value)}}</p>
+        <p class="url-title">{{msg.media_title}}</p>
+        <p class="url-domain">{{getDomain(msg.media_url)}}</p>
       </div>
 
     </div>
-    <div class="author" v-if="msg.author">
-      <div class="author" @click="pushProfile(msg.author.id)">
-        <img v-if="lazyload" v-lazy="msg.author.avatar" class="avatar">
-        <img v-else :src="msg.author.avatar" class="avatar">
-        <span class="author-name">{{msg.author.name}}</span>
+    <div class="author">
+      <div class="author" @click="pushProfile(msg.publisher.id)">
+        <img v-if="lazyload" v-lazy="msg.publisher.avatar" class="avatar">
+        <img v-else :src="msg.publisher.avatar" class="avatar">
+        <span class="author-name">{{msg.publisher.nickname}}</span>
       </div>
-      <span class="author-append" v-if="msg.publishTime">{{preHandleTime(msg.publishTime)}}</span>
+      <span class="author-append" v-if="msg.publish_time">{{preHandleTime(msg.publish_time)}}</span>
     </div>
     <share-bar
-      v-if="msg.shareInfo"
-      :like="msg.shareInfo.like"
+      v-if="msg.shared_num && msg.comment_num && msg.liked_num && msg.footprint"
+      :like="msg.liked_num"
       @onClickShareButton="handleClickShareButton"
-      :comment="msg.shareInfo.comment"
-      :share="msg.shareInfo.share"
+      :comment="msg.comment_num"
+      :share="msg.shared_num"
       :footprint="msg.footprint"
       hr="hr"
       class="shareBar"
