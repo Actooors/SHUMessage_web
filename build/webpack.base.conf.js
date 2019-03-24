@@ -30,7 +30,7 @@ let webpackConfig = {
       'interceptors': resolve('src/interceptors'),
       'pages': resolve('src/pages'),
       'router': resolve('src/router'),
-      'store': resolve('src/store'),
+      'store': resolve('src/store')
     }
   },
   module: {
@@ -72,6 +72,10 @@ let webpackConfig = {
       {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
+      },
+      {
+        test: /\.(gql|graphql)$/,
+        loader: 'graphql-tag/loader'
       },
     ]
   }

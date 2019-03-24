@@ -1,0 +1,12 @@
+query($after: String, $target_message_id: ID!) {
+  discussesConnection(
+    after: $after
+    first: 10
+    where: { target_type: NEWS, target_message_id: $target_message_id }
+  ) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

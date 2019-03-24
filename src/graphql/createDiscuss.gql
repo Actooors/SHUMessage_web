@@ -1,0 +1,22 @@
+mutation($id: ID!, $content: String, $img_url: String) {
+  createDiscuss(
+    data: {
+      target_type: NEWS
+      target_message_id: $id
+      content: $content
+      img_url: $img_url
+      operator: { connect: { student_id: "16121663" } }
+    }
+  ) {
+    id
+    content
+    img_url
+    liked_num
+    replyed_num
+    operator {
+      id
+      nickname
+      avatar
+    }
+  }
+}

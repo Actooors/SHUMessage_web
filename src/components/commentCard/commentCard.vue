@@ -7,7 +7,7 @@
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
-          <span class="author" @click="pushProfile(author.id)">{{author.name}}</span>
+          <span class="author" @click="pushProfile(author.id)">{{author.nickname}}</span>
           <span class="operation" @click="handleClickLike">{{shareInfo.like?shareInfo.like:''}}
             <i :class="`icon-appreciate iconfont icon${footprint.like?' icon-done':''}`"></i>
           </span>
@@ -40,7 +40,7 @@
           class="comment"
         >
           <span class="authorName">
-            {{item.author.name}}
+            {{item.author.nickname}}
           </span>
           <span>{{item.content}}</span>
         </div>

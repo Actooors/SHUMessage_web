@@ -1,0 +1,22 @@
+query($id: ID!){
+  news(where: { id: $id }) {
+    type: __typename
+    content
+    media_type
+    media_title
+    media_url
+    media_img
+    publisher {
+      id
+      nickname
+      avatar
+    }
+    shared_num
+    comment_num
+    liked_num
+    labels {
+      name
+    }
+    publish_time
+  }
+}

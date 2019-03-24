@@ -1,10 +1,10 @@
 <template>
   <scroll
     @on-scroll="handleScroll"
-    :noMore="!this.newsesConnection.pageInfo.hasNextPage"
-    :pulldownCallback="()=>loadMore(true)"
-    :pullupCallback="()=>loadMore(false)"
-    :showLoadIcon="!newses.length"
+    :noMore="!!newses.length && !newsesConnection.pageInfo.hasNextPage"
+    :pulldownCallback="()=>loadData(true)"
+    :pullupCallback="()=>loadData(false)"
+    :showLoadIcon="!newses.length && $apollo.queries.newses.loading"
     body-padding-bottom="47px"
   >
     <common-card
@@ -39,6 +39,7 @@
         query($after: String){
           newses(after: $after, first:20) {
             id
+            type: __typename
             description
             media_type
             media_title
@@ -77,8 +78,6 @@
     data: () => ({
       newses: [],
       newsesConnection: {pageInfo: {hasNextPage: true, endCursor: null}},
-      cards: [],
-      showLoadIcon: true
     }),
     mounted() {
       // this.loadData()
@@ -92,54 +91,42 @@
       },
     },
     methods: {
-      // loadData() {
-      //   this.xhrRequestList('/news/newsList').finally(() => {
-      //     this.showLoadIcon = false
-      //   });
-      // },
-      async loadMore(newRound = false) {
-        const pageInfo = Object.assign({}, this.newsesConnection.pageInfo);
-        if (!this.newsesConnection.pageInfo.hasNextPage) {
+      async loadData(newRound = false) {
+        if (!this.newsesConnection.pageInfo.hasNextPage && !newRound) {
           return
         }
-        let p1 = this.$apollo.queries.newses.fetchMore({
-          variables() {
-            return {
-              after: newRound ? null : pageInfo.endCursor
-            }
+        let pNewses = this.$apollo.queries.newses.fetchMore({
+          variables: {
+            after: newRound ? null : this.newsesConnection.pageInfo.endCursor
           },
           updateQuery(previousResult, {fetchMoreResult}) {
-            console.log("update!")
             if (newRound) {
               return fetchMoreResult;
             }
-            console.log(newRound, pageInfo.endCursor, "should be", previousResult.newses, [...previousResult.newses, ...fetchMoreResult.newses])
             return {
               newses: [...previousResult.newses, ...fetchMoreResult.newses]
             };
           }
         });
-        let p2 = this.$apollo.queries.newsesConnection.fetchMore({
-          variables() {
-            return {
-              after: newRound ? null : pageInfo.endCursor
-            }
+        let pNewsesConnection = this.$apollo.queries.newsesConnection.fetchMore({
+          variables: {
+            after: newRound ? null : this.newsesConnection.pageInfo.endCursor
           },
           updateQuery(previousResult, {fetchMoreResult}) {
             return fetchMoreResult;
           }
         });
-        return Promise.all([p1, p2])
+        return Promise.all([pNewses, pNewsesConnection])
       },
       handleClickCard(index, info) {
         if (index === null) {
-          index = this.cards.findIndex(card => card.info === info)
+          index = this.newses.findIndex(newses => newses.id === info.id && newses.type === info.type)
         }
-        store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        store.commit("pushRouter/SET_CARD_ITEM", this.newses[index]);
         let that = this;
         this.$router.push({
           path: '/detail/msg',
-          query: {...that.cards[index].info, elComment: !!info}
+          query: {id: that.newses[index].id, type: that.newses[index].type, elComment: !!info}
         })
       }
     }

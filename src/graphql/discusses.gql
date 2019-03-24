@@ -1,0 +1,18 @@
+query($after: String, $target_message_id: ID!) {
+  discusses(
+    after: $after
+    first: 10
+    where: { target_type: NEWS, target_message_id: $target_message_id }
+  ) {
+    id
+    content
+    img_url
+    liked_num
+    replyed_num
+    operator {
+      id
+      nickname
+      avatar
+    }
+  }
+}

@@ -1,0 +1,22 @@
+query($target_message_id: ID!) {
+  hotDiscusses: discusses(
+    first: 5
+    where: {
+      target_type: NEWS
+      target_message_id: $target_message_id
+      liked_num_gte: 1
+    }
+    orderBy: liked_num_DESC
+  ) {
+    id
+    content
+    img_url
+    liked_num
+    replyed_num
+    operator {
+      id
+      nickname
+      avatar
+    }
+  }
+}

@@ -5,28 +5,6 @@
   overflow: hidden;
 }
 
-.justBar-box {
-  height: 48px;
-  position: relative;
-  background: $--background-vux;
-  z-index: 1;
-  .justBar {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    font-size: 13px;
-    background: white;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: $--theme-gray-light3 solid 1px;
-    border-top: $--theme-gray-light4 solid 1px;
-    box-shadow: 0 -5px 5px 1px rgba(0, 0, 0, 0.025); //emphasis
-    .justBar-title {
-      padding-left: 16px;
-    }
-  }
-}
-
 .popping {
   background-color: $--theme-gray-light4 !important;
 }

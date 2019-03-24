@@ -3,7 +3,7 @@ import {querystring} from 'vux'
 
 export default {
   data: () => ({
-    allLoaded: false,
+    firstLoaded: false,
     msg: {
       //防止ajax之前渲染replyPlaceholder时出错
       author: {
