@@ -2,8 +2,8 @@
   <scroll
     @on-scroll="handleScroll"
     :noMore="!this.newsesConnection.pageInfo.hasNextPage"
-    :pulldownCallback="()=>handlePulldownLoading('/news/newsList')"
-    :pullupCallback="loadMore"
+    :pulldownCallback="()=>loadMore(true)"
+    :pullupCallback="()=>loadMore(false)"
     :showLoadIcon="!newses.length"
     body-padding-bottom="47px"
   >
@@ -76,7 +76,7 @@
     },
     data: () => ({
       newses: [],
-      newsesConnection: {pageInfo: {hasNextPage: true}},
+      newsesConnection: {pageInfo: {hasNextPage: true, endCursor: null}},
       cards: [],
       showLoadIcon: true
     }),
@@ -86,7 +86,10 @@
     watch: {
       newses(val, oval) {
         console.log(oval, val)
-      }
+      },
+      newsesConnection(val, oval) {
+        console.log(oval, val)
+      },
     },
     methods: {
       // loadData() {
@@ -94,23 +97,33 @@
       //     this.showLoadIcon = false
       //   });
       // },
-      async loadMore() {
+      async loadMore(newRound = false) {
+        const pageInfo = Object.assign({}, this.newsesConnection.pageInfo);
         if (!this.newsesConnection.pageInfo.hasNextPage) {
           return
         }
         let p1 = this.$apollo.queries.newses.fetchMore({
-          variables: {
-            after: this.newsesConnection.pageInfo.endCursor
+          variables() {
+            return {
+              after: newRound ? null : pageInfo.endCursor
+            }
           },
           updateQuery(previousResult, {fetchMoreResult}) {
+            console.log("update!")
+            if (newRound) {
+              return fetchMoreResult;
+            }
+            console.log(newRound, pageInfo.endCursor, "should be", previousResult.newses, [...previousResult.newses, ...fetchMoreResult.newses])
             return {
               newses: [...previousResult.newses, ...fetchMoreResult.newses]
             };
           }
         });
         let p2 = this.$apollo.queries.newsesConnection.fetchMore({
-          variables: {
-            after: this.newsesConnection.pageInfo.endCursor
+          variables() {
+            return {
+              after: newRound ? null : pageInfo.endCursor
+            }
           },
           updateQuery(previousResult, {fetchMoreResult}) {
             return fetchMoreResult;
