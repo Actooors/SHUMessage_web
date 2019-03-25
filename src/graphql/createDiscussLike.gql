@@ -1,0 +1,29 @@
+mutation(
+$uid: ID!
+$target_id: ID!
+$target_type: EnumMessage!
+$like: Boolean!
+$operate_time: DateTime!
+$liked_num: Int!
+) {
+  createDiscussLike: updateDiscuss(
+    where: { id: $target_id }
+    data: {
+      like: {
+        create: {
+          liked: $like
+          message_id: $target_id
+          message_type: $target_type
+          operate_time: $operate_time
+          operator: { connect: { id: $uid } }
+        }
+      }
+      liked_num: $liked_num
+    }
+  ) {
+    like {
+      liked
+    }
+    liked_num
+  }
+}

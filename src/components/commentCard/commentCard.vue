@@ -9,7 +9,7 @@
         <div class="cardTopBar-top">
           <span class="author" @click="pushProfile(msg.operator.id)">{{msg.operator.nickname}}</span>
           <span class="operation" @click="handleClickLike">{{msg.liked_num?msg.liked_num:''}}
-            <i :class="`icon-appreciate iconfont icon${msg.footprint && msg.footprint.like?' icon-done':''}`"></i>
+            <i :class="`icon-appreciate iconfont icon${msg.like.length > 0 && msg.like[0].liked?' icon-done':''}`"></i>
             <!--TODO: 暂时放个msg.footprint && ，等待后端 -->
           </span>
         </div>

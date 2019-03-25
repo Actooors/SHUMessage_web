@@ -28,12 +28,13 @@
       <span class="author-append" v-if="msg.publish_time">{{msg.publish_time | preHandleTime}}</span>
     </div>
     <share-bar
-      v-if="msg.footprint"
       :like="msg.liked_num"
       @onClickShareButton="handleClickShareButton"
       :comment="msg.comment_num"
       :share="msg.shared_num"
-      :footprint="msg.footprint"
+      :liked="msg.like.length > 0 && msg.like[0].liked"
+      :commented="msg.discuss.length > 0"
+      :forwarded="msg.share.length > 0"
       hr="hr"
       class="shareBar"
     ></share-bar>
@@ -55,13 +56,6 @@
       lazyload: {
         type: Boolean,
         default: true
-      }
-    },
-    created() {
-      this.msg.footprint = {
-        like: this.msg.like.length > 0 && this.msg.like.liked,
-        forward: this.msg.share.length > 0,
-        comment: this.msg.discuss.length > 0
       }
     },
     filters: {

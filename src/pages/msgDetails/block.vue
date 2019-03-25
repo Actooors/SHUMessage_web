@@ -11,7 +11,7 @@
       :tick="tick"
       :show-comment="!item.target_type==='Discuss'"
       @onClickReply="handleClickReply(item)"
-      @onClickLike="handleShare(0,item)"
+      @onClickLike="$emit('clickLike',item)"
       @onClickCard="$emit('clickCommentCard',arguments,[blockIndex,index],item)"
     ></comment-card>
   </div>

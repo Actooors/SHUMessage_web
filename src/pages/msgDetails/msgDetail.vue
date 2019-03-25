@@ -54,6 +54,7 @@
           :showPop="showPop"
           v-if="hotDiscusses.length"
           @clickCommentCard="handleClickCommentCard"
+          @clickLike="handleClickBlockLike"
         ></Block>
         <Block
           :cards="discusses"
@@ -62,6 +63,7 @@
           :showPop="showPop"
           v-if="discusses.length"
           @clickCommentCard="handleClickCommentCard"
+          @clickLike="handleClickBlockLike"
         ></Block>
       </div>
     </div>
@@ -116,7 +118,6 @@
   import Popover from 'components/popover/popover'
   import ClipboardJS from 'clipboard'
   import sharebarMixin from "assets/js/sharebarMixin/index";
-  // import ajaxMixin from "pages/msgDetails/ajaxMixin";
   import {getUserInfoFromToken} from 'assets/js/tokenTools'
   import Block from './block'
 
@@ -125,6 +126,9 @@
   import DISCUSSES_CONNECTION from '../../graphql/discussesConnection.gql'
   import HOT_DISCUSSES from '../../graphql/hotDiscusses.gql'
   import CREATE_DISCUSS from '../../graphql/createDiscuss.gql'
+  import FIND_LIKES from '../../graphql/findLikes.gql'
+  import UPDATE_DISCUSS_LIKE from '../../graphql/updateDiscussLike.gql'
+  import CREATE_DISCUSS_LIKE from '../../graphql/createDiscussLike.gql'
 
   export default {
     name: "msgDetail",
@@ -252,6 +256,112 @@
       el.removeEventListener('scroll', () => this.showPop = [-1, -1])
     },
     methods: {
+      handleClickBlockLike(item) {
+        const that = this;
+
+        //定义共用部分
+        function common(queryName, likeStateToBe, liked_num_tobe) {
+          return {
+            update(store, newObj) {
+              const partialDiscuss = newObj.data[queryName];
+              const hotQuery = {
+                query: HOT_DISCUSSES,
+                variables: {
+                  target_message_id: that.query().id,
+                  uid: UID
+                }
+              };
+              const hotData = store.readQuery(hotQuery);
+              const hotTarget = hotData.hotDiscusses.find(x => x.id === item.id);
+
+              if (hotTarget) {
+                //将要改变为的like状态值
+                hotTarget.like = partialDiscuss.like;
+                hotTarget.liked_num = partialDiscuss.liked_num;
+                hotQuery.data = hotData;
+                store.writeQuery(hotQuery)
+              }
+
+              const query = {
+                after: null,
+                query: DISCUSSES,
+                variables: {
+                  after: null,
+                  target_message_id: that.query().id,
+                  uid: UID,
+                }
+              };
+              const data = store.readQuery(query);
+              const target = data.discusses.find(x => x.id === item.id);
+
+              if (target) {
+                //将要改变为的like状态值
+                target.like = partialDiscuss.like;
+                target.liked_num = partialDiscuss.liked_num;
+                query.data = data;
+                store.writeQuery(query)
+              }
+            },
+            optimisticResponse: {
+              [queryName]: {
+                __typename: "Discuss",
+                like: [{__typename: "Like", liked: likeStateToBe}],
+                liked_num: liked_num_tobe
+              }
+            }
+          }
+        }
+
+        //先进行一波查询，看看like表中有没有该项
+        this.$apollo.query({
+          query: FIND_LIKES,
+          fetchPolicy: 'no-cache',
+          variables: {
+            uid: UID,
+            target_id: item.id,
+            target_type: item.type.toUpperCase()
+          }
+        }).then((res) => {
+          let liked_num_tobe = item.liked_num;
+          if (res.data.findLikes.length > 0) {
+            //有则更新
+            let likeId = res.data.findLikes[0].id;
+            let like = !res.data.findLikes[0].liked;
+            if (like) {
+              liked_num_tobe++;
+            } else {
+              liked_num_tobe--;
+            }
+            that.$apollo.mutate({
+              mutation: UPDATE_DISCUSS_LIKE,
+              variables: {
+                target_id: item.id,
+                target_type: item.type.toUpperCase(),
+                id: likeId,
+                like,
+                operate_time: dayjs().format(),
+                liked_num: liked_num_tobe
+              },
+              ...common("updateDiscussLike", like, liked_num_tobe)
+            })
+          } else {
+            //没有Like这个记录，还没点过赞
+            liked_num_tobe++;
+            that.$apollo.mutate({
+              mutation: CREATE_DISCUSS_LIKE,
+              variables: {
+                uid: UID,
+                target_id: item.id,
+                target_type: item.type.toUpperCase(),
+                like: true,
+                operate_time: dayjs().format(),
+                liked_num: liked_num_tobe
+              },
+              ...common("createDiscussLike", true, liked_num_tobe)
+            })
+          }
+        })
+      },
       query() {
         return querystring.parse(location.search);
       },
@@ -295,20 +405,7 @@
               }
               query.data = data;
               store.writeQuery(query);
-            },
-            // refetchQueries: [{
-            //   query: DISCUSSES,
-            //   variables: {
-            //     after: null,
-            //     target_message_id: this.query().id
-            //   }
-            // }, {
-            //   query: DISCUSSES_CONNECTION,
-            //   variables: {
-            //     after: null,
-            //     target_message_id: this.query().id
-            //   }
-            // }]
+            }
           }
         ).then(() => {
           this.$toast({text: '回复成功', emoji: true});
@@ -326,23 +423,13 @@
         let pNews = null,
           pHotDiscusses = null;
         if (newRound) {
-          pNews = this.$apollo.queries.news.fetchMore({
-            variables: {
-              id: query.id,
-              uid: UID
-            },
-            updateQuery(previousResult, {fetchMoreResult}) {
-              return fetchMoreResult;
-            }
+          pNews = this.$apollo.queries.news.refetch({
+            id: query.id,
+            uid: UID
           });
-          pHotDiscusses = this.$apollo.queries.hotDiscusses.fetchMore({
-            variables: {
-              target_message_id: query.id,
-              uid: UID
-            },
-            updateQuery(previousResult, {fetchMoreResult}) {
-              return fetchMoreResult;
-            }
+          pHotDiscusses = this.$apollo.queries.hotDiscusses.refetch({
+            target_message_id: query.id,
+            uid: UID
           });
         }
         let pDiscusses = this.$apollo.queries.discusses.fetchMore({

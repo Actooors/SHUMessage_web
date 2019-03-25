@@ -1,0 +1,12 @@
+query($uid: ID!, $target_id: ID!, $target_type: EnumMessage!) {
+  findLikes:likes(
+    where: {
+      operator: { id: $uid }
+      message_id: $target_id
+      message_type: $target_type
+    }
+  ) {
+    id
+    liked
+  }
+}

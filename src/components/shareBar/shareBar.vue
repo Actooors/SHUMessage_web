@@ -1,15 +1,15 @@
 <template>
   <div :class="{shareBar:true,hr}">
     <span class="btn" @click="handleClickShareButton(0)">
-      <i :class="`icon-appreciate iconfont icon${footprint.like?' icon-done':''}`"></i>
+      <i :class="`icon-appreciate iconfont icon${liked?' icon-done':''}`"></i>
       {{like}}
     </span>
     <span class="btn" @click="handleClickShareButton(1)">
-      <i :class="`icon-xiaoxi iconfont icon${footprint.comment?' icon-done':''}`"></i>
+      <i :class="`icon-xiaoxi iconfont icon${commented?' icon-done':''}`"></i>
       {{comment}}
     </span>
     <span class="btn" @click="handleClickShareButton(2)">
-      <i :class="`icon-fenlei iconfont icon${footprint.forward?' icon-done':''}`"></i>
+      <i :class="`icon-fenlei iconfont icon${forwarded?' icon-done':''}`"></i>
       {{share}}
     </span>
     <span class="share" @click="handleClickShareButton(3)">
@@ -26,16 +26,9 @@
       like: Number,
       comment: Number,
       share: Number,
-      footprint: {
-        type: Object,
-        default() {
-          return {
-            like: false,
-            comment: false,
-            forward: false
-          }
-        }
-      }
+      liked: Boolean,
+      commented: Boolean,
+      forwarded: Boolean
     },
     methods: {
       handleClickShareButton(index) {
