@@ -4,6 +4,7 @@ query($after: String, $target_message_id: ID!) {
     first: 10
     where: { target_type: NEWS, target_message_id: $target_message_id }
   ) {
+    type:__typename
     id
     content
     img_url

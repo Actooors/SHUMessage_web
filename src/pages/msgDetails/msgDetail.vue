@@ -35,15 +35,8 @@
         <comment-card
           v-if=" 'type' in $route.query && $route.query.type==='Discuss'"
           :lazyload=false
-
-          :content="news.content"
-          :author="news.author"
-          :publishTime="news.publishTime"
-          :shareInfo="news.shareInfo"
-          :replies="news.replies"
-          :info="news.info"
-          :footprint="news.footprint"
-          :imgs="news.imgs"
+          :msg="item"
+          :tick="tick"
           :showComment=false
           @onClickLike="handleClickShareButton(0,news)"
         ></comment-card>
@@ -60,6 +53,7 @@
           :block-index=0
           :showPop="showPop"
           v-if="hotDiscusses.length"
+          @clickCommentCard="handleClickCommentCard"
         ></Block>
         <Block
           :cards="discusses"
@@ -67,6 +61,7 @@
           :block-index=1
           :showPop="showPop"
           v-if="discusses.length"
+          @clickCommentCard="handleClickCommentCard"
         ></Block>
       </div>
     </div>
@@ -248,7 +243,6 @@
         this.judgeAndMoveToCommentBlocks()
       }
       this.initTitle();
-      this.loadData();
     },
     beforeDestroy() {
       const el = this.$refs.viewBox.getScrollBody();
@@ -260,27 +254,30 @@
       },
       handleComment(content, img_url) {
         const that = this;
+        //创建一个discuss
         this.$apollo.mutate({
-          mutation: CREATE_DISCUSS,
-          variables: {
-            id: this.query().id,
-            content,
-            img_url
-          },
-          update(store, {data: {createDiscuss}}) {
-            const query = {
+            mutation: CREATE_DISCUSS,
+            variables: {
+              target_type: this.replyInfo.type.toUpperCase(),
+              target_message_id: this.replyInfo.id,
+              content,
+              img_url
+            },
+            refetchQueries: [{
               query: DISCUSSES,
               variables: {
                 after: null,
-                target_message_id: that.query().id
+                target_message_id: this.query().id
               }
-            };
-            const data = store.readQuery(query);
-            data.discusses.splice(0, 0, createDiscuss);
-            query.data = data;
-            store.writeQuery(query);
+            }, {
+              query: DISCUSSES_CONNECTION,
+              variables: {
+                after: null,
+                target_message_id: this.query().id
+              }
+            }]
           }
-        })
+        )
       },
       async loadData(newRound = true) {
         console.log("msgDetail - loadData");
@@ -328,7 +325,8 @@
           }
         });
         return Promise.all([pNews, pHotDiscusses, pDiscusses, pDiscussesConnection])
-      },
+      }
+      ,
       handleShare(btnIndex, msg) {
         //对所有满足msg.info的数据进行
         let arr = [];
@@ -338,7 +336,8 @@
         });
         console.log("!!!", arr);
         this.handleClickShareButton(btnIndex, arr)
-      },
+      }
+      ,
       initTitle() {
         let query = this.query();
         if ('type' in query) {
@@ -356,7 +355,8 @@
               break;
           }
         }
-      },
+      }
+      ,
       initClipboard() {
         let clipboard = new ClipboardJS('.copy-content');
         clipboard.on('success', (e) => {
@@ -366,20 +366,25 @@
         clipboard.on('error', (e) => {
           this.$toast({text: '复制失败!', type: 'warning'});
         });
-      },
+      }
+      ,
       handleClickPopBtn(btnIndex) {
         switch (btnIndex) {
           case 0:
-            this.replyName = this.highlightItem.author.name
-            this.replyInfo = this.highlightItem.info
-            // this.$refs.replyBar.$el.querySelector('#textarea').focus()
+            this.replyName = this.highlightItem.operator.nickname;
+            this.replyInfo = {
+              id: this.highlightItem.id,
+              type: this.highlightItem.type
+            };
+            this.$refs.replyBar.$el.querySelector('#textarea').focus();
             break
           case 2:
             console.log("删除评论、回复")
             break
         }
         this.showPop = [-1, -1]
-      },
+      }
+      ,
       handleClickBack() {
         // this.$router.go(-1)
         if (store.state.pushRouter.routeChanged) {
@@ -390,7 +395,8 @@
           // console.log("应该没有进入detail的router-history", store.state.pushRouter.routeChanged, store.state.pushRouter.defaultHistoryLength, history.length)
           this.$router.push('/')
         }
-      },
+      }
+      ,
       judgeAndMoveToCommentBlocks(judge = true) {
         let query = this.query()
         if (!judge
@@ -400,32 +406,36 @@
           let el = this.scrollBody;
           el.scrollTop = el.querySelector('#comment-blocks').offsetTop - 50;
         }
-      },
+      }
+      ,
       handleClickReply(item) {
         store.commit("pushRouter/SET_CARD_ITEM", item)
         this.$router.push({
           path: '/detail/comment',
           query: item.info
         })
-      },
+      }
+      ,
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
         this.judgeAndMoveToCommentBlocks(false)
-      },
+      }
+      ,
       judgeDeleteRight(commentItem) {
         let userinfo = getUserInfoFromToken()
         return (
-          userinfo.id === commentItem.author.id//要么是自己
+          userinfo.id === commentItem.operator.id//要么是自己
           || userinfo.id === this.news.publisher.id//要么是msg的作者
         )
-      },
-      handleClickCommentCard(clickX, clickY, [blockIndex, cardIndex], item) {
+      }
+      ,
+      handleClickCommentCard([clickX, clickY], [blockIndex, cardIndex], item) {
         if (this.showPop[0] === blockIndex && this.showPop[1] === cardIndex) {
           this.showPop = [-1, -1]
           return
         }
-        this.highlightItem = item
-        this.showPopDeleteBtn = this.judgeDeleteRight(item)
-        this.copyContent = item.content
+        this.highlightItem = item;//暂存，好在点击回复的时候存到回复框去
+        this.showPopDeleteBtn = this.judgeDeleteRight(item);//有没有删除权限
+        this.copyContent = item.content;//暂存，好在点击复制的时候存到剪切板去
         this.showPop = [blockIndex, cardIndex]
         let that = this
         this.$nextTick(() => {

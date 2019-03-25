@@ -1,6 +1,7 @@
 query($id: ID!){
   news(where: { id: $id }) {
     type: __typename
+    id
     content
     media_type
     media_title

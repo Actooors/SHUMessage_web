@@ -1,13 +1,14 @@
-mutation($id: ID!, $content: String, $img_url: String) {
+mutation($target_message_id: ID!, $target_type: EnumMessage!, $content: String, $img_url: String) {
   createDiscuss(
     data: {
-      target_type: NEWS
-      target_message_id: $id
+      target_type: $target_type
+      target_message_id: $target_message_id
       content: $content
       img_url: $img_url
-      operator: { connect: { student_id: "16121663" } }
+      operator: { connect: { school_id: "16121663" } }
     }
   ) {
+    type:__typename
     id
     content
     img_url

@@ -8,6 +8,7 @@ query($target_message_id: ID!) {
     }
     orderBy: liked_num_DESC
   ) {
+    type:__typename
     id
     content
     img_url

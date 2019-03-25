@@ -1,41 +1,41 @@
 <template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <div class="pCard" @click="handleClickCard">
-    <div @click="pushProfile(author.id)">
-      <div class="left-side avatar" v-if="lazyload" v-lazy:background-image="author.avatar"></div>
-      <div class="left-side avatar" v-else :style="`background-image:url(${author.avatar})`"></div>
+    <div @click="pushProfile(msg.operator.id)">
+      <div class="left-side avatar" v-if="lazyload" v-lazy:background-image="msg.operator.avatar"></div>
+      <div class="left-side avatar" v-else :style="`background-image:url(${msg.operator.avatar})`"></div>
     </div>
     <div class="right-side">
       <div class="cardTopBar">
         <div class="cardTopBar-top">
-          <span class="author" @click="pushProfile(author.id)">{{author.nickname}}</span>
-          <span class="operation" @click="handleClickLike">{{shareInfo.like?shareInfo.like:''}}
-            <i :class="`icon-appreciate iconfont icon${footprint.like?' icon-done':''}`"></i>
+          <span class="author" @click="pushProfile(msg.operator.id)">{{msg.operator.nickname}}</span>
+          <span class="operation" @click="handleClickLike">{{msg.liked_num?msg.liked_num:''}}
+            <i :class="`icon-appreciate iconfont icon${msg.footprint && msg.footprint.like?' icon-done':''}`"></i>
+            <!--TODO: 暂时放个msg.footprint && ，等待后端 -->
           </span>
         </div>
         <div class="cardTopBar-extra">
-          <span class="hasbeenfrom" :key="tick">{{publishTime | relativeTime}}</span>
+          <span class="hasbeenfrom" :key="tick">{{msg.publishTime | relativeTime}}</span>
         </div>
       </div>
-      <pre class="content">{{content}}</pre>
+      <pre class="content">{{msg.content}}</pre>
       <div
         class="comment-imgs"
-        v-if="imgs && imgs.length"
+        v-if="msg.img_url"
       >
         <img
-          v-for="(src) of imgs"
-          v-lazy="src"
+          v-lazy="msg.img_url"
           class="comment-img"
           @click="$event.stopPropagation()"
-          :preview="`id${msg.info.id}type${msg.info.type}`"
+          :preview="`id${msg.id}type${msg.type}`"
         >
       </div>
       <div
-        v-if="showComment && replies.count"
+        v-if="showComment && msg.replies.count"
         class="commentBox"
         @click="handleClickReplay"
       >
         <div
-          v-for="item of replies.representatives"
+          v-for="item of msg.replies.representatives"
           :key="item.value"
           class="comment"
         >
@@ -62,70 +62,13 @@
     name: "commentCard",
     store,
     props: {
-      content: {
-        type: String,
-        require: true
-      },
-      author: {
+      msg: {
         type: Object,
-        require: true,
-        // default() {
-        //   return {
-        //     id: 10001,
-        //     avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4"
-        //     name: "Message广场导游"
-        //   }
-        // }
-      },
-      publishTime: {
-        type: String,
-        default() {
-          return Date.now().toString()
-        }
-      },
-      imgs: {
-        type: Array,
-        default() {
-          return []
-        }
-      },
-      shareInfo: {
-        type: Object,
-        default() {
-          return {
-            like: 0
-          }
-        }
-      },
-      replies: {
-        type: Object,
-        default() {
-          return {
-            count: 0,
-            representatives: []
-          }
-        }
-      },
-      info: {
-        type: Object,
-        default() {
-          return {
-            id: 0,
-            type: 0
-          }
-        }
+        required: true
       },
       showComment: {
         type: Boolean,
         default: true
-      },
-      footprint: {
-        type: Object,
-        default() {
-          return {
-            like: false
-          }
-        }
       },
       tick: {
         type: Number,

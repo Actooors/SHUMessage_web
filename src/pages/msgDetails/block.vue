@@ -7,20 +7,12 @@
       v-for="(item,index) of cards"
       :key="item.value"
       :class="{'popping':showPop[0]===blockIndex && showPop[1]===index}"
+      :msg="item"
       :tick="tick"
-
-      :content="item.content"
-      :author="item.operator"
-      :publishTime="item.publishTime"
-      :shareInfo="item.shareInfo"
-      :replies="item.replies"
-      :info="item.info"
-      :footprint="item.footprint"
-      :imgs="item.imgs"
       :show-comment="!item.target_type==='Discuss'"
       @onClickReply="handleClickReply(item)"
       @onClickLike="handleShare(0,item)"
-      @onClickCard="handleClickCommentCard(...arguments,[blockIndex,index],item)"
+      @onClickCard="$emit('clickCommentCard',arguments,[blockIndex,index],item)"
     ></comment-card>
   </div>
 </template>
@@ -71,5 +63,9 @@
         padding-left: 16px;
       }
     }
+  }
+
+  .popping {
+    background-color: $--theme-gray-light4 !important;
   }
 </style>

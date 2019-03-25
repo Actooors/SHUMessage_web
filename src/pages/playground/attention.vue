@@ -38,8 +38,8 @@
         query: gql`
         query($after: String){
           newses(after: $after, first:20) {
-            id
             type: __typename
+            id
             description
             media_type
             media_title
