@@ -263,19 +263,47 @@
               content,
               img_url
             },
-            refetchQueries: [{
-              query: DISCUSSES,
-              variables: {
-                after: null,
-                target_message_id: this.query().id
+            update(store, {data: {createDiscuss}}) {
+              console.log(store)
+              const query = {
+                query: DISCUSSES,
+                variables: {
+                  after: null,
+                  target_message_id: that.query().id
+                }
+              };
+              const data = store.readQuery(query);
+              if (that.replyInfo.type === that.news.type && that.replyInfo.id === that.news.id) {
+                //回复该条Message
+                //插到首条
+                data.discusses.splice(0, 0, createDiscuss);
+              } else {
+                //回复该条Message下某个Discuss
+                if (that.news.type === 'Discuss') {
+                  //如果是Discuss,插到首条
+                  data.discusses.splice(0, 0, createDiscuss);
+                } else {
+                  //否则作为reply
+                  let targetMsg = data.discusses.find(x => x.id === that.replyInfo.id)
+                  //TODO:等待后端
+                }
               }
-            }, {
-              query: DISCUSSES_CONNECTION,
-              variables: {
-                after: null,
-                target_message_id: this.query().id
-              }
-            }]
+              query.data = data;
+              store.writeQuery(query);
+            },
+            // refetchQueries: [{
+            //   query: DISCUSSES,
+            //   variables: {
+            //     after: null,
+            //     target_message_id: this.query().id
+            //   }
+            // }, {
+            //   query: DISCUSSES_CONNECTION,
+            //   variables: {
+            //     after: null,
+            //     target_message_id: this.query().id
+            //   }
+            // }]
           }
         )
       },
