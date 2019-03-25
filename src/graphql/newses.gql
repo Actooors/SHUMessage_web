@@ -1,8 +1,8 @@
-query($id: ID!, $uid: ID!){
-  news(where: { id: $id }) {
+query($after: String, $uid: ID!){
+  newses(after: $after, first:20) {
     type: __typename
     id
-    content
+    description
     publish_time
     media_type
     media_title

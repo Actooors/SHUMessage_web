@@ -73,7 +73,7 @@ devDependencies:
   webpack: 3.12.0
   webpack-bundle-analyzer: 2.13.1
   webpack-dev-middleware: 1.12.2
-  webpack-dev-server: 2.11.4
+  webpack-dev-server: 2.11.5
   webpack-hot-middleware: 2.24.3
   webpack-merge: 4.2.1
   yaml-loader: 0.4.0
@@ -3248,7 +3248,7 @@ packages:
     bundledDependencies:
       - node-pre-gyp
     dependencies:
-      nan: 2.13.1
+      nan: 2.13.2
     dev: true
     engines:
       node: '>=4.0'
@@ -4851,10 +4851,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-ji6J5enbMyGRHIAkAOu3WdV8nggqviKCEKtXcOqfphZZtQrmHKycfynJ2V7eVPUA4NhJ6V7Wf4TmGbTwKE9B6g==
-  /nan/2.13.1:
+  /nan/2.13.2:
     dev: true
     resolution:
-      integrity: sha512-I6YB/YEuDeUZMmhscXKxGgZlFnhsn5y0hgOZBadkzfTRrZBtJDZeg6eQf7PYMIEclwmorTKK8GztsyOUSVBREA==
+      integrity: sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
   /nanomatch/1.2.13:
     dependencies:
       arr-diff: 4.0.0
@@ -4977,7 +4977,7 @@ packages:
       lodash.mergewith: 4.6.1
       meow: 3.7.0
       mkdirp: 0.5.1
-      nan: 2.13.1
+      nan: 2.13.2
       node-gyp: 3.8.0
       npmlog: 4.1.2
       request: 2.88.0
@@ -7750,7 +7750,7 @@ packages:
       webpack: ^1.0.0 || ^2.0.0 || ^3.0.0
     resolution:
       integrity: sha512-FCrqPy1yy/sN6U/SaEZcHKRXGlqU0DUaEBL45jkUYoB8foVb6wCnbIJ1HKIx+qUFTW+3JpVcCJCxZ8VATL4e+A==
-  /webpack-dev-server/2.11.4:
+  /webpack-dev-server/2.11.5:
     dependencies:
       ansi-html: 0.0.7
       array-includes: 3.0.3
@@ -7786,7 +7786,7 @@ packages:
     peerDependencies:
       webpack: ^2.2.0 || ^3.0.0
     resolution:
-      integrity: sha512-12gcsaFIdcOS6kPlVy0G/WpsYkbOsNDdLxBPdzgCT+yiRgUNiVSFj1rjfJcgOtGIqPDQjYh+njeM/T7XIs65ig==
+      integrity: sha512-7TdOKKt7G3sWEhPKV0zP+nD0c4V9YKUJ3wDdBwQsZNo58oZIRoVIu66pg7PYkBW8A74msP9C2kLwmxGHndz/pw==
   /webpack-hot-middleware/2.24.3:
     dependencies:
       ansi-html: 0.0.7

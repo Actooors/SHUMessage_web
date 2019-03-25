@@ -26,7 +26,8 @@
   import sharebarMixin from '../../assets/js/sharebarMixin/index'
   import {Spinner} from 'vux'
   import xhrMixin from './xhrMixin'
-  import gql from 'graphql-tag'
+  import NEWSES from '../../graphql/newses.gql'
+  import NEWSES_CONNECTION from '../../graphql/newsesConnection.gql'
 
   export default {
     name: "attention",
@@ -35,43 +36,11 @@
     mixins: [scrollMixin, sharebarMixin, xhrMixin],
     apollo: {
       newses: {
-        query: gql`
-        query($after: String){
-          newses(after: $after, first:20) {
-            type: __typename
-            id
-            description
-            media_type
-            media_title
-            media_url
-            media_img
-            publisher {
-              id
-              nickname
-              avatar
-            }
-            shared_num
-            comment_num
-            liked_num
-            labels {
-              name
-            }
-            publish_time
-          }
-        }`,
-        variables: {after: null}
+        query: NEWSES,
+        variables: {after: null, uid: UID}
       },
       newsesConnection: {
-        query: gql`
-         query($after: String){
-            newsesConnection(after:$after ,first:20){
-              pageInfo{
-                hasNextPage
-                endCursor
-              }
-            }
-         }
-        `,
+        query: NEWSES_CONNECTION,
         variables: {after: null}
       }
     },
@@ -79,17 +48,6 @@
       newses: [],
       newsesConnection: {pageInfo: {hasNextPage: true, endCursor: null}},
     }),
-    mounted() {
-      // this.loadData()
-    },
-    watch: {
-      newses(val, oval) {
-        console.log(oval, val)
-      },
-      newsesConnection(val, oval) {
-        console.log(oval, val)
-      },
-    },
     methods: {
       async loadData(newRound = false) {
         if (!this.newsesConnection.pageInfo.hasNextPage && !newRound) {
@@ -97,7 +55,8 @@
         }
         let pNewses = this.$apollo.queries.newses.fetchMore({
           variables: {
-            after: newRound ? null : this.newsesConnection.pageInfo.endCursor
+            after: newRound ? null : this.newsesConnection.pageInfo.endCursor,
+            uid: UID
           },
           updateQuery(previousResult, {fetchMoreResult}) {
             if (newRound) {

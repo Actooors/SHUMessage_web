@@ -2,7 +2,7 @@
   <div class="pCard">
     <div class="cardTopBar">
       <span class="topic" v-if="msg.labels.length">{{msg.labels[0].name}}</span>
-      <span class="operation"><span class="extraInfo">{{preHandleTime("官方新闻")}}</span><x-icon
+      <span class="operation"><span class="extraInfo">{{"官方新闻" | preHandleTime}}</span><x-icon
         type="ios-arrow-down"
         size="15"></x-icon></span>
     </div>
@@ -25,10 +25,10 @@
         <img v-else :src="msg.publisher.avatar" class="avatar">
         <span class="author-name">{{msg.publisher.nickname}}</span>
       </div>
-      <span class="author-append" v-if="msg.publish_time">{{preHandleTime(msg.publish_time)}}</span>
+      <span class="author-append" v-if="msg.publish_time">{{msg.publish_time | preHandleTime}}</span>
     </div>
     <share-bar
-      v-if="msg.shared_num && msg.comment_num && msg.liked_num && msg.footprint"
+      v-if="msg.footprint"
       :like="msg.liked_num"
       @onClickShareButton="handleClickShareButton"
       :comment="msg.comment_num"
@@ -57,6 +57,18 @@
         default: true
       }
     },
+    created() {
+      this.msg.footprint = {
+        like: this.msg.like.length > 0 && this.msg.like.liked,
+        forward: this.msg.share.length > 0,
+        comment: this.msg.discuss.length > 0
+      }
+    },
+    filters: {
+      preHandleTime(ex) {
+        return preHandleTime(ex)
+      }
+    },
     methods: {
       pushProfile(uid) {
         this.$router.push({path: '/profile', query: {uid}})
@@ -74,9 +86,6 @@
         this.$router.push({path: '/seo', query: {url, title: this.msg.media.title}})
         event.stopPropagation()
       },
-      preHandleTime(ex) {
-        return preHandleTime(ex)
-      }
     }
   }
 </script>

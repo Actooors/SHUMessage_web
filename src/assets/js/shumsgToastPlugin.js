@@ -11,9 +11,9 @@ const plugin = {
           error: 'toast-redStyle'
         };
         const TypeToEmojiPathMap = {
-          success: '/static/smile.png',
-          warning: '/static/cry.png',
-          error: '/static/bigCry.png'
+          success: require('assets/images/smile.png'),
+          warning: require('assets/images/cry.png'),
+          error: require('assets/images/bigCry.png')
         };
         const TypeToEmojiSize = {
           success: 24,

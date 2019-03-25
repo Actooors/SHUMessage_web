@@ -1,0 +1,8 @@
+query($after: String){
+  newsesConnection(after:$after ,first:20){
+    pageInfo{
+      hasNextPage
+      endCursor
+    }
+  }
+}

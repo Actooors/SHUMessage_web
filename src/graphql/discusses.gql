@@ -1,12 +1,14 @@
-query($after: String, $target_message_id: ID!) {
+query($after: String, $target_message_id: ID!, $uid: ID!) {
   discusses(
     after: $after
     first: 10
     where: { target_type: NEWS, target_message_id: $target_message_id }
+    orderBy: operate_time_DESC
   ) {
     type:__typename
     id
     content
+    operate_time
     img_url
     liked_num
     replyed_num
@@ -14,6 +16,18 @@ query($after: String, $target_message_id: ID!) {
       id
       nickname
       avatar
+    }
+    like(where: { operator: { id: $uid } }) {
+      liked
+    }
+    discuss(first: 3, orderBy: liked_num_DESC) {
+      id
+      type: __typename
+      content
+      operator {
+        id
+        nickname
+      }
     }
   }
 }

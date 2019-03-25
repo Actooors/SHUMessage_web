@@ -14,7 +14,7 @@
           </span>
         </div>
         <div class="cardTopBar-extra">
-          <span class="hasbeenfrom" :key="tick">{{msg.publishTime | relativeTime}}</span>
+          <span class="hasbeenfrom" :key="tick">{{msg.operate_time | relativeTime}}</span>
         </div>
       </div>
       <pre class="content">{{msg.content}}</pre>

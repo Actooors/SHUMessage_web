@@ -101,7 +101,7 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
+  import dayjs from 'dayjs'
   import {XHeader, Spinner, LoadMore} from 'vux'
   import {querystring} from 'vux'
   import {isRouteEnter} from 'assets/js/routeTools';
@@ -166,7 +166,8 @@
         query: NEWS,
         variables() {
           return {
-            id: this.query().id
+            id: this.query().id,
+            uid: UID
           }
         }
       },
@@ -175,7 +176,8 @@
         variables() {
           return {
             after: null,
-            target_message_id: this.query().id
+            target_message_id: this.query().id,
+            uid: UID
           }
         }
       },
@@ -192,7 +194,8 @@
         query: HOT_DISCUSSES,
         variables() {
           return {
-            target_message_id: this.query().id
+            target_message_id: this.query().id,
+            uid: UID
           }
         }
       }
@@ -261,15 +264,17 @@
               target_type: this.replyInfo.type.toUpperCase(),
               target_message_id: this.replyInfo.id,
               content,
-              img_url
+              img_url,
+              uid: UID,
+              operate_time: dayjs().format()
             },
             update(store, {data: {createDiscuss}}) {
-              console.log(store)
               const query = {
                 query: DISCUSSES,
                 variables: {
                   after: null,
-                  target_message_id: that.query().id
+                  target_message_id: that.query().id,
+                  uid: UID,
                 }
               };
               const data = store.readQuery(query);
@@ -305,7 +310,12 @@
             //   }
             // }]
           }
-        )
+        ).then(() => {
+          this.$toast({text: '回复成功', emoji: true});
+          this.$refs.viewBox.scrollTo(0)
+        }).catch(() => {
+          this.$toast({text: '回复失败', type: 'warning', emoji: true});
+        })
       },
       async loadData(newRound = true) {
         console.log("msgDetail - loadData");
@@ -317,13 +327,19 @@
           pHotDiscusses = null;
         if (newRound) {
           pNews = this.$apollo.queries.news.fetchMore({
-            variables: {id: query.id},
+            variables: {
+              id: query.id,
+              uid: UID
+            },
             updateQuery(previousResult, {fetchMoreResult}) {
               return fetchMoreResult;
             }
           });
           pHotDiscusses = this.$apollo.queries.hotDiscusses.fetchMore({
-            variables: {target_message_id: query.id},
+            variables: {
+              target_message_id: query.id,
+              uid: UID
+            },
             updateQuery(previousResult, {fetchMoreResult}) {
               return fetchMoreResult;
             }
@@ -332,7 +348,8 @@
         let pDiscusses = this.$apollo.queries.discusses.fetchMore({
           variables: {
             after: newRound ? null : this.discussesConnection.pageInfo.endCursor,
-            target_message_id: query.id
+            target_message_id: query.id,
+            uid: UID
           },
           updateQuery(previousResult, {fetchMoreResult}) {
             if (newRound) {

@@ -1,4 +1,4 @@
-query($target_message_id: ID!) {
+query($target_message_id: ID!, $uid: ID!) {
   hotDiscusses: discusses(
     first: 5
     where: {
@@ -11,6 +11,7 @@ query($target_message_id: ID!) {
     type:__typename
     id
     content
+    operate_time
     img_url
     liked_num
     replyed_num
@@ -18,6 +19,18 @@ query($target_message_id: ID!) {
       id
       nickname
       avatar
+    }
+    like(where: { operator: { id: $uid } }) {
+      liked
+    }
+    discuss(first: 3, orderBy: liked_num_DESC) {
+      id
+      type: __typename
+      content
+      operator {
+        id
+        nickname
+      }
     }
   }
 }
