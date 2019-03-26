@@ -61,11 +61,11 @@
             <p class="num">{{userInfo.starThemeNum}}</p>
             <p>关注的主题</p>
           </div>
-          <div>
+          <div @click="()=>{isUser&&$router.push('/following')}">
             <p class="num">{{userInfo.starOthersNum}}</p>
             <p>{{isUser?'我':userInfo.sex==='女'?'她':'他'}}关注的人</p>
           </div>
-          <div>
+          <div @click="()=>{isUser&&$router.push('/follower')}">
             <p class="num">{{userInfo.starNum}}</p>
             <p>关注{{isUser?'我':userInfo.sex==='女'?'她':'他'}}的人</p>
           </div>

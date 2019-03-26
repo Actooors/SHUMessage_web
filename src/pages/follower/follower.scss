@@ -28,3 +28,21 @@
   }
 
 }
+
+.logoWrapper {
+  height: calc(100vh - 44px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 44px;
+  background: white;
+  z-index: -1;
+  .logo {
+    position: relative;
+    top: -45px;
+    opacity: .05;
+  }
+}

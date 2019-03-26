@@ -20,7 +20,6 @@ import MsgDetail from 'pages/msgDetails/msgDetail'
 import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
 import Profile from 'pages/profile/profile'
-import AddFriend from 'pages/addFriend/addFriend'
 import MyMessage from 'pages/myMessage/myMessage'
 
 Vue.use(Router);
@@ -160,8 +159,12 @@ const router = new Router({
       component: MomentPublish
     },
     {
-      path: "/addFriend",
-      component: AddFriend
+      path: "/following",
+      component: () => import('pages/following/following')
+    },
+    {
+      path: "/follower",
+      component: () => import('pages/follower/follower')
     },
     {
       path: "/myMessage",
@@ -180,9 +183,10 @@ router.beforeEach((to, from, next) => {
   next()
 });
 
-router.afterEach((to, from) => {
-  // ga('create', 'UA-136233942-1', 'auto');
-  ga('set', 'page', to.fullPath);
-  ga('send', 'pageview');
+router.afterEach((to) => {
+  if (window.ga) {
+    window.ga('set', 'page', to.fullPath);
+    window.ga('send', 'pageview');
+  }
 });
 export default router

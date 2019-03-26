@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App'
-import {TransferDom, querystring} from 'vux'
+import {TransferDom, querystring, ConfirmPlugin} from 'vux'
 import 'normalize.css'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
@@ -29,6 +29,7 @@ Vue.use(preview, {
   ]
 });
 Vue.use(VueApollo);
+Vue.use(ConfirmPlugin);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
 Object.defineProperty(Vue.prototype, '$querystring', {value: querystring});

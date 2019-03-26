@@ -9,8 +9,8 @@
               :right-options="{showMore: false}"
               id="moments-XHeader"
     >动态
-      <div slot="left" @click="$router.push('/addFriend')">
-        <i class="icon-tianjiahaoyou iconfont icon"></i>
+      <div slot="left" @click="$router.push('/following')">
+        <i class="icon-team iconfont icon" style="font-size:19px"></i>
       </div>
       <div slot="right">
         <i class="icon-huida iconfont icon"></i>

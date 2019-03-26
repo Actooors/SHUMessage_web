@@ -43,6 +43,9 @@
   justify-content: center;
   border: none;
   border-radius: 15px;
+  &:focus {
+    outline: none;
+  }
   > .iconfont {
     font-weight: bold;
   }

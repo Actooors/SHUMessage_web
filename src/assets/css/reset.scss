@@ -134,9 +134,14 @@ html, body, #app {
 .weui-cells.vux-search_show .weui-cell:last-child {
   margin-bottom: unset !important;
 }
+
 //
 //.vux-loadmore.weui-loadmore_line {
 //  padding-bottom: 100px;
 //  margin-bottom: 50px;
 //}
 
+.vux-search_show {
+  padding-bottom: 44px;
+  background-color: #fbf9fe !important;
+}

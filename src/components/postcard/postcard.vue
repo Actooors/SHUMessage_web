@@ -5,8 +5,10 @@
       <p>{{uname}}</p>
       <p class="desc">{{desc}}</p>
     </div>
-    <button class="button" :disable="!value" @click="handleClickButton" v-if="!buttonTitle">{{value?"关注":"已关注"}}</button>
-    <button class="button" :disable="!value" @click="handleClickButton" v-else>{{buttonTitle}}</button>
+    <template v-if="showButton">
+      <button class="button" :disable="!value" @click="handleClickButton">{{value?buttonTitles[1]:buttonTitles[0]}}
+      </button>
+    </template>
   </div>
 </template>
 
@@ -25,11 +27,19 @@
         type: Number,
         default: 44
       },
-      buttonTitle: String
+      buttonTitles: {
+        type: Array,
+        default() {
+          return ["取消关注", "关注"]
+        }
+      },
+      showButton: {
+        type: Boolean,
+        default: true
+      }
     },
     methods: {
       handleClickButton() {
-        console.log("!");
         this.$emit('on-click-button')
       }
     }
