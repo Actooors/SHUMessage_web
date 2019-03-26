@@ -186,10 +186,6 @@
   transform: translateY(100%);
 }
 
-%stroke {
-  filter: drop-shadow(0 0 1px black); //描边
-}
-
 .stroke {
   @extend %stroke;
 }

@@ -63,6 +63,10 @@
   align-items: center;
 }
 
+%stroke {
+  filter: drop-shadow(0 0 1px black); //描边
+}
+
 .clickable {
   color: $--theme-blue-deep7;
 }

@@ -19,11 +19,18 @@
         <p class="tips">{{tips}}</p>
       </div>
     </div>
-    <tab :line-width="2" custom-bar-width="20px" bar-active-color="#2196F3" active-color="#2196F3" class="tab">
+    <tab
+      v-model="tabIndex"
+      :line-width="2"
+      custom-bar-width="20px"
+      bar-active-color="#2196F3"
+      active-color="#2196F3"
+      class="tab"
+    >
       <tab-item selected>瞬间</tab-item>
-      <tab-item>收藏</tab-item>
+      <tab-item>订阅</tab-item>
     </tab>
-    <div>
+    <div v-show="tabIndex===0">
       <Timeline class="timeline">
         <timeline-item>
           <h4 class="recent">发布了一个动态</h4>
@@ -39,6 +46,13 @@
         </timeline-item>
       </Timeline>
     </div>
+    <div v-show="tabIndex===1">
+      <CardWall>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+      </CardWall>
+    </div>
   </ViewBox>
 </template>
 
@@ -47,9 +61,13 @@
 
   export default {
     name: "self",
-    components: {Timeline, ViewBox, Tab, TabItem, TimelineItem, XHeader, Badge},
+    components: {
+      ...{Timeline, ViewBox, Tab, TabItem, TimelineItem, XHeader, Badge},
+      CardWall: () => import('components/cardWall/cardWall')
+    },
     data() {
       return {
+        tabIndex: 0,
         tips: "29天, 3个订阅",
         hasMessage: true,
         info: {
