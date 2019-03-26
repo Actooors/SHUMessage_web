@@ -126,7 +126,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
 
     // service worker caching
-    new SWPrecacheWebpackPlugin({cacheId: 'SHUMessage', filename: 'service-worker.js', minify: true})
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'SHUMessage',
+      filename: 'service-worker.js',
+      minify: true,
+      navigateFallback: '/',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    })
   ]
 })
 
