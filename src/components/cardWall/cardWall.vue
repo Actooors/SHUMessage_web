@@ -1,6 +1,6 @@
 <template>
   <div class="cardWall">
-    <div class="cardWall-card" v-for="item of [1,2,3]">
+    <div class="cardWall-card" v-for="item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
       <p>资源分享</p>
       <div class="cardWall-card-main">
         <p class="trim-overflow">筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！</p>

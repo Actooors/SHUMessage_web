@@ -1,5 +1,5 @@
 <template>
-  <ViewBox class="wrapper" id="__viewBox">
+  <ViewBox class="wrapper" id="__viewBox" ref="viewBox">
     <x-header slot="header" class="self-XHeader"
               :left-options="{showBack: false}"
               :right-options="{showMore: false}"
@@ -25,7 +25,7 @@
       custom-bar-width="20px"
       bar-active-color="#2196F3"
       active-color="#2196F3"
-      class="tab"
+      class="self-tab"
     >
       <tab-item selected>瞬间</tab-item>
       <tab-item>订阅</tab-item>
@@ -58,6 +58,7 @@
 
 <script>
   import {ViewBox, Tab, TabItem, Timeline, TimelineItem, XHeader, Badge} from "vux";
+  import stickybits from 'stickybits'
 
   export default {
     name: "self",
@@ -77,6 +78,23 @@
         }
       }
     },
+    mounted() {
+      stickybits('.self-tab', {stickyBitStickyOffset: 46});
+      const XHeader = document.querySelector(".self-XHeader");
+      document.querySelector(".self-XHeader+#vux_view_box_body").addEventListener('scroll', (event) => {
+        const bound = 225 - 46;
+        const contain = XHeader.classList.contains("theme-XHeader");
+        if (event.target.scrollTop > bound) {
+          if (!contain) {
+            XHeader.classList.add("theme-XHeader")
+          }
+        } else {
+          if (contain) {
+            XHeader.classList.remove("theme-XHeader")
+          }
+        }
+      })
+    },
     methods: {
       handleClickMore() {
         this.$router.push("/self/more")
@@ -90,4 +108,12 @@
 
 <style lang="scss" scoped>
   @import "self";
+</style>
+
+<style lang="scss">
+  .theme-XHeader.self-XHeader {
+    .iconfont {
+      color: black !important;
+    }
+  }
 </style>
