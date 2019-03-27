@@ -32,6 +32,8 @@
   justify-content: center;
   border: none;
   border-radius: 15px; }
+  .profile-viewbox #profile-XHeader .headerInfo .follow:focus, .profile-viewbox .gallery .toprow .follow:focus {
+    outline: none; }
   .profile-viewbox #profile-XHeader .headerInfo .follow > .iconfont, .profile-viewbox .gallery .toprow .follow > .iconfont {
     font-weight: bold; }
   .profile-viewbox #profile-XHeader .headerInfo .follow > span, .profile-viewbox .gallery .toprow .follow > span {
@@ -43,6 +45,9 @@
   display: flex;
   justify-content: center;
   align-items: center; }
+
+.profile-viewbox .gallery .gallery-bottom > div, .stroke {
+  filter: drop-shadow(0 0 1px black); }
 
 .clickable {
   color: #1e5caf; }
@@ -175,8 +180,5 @@
 .fade-enter, .fade-leave-active {
   opacity: 0;
   transform: translateY(100%); }
-
-.profile-viewbox .gallery .gallery-bottom > div, .stroke {
-  filter: drop-shadow(0 0 1px black); }
 
 /*# sourceMappingURL=profile.css.map */

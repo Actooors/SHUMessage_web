@@ -32,6 +32,8 @@
   justify-content: center;
   border: none;
   border-radius: 15px; }
+  .momentPublish-wrapper .button:focus {
+    outline: none; }
   .momentPublish-wrapper .button > .iconfont {
     font-weight: bold; }
   .momentPublish-wrapper .button > span {
@@ -62,4 +64,21 @@
     font-size: 12px;
     color: white !important; }
 
-/*# sourceMappingURL=addFriend.css.map */
+.logoWrapper {
+  height: calc(100vh - 44px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 44px;
+  background: transparent;
+  z-index: 1;
+  pointer-events: none; }
+  .logoWrapper .logo {
+    position: relative;
+    top: -45px;
+    opacity: .1; }
+
+/*# sourceMappingURL=cardListPage.css.map */

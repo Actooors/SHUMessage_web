@@ -32,6 +32,8 @@
   justify-content: center;
   border: none;
   border-radius: 15px; }
+  .button:focus {
+    outline: none; }
   .button > .iconfont {
     font-weight: bold; }
   .button > span {
@@ -56,16 +58,17 @@
   color: #6c6c6c; }
 
 .button {
-  background: #218dea;
+  background: #40a1ef;
   height: 26px;
-  width: 54px;
+  line-height: 28px;
+  width: 65px;
   position: absolute;
   right: 15px;
   font-size: 12px;
   color: white !important;
   vertical-align: middle; }
   .button[disable] {
-    background: #a8a8a8; }
+    background: #8faeca; }
 
 .avatar {
   margin: 0 10px 0 0; }

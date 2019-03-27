@@ -42,7 +42,7 @@ Vue.directive('pull-to-refresh', PullToRefreshDirective);
 
 import FastClick from 'assets/js/fastclick'
 
-FastClick.attach(document.body);
+// FastClick.attach(document.body);
 
 // or with options
 Vue.use(VueLazyload, {

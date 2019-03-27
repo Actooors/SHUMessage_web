@@ -52,8 +52,10 @@
         }
         this.$nextTick(() => {
           const instance = to.matched[to.matched.length - 1].instances.default
-          if (instance) {
+          if (instance && instance.$el && instance.$el.querySelector) {
             //复用变量名
+            // TODO:这个函数好像有点问题需要修复.
+            //console.log(instance.$el,instance.$el.querySelector)
             scrollBody = instance.$el.querySelector('#scrollComponentBody');
             if (scrollBody) {
               scrollBody.scrollTop = store.state.pushRouter.scrollTop[to.fullPath] || 0;

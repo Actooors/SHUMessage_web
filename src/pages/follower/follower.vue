@@ -1,47 +1,20 @@
 <template>
-  <div>
-    <ViewBox
-      class="momentPublish-wrapper"
-      body-padding-bottom="46px"
-    >
-      <x-header slot="header" class="theme-XHeader"
-                :left-options="{showBack: true,backText:''}"
-                :right-options="{showMore: false}"
-      >关注{{isUser?"我":"TA"}}的
-      </x-header>
-      <div>
-        <Group class="needsclick" :title="`关注${isUser?'我':'TA'}的人`">
-          <CellBox
-            is-link
-            :arrow=false
-            v-for="(user,index) of starList"
-            :key="user.id"
-            @click.native="handleClickCellBox(user)"
-          >
-            <postcard :avatar="user.avatar"
-                      :uname="user.name"
-                      :desc="user.about"
-                      :value="!user.stared"
-                      @on-click-button="handleClickNotStar(user,index)"
-            ></postcard>
-          </CellBox>
-          <LoadMore :show-loading=false tip="你还没有关注的人哦！" style="padding-top:10px;"
-                    v-if="starList.length===0"></LoadMore>
-        </Group>
-      </div>
-    </ViewBox>
-  </div>
+  <CardListPage
+    :title="`关注${isUser?'我':'TA'}的人`"
+    :emptyTip="`还没有人关注${isUser?'我':'TA'}诶...`"
+    :searchResult="searchResult"
+    :starList="starList"
+    :showSearch="false"
+  ></CardListPage>
 </template>
 
 <script>
-  import {ViewBox, XHeader, Group, Search, LoadMore} from 'vux'
-  import postcard from 'components/postcard/postcard'
-  import CellBox from 'components/cell-box'
-  import stickybits from 'stickybits'
 
   export default {
     name: "follower",
-    components: {...{ViewBox, XHeader, Group, Search, LoadMore}, CellBox, postcard},
+    components: {
+      CardListPage: () => import('components/cardListPage/cardListPage')
+    },
     data: () => ({
       isUser: true,
       timerDelaySearch: null,
@@ -126,43 +99,6 @@
         id: '7',
         stared: true
       }]
-    }),
-    mounted() {
-      stickybits('.vux-header')
-    },
-    methods: {
-      handleClickCellBox(user) {
-        this.$router.push({path: '/profile', query: {uid: user.id}})
-      },
-      handleClickNotStar(user, index) {
-        const that = this;
-        this.$vux.confirm.show({
-          title: "取消关注",
-          dialogTransition: "",
-          content: `确定要取消对<strong>${user.name}</strong>的关注吗?`,
-          onConfirm() {
-            that.starList.splice(index, 1);
-          }
-        });
-        event.stopPropagation()
-      },
-      handleClickSearch() {
-        const that = this;
-        this.searchShow = true;
-        this.$nextTick(() => {
-          that.$refs.search.setFocus();
-        })
-      },
-      handleSearch(val) {
-        clearTimeout(this.timerDelaySearch);
-        this.timerDelaySearch = setTimeout(() => {
-          console.log(val)
-        }, 500)
-      }
-    }
+    })
   }
 </script>
-
-<style lang="scss" scoped>
-  @import "./follower";
-</style>

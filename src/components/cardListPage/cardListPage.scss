@@ -38,11 +38,12 @@
   position: fixed;
   left: 0;
   top: 44px;
-  background: white;
-  z-index: -1;
+  background: transparent;
+  z-index: 1;
+  pointer-events: none;
   .logo {
     position: relative;
     top: -45px;
-    opacity: .05;
+    opacity: .1;
   }
 }

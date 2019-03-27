@@ -1,6 +1,7 @@
 .wrapper {
   background: white; }
   .wrapper .self-XHeader {
+    transition: background-color .1s ease;
     width: 100%;
     position: absolute;
     left: 0;
@@ -26,8 +27,8 @@
         width: 50px;
         height: 50px;
         border-radius: 50%; }
-  .wrapper .tab {
-    background: transparent; }
+  .wrapper .self-tab {
+    z-index: 1; }
   .wrapper .timeline h4 {
     font-weight: normal;
     font-size: .9em; }

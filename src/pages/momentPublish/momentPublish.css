@@ -32,6 +32,8 @@
   justify-content: center;
   border: none;
   border-radius: 15px; }
+  .momentPublish-wrapper .button:focus {
+    outline: none; }
   .momentPublish-wrapper .button > .iconfont {
     font-weight: bold; }
   .momentPublish-wrapper .button > span {
