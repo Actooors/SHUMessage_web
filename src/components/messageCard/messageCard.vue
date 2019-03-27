@@ -76,10 +76,10 @@
     methods: {
       handleClickAuthor(uid) {
         event.stopPropagation();
-        this.$router.push({path: '/profile', query: {uid}});
+        this.$router.push({path: '/profile', query: {id: uid}});
       },
       pushProfile(uid) {
-        this.$router.push({path: '/profile', query: {uid}});
+        this.$router.push({path: '/profile', query: {id: uid}});
         event.stopPropagation()
       },
       handleClickMedia(info) {

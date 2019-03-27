@@ -60,23 +60,24 @@
         </div>
       </x-header>
       <div>
-        <Group class="needsclick" :title="groupTitle||title">
+        <Group class="needsclick" :title="starList.length>0?groupTitle||title:emptyTip">
           <CellBox
             is-link
             :arrow=false
-            v-for="(user,index) of starList"
-            :key="user.id"
-            @click.native="handleClickCellBox(user)"
+            v-for="(item,index) of starList"
+            :key="item.id"
+            @click.native="handleClickCellBox(item)"
           >
-            <postcard :avatar="user.avatar"
-                      :uname="user.name"
-                      :desc="user.about"
-                      :value="!user.stared"
-                      @on-click-button="handleClickNotStar(user,index)"
+            <postcard :avatar="item.avatar"
+                      :uname="item.name"
+                      :desc="item.about"
+                      :value="!item.stared"
+                      @on-click-button="handleClickNotStar(item,index)"
+                      :showButton=showButton
             ></postcard>
           </CellBox>
-          <LoadMore :show-loading=false :tip="emptyTip" style="padding-top:10px;"
-                    v-if="starList.length===0"></LoadMore>
+          <!--<LoadMore :show-loading=false :tip="emptyTip" style="padding-top:10px;"-->
+                    <!--v-if="starList.length===0"></LoadMore>-->
         </Group>
       </div>
     </ViewBox>
@@ -99,7 +100,15 @@
       emptyTip: String,
       searchResult: Array,
       starList: Array,
-      showSearch: Boolean
+      showSearch: Boolean,
+      showButton: {
+        type: Boolean,
+        default: true
+      },
+      linkURI: {
+        type: String,
+        default: '/profile'
+      }
     },
     data: () => ({
       timerDelaySearch: null,
@@ -111,7 +120,7 @@
     },
     methods: {
       handleClickCellBox(user) {
-        this.$router.push({path: '/profile', query: {uid: user.id}})
+        this.$router.push({path: this.linkURI, query: {id: user.id}})
       },
       handleClickNotStar(user, index) {
         const that = this;

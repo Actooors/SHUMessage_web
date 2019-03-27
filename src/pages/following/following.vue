@@ -1,7 +1,7 @@
 <template>
   <CardListPage
     :title="`${isUser?'我':'TA'}关注的人`"
-    emptyTip="你还没有关注任何人哦!"
+    emptyTip="你还没有关注任何人哦"
     :searchResult="searchResult"
     :starList="starList"
     :showSearch="isUser"

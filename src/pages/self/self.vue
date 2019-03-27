@@ -14,7 +14,7 @@
     </x-header>
     <div class="show-bar">
       <div class="center-content">
-        <img :src="info.avatar" class="avatar" @click="$router.push({path:'/profile',query:{uid:info.id}})">
+        <img :src="info.avatar" class="avatar" @click="$router.push({path:'/profile',query:{id:info.id}})">
         <p class="username">{{info.name}}</p>
         <p class="tips">{{tips}}</p>
       </div>

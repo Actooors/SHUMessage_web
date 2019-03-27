@@ -169,6 +169,14 @@ const router = new Router({
     {
       path: "/myMessage",
       component: MyMessage
+    },
+    {
+      path: "/myOwnGroup",
+      component: () => import('pages/myOwnGroup/myOwnGroup')
+    },
+    {
+      path: "/myGroup",
+      component: () => import('pages/myOwnGroup/myOwnGroup')
     }
   ]
 });

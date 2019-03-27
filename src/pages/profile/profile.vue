@@ -53,13 +53,13 @@
         </div>
         <p class="tip stroke" v-if="!isUser">{{userInfo.tipToYou}}</p>
         <div class="gallery-bottom">
-          <div>
-            <p class="num">{{userInfo.createThemeNum}}</p>
-            <p>创建的主题</p>
+          <div @click="()=>{isUser&&$router.push('/myOwnGroup')}">
+            <p class="num">{{userInfo.createGroupNum}}</p>
+            <p>创建的圈子</p>
           </div>
-          <div>
-            <p class="num">{{userInfo.starThemeNum}}</p>
-            <p>关注的主题</p>
+          <div @click="()=>{isUser&&$router.push('/myGroup')}">
+            <p class="num">{{userInfo.starGroupNum}}</p>
+            <p>加入的圈子</p>
           </div>
           <div @click="()=>{isUser&&$router.push('/following')}">
             <p class="num">{{userInfo.starOthersNum}}</p>
