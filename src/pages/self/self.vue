@@ -47,11 +47,11 @@
       </Timeline>
     </div>
     <div v-show="tabIndex===1">
-      <CardWall>
-        <div>1</div>
-        <div>1</div>
-        <div>1</div>
-      </CardWall>
+      <CardWall
+        :cards="groups"
+        @clickCard="handleClickCard"
+        @clickAdd="handleClickAdd"
+      ></CardWall>
     </div>
   </ViewBox>
 </template>
@@ -75,7 +75,30 @@
           avatar: require('assets/images/avatar.png'),
           name: "赤膊吃西瓜",
           id: 10001,
-        }
+        },
+        groups: [{
+          id: 1,
+          title: "资源动态",
+          items: [{
+            title: "纪念改革开放四十周年暨上海高等院校人文学科发展与数字人文研讨会成功举办"
+          }, {
+            title: "哈佛燕京图书馆中文善本特藏数字化免费开放使用"
+          }, {
+            title: "《文博党建小课堂》开通试用"
+          }],
+          amount: 123
+        }, {
+          id: 2,
+          title: "爱心公益",
+          items: [{
+            title: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！"
+          }, {
+            title: "新世纪慈善义捐成功举办!"
+          }, {
+            title: "献血志愿者招募!"
+          }],
+          amount: 18
+        }]
       }
     },
     mounted() {
@@ -101,6 +124,14 @@
       },
       handleClickMessage() {
         this.$router.push('/myMessage')
+      },
+      handleClickAdd(){
+        console.log("self - hancleClickAdd")
+      },
+      handleClickCard(card) {
+        this.$router.push('/group', {
+          query: {id: card.id}
+        })
       }
     }
   }

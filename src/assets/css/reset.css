@@ -90,6 +90,10 @@ html, body, #app {
 .weui-toast.vux-toast-top {
   top: 30px; }
 
+.weui-cells.vux-search_show {
+  -webkit-overflow-scrolling: touch;
+  background: white !important; }
+
 .vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
   display: none; }
 
@@ -122,5 +126,9 @@ html, body, #app {
 
 .weui-cells.vux-search_show .weui-cell:last-child {
   margin-bottom: unset !important; }
+
+.vux-search_show {
+  padding-bottom: 44px;
+  background-color: #fbf9fe !important; }
 
 /*# sourceMappingURL=reset.css.map */

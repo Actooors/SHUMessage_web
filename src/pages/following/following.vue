@@ -52,6 +52,21 @@
         name: '阿里',
         about: '这是另另另另另另一个人',
         id: '7'
+      }, {
+        avatar: 'https://avatars3.githubusercontent.com/u/559183?s=460&v=4',
+        name: '携程',
+        about: '这是另另另另一个人',
+        id: '8'
+      }, {
+        avatar: 'https://avatars3.githubusercontent.com/u/559184?s=460&v=4',
+        name: '网易',
+        about: '这是另另另另另一个人',
+        id: '9'
+      }, {
+        avatar: 'https://avatars3.githubusercontent.com/u/559185?s=460&v=4',
+        name: '阿里',
+        about: '这是另另另另另另一个人',
+        id: '10'
       }],
       starList: [{
         avatar: 'https://avatars3.githubusercontent.com/u/559179?s=460&v=4',

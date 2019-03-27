@@ -12,65 +12,46 @@
       <div slot="right">
         <i class="icon-more iconfont icon"></i>
       </div>
+      <!--header部分-->
       <div id="profile-XHeader-back"></div>
       <transition name="fade" mode="out-in">
         <div class="headerInfo stroke" v-show="showHeaderInfo">
           <div class="row">
-            <img :src="userInfo.avatar" class="avatar">
+            <img :src="groupInfo.avatar" class="avatar">
             <div>
-              <p>{{userInfo.username}}</p>
-              <p>{{userInfo.starNum}}人关注</p>
+              <p>{{groupInfo.username}}</p>
+              <p>共{{groupInfo.starNum}}人加入</p>
             </div>
           </div>
-          <button class="follow" v-if="!isUser">关注</button>
+          <button class="follow" v-if="!isOwner">加入</button>
         </div>
       </transition>
     </x-header>
+    <!--gallery等部分-->
     <div class="content">
       <div class="gallery">
-        <div class="row toprow stroke">
+        <div class="toprow stroke">
           <div class="avatarInfo">
-            <img :src="userInfo.avatar" class="avatar" preview="0" ref="avatar">
+            <img :src="groupInfo.avatar" class="avatar" preview="0" ref="avatar">
           </div>
-          <div class="modifyAvatar" v-if="isUser" @click="handleClickAvatar">
+          <div class="modifyAvatar" v-if="isOwner" @click="handleClickAvatar">
             <div @click="modifyAvatar">修改</div>
           </div>
-          <div class="row" v-if="!isUser">
-            <button class="chat">
-              <i class="icon-message-fill iconfont icon"></i>
-            </button>
-            <button class="follow">
+          <div class="groupInfo" v-if="!isOwner">
+            <h1 class="username stroke">{{groupInfo.username}}</h1>
+            <p class="signature stroke">{{groupInfo.signature}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <button class="follow">
               <span>
-                <i class="icon-plus iconfont icon"></i>关注
+                <i class="icon-plus iconfont icon"></i>加入
               </span>
-            </button>
-          </div>
-        </div>
-        <h1 class="username stroke">{{userInfo.username}}</h1>
-        <p class="signature stroke">{{userInfo.signature}}</p>
-        <div class="row stroke">
-          <span class="tag" v-for="tag of userInfo.tags" :key="tag.value">{{tag.name}}</span>
-        </div>
-        <p class="tip stroke" v-if="!isUser">{{userInfo.tipToYou}}</p>
-        <div class="gallery-bottom">
-          <div @click="()=>{isUser&&$router.push('/myOwnGroup')}">
-            <p class="num">{{userInfo.createGroupNum}}</p>
-            <p>创建的圈子</p>
-          </div>
-          <div @click="()=>{isUser&&$router.push('/myGroup')}">
-            <p class="num">{{userInfo.starGroupNum}}</p>
-            <p>加入的圈子</p>
-          </div>
-          <div @click="()=>{isUser&&$router.push('/following')}">
-            <p class="num">{{userInfo.starOthersNum}}</p>
-            <p>{{isUser?'我':userInfo.sex==='女'?'她':'他'}}关注的人</p>
-          </div>
-          <div @click="()=>{isUser&&$router.push('/follower')}">
-            <p class="num">{{userInfo.starNum}}</p>
-            <p>关注{{isUser?'我':userInfo.sex==='女'?'她':'他'}}的人</p>
-          </div>
+          </button>
         </div>
       </div>
+
+      <!--下方白色tab和卡片部分-->
       <div class="main-list">
         <div class="list-top-box">
           <div class="list-top">
@@ -82,18 +63,22 @@
               active-color="#2196F3"
               class="tab"
             >
-              <tab-item selected>动态</tab-item>
-              <tab-item>档案</tab-item>
+              <tab-item selected>消息</tab-item>
+              <tab-item>热门</tab-item>
             </Tab>
           </div>
         </div>
         <div class="swiper">
-          <div v-show="tabIndex===0">
-            <div class="moments-row">
-              <span>
-                <i class="icon-appreciate iconfont icon"></i>动态获得 {{userInfo.likeSum}} 次赞
+          <div class="moments-row" style="background: #f7f7f7;">
+              <span class="row">
+                <i class="icon-team iconfont icon"
+                   style="font-size:17px;margin-right:3px;position: relative;top:-1px"></i>{{groupInfo.starNum}} 个成员
               </span>
-            </div>
+            <span class="row" v-show="tabIndex===0">
+                <i class="icon-huida iconfont icon" style="font-size:14px;margin-right:5px"></i>{{groupInfo.likeSum}} 条消息
+              </span>
+          </div>
+          <div v-show="tabIndex===0">
             <div class="blocks">
               <div v-for="block of raw" :key="block.value" class="block">
                 <user-message-card
@@ -115,15 +100,25 @@
             </div>
           </div>
           <div class="archives" v-show="tabIndex===1">
-            <Group title="基本信息">
-              <CellFormPreview :list="userInfo.basic"></CellFormPreview>
-            </Group>
-            <Group title="签名">
-              <CellFormPreview
-                class="signature-cell"
-                :list="[{label:userInfo.signature,value:''}]"
-              ></CellFormPreview>
-            </Group>
+            <div class="blocks">
+              <div v-for="block of raw" :key="block.value" class="block">
+                <user-message-card
+                  class="block-card"
+                  v-for="item of block.cards"
+                  :key="item.value"
+                  :msg="item"
+                  @onClickShareButton="handleClickShareButton(...arguments,item)"
+                ></user-message-card>
+                <div class="block-append">
+                  <router-link
+                    v-if="block.blockAppend && block.blockAppend.type==='buttonLink'"
+                    :to="block.blockAppend.link"
+                    class="buttonLink"
+                  >{{block.blockAppend.title}}
+                  </router-link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -138,17 +133,17 @@
   import mockMixin from "./mock";
   import sharebarMixin from "assets/js/sharebarMixin/index";
   import stickybits from "stickybits";
-  import handleScrollMixin from '../group/handleScrollMixin'
+  import handleScrollMixin from './handleScrollMixin'
 
   export default {
-    name: "profile",
+    name: "group",
     mixins: [sharebarMixin, mockMixin, handleScrollMixin],
     components: {
       ...{ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview},
       UserMessageCard
     },
     data: () => ({
-      isUser: true,
+      isOwner: false,
       tabIndex: 0,
       scrollStatus: {
         scrollTop: 0,
@@ -194,7 +189,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "./profile";
+  @import "./group";
 </style>
 
 <style lang="scss">

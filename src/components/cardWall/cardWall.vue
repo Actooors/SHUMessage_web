@@ -1,12 +1,32 @@
 <template>
   <div class="cardWall">
-    <div class="cardWall-card" v-for="item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
-      <p>资源分享</p>
+    <div
+      class="cardWall-card"
+      @click="$emit('clickAdd')"
+    >
+      <div class="iconWrapper">
+        <i class="icon-plus1 iconfont icon"></i>
+      </div>
+    </div>
+    <div
+      class="cardWall-card"
+      v-for="card of cards"
+      :key="card.id"
+      @click="$emit('clickCard',card)"
+    >
+      <p>{{card.title}}</p>
       <div class="cardWall-card-main">
-        <p class="trim-overflow">筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！</p>
-        <p class="trim-overflow">哈佛燕京图书馆中文善本特藏数字化免费开放使用</p>
-        <p class="trim-overflow">《文博党建小课堂》开通试用</p>
-        <span class="amount">123</span>
+        <div class="titleWrapper">
+          <p
+            class="trim-overflow"
+            v-for="(item, index) of card.items"
+            v-if="index<3"
+            :key="item.value"
+          >
+            {{item.title}}
+          </p>
+        </div>
+        <span class="amount">{{card.amount}}</span>
       </div>
     </div>
   </div>
@@ -14,7 +34,10 @@
 
 <script>
   export default {
-    name: "cardWall"
+    name: "cardWall",
+    props: {
+      cards: {type: Array, required: true}
+    }
   }
 </script>
 
@@ -27,6 +50,8 @@
     padding: $margin-width;
     font-size: 0;
     .cardWall-card {
+      overflow: hidden;
+      height: 103px;
       padding: 10px;
       background: white;
       font-size: 16px;
@@ -36,15 +61,29 @@
       box-sizing: border-box;
       border-radius: 5px;
       box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+      .iconWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        > .iconfont {
+          font-size: 32px;
+          color: rgba(0, 0, 0, .4)
+        }
+      }
       &-main {
         color: rgba(0, 0, 0, 0.6);
         position: relative;
         font-size: 12px;
-        .trim-overflow {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 90%;
-          white-space: nowrap;
+        .titleWrapper {
+          /*height: 58px;*/
+          .trim-overflow {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+            white-space: nowrap;
+          }
         }
         .amount {
           color: #a8a8a8d6;

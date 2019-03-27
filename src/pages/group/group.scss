@@ -1,6 +1,7 @@
 @import "../../assets/css/varies";
 @import "../../assets/css/common";
 
+$avatar-radius: 6px;
 .profile-viewbox {
   font-size: .7rem;
   color: $--theme-gray-light5;
@@ -22,7 +23,7 @@
       .avatar {
         height: 32px;
         width: 32px;
-        @extend %round;
+        border-radius: $avatar-radius;
         margin: 0 10px 0 1px;
       }
       .follow {
@@ -37,20 +38,34 @@
   }
   .gallery {
     background: url("http://mzzeast.shumsg.cn/18-12-31/12524706.jpg");
-    height: 330px;
+    height: 250px;
     padding: 80px 20px 0;
     position: relative;
     .toprow {
-      @extend .row;
-      justify-content: space-between;
+      display: flex;
       position: relative;
+      overflow: hidden;
+      .groupInfo {
+        padding-left: 15px;
+        .username {
+          margin: 0;
+          font-size: 1.1rem;
+        }
+        .signature {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
+      }
       .avatarInfo {
-        @extend %round;
+        border-radius: $avatar-radius;
         height: 64px;
         width: 64px;
         overflow: hidden;
+        flex-shrink: 0;
         .avatar {
-          @extend %round-shadow;
+          border-radius: $avatar-radius;
           height: 64px;
           width: 64px;
         }
@@ -59,7 +74,7 @@
         background: transparent;
         height: 64px;
         width: 64px;
-        border-radius: 50%;
+        border-radius: $avatar-radius;
         overflow: hidden;
         position: absolute;
         top: 0;
@@ -75,32 +90,6 @@
           color: white;
         }
       }
-
-      .chat {
-        @extend %round;
-        color: $--theme-gray-light25;
-        height: 30px;
-        width: 30px;
-        border: none;
-        background: $--background-profile-tag;
-        > .iconfont {
-          font-size: 1.15rem;
-        }
-      }
-      .follow {
-        @extend %button-basic;
-        background: $--theme-blue-deep2;
-        height: 30px;
-        width: 80px;
-        margin-left: 20px;
-      }
-    }
-    .username {
-      margin: $row-gap 0 $row-gap/2;
-      font-size: 1.1rem;
-    }
-    .signature {
-      //margin: 0 0 10px;
     }
     .tag {
       text-align: center;
@@ -115,24 +104,24 @@
     .tip {
       color: $--theme-gray-light3;
     }
-    .gallery-bottom {
-      $gallery-bottom-height: 60px;
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      height: $gallery-bottom-height;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      > div {
-        @extend %stroke;
-        flex: 1;
-        text-align: center;
-        .num {
-          font-size: .9rem;
-          font-weight: bold;
-        }
+    .chat {
+      @extend %round;
+      color: $--theme-gray-light25;
+      height: 30px;
+      width: 30px;
+      border: none;
+      background: $--background-profile-tag;
+      > .iconfont {
+        font-size: 1.15rem;
       }
+    }
+    .follow {
+      @extend %button-basic;
+      background: $--theme-blue-deep;
+      font-size: 14px;
+      height: 35px;
+      width: 100%;
+      margin-top: 20px;
     }
   }
   .main-list {
@@ -144,8 +133,8 @@
       @extend .row;
       padding: 5px 20px;
       color: $--theme-gray;
-      .iconfont {
-        margin-right: .2em;
+      > span {
+        margin-right: 20px;
       }
     }
     .pCard {

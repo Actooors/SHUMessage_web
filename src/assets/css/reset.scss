@@ -92,6 +92,11 @@ html, body, #app {
   top: 30px;
 }
 
+.weui-cells.vux-search_show {
+  -webkit-overflow-scrolling: touch;
+  background: white !important;
+}
+
 .vux-fix-safari-overflow-scrolling::-webkit-scrollbar {
   display: none
 }
