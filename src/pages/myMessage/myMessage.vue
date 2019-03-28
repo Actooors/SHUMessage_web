@@ -6,7 +6,7 @@
     :pullupCallback="handlePullupCallback"
     :showLoadIcon="showLoadIcon"
     ref="scroll"
-    body-padding-bottom="0"
+    body-padding-bottom="47px"
   >
     <x-header slot="header" class="theme-XHeader"
               :left-options="{showBack: true,backText:''}"

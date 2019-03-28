@@ -14,7 +14,7 @@
       :key="card.id"
       @click="$emit('clickCard',card)"
     >
-      <p>{{card.title}}</p>
+      <p class="cardWall-card-title">{{card.title}}</p>
       <div class="cardWall-card-main">
         <div class="titleWrapper">
           <p
@@ -50,12 +50,12 @@
     padding: $margin-width;
     font-size: 0;
     .cardWall-card {
-      overflow: hidden;
+      font-size: 16px;
       height: 103px;
       padding: 10px;
       background: white;
-      font-size: 16px;
       display: inline-block;
+      vertical-align: top;
       width: calc(50% - #{$margin-width*2});
       margin: $margin-width;
       box-sizing: border-box;
@@ -77,7 +77,7 @@
         position: relative;
         font-size: 12px;
         .titleWrapper {
-          /*height: 58px;*/
+          /*height: 57px;*/
           .trim-overflow {
             overflow: hidden;
             text-overflow: ellipsis;
