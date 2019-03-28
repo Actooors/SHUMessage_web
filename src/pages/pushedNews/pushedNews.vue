@@ -15,6 +15,7 @@
       v-for="(item,index) of cards"
       :key="item.value"
       :msg="item"
+      @clickTopic="$router.push({path:'/group',query:{id:item.topic.id}})"
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item)"
     ></common-card>

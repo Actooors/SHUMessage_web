@@ -5,6 +5,9 @@ import {Spinner, Icon} from 'vux'
 
 const directive = {
   inserted(el, {value}, vnode) {
+    if (!value) {
+      return
+    }
     const that = vnode.componentInstance
     //加个条件判断以兼容vux的view-box
     if (vnode.componentInstance.$options.name === "view-box") {

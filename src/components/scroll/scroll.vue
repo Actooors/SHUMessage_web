@@ -23,7 +23,6 @@
 
 <script>
   import {LoadMore, Spinner, ViewBox} from 'vux'
-  import store from 'store/store'
 
   export default {
     name: "scroll",
@@ -39,8 +38,7 @@
       },
       pulldownCallback: {
         //the function should return a promsie
-        type: Function,
-        required: true
+        type: Function
       },
       pullupCallback: {
         //the function should return a promsie
@@ -53,6 +51,9 @@
       loadIconTop: {
         type: String,
         default: "9px"
+      },
+      specificScrollBody: {
+        type: HTMLElement
       }
     },
     data: () => ({
@@ -61,15 +62,28 @@
       lastScrollTop: 0
     }),
     mounted() {
-      this.scrollBody = this.$refs.viewBox.getScrollBody();
-      this.scrollBody.id = 'scrollComponentBody';
-      this.scrollBody.style = this.bodyPaddingBottom === '0' ? `` : `height:calc(100% - ${this.bodyPaddingBottom})`;
-      this.scrollBody.addEventListener('scroll', this.handleScroll)
+      this.initScroll(this.specificScrollBody);
+    },
+    watch: {
+      specificScrollBody(val, oldVal) {
+        oldVal && oldVal.removeEventListener('scroll', this.handleScroll);
+        this.initScroll(val)
+      }
     },
     beforeDestroy() {
       this.scrollBody.removeEventListener('scroll', this.handleScroll)
     },
     methods: {
+      initScroll(scrollBody) {
+        const selfScrollBody = this.$refs.viewBox.getScrollBody();
+        this.scrollBody = scrollBody || selfScrollBody;
+        if (!scrollBody && selfScrollBody) {
+          //如果this.scrollBody是selfScrollBody，则给予id标识，并调整style
+          this.scrollBody.id = 'scrollComponentBody';
+          this.scrollBody.style = this.bodyPaddingBottom === '0' ? `` : `height:calc(100% - ${this.bodyPaddingBottom})`;
+        }
+        this.scrollBody.addEventListener('scroll', this.handleScroll)
+      },
       getScrollBody() {
         return this.$refs.viewBox.getScrollBody();
       },
@@ -85,7 +99,7 @@
           typeof this.pullupCallback === "function"
           && !this.noMore
           && !this.loadingMore
-          && this.scrollBody.scrollTop + this.scrollBody.offsetHeight >= this.scrollBody.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
+          && event.target.scrollTop + event.target.offsetHeight >= event.target.scrollHeight * 0.8 //已经浏览完所显示的80%的评论了
           && delta > 0
         ) {
           this.loadingMore = true;

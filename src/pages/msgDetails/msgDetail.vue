@@ -21,7 +21,7 @@
           v-if=" 'type' in $route.query && $route.query.type.toString()==='0'"
           :msg="msg"
           :lazyload=false
-
+          @clickTopic="$router.push({path:'/group',query:{id:msg.topic.id}})"
           @onClickShareButton="handleClickShareButton(...arguments,msg)"
         ></common-card>
         <user-message-card
@@ -111,7 +111,7 @@
       </ul>
     </Popover>
     <!--<div v-transfer-dom>-->
-      <!--<previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>-->
+    <!--<previewer :list="previewerList" ref="previewer" :options="previewerOptions"></previewer>-->
     <!--</div>-->
   </scroll>
 </template>
@@ -323,7 +323,7 @@
       handleClickBack() {
         // this.$router.go(-1)
         if (store.state.pushRouter.routeChanged) {
-          console.log("!",store.state.pushRouter.routeChanged)
+          console.log("!", store.state.pushRouter.routeChanged)
           this.$router.go(-1)
           // console.log("大概有进入detail的router-history")
         } else {

@@ -1,7 +1,7 @@
 <template>
   <div class="pCard">
     <div class="cardTopBar" v-if="msg.topic">
-      <span class="topic">{{msg.topic.name}}</span>
+      <span class="topic" @click="handleClickTopic">{{msg.topic.name}}</span>
       <span class="operation"><span class="extraInfo">{{preHandleTime(msg.extraInfo)}}</span><x-icon
         type="ios-arrow-down"
         size="15"></x-icon></span>
@@ -58,6 +58,10 @@
       }
     },
     methods: {
+      handleClickTopic(event){
+        this.$emit('clickTopic');
+        event.stopPropagation();
+      },
       pushProfile(uid) {
         this.$router.push({path: '/profile', query: {id: uid}})
         event.stopPropagation()
