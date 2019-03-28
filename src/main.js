@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
+import store from './store/store'
 import App from './App'
 import {TransferDom, querystring, ConfirmPlugin} from 'vux'
 import 'normalize.css'
@@ -63,6 +64,7 @@ const apolloProvider = new VueApollo({
 });
 new Vue({
   router,
+  store,
   apolloProvider,
   render: h => h(App),
   // mounted() {

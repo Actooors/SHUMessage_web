@@ -180,7 +180,14 @@
         event.stopPropagation();
       },
       loadData() {
-
+        const info = this.$axios({
+          url: apiRoot + '/user/info',
+          params: {
+            id: 16121663
+          }
+        }).then((res) => {
+          console.log(res.data)
+        })
       },
       initViewBoxPropertities() {
         let e = this.$refs.viewbox.getScrollBody();

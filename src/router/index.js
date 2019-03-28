@@ -181,6 +181,10 @@ const router = new Router({
     {
       path: "/group",
       component: () => import('pages/group/group')
+    },
+    {
+      path: "/ns",
+      component: () => import('pages/pushedNews/pushedNews')
     }
   ]
 });

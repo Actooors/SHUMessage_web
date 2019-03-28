@@ -46,12 +46,21 @@ html, body, #app {
 .theme-XHeader {
   background-color: #fff !important;
   border-bottom: rgba(0, 15, 80, 0.08) solid 1px; }
+  .theme-XHeader.yellow {
+    background-color: yellow !important; }
+  .theme-XHeader.blue {
+    background-color: #2196F3 !important; }
   .theme-XHeader .vux-header-left, .theme-XHeader .vux-header-title, .theme-XHeader .vux-header-right, .theme-XHeader .vux-header-back {
     color: #000 !important; }
   .theme-XHeader .vux-header-more {
     color: #3c3c3c !important; }
   .theme-XHeader .vux-header-title {
     margin: 0 52px !important; }
+
+.theme-XHeader-blue {
+  background-color: #2196F3 !important; }
+  .theme-XHeader-blue .vux-header-left, .theme-XHeader-blue .vux-header-title, .theme-XHeader-blue .vux-header-right, .theme-XHeader-blue .vux-header-back {
+    color: white !important; }
 
 * {
   box-sizing: border-box; }

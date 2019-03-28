@@ -18,6 +18,12 @@ html, body, #app {
 
 .theme-XHeader {
   background-color: #fff !important;
+  &.yellow {
+    background-color: rgba(255, 255, 0, 1) !important;
+  }
+  &.blue {
+    background-color: $--theme-blue !important;
+  }
   border-bottom: $--background-deep solid 1px;
   .vux-header-left, .vux-header-title, .vux-header-right, .vux-header-back {
     color: #000 !important;
@@ -27,6 +33,12 @@ html, body, #app {
   }
   .vux-header-title {
     margin: 0 52px !important;
+  }
+}
+.theme-XHeader-blue{
+  background-color: $--theme-blue !important;
+  .vux-header-left, .vux-header-title, .vux-header-right, .vux-header-back {
+    color: white !important;
   }
 }
 
