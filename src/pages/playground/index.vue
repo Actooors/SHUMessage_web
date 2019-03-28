@@ -29,9 +29,9 @@
       class="tab animate-quick"
       id="tab"
     >
-      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">关注</tab-item>
+      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/attention',index)}">新闻</tab-item>
       <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/recommend',index)}">推荐</tab-item>
-      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">附近</tab-item>
+      <tab-item @on-item-click="(index)=>{handleClickTabItem('/playground/neighborhood',index)}">热门</tab-item>
     </tab>
     <keep-alive>
       <router-view class="playground-content"></router-view>

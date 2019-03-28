@@ -85,7 +85,9 @@
       position: relative;
       overflow: hidden; }
       .profile-viewbox .gallery .toprow .groupInfo {
-        padding-left: 15px; }
+        padding-left: 15px;
+        display: flex;
+        align-items: center; }
         .profile-viewbox .gallery .toprow .groupInfo .username {
           margin: 0;
           font-size: 1.1rem; }

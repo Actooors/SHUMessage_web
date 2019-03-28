@@ -75,8 +75,8 @@
       height: 24px;
       width: 54px; }
   .profile-viewbox .gallery {
-    background: url("http://mzzeast.shumsg.cn/18-12-31/12524706.jpg");
-    height: 330px;
+    background: url("../../assets/images/background.jpg");
+    height: 290px;
     padding: 80px 20px 0;
     position: relative; }
     .profile-viewbox .gallery .toprow {
