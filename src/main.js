@@ -16,6 +16,7 @@ import ApolloClient from 'apollo-boost'
 import VueApollo from 'vue-apollo'
 import preview from 'assets/js/vue-photo-preview'
 import 'assets/js/vue-photo-preview/dist/skin.css'
+import {getUserInfoFromToken} from 'assets/js/tokenTools'
 
 Vue.use(preview, {
   shareEl: true,
@@ -34,6 +35,7 @@ Vue.use(ConfirmPlugin);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
 Object.defineProperty(Vue.prototype, '$querystring', {value: querystring});
+Object.defineProperty(Vue.prototype, '$userInfo', {value: getUserInfoFromToken});
 
 //重新封装toast, type可为success/warning/error, width请设为偶数，否则由于居中方式的问题可能将导致模糊
 Vue.use(ShumsgToastPlugin);

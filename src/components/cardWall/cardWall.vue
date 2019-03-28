@@ -77,7 +77,7 @@
         position: relative;
         font-size: 12px;
         .titleWrapper {
-          /*height: 57px;*/
+          height: 57px;
           .trim-overflow {
             overflow: hidden;
             text-overflow: ellipsis;

@@ -69,13 +69,9 @@
     data() {
       return {
         tabIndex: 0,
-        tips: "29天, 3个订阅",
+        tips: "29天, 2个订阅",
         hasMessage: true,
-        info: {
-          avatar: require('assets/images/avatar.png'),
-          name: "赤膊吃西瓜",
-          id: 10001,
-        },
+        info: {},
         groups: [{
           id: 1,
           title: "资源动态",
@@ -116,7 +112,8 @@
             XHeader.classList.remove("theme-XHeader")
           }
         }
-      })
+      });
+      this.loadData()
     },
     methods: {
       handleClickMore() {
@@ -125,12 +122,44 @@
       handleClickMessage() {
         this.$router.push('/myMessage')
       },
-      handleClickAdd(){
+      handleClickAdd() {
         console.log("self - hancleClickAdd")
       },
       handleClickCard(card) {
-        this.$router.push('/group', {
-          query: {id: card.id}
+        this.$router.push({path: '/group', query: {id: card.id}})
+      },
+      loadData() {
+        const userInfo = this.$userInfo();
+        this.$axios({
+          url: apiRoot + `/user/info/${userInfo.id}`
+        }).then((res) => {
+          const data = res.data.data;
+          this.info = {
+            name: data.name,
+            avatar: data.avator,
+            id: userInfo.id
+          };
+        });
+        this.$axios({
+          url: apiRoot + `/group/groupList/${userInfo.id}`
+        }).then((res) => {
+          const data = res.data.data;
+          const arr = [];
+          data.forEach((x) => {
+            const items = [];
+            x.titleList.forEach((t) => {
+              const obj = {title: t};
+              items.push(obj);
+            });
+            const obj = {
+              id: x.groupId,
+              title: x.name,
+              amount: x.memberNum,
+              items
+            };
+            arr.push(obj);
+          });
+          this.groups = arr;
         })
       }
     }

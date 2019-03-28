@@ -23,7 +23,7 @@
         <span slot="label">自己</span>
       </tabbar-item>
     </tabbar>
-    <keep-alive :include="['playground']">
+    <keep-alive :include="['playground','self']">
       <router-view></router-view>
     </keep-alive>
   </ViewBox>

@@ -23,7 +23,7 @@
               <p>共{{groupInfo.starNum}}人加入</p>
             </div>
           </div>
-          <button class="follow" v-if="!isOwner">加入</button>
+          <button class="follow" @click="handleClickFollow">{{isJoined?'退出':'加入'}}</button>
         </div>
       </transition>
     </x-header>
@@ -37,15 +37,17 @@
           <div class="modifyAvatar" v-if="isOwner" @click="handleClickAvatar">
             <div @click="modifyAvatar">修改</div>
           </div>
-          <div class="groupInfo" v-if="!isOwner">
-            <h1 class="username stroke">{{groupInfo.username}}</h1>
-            <p class="signature stroke">{{groupInfo.signature}}</p>
+          <div class="groupInfo">
+            <div>
+              <h1 class="username stroke">{{groupInfo.username}}</h1>
+              <p class="signature stroke">{{groupInfo.signature}}</p>
+            </div>
           </div>
         </div>
         <div class="row">
-          <button class="follow">
+          <button class="follow" @click="handleClickFollow">
               <span>
-                <i class="icon-plus iconfont icon"></i>加入
+                <i class="icon-plus iconfont icon" v-if="!isJoined"></i>{{isJoined?'退出':'加入'}}
               </span>
           </button>
         </div>
@@ -75,7 +77,7 @@
                    style="font-size:17px;margin-right:3px;position: relative;top:-1px"></i>{{groupInfo.starNum}} 个成员
               </span>
             <span class="row" v-show="tabIndex===0">
-                <i class="icon-huida iconfont icon" style="font-size:14px;margin-right:5px"></i>{{groupInfo.likeSum}} 条消息
+                <i class="icon-huida iconfont icon" style="font-size:14px;margin-right:5px"></i>{{groupInfo.messageNum}} 条消息
               </span>
           </div>
           <div v-show="tabIndex===0">
@@ -137,7 +139,7 @@
 
   export default {
     name: "group",
-    mixins: [sharebarMixin, mockMixin, handleScrollMixin],
+    mixins: [sharebarMixin, handleScrollMixin],
     components: {
       ...{ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview},
       UserMessageCard
@@ -150,7 +152,10 @@
         lastScrollTime: 0
       },
       showHeaderInfo: false,
-      stickied: false
+      stickied: false,
+      isJoined: false,
+      groupInfo: {},
+      raw: []
     }),
     mounted() {
       this.initViewBoxPropertities();
@@ -162,7 +167,40 @@
 
       this.loadData()
     },
+    watch: {
+      tabIndex(val) {
+        this.raw = [];
+        this.updateData(!val)
+      }
+    },
     methods: {
+      handleClickFollow() {
+        if (this.isJoined) {
+          this.$axios({
+            url: apiRoot + `/group/quitGroup/${this.$route.query.id}`,
+            method: "post"
+          }).then((res) => {
+            if (res.data.code === "SUCCESS") {
+              this.isJoined = false;
+              this.$toast({text: "已成功退出圈子"});
+            } else {
+              this.$toast({text: res.data.message, type: "warning"})
+            }
+          })
+        } else {
+          this.$axios({
+            url: apiRoot + `/group/newGroup/${this.$route.query.id}`,
+            method: "post"
+          }).then((res) => {
+            if (res.data.code === "SUCCESS") {
+              this.isJoined = true;
+              this.$toast({text: "已成功加入圈子", emoji: true});
+            } else {
+              this.$toast({text: res.data.message, type: "warning"})
+            }
+          })
+        }
+      },
       handleClickAvatar() {
         let evt = document.createEvent("MouseEvents");
         evt.initEvent("click", false, false);
@@ -175,7 +213,48 @@
         event.stopPropagation();
       },
       loadData() {
-
+        this.$axios({
+          url: apiRoot + `/group/info`,
+          params: {
+            groupId: this.$route.query.id
+          }
+        }).then((res) => {
+          const data = res.data.data;
+          this.groupInfo = {
+            username: data.name,
+            avatar: 'https://ws1.sinaimg.cn/thumbnail/006P5HMAly1g1itcjv7uoj30dw0dwjsn.jpg',
+            signature: data.about,
+            starNum: data.memberNum,
+            messageNum: data.messageNum
+          };
+          this.isJoined = data.added;
+        });
+        this.updateData();
+      },
+      updateData(byTime = true) {
+        if (byTime) {
+          this.$axios({
+            url: apiRoot + `/news/groupNews`,
+            params: {
+              groupId: this.$route.query.id
+            }
+          }).then((res) => {
+            const data = res.data.data;
+            this.raw = [{cards: data.cards}];
+            this.groupInfo.messageNum = data.nums;
+          })
+        } else {
+          this.$axios({
+            url: apiRoot + `/news/groupNewsByLike`,
+            params: {
+              groupId: this.$route.query.id
+            }
+          }).then((res) => {
+            const data = res.data.data;
+            this.raw = [{cards: data.cards}];
+            this.groupInfo.messageNum = data.nums;
+          })
+        }
       },
       initViewBoxPropertities() {
         let e = this.$refs.viewbox.getScrollBody();

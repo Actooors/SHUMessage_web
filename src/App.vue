@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="/static/faviconTiny144.png" style="height:0;font-size:0;position:fixed;">
-    <keep-alive :include="['mainpage','playground','msgDetail']">
+    <keep-alive :include="['mainpage','msgDetail']">
       <router-view></router-view>
     </keep-alive>
   </div>

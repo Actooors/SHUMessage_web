@@ -142,20 +142,22 @@
 
   export default {
     name: "profile",
-    mixins: [sharebarMixin, mockMixin, handleScrollMixin],
+    mixins: [sharebarMixin, handleScrollMixin],
     components: {
       ...{ViewBox, XHeader, Tab, TabItem, Group, CellFormPreview},
       UserMessageCard
     },
     data: () => ({
-      isUser: true,
+      isUser: false,
       tabIndex: 0,
       scrollStatus: {
         scrollTop: 0,
         lastScrollTime: 0
       },
       showHeaderInfo: false,
-      stickied: false
+      stickied: false,
+      userInfo: {},
+      raw: []
     }),
     mounted() {
       this.initViewBoxPropertities();
@@ -180,13 +182,36 @@
         event.stopPropagation();
       },
       loadData() {
-        const info = this.$axios({
-          url: apiRoot + '/user/info',
-          params: {
-            id: 16121663
-          }
+        this.$axios({
+          url: apiRoot + `/user/info/${this.$route.query.id}`
         }).then((res) => {
-          console.log(res.data)
+          const data = res.data.data;
+          this.userInfo = {
+            username: data.name,
+            avatar: data.avator,
+            sex: '男',
+            starNum: data.followMe,
+            createGroupNum: data.createGroupNum,
+            starGroupNum: data.joinGroupNum,
+            starOthersNum: data.followOthers,
+            signature: data.personalLabel,
+            basic: [
+              {
+                label: "性别",
+                value: "男"
+              },
+              {
+                label: "星座",
+                value: "双鱼座"
+              },
+              {
+                label: "所在地",
+                value: "四川 - 成都"
+              }
+            ],
+            tags: []
+          };
+          this.isUser = this.$userInfo().id === this.$route.query.id;
         })
       },
       initViewBoxPropertities() {
@@ -218,7 +243,7 @@
       left: 0;
       width: 100%;
       height: 52px;
-      background: url("http://mzzeast.shumsg.cn/18-12-31/12524706.jpg");
+      background: url('../../assets/images/background.jpg');
       background-position-x: 0;
       background-position-y: 5px;
     }

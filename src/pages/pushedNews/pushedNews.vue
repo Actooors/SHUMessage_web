@@ -18,7 +18,7 @@
       @click.native="handleClickCard(index)"
       @onClickShareButton="handleClickShareButton(...arguments,item)"
     ></common-card>
-    <LoadMore :show-loading=false tip="看完了,去主页看看吧!" @click.native="handleClickBack" v-if="cards.length>0"></LoadMore>
+    <LoadMore :show-loading=false tip="看完了,去别处看看吧!" @click.native="handleClickBack" v-if="cards.length>0"></LoadMore>
     <div class="more-loading" v-else>
       <Spinner type="lines"></Spinner>
     </div>
@@ -52,7 +52,7 @@
         if (index === null) {
           index = this.cards.findIndex(card => card.info === info)
         }
-        this.$store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        this.$store.commit("pushRouter/SET_CARD_ITEM", this.cards[index]);
         let that = this;
         this.$router.push({
           path: '/detail/msg',
@@ -65,14 +65,32 @@
           url: apiRoot + '/news/interestNews',
           method: "get",
           params: {
-            wd:this.$route.query.wd
+            wd: this.$route.query.wd
           }
         }).then((res) => {
           //营造数据刷新的效果
           that.cards.length = 0;
+          if (res.data.code === "FAILED") {
+            that.$toast({text: res.data.message, type: 'warning'});
+            setTimeout(() => {
+              that.$toast({text: "现在跳转到首页"});
+            }, 2300);
+            setTimeout(() => {
+              that.handleClickBack();
+            }, 2500);
+            return
+          }
           setTimeout(() => {
             that.cards = res.data.data.cards
           }, 20)
+        }).catch(() => {
+          that.$toast({text: '请检查链接是否正确', type: 'error'})
+          setTimeout(() => {
+            that.$toast({text: "现在跳转到首页"});
+          }, 2300);
+          setTimeout(() => {
+            that.handleClickBack();
+          }, 2500);
         })
       },
       handleClickBack() {

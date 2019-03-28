@@ -47,6 +47,8 @@ $avatar-radius: 6px;
       overflow: hidden;
       .groupInfo {
         padding-left: 15px;
+        display: flex;
+        align-items: center;
         .username {
           margin: 0;
           font-size: 1.1rem;
