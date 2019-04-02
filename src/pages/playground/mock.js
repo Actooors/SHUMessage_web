@@ -6,14 +6,14 @@ export const recommend = {
         id: 1
       },
       topic: {
-        id: 1,
-        name: "喵星人的日常"
+        id: 3,
+        name: "图书馆新闻"
       },
       content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
       author: {
-        id: 10001,
-        avatar: require('../../../static/favicon144.png'),
-        name: "Message广场导游"
+        id: 1,
+        avatar: "https://ws1.sinaimg.cn/thumbnail/006P5HMAly1g1iry5i1ukj307g07h0vh.jpg",
+        name: "图书馆"
       },
       extraInfo: "编辑推荐",
       shareInfo: {
@@ -37,7 +37,7 @@ export const recommend = {
       },
       content: "2019年上海大学春季招生各专业缺额计划表",
       author: {
-        id: 10001,
+        id: 2,
         avatar: 'https://ws1.sinaimg.cn/thumbnail/006P5HMAly1g1is2qmh29j304w04wt9c.jpg',
         name: "本科招生网"
       },
@@ -63,12 +63,12 @@ export const recommend = {
         id: 1
       },
       topic: {
-        id: 1,
-        name: "喵星人的日常"
+        id: 3,
+        name: "图书馆新闻"
       },
       content: "上海大学图书馆2019年公开招聘启事",
       author: {
-        id: 10001,
+        id: 1,
         avatar: 'https://ws1.sinaimg.cn/thumbnail/006P5HMAly1g1iry5i1ukj307g07h0vh.jpg',
         name: "图书馆"
       },
@@ -203,9 +203,9 @@ export const recommend = {
       },
       content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
       author: {
-        id: 10001,
+        id: 1,
         avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
-        name: "Message广场导游"
+        name: "图书馆"
       },
       extraInfo: "编辑推荐",
       shareInfo: {
@@ -255,7 +255,7 @@ export const recommend = {
       },
       content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
       author: {
-        id: 10001,
+        id: 1,
         avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
         name: "Message广场导游"
       },
@@ -281,85 +281,7 @@ export const recommend = {
       },
       content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
       author: {
-        id: 10001,
-        avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
-        name: "Message广场导游"
-      },
-      extraInfo: "编辑推荐",
-      shareInfo: {
-        like: 5348,
-        comment: 221,
-        share: 149
-      },
-      footprint: {
-        like: false,
-        comment: false,
-        share: false
-      }
-    }, {
-      info: {
-        type: 0,
-        id: 1
-      },
-      topic: {
         id: 1,
-        name: "喵星人的日常"
-      },
-      content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
-      author: {
-        id: 10001,
-        avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
-        name: "Message广场导游"
-      },
-      extraInfo: "编辑推荐",
-      shareInfo: {
-        like: 5348,
-        comment: 221,
-        share: 149
-      },
-      footprint: {
-        like: false,
-        comment: false,
-        share: false
-      }
-    }, {
-      info: {
-        type: 0,
-        id: 1
-      },
-      topic: {
-        id: 1,
-        name: "喵星人的日常"
-      },
-      content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
-      author: {
-        id: 10001,
-        avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
-        name: "Message广场导游"
-      },
-      extraInfo: "编辑推荐",
-      shareInfo: {
-        like: 5348,
-        comment: 221,
-        share: 149
-      },
-      footprint: {
-        like: false,
-        comment: false,
-        share: false
-      }
-    }, {
-      info: {
-        type: 0,
-        id: 1
-      },
-      topic: {
-        id: 1,
-        name: "喵星人的日常"
-      },
-      content: "筹集爱心，救助流浪猫咪！我们联合流浪猫救助站，做了一次宠物爱心公益。你在这里留下的每一个足记，都有可能挽救一只待哺的流浪猫咪！",
-      author: {
-        id: 10001,
         avatar: "https://avatars2.githubusercontent.com/u/30586220?s=460&v=4",
         name: "Message广场导游"
       },
