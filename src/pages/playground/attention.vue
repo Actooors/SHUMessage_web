@@ -1,20 +1,24 @@
 <template>
   <scroll
     @on-scroll="handleScroll"
-    :noMore="noMore"
-    :pulldownCallback="()=>handlePulldownLoading('/news/newsList')"
-    :pullupCallback="()=>handlePullupLoading('/news/newsList')"
-    :showLoadIcon="showLoadIcon"
+    :xhr-path="xhrPath"
+    :xhr-page-size="10"
+    :xhr-params-format="{page:'page',pageSize:'pageSize'}"
+    xhr-data-array-path="data.cards"
+    xhr-no-more-equal="code==='FAILED'"
+    xhr-no-more-tip="没有更多的新闻啦"
     body-padding-bottom="47px"
   >
-    <common-card
-      v-for="(item,index) of cards"
-      :key="item.value"
-      :msg="item"
-      @clickTopic="$router.push({path:'/group',query:{id:item.topic.id}})"
-      @click.native="handleClickCard(index)"
-      @onClickShareButton="handleClickShareButton(...arguments,item)"
-    ></common-card>
+    <template slot-scope="props">
+      <common-card
+        v-for="(item,index) of props.dataArray"
+        :key="item.value"
+        :msg="item"
+        @clickTopic="$router.push({path:'/group',query:{id:item.topic.id}})"
+        @click.native="handleClickCard(index)"
+        @onClickShareButton="handleClickShareButton(...arguments,item)"
+      ></common-card>
+    </template>
   </scroll>
 </template>
 
@@ -26,26 +30,22 @@
   import store from 'store/store'
   import sharebarMixin from '../../assets/js/sharebarMixin/index'
   import {Spinner} from 'vux'
-  import xhrMixin from './xhrMixin'
 
   export default {
     name: "attention",
     store,
     components: {...{Spinner}, CommonCard, Scroll},
-    mixins: [scrollMixin, sharebarMixin, xhrMixin],
+    mixins: [scrollMixin, sharebarMixin],
     data: () => ({
       cards: [],
       showLoadIcon: true
     }),
-    mounted() {
-      this.loadData()
+    computed: {
+      xhrPath() {
+        return apiRoot + '/news/newsList';
+      }
     },
     methods: {
-      loadData() {
-        this.xhrRequestList('/news/newsList').finally(() => {
-          this.showLoadIcon = false
-        });
-      },
       handleClickCard(index, info) {
         if (index === null) {
           index = this.cards.findIndex(card => card.info === info)

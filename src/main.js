@@ -12,8 +12,8 @@ import axios from 'axios'
 import PullToRefreshDirective from 'assets/js/pullToRefreshDirective'
 import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
-import ApolloClient from 'apollo-boost'
-import VueApollo from 'vue-apollo'
+// import ApolloClient from 'apollo-boost'
+// import VueApollo from 'vue-apollo'
 import preview from 'assets/js/vue-photo-preview'
 import 'assets/js/vue-photo-preview/dist/skin.css'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
@@ -30,7 +30,7 @@ Vue.use(preview, {
     {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
   ]
 });
-Vue.use(VueApollo);
+// Vue.use(VueApollo);
 Vue.use(ConfirmPlugin);
 
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
@@ -56,18 +56,18 @@ Vue.use(VueLazyload, {
 });
 
 Vue.config.productionTip = false;
-
-const apolloClient = new ApolloClient({
-  // 你需要在这里使用绝对路径
-  uri: 'http://129.204.71.113/graphql'
-});
-const apolloProvider = new VueApollo({
-  defaultClient: apolloClient,
-});
+//
+// const apolloClient = new ApolloClient({
+//   // 你需要在这里使用绝对路径
+//   uri: 'http://129.204.71.113/graphql'
+// });
+// const apolloProvider = new VueApollo({
+//   defaultClient: apolloClient,
+// });
 new Vue({
   router,
   store,
-  apolloProvider,
+  // apolloProvider,
   render: h => h(App),
   // mounted() {
   //   告知prerender-spa-plugin可以移除骨架屏了
