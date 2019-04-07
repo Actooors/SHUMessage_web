@@ -200,10 +200,18 @@
       },
       handlePullToRefresh() {
         //看看是否托付了xhr
+        let p1, p2;
         if (this.xhrPath) {
-          this.xhrLoadData(true)
+          p1 = this.xhrLoadData(true)
         }
-        return this.pulldownCallback(...arguments);
+        if (typeof this.pulldownCallback === "function") {
+          //调用pulldownCallback
+          let f = this.pulldownCallback(...arguments);
+          if (f && typeof f.then === "function") {
+            p2 = f;
+          }
+        }
+        return Promise.all([p1, p2]);
       }
     }
   }
