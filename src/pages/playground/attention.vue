@@ -15,7 +15,7 @@
         :key="item.value"
         :msg="item"
         @clickTopic="$router.push({path:'/group',query:{id:item.topic.id}})"
-        @click.native="handleClickCard(index)"
+        @click.native="handleClickCard(item.info)"
         @onClickShareButton="handleClickShareButton(...arguments,item)"
       ></common-card>
     </template>
@@ -37,7 +37,6 @@
     components: {...{Spinner}, CommonCard, Scroll},
     mixins: [scrollMixin, sharebarMixin],
     data: () => ({
-      cards: [],
       showLoadIcon: true
     }),
     computed: {
@@ -46,15 +45,15 @@
       }
     },
     methods: {
-      handleClickCard(index, info) {
-        if (index === null) {
-          index = this.cards.findIndex(card => card.info === info)
-        }
-        store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
-        let that = this;
+      handleClickCard(info) {
+        // if (index === null) {
+        //   index = this.cards.findIndex(card => card.info === info)
+        // }
+        // store.commit("pushRouter/SET_CARD_ITEM", this.cards[index])
+        this.$store.commit('pushRouter/SET_REFRESH_MSG_DETAIL', true);
         this.$router.push({
           path: '/detail/msg',
-          query: {...that.cards[index].info, elComment: !!info}
+          query: {...info, elComment: false}
         })
       }
     }

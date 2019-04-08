@@ -3,7 +3,6 @@ import {querystring} from 'vux'
 
 export default {
   data: () => ({
-    allLoaded: false,
     msg: {
       //防止ajax之前渲染replyPlaceholder时出错
       author: {
@@ -17,41 +16,26 @@ export default {
   }),
   methods: {
     reloadData() {
-      this.$route.query.elComment = false
-      this.$store.commit('pushRouter/SET_CARD_ITEM', null);
-      return this.loadData(false);
+      this.$route.query.elComment = false;
+      return this.loadData();
     },
-    loadData(tryVuex = true) {
-      // console.log("loadData")
-      let loadMessage = null
-      this.allLoaded = false
-      if (tryVuex && !!this.$store.state.pushRouter.cardItem) {
-        console.log("此处直接用vuex的cardItem后销毁")
-        //vuex里面存有状态，直接渲染
-        this.msg = this.$store.state.pushRouter.cardItem
-        //渲染后销毁状态
-        this.$store.commit('pushRouter/SET_CARD_ITEM', null)
-        loadMessage = Promise.resolve()
-      } else {
-        //老老实实axios
-        console.log("此处应该有ajax", this.$route.query)
-        loadMessage = this.$axios({
-          url: apiRoot + '/common/message',
-          method: "get",
-          params: this.$route.query
-        }).then((res) => {
-          this.msg = res.data.data
-          // this.allLoaded = true
-        }).catch((err) => {
-          console.error(err)
-        })
-      }
+    loadData() {
+      this.loaded = false;
+      const that = this;
+      //老老实实axios
+      console.log("此处应该有ajax", this.$route.query)
+      const loadMessage = this.$axios({
+        url: apiRoot + '/common/message',
+        method: "get",
+        params: this.$route.query
+      }).then((res) => {
+        this.msg = res.data.data
+      }).catch((err) => {
+        console.error(err)
+      });
       return Promise.all([loadMessage, this.loadComment()]).then(() => {
-        //触发一次watch allLoaded
-        this.allLoaded = false
-        this.$nextTick(() => {
-          this.allLoaded = true
-        })
+        that.handleAfterLoaded();
+        that.loaded = true;
       })
     },
     loadComment() {
@@ -72,10 +56,10 @@ export default {
         if (res.data.code === "FAILED") {
           switch (res.data.message) {
             case "没有评论":
-              console.log("糟了，没有评论")
+              console.log("糟了，没有评论");
               break
           }
-          this.raw = []
+          this.raw = [];
           return
         }
         this.raw = res.data.data.raw
@@ -92,7 +76,7 @@ export default {
         limit = [10];
         updateBlockIndex = 0;
       }
-      let that = this
+      let that = this;
       if (!this.loadingMoreComments) {
         ++this.page;
         this.loadingMoreComments = true
@@ -131,7 +115,7 @@ export default {
       }
     },
     handleComment(content, img, info) {
-      let that = this
+      let that = this;
       this.$axios({
         url: apiRoot + '/comment/newComment',
         method: 'post',
@@ -153,10 +137,10 @@ export default {
         //   await that.loadComment()
         //   that.$vux.toast.text('评论成功')
         // })();
-        that.noMore = false
-        that.page = 0
-        that.loadComment()
-        this.$toast({text: '评论成功'});
+        that.noMore = false;
+        that.page = 0;
+        that.loadComment();
+        that.$toast({text: '评论成功'});
 
         // //如果是在评论界面回复评论
         // if (info.type.toString() !== this.$route.query.type.toString()) {

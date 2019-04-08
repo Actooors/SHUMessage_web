@@ -4,6 +4,7 @@
     :pulldownCallback="reloadData"
     :pullupCallback="loadMore"
     :showLoadIcon="showLoadIcon"
+    @afterLoaded="handleAfterLoaded"
     ref="viewBox"
     body-padding-bottom="94px"
   >
@@ -49,10 +50,7 @@
         ></comment-card>
       </div>
       <div class="comment-blocks" id="comment-blocks">
-        <div class="more-loading" v-if="!raw.length && !allLoaded">
-          <Spinner type="lines"></Spinner>
-        </div>
-        <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && allLoaded"></LoadMore>
+        <LoadMore :show-loading=false tip="暂无评论，快来抢沙发吧！" v-if="!raw.length && loaded"></LoadMore>
         <div
           v-for="(block,blockIndex) of raw"
           :key="block.value"
@@ -146,6 +144,7 @@
       Scroll
     },
     data: () => ({
+      loaded: false,
       showLoadIcon: true,
       timer: null,
       tick: 0,
@@ -174,32 +173,18 @@
       }
     },
     watch: {
-      allLoaded(val) {
-        let that = this
-        if (val) {
-          this.$nextTick(() => {
-            stickybits('.justBar-box', {stickyBitStickyOffset: -1})
-            this.initClipboard()
-            that.judgeAndMoveToCommentBlocks()
-          })
-        }
-        this.replyName = this.msg.author.name
-        this.replyInfo = this.msg.info
-      },
       '$route'(to, from) {
         const that = this;
         const isEnter = isRouteEnter(this, to);
         if (isEnter) {
-          // console.log("isEnter->initTitle", to.name, this.$options.name, this.$parent.$options.name, this.$parent)
-          store.commit("pushRouter/SET_ROUTE_CHANGED", true);
           this.showPop = [-1, -1];
           this.initTitle();
         }
-        if (!this.allLoaded || !!this.$store.state.pushRouter.cardItem
-          && isEnter
-        ) {
+        if (isEnter && store.state.pushRouter.refreshMsgDetail) {
+          this.$store.commit('pushRouter/SET_REFRESH_MSG_DETAIL', false);
           //先拉白屏
           console.log("可以的，loadData");
+          this.showLoadIcon = true;
           this.msg = {
             //防止replyPlaceholder出错
             author: {
@@ -211,49 +196,47 @@
           this.loadingMoreComments = false;
           this.page = 0;
           this.$nextTick(() => {
-            that.loadData().finally(() => {
-              that.showLoadIcon = false
-            })
+            that.loadData();
           })
         }
       }
     },
     mounted() {
       let that = this;
-      // this.previewerOptions = {
-      //   getThumbBoundsFn: this.getThumbBoundsFn
-      // }
-      const el = this.$refs.viewBox.getScrollBody()
+      const el = this.$refs.viewBox.getScrollBody();
       this.scrollBody = el;
-      this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1])
+      this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1]);
       // this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
-      this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1])
-      el.addEventListener('scroll', () => this.showPop = [-1, -1])
+      this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1]);
+      el.addEventListener('scroll', () => this.showPop = [-1, -1]);
       // el.addEventListener('scroll', (event) => this.handleScroll(event, el))
 
-      if (this.allLoaded) {
-        this.judgeAndMoveToCommentBlocks()
-      }
-      this.initTitle()
+      this.initTitle();
       this.timer = setInterval(() => {
         that.tick = Date.now()
-      }, 1000)
-      if (!this.allLoaded) {
-        // console.log("mounted")
-        this.loadData().finally(() => {
-          that.showLoadIcon = false
-        })
-      }
+      }, 1000);
+      this.loadData();
     },
     beforeDestroy() {
-      clearInterval(this.timer)
-      const el = this.$refs.viewBox.getScrollBody()
+      clearInterval(this.timer);
+      const el = this.$refs.viewBox.getScrollBody();
       el.removeEventListener('scroll', () => this.showPop = [-1, -1])
     },
     methods: {
+      handleAfterLoaded() {
+        const that = this;
+        this.showLoadIcon = false;
+        this.$nextTick(() => {
+          stickybits('.justBar-box', {stickyBitStickyOffset: -1});
+          that.initClipboard();
+          that.judgeAndMoveToCommentBlocks();
+        });
+        this.replyName = this.msg.author.name;
+        this.replyInfo = this.msg.info;
+      },
       handleShare(btnIndex, msg) {
         //对所有满足msg.info的数据进行
-        let arr = []
+        let arr = [];
         console.log("?", msg)
         this.raw.map((block) => {
           arr.push(...block.cards.filter(card => card.info.id === msg.info.id && card.info.type === msg.info.type))
@@ -263,40 +246,21 @@
       },
       initTitle() {
         if ('type' in this.$route.query) {
-          this.showComment = true
+          this.showComment = true;
           switch (this.$route.query.type.toString()) {
             case '0':
-              this.headerTitle = '消息详情'
+              this.headerTitle = '消息详情';
               break;
             case '1':
-              this.headerTitle = '动态详情'
+              this.headerTitle = '动态详情';
               break;
             case '2':
-              this.headerTitle = '评论详情'
-              this.showComment = false
+              this.headerTitle = '评论详情';
+              this.showComment = false;
               break;
           }
         }
       },
-      // //previewer需要的options函数，用于计算缩略图源位置，以显示点开时的动画效果
-      // getThumbBoundsFn(index) {
-      //   let thumbnail = this.previewerTarget
-      //   let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
-      //   let rect = thumbnail.getBoundingClientRect()
-      //   return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
-      // },
-      // handleClickCommentImg(target) {
-      //   this.previewerList = [{
-      //     msrc: target.src,
-      //     src: target.src,
-      //     w: target.innerHeight,
-      //     h: target.innerWidth
-      //   }]
-      //   this.previewerTarget = target
-      //   setTimeout(() => {
-      //     this.$refs.previewer.show(0)
-      //   }, 0)
-      // },
       initClipboard() {
         let clipboard = new ClipboardJS('.copy-content');
         clipboard.on('success', (e) => {
@@ -333,7 +297,7 @@
       },
       judgeAndMoveToCommentBlocks(judge = true) {
         if (!judge
-          || ('elComment' in this.$route.query && this.$querystring.parse().elComment === "true")//query的特殊性
+          || ('elComment' in this.$route.query && this.$route.query.elComment.toString() === "true")//query的特殊性
         ) {
           console.log("锚过来啊");
           let el = this.scrollBody;
@@ -348,7 +312,7 @@
         })
       },
       handleClickCard() {//该函数名不具有实际意义，仅供sharebarMixin统一调用
-        this.judgeAndMoveToCommentBlocks(false)
+        // this.judgeAndMoveToCommentBlocks(false)
       },
       judgeDeleteRight(commentItem) {
         let userinfo = getUserInfoFromToken()

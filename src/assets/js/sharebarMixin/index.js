@@ -6,7 +6,7 @@ import store from 'store/store'
 export default {
   store,
   mounted() {
-    console.log(this._getShareVN(), 'sharebarMixin: mounted');
+    // console.log(this._getShareVN(), 'sharebarMixin: mounted');
   },
   methods: {
     /*
@@ -76,11 +76,15 @@ export default {
           break;
         case 1:
           //1是评论
-          if ("handleClickCard" in this) {
-            this.handleClickCard(null, msgs[0].info)
-          } else if ("maincard" in this.$refs && "handleClickCard" in this.$refs.maincard) {
-            this.$refs.maincard.handleClickCard(null, msgs[0].info)
-          }
+          // if ("handleClickCard" in this) {
+          //   this.handleClickCard(null, msgs[0].info)
+          // } else if ("maincard" in this.$refs && "handleClickCard" in this.$refs.maincard) {
+          //   this.$refs.maincard.handleClickCard(null, msgs[0].info)
+          // }
+          this.$router.push({
+            path: '/detail/msg',
+            query: {...msgs[0].info, elComment: true}
+          });
           break;
         case 2:
           //2是转发

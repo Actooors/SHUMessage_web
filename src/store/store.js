@@ -58,9 +58,13 @@ const pushRouter = {
     routeChanged: false,
     defaultHistoryLength: 0,
     scrollTop: {},
-    topBarOffset: {}
+    topBarOffset: {},
+    refreshMsgDetail: false
   },
   mutations: {
+    SET_REFRESH_MSG_DETAIL(state, val) {
+      state.refreshMsgDetail = val;
+    },
     SET_CARD_ITEM(state, item) {
       state.cardItem = item
     },

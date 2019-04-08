@@ -49,7 +49,7 @@ const router = new Router({
           component: Playground,
           children: [{
             path: '',
-            redirect: 'recommend'
+            redirect: 'attention'
           }, {
             path: 'attention',
             component: Attention,

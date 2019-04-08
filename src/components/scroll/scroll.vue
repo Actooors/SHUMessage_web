@@ -88,7 +88,7 @@
     }),
     mounted() {
       this.initScroll(this.specificScrollBody);
-      this.xhrLoadData();
+      this.xhrPath && this.xhrLoadData();
     },
     watch: {
       specificScrollBody(val, oldVal) {
@@ -196,6 +196,7 @@
           console.log(that.dataArray)
         }).finally(() => {
           that.bShowLoadIcon = false;
+          that.$emit('afterLoaded')
         })
       },
       handlePullToRefresh() {
