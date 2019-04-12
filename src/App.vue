@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="/static/faviconTiny144.png" style="height:0;font-size:0;position:fixed;">
-    <keep-alive :include="['mainpage','msgDetail']">
+    <keep-alive :include="['mainpage','msgDetail','commentDetail']">
       <router-view></router-view>
     </keep-alive>
   </div>
@@ -26,7 +26,7 @@
     },
     mounted() {
       localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjEyMjEzMSIsImV4cCI6MTg1NjM3MDkzMSwidXNlck5hbWUiOiLpg63lrZ_nhLYiLCJpYXQiOjE1NDUzMzA5MzF9.xmeHnjdFMj6sTDl9qJoJnRwUu-I1iUX2VXznQal9DL6kAw8CyGWoKsNDgIAejqPriOksy9Faee96tZkCeZ5W5w')
-      console.log(getUserInfoFromToken())
+      console.log("userInfoFromToken", getUserInfoFromToken())
       //解除iOS的橡皮筋回弹效果
       // this.InitAginstRubberBand()
     },
