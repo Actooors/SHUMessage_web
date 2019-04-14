@@ -89,7 +89,7 @@
         timeout: 10000,
         maximumAge: 0,
         GeoLocationFirst: false,
-        noGeoLocation: 3,
+        noGeoLocation: 2,
         events: {
           init(o) {
             console.log("?", o);
@@ -143,17 +143,22 @@
     mounted() {
       that = this;
       this.calcCheckListHeight();
-      document.querySelector('.search-box-wrapper input').addEventListener('input', this.handleKeywordChanged)
+      const elem = document.querySelector('.search-box-wrapper input');
+      elem && elem.addEventListener('input', this.handleKeywordChanged)
     },
     beforeDestroy() {
-      document.querySelector('.search-box-wrapper input').removeEventListener('input', this.handleKeywordChanged)
+      const elem = document.querySelector('.search-box-wrapper input');
+      elem && elem.removeEventListener('input', this.handleKeywordChanged)
     },
     methods: {
       handleKeywordChanged(event) {
-        if (!event.target.value.length) {
-          document.querySelector('.search-tips').style = "display: none";
-        } else {
-          document.querySelector('.search-tips').style = "";
+        const e = document.querySelector('.search-tips');
+        if (e) {
+          if (!event.target.value.length) {
+            e.style = "display: none"
+          } else {
+            e.style = ""
+          }
         }
       },
       calcCheckListHeight() {
@@ -219,7 +224,11 @@
   }
 
   .search-box {
-    opacity: .7;
+    opacity: .8;
+  }
+
+  .amap-geolocation-con, .amap-logo {
+    z-index: 3 !important;
   }
 </style>
 
@@ -237,7 +246,7 @@
   }
 
   .theme-XHeader {
-    z-index: 10000;
+    z-index: 10;
   }
 
   .button {
@@ -275,7 +284,7 @@
     top: 47px;
     left: 0;
     width: 100%;
-    z-index: 10001;
+    z-index: 10;
   }
 
   .amap-page-container {
