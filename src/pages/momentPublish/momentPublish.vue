@@ -24,7 +24,7 @@
           <CellBox is-link @click="selectGroup=true">
             <p style="display: block">选择圈子</p>
           </CellBox>
-          <CellBox is-link>
+          <CellBox is-link @click="handleClickWhere">
             你在哪里？
           </CellBox>
         </Group>
@@ -56,6 +56,19 @@
         this.$nextTick(() => {
           this.selectGroup = false;
         })
+      },
+      handleClickWhere() {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            console.log(lat, lon)
+          }, ((error) => {
+            this.$toast({
+              text: "无法获得您的位置: " + error.message,
+              type: "error"
+            });
+          })
+        )
       }
     }
   }

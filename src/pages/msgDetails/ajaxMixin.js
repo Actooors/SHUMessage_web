@@ -29,8 +29,6 @@ export default {
         params: this.$route.query
       }).then((res) => {
         this.msg = res.data.data
-      }).catch((err) => {
-        console.error(err)
       });
       return Promise.all([loadMessage, this.loadComment()]).then(() => {
         that.handleAfterLoaded();
@@ -62,8 +60,6 @@ export default {
           return
         }
         this.raw = res.data.data.raw
-      }).catch((err) => {
-        console.error(err)
       })
     },
     loadMore(callback) {
