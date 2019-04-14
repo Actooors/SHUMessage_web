@@ -13,6 +13,8 @@
 后端传送门：[SHU_Message_Service](https://github.com/Actooors/SHU_Message_Service)
 爬虫传送门：[SHUMessage-Scrapy](https://github.com/Actooors/SHUMessage-Scrapy)
 
+![](https://ws1.sinaimg.cn/large/006P5HMAgy1g224wou96ej30vi3a4hbv.jpg)
+
 ### Before Build
 
 ``` bash
