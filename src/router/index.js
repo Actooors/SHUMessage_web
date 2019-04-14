@@ -21,6 +21,7 @@ import CommentDetail from 'pages/msgDetails/commentDetail'
 import Seo from 'pages/seo/seo'
 import Profile from 'pages/profile/profile'
 import MyMessage from 'pages/myMessage/myMessage'
+import Login from 'pages/login/login'
 
 Vue.use(Router);
 Router.prototype.go = function (delta) {
@@ -185,6 +186,11 @@ const router = new Router({
     {
       path: "/ns",
       component: () => import('pages/pushedNews/pushedNews')
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
     }
   ]
 });

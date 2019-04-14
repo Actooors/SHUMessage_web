@@ -135,7 +135,7 @@
 </script>
 
 <style lang="less">
-  @import url('//at.alicdn.com/t/font_806770_5pbycu6mqek.css');
+  @import url('//at.alicdn.com/t/font_806770_rdeyn6a663m.css');
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
   @import '~vux/src/styles/close.less';
