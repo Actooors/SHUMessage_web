@@ -23,7 +23,6 @@ export default {
       this.loaded = false;
       const that = this;
       //老老实实axios
-      console.log("此处应该有ajax", this.$route.query)
       const loadMessage = this.$axios({
         url: apiRoot + '/common/message',
         method: "get",

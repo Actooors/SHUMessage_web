@@ -144,6 +144,7 @@
       Scroll
     },
     data: () => ({
+      currQuery: {},
       loaded: false,
       showLoadIcon: true,
       timer: null,
@@ -168,37 +169,39 @@
       showPopBoolean() {
         return this.showPop[0] >= 0 && this.showPop[1] >= 0
       },
-      query() {
-        return querystring.parse(location.search)
-      }
     },
-    watch: {
-      '$route'(to, from) {
-        const that = this;
-        const isEnter = isRouteEnter(this, to);
-        if (isEnter) {
-          this.showPop = [-1, -1];
-          this.initTitle();
-        }
-        if (isEnter && store.state.pushRouter.refreshMsgDetail) {
-          this.$store.commit('pushRouter/SET_REFRESH_MSG_DETAIL', false);
-          //先拉白屏
-          console.log("可以的，loadData");
-          this.showLoadIcon = true;
-          this.msg = {
-            //防止replyPlaceholder出错
-            author: {
-              name: ""
-            }
-          };
-          this.raw = [];
-          this.noMore = false;
-          this.loadingMoreComments = false;
-          this.page = 0;
-          this.$nextTick(() => {
-            that.loadData();
-          })
-        }
+    activated() {
+      const that = this;
+      this.showPop = [-1, -1];
+      this.initTitle();
+      const query = this.query();
+      if (this.currQuery.type !== query.type || this.currQuery.id !== query.id) {
+        console.log("更新", query, this.currQuery);
+        this.currQuery = query;
+        //先拉白屏
+        this.showLoadIcon = true;
+        this.msg = {
+          //防止replyPlaceholder出错
+          author: {
+            name: ""
+          }
+        };
+        this.raw = [];
+        this.noMore = false;
+        this.loadingMoreComments = false;
+        this.page = 0;
+        this.$nextTick(() => {
+          that.loadData().catch(() => {
+            //下回得重新刷新
+            that.currQuery = {};
+            that.$toast({
+              text: "拉取消息失败，手动刷新试试吧",
+              type: "warning"
+            })
+          });
+        })
+      } else {
+        console.log("不更新", this.$route.query, this.currQuery)
       }
     },
     mounted() {
@@ -206,16 +209,12 @@
       const el = this.$refs.viewBox.getScrollBody();
       this.scrollBody = el;
       this.$refs.viewBox.$el.addEventListener('touchmove', () => this.showPop = [-1, -1]);
-      // this.$refs.viewBox.$el.addEventListener('touchstart', () => this.$refs.replyBar.$el.querySelector('#textarea').blur())
       this.$refs.viewBox.$el.addEventListener('click', () => this.showPop = [-1, -1]);
       el.addEventListener('scroll', () => this.showPop = [-1, -1]);
-      // el.addEventListener('scroll', (event) => this.handleScroll(event, el))
 
-      this.initTitle();
       this.timer = setInterval(() => {
         that.tick = Date.now()
       }, 1000);
-      this.loadData();
     },
     beforeDestroy() {
       clearInterval(this.timer);
@@ -223,6 +222,9 @@
       el.removeEventListener('scroll', () => this.showPop = [-1, -1])
     },
     methods: {
+      query() {
+        return querystring.parse(location.search)
+      },
       handleAfterLoaded() {
         const that = this;
         this.showLoadIcon = false;
