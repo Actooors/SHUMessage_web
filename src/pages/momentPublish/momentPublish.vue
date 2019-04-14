@@ -1,37 +1,43 @@
 <template>
-  <div>
-    <SelectGroup v-if="selectGroup" @on-cancel="handleCancelSelectGroup"></SelectGroup>
-    <ViewBox
-      v-show="!selectGroup"
-      class="momentPublish-wrapper"
-      body-padding-bottom="46px"
-    >
-      <x-header slot="header" class="theme-XHeader"
-                :left-options="{showBack: true,backText:''}"
-                :right-options="{showMore: false}"
-      >发布新动态
-        <div slot="right">
-          <button class="button">发布</button>
-        </div>
-      </x-header>
-      <div>
+  <div style="height:100%">
+    <LocationSelectPage
+      v-if="amapShow"
+      v-model="amapShow"
+      @confirm="handleLocaitonConfirm"
+    ></LocationSelectPage>
+    <div v-show="!amapShow">
+      <SelectGroup v-if="selectGroup" @on-cancel="handleCancelSelectGroup"></SelectGroup>
+      <ViewBox
+        v-show="!selectGroup"
+        class="momentPublish-wrapper"
+        body-padding-bottom="46px"
+      >
+        <x-header slot="header" class="theme-XHeader"
+                  :left-options="{showBack: true,backText:''}"
+                  :right-options="{showMore: false}"
+        >发布新动态
+          <div slot="right">
+            <button class="button">发布</button>
+          </div>
+        </x-header>
+        <div>
       <textarea
         ref="textarea"
         class="textarea"
         placeholder="SHU Message, 让纸飞机捎去你的点滴生活"
       ></textarea>
-        <Group class="needsclick" gutter="0">
-          <CellBox is-link @click="selectGroup=true">
-            <p style="display: block">选择圈子</p>
-          </CellBox>
-          <CellBox is-link>
-            你在哪里？
-          </CellBox>
-        </Group>
-      </div>
-    </ViewBox>
+          <Group class="needsclick" gutter="0">
+            <CellBox is-link @click="selectGroup=true">
+              <p style="display: block">选择圈子</p>
+            </CellBox>
+            <CellBox is-link @click="handleClickWhere">
+              你在哪里？
+            </CellBox>
+          </Group>
+        </div>
+      </ViewBox>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -43,9 +49,15 @@
 
   export default {
     name: "momentPublish",
-    components: {...{ViewBox, XHeader, Group}, CellBox, SelectGroup},
+    components: {
+      ...{ViewBox, XHeader, Group},
+      CellBox,
+      SelectGroup,
+      LocationSelectPage: () => import('components/locationSelectPage')
+    },
     data: () => ({
-      selectGroup: false
+      selectGroup: false,
+      amapShow: false
     }),
     mounted() {
       autosize(this.$refs.textarea, {initOffset: 0});
@@ -56,6 +68,12 @@
         this.$nextTick(() => {
           this.selectGroup = false;
         })
+      },
+      handleClickWhere() {
+        this.amapShow = true;
+      },
+      handleLocaitonConfirm(location) {
+        console.log(location)
       }
     }
   }

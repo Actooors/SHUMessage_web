@@ -6,6 +6,7 @@ import store from './store/store'
 import App from './App'
 import {TransferDom, querystring, ConfirmPlugin} from 'vux'
 import 'normalize.css'
+import 'assets/js/noScale'
 import VueLazyload from 'vue-lazyload'
 import 'interceptors/interceptor'
 import axios from 'axios'
@@ -17,6 +18,24 @@ import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
 import preview from 'assets/js/vue-photo-preview'
 import 'assets/js/vue-photo-preview/dist/skin.css'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
+import TouchAction from 'touch-action'
+
+TouchAction({src: 'assets/js/fastclick/js'});
+
+import VueAMap from 'vue-amap';
+
+Vue.use(VueAMap);
+// 初始化vue-amap
+VueAMap.initAMapApiLoader({
+  // 高德的key
+  key: '9511251ad77487adcf5c4a7f9cdaea2a',
+  // 插件集合
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation', "AMap.Geocoder"],
+  // 高德 sdk 版本，默认为 1.4.4
+  v: '1.4.14',
+  uiVersion: '1.0.11'
+});
+
 
 Vue.use(preview, {
   shareEl: true,
@@ -42,8 +61,6 @@ Vue.use(ShumsgToastPlugin);
 
 Vue.directive('transfer-dom', TransferDom);
 Vue.directive('pull-to-refresh', PullToRefreshDirective);
-
-import FastClick from 'assets/js/fastclick'
 
 // FastClick.attach(document.body);
 
