@@ -185,10 +185,10 @@ var vuePhotoPreview = {
           gallery.listen('gettingData', async (index, item) => {
             //避免在本次调整中多次调用事件
             if (loadingTag[index]) {
-              //console.log("多次调用，等待.");
+              console.log("多次调用，等待.");
               await loadingTag[index];
               loadingTag[index] = null;
-              //console.log("多次调用，等待完毕.");
+              console.log("多次调用，等待完毕.");
               return;
             }
             let currIndex = index,
@@ -219,7 +219,7 @@ var vuePhotoPreview = {
               }
               // gallery.invalidateCurrItems();
               // gallery.updateSize(true);
-              //console.log("after: ", index, [item.w, item.h]);
+              console.log("after: ", index, [item.w, item.h]);
               loadingTag[index] = null;
             }
           });

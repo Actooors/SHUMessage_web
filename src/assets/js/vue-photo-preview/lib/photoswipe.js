@@ -256,8 +256,8 @@ var PhotoSwipe = function (template, UiClass, items, options) {
 
       var methodName = (unbind ? 'detach' : 'attach') + 'Event',
         evName,
-        _handleEv = function () {
-          listener.handleEvent.call(listener);
+        _handleEv = async function () {
+          await listener.handleEvent.call(listener);
         };
 
       for (var i = 0; i < type.length; i++) {
@@ -828,7 +828,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       _applyCurrentZoomPan(allowRenderResolution);
     },
 
-    init: function () {
+    init: async function () {
 
       if (_isOpen || _isDestroying) {
         return;
@@ -976,8 +976,8 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       });
 
       // set content for center slide (first time)
-      self.setContent(_itemHolders[1], _currentItemIndex);
-      self.updateCurrItem();
+      await self.setContentAsync(_itemHolders[1], _currentItemIndex);
+      await self.updateCurrItemAsync();
 
       _shout('afterInit');
 
@@ -1069,10 +1069,10 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       _applyCurrentZoomPan();
     },
 
-    handleEvent: function (e) {
+    handleEvent: async function (e) {
       e = e || window.event;
       if (_globalEventHandlers[e.type]) {
-        _globalEventHandlers[e.type](e);
+        await _globalEventHandlers[e.type](e);
       }
     },
 
@@ -1123,6 +1123,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       _currPanBounds = self.currItem.bounds;
       _startZoomLevel = _currZoomLevel = self.currItem.initialZoomLevel;
 
+      // //console.log("111", self.currItem, _currPanBounds);
       _panOffset.x = _currPanBounds.center.x;
       _panOffset.y = _currPanBounds.center.y;
 
@@ -1228,6 +1229,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
         _containerShiftIndex += _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS);
         diffAbs = NUM_HOLDERS;
       }
+      const p = [];
       for (var i = 0; i < diffAbs; i++) {
         if (_indexDiff > 0) {
           tempHolder = _itemHolders.shift();
@@ -1235,17 +1237,17 @@ var PhotoSwipe = function (template, UiClass, items, options) {
 
           _containerShiftIndex++;
           _setTranslateX((_containerShiftIndex + 2) * _slideSize.x, tempHolder.el.style);
-          await self.setContentAsync(tempHolder, _currentItemIndex - diffAbs + i + 1 + 1);
+          p.push(self.setContentAsync(tempHolder, _currentItemIndex - diffAbs + i + 1 + 1));
         } else {
           tempHolder = _itemHolders.pop();
           _itemHolders.unshift(tempHolder); // move last to first
 
           _containerShiftIndex--;
           _setTranslateX(_containerShiftIndex * _slideSize.x, tempHolder.el.style);
-          await self.setContentAsync(tempHolder, _currentItemIndex + diffAbs - i - 1 - 1);
+          p.push(self.setContentAsync(tempHolder, _currentItemIndex + diffAbs - i - 1 - 1));
         }
-
       }
+      await Promise.all(p);
 
       // reset zoom/pan on previous item
       if (_currZoomElementStyle && Math.abs(_indexDiff) === 1) {
@@ -2800,6 +2802,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       };
     },
     _calculateSingleItemPanBounds = function (item, realPanElementW, realPanElementH) {
+      //console.log("222", JSON.stringify(item));
       var bounds = item.bounds;
 
       // position of element when it's centered
@@ -2819,20 +2822,19 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       bounds.min.x = (realPanElementW > _tempPanAreaSize.x) ? 0 : bounds.center.x;
       bounds.min.y = (realPanElementH > _tempPanAreaSize.y) ? item.vGap.top : bounds.center.y;
     },
+    //TODO
     _calculateItemSize = function (item, viewportSize, zoomLevel) {
 
       if (item.src && !item.loadError) {
         var isInitial = !zoomLevel;
-
+        if (!item.vGap) {
+          item.vGap = {top: 0, bottom: 0};
+        }
         if (isInitial) {
-          if (!item.vGap) {
-            item.vGap = {top: 0, bottom: 0};
-          }
           // allows overriding vertical margin for individual items
           _shout('parseVerticalMargin', item);
         }
-
-
+        //console.log("isInitial:", isInitial)
         _tempPanAreaSize.x = viewportSize.x;
         _tempPanAreaSize.y = viewportSize.y - item.vGap.top - item.vGap.bottom;
 
@@ -2856,17 +2858,16 @@ var PhotoSwipe = function (template, UiClass, items, options) {
           }
 
           item.initialZoomLevel = zoomLevel;
-
-          if (!item.bounds) {
-            // reuse bounds object
-            item.bounds = _getZeroBounds();
-          }
+        }
+        if (!item.bounds) {
+          // reuse bounds object
+          item.bounds = _getZeroBounds();
         }
 
         if (!zoomLevel) {
           return;
         }
-
+        //console.log("!!", item.vGap);
         _calculateSingleItemPanBounds(item, item.w * zoomLevel, item.h * zoomLevel);
 
         if (isInitial && zoomLevel === item.initialZoomLevel) {
@@ -2957,7 +2958,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
       }
 
       if (!img) {
-        img = item.container.lastChild;
+        item.container && (img = item.container.lastChild);
       }
 
       var w = maxRes ? item.w : Math.round(item.w * item.fitRatio),

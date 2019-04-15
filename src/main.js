@@ -30,7 +30,7 @@ Vue.use(preview, {
   tapToClose: true,
   loop: false,
   arrowEl: false,
-  preload: [1, 1],
+  preload: [0, 2],
   shareButtons: [
     {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
   ]
