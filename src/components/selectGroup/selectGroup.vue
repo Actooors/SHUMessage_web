@@ -8,18 +8,9 @@
     <div class="flex">
       <ul class="leftul needsclick" @click="handleClickLeftUL">
         <li class="selected">推荐</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
-        <li>已加入</li>
+        <li>热门</li>
+        <li>我创建的</li>
+        <li>我加入的</li>
       </ul>
       <div class="rightdiv">
         <Group title="默认">
@@ -91,9 +82,9 @@
     font-size: 14px;
     height: calc(100vh - 44px);
     overflow-y: auto;
+    background: $--background-deep;
     li {
       text-align: center;
-      background: $--background-deep;
       padding: 1em;
       &.selected {
         background: white;

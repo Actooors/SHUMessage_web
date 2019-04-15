@@ -25,8 +25,13 @@
         ></message-card>
       </div>
     </div>
-    <reply-bar :placeholder="replyBarPlaceholder" v-show="showReply" ref="replyBar"
-               class="replyBar" @onSubmit="handleSubmit"></reply-bar>
+    <reply-bar
+      :placeholder="replyBarPlaceholder"
+      v-show="showReply"
+      ref="replyBar"
+      class="replyBar"
+      @onSubmit="handleSubmit"
+    ></reply-bar>
   </Scroll>
 </template>
 
@@ -56,6 +61,7 @@
       this.$refs.scroll.getScrollBody().addEventListener('click', () => {
         this.showReply = false
       });
+      console.log(this.$refs);
       this.$refs.replyBar.$el.addEventListener('click', (event) => {
         event.stopPropagation();
       });
@@ -69,7 +75,7 @@
       });
     },
     methods: {
-      handleSubmit(){
+      handleSubmit() {
         this.showReply = false;
       },
       handleClickReply(index, item) {

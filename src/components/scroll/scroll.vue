@@ -83,8 +83,8 @@
       lastScrollTop: 0,
       page: 0,
       dataArray: [],
-      bShowLoadIcon: true,
-      bNoMore: false
+      bShowLoadIcon: this.showLoadIcon,
+      bNoMore: this.noMore
     }),
     mounted() {
       this.initScroll(this.specificScrollBody);

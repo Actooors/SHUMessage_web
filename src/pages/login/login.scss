@@ -1,15 +1,35 @@
 .page-wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   //background-image: url("../../assets/images/shu.jpg");
   //background-size: cover;
+  background-color: white;
+
+  main {
+    //margin: 60px 0 40px 0;
+    max-height: 100%;
+    flex-shrink: 0;
+  }
+  * {
+    user-select: none;
+  }
+  input {
+    user-select: auto;
+  }
   .logoWrapper {
-    margin-top: 20px;
+    margin-bottom: 5%;
+    position: relative;
+    top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     .logo {
-      width: 200px;
+      width: 80vw;
     }
   }
 
@@ -50,11 +70,13 @@
       }
 
       .input-text:focus {
+        outline: none;
         border: 1px solid #f36548;
         box-shadow: 0px 0px 5px #ff6a4c;
       }
 
       .submit-button {
+        border: none;
         margin-top: 30px;
         background: #ff6a4c;
         border-radius: 30px;
@@ -108,7 +130,7 @@
         display: inline-block;
         padding: 0 16px;
         //background: transparen;
-        background: #fbf9fe;
+        background: white;
         position: relative;
         font-size: 12px;
         color: #ccc;
@@ -121,9 +143,9 @@
       display: flex;
       justify-content: space-around;
       img {
-        width: 60px;
+        width: 40px;
       }
-      div{
+      div {
         font-size: 10px;
         color: #cccccc;
         text-align: center;

@@ -181,65 +181,21 @@ var vuePhotoPreview = {
             imageSrcWillChange = false;
 
           });
-
-          gallery.listen('gettingData', function (index, item) {
-            console.log(item.w, item.h)
-            // if (item.el.getAttribute('large')) {
-            //     item.src = item.o.src;
-            //     item.w = item.o.w;
-            //     item.h = item.o.h;
-            // } else {
-            //     item.src = item.m.src;
-            //     item.w = item.m.w;
-            //     item.h = item.m.h;
-            // }
-          });
-          // gallery.listen('beforeChange', async () => {
           let loadingTag = {};
           gallery.listen('gettingData', async (index, item) => {
             //避免在本次调整中多次调用事件
             if (loadingTag[index]) {
-              console.log("多次调用，等待.");
+              //console.log("多次调用，等待.");
               await loadingTag[index];
               loadingTag[index] = null;
-              console.log("多次调用，等待完毕.");
+              //console.log("多次调用，等待完毕.");
               return;
             }
-            console.log("beforechange", index, gallery.getCurrentIndex(), opts.preload, [item.w, item.h]);
-            // let currIndex = gallery.getCurrentIndex(),
-            //     items = gallery.items;
             let currIndex = index,
               items = gallery.items;
-            // if (opts.preload.length === 2) {
-            //     let p = [];
-            //     for (let i = currIndex - opts.preload[0]; i <= currIndex + opts.preload[1] && i < items.length; i++) {
-            //         if (i >= 0 && items[i].o.w === 0x3f3f3f3f) {//该图片的大小尚未经过调整，0x3f3f3f3f是规定的一个预设值
-            //             p.push(new Promise((resolve) => {
-            //                 let item = items[i];
-            //                 let l = new Image();
-            //                 console.log(item.src);
-            //                 l.src = item.src;
-            //                 l.onload = () => {
-            //                     // let scale=l.height/l.width;
-            //                     // item.o.w=item.m.w=item.w=Math.max(l.width,item.rw);
-            //                     item.o.w = item.m.w = l.width;
-            //                     // item.o.h=item.m.h=item.h=scale*item.w;
-            //                     item.o.h = item.m.h = l.height;
-            //                     resolve();
-            //                 }
-            //             }))
-            //         }
-            //     }
-            //     console.log("p.length", p.length);
-            //     if (p.length) {
-            //         await Promise.all(p);
-            //         gallery.invalidateCurrItems();
-            //         gallery.updateSize(true);
-            //     }
-            // }
             if (item.o.w === 0x3f3f3f3f) {
               let l = new Image();
-              console.log(item.src);
+              //console.log(item.src);
               loadingTag[index] = new Promise((resolve) => {
                 l.src = item.src;
                 l.onload = () => {
@@ -263,7 +219,7 @@ var vuePhotoPreview = {
               }
               // gallery.invalidateCurrItems();
               // gallery.updateSize(true);
-              console.log("after: ", index, [item.w, item.h]);
+              //console.log("after: ", index, [item.w, item.h]);
               loadingTag[index] = null;
             }
           });

@@ -27,12 +27,8 @@
         placeholder="让纸飞机捎去你的点滴"
       ></textarea>
           <Group class="needsclick" gutter="0">
-            <CellBox is-link @click="selectGroup=true">
-              <p style="display: block">选择圈子</p>
-            </CellBox>
-            <CellBox is-link @click="handleClickWhere">
-              你在哪里？
-            </CellBox>
+            <Cell title="选择圈子" value="" is-link @click.native="selectGroup=true"></Cell>
+            <Cell title="你在哪里？" :value="loc.name" is-link @click.native="handleClickWhere"></Cell>
           </Group>
         </div>
       </ViewBox>
@@ -41,7 +37,7 @@
 </template>
 
 <script>
-  import {ViewBox, XHeader, Group} from 'vux'
+  import {ViewBox, XHeader, Group, Cell} from 'vux'
   import CellBox from 'components/cell-box'
   import SelectGroup from 'components/selectGroup/selectGroup'
   import autosize from 'autosize'
@@ -50,14 +46,15 @@
   export default {
     name: "momentPublish",
     components: {
-      ...{ViewBox, XHeader, Group},
+      ...{ViewBox, XHeader, Group, Cell},
       CellBox,
       SelectGroup,
       LocationSelectPage: () => import('components/locationSelectPage')
     },
     data: () => ({
       selectGroup: false,
-      amapShow: false
+      amapShow: false,
+      loc: {name: ""}
     }),
     mounted() {
       autosize(this.$refs.textarea, {initOffset: 0});
@@ -73,6 +70,7 @@
         this.amapShow = true;
       },
       handleLocaitonConfirm(location) {
+        this.loc = location;
         console.log(location)
       }
     }

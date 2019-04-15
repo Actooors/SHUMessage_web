@@ -3112,7 +3112,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
 
         // allow to override data
         _shout('gettingData', index, item);
-        console.log("gettedData", index);
+        //console.log("gettedData", index);
 
         holder.index = index;
         holder.item = item;
@@ -3262,7 +3262,7 @@ var PhotoSwipe = function (template, UiClass, items, options) {
 
         // allow to override data
         await _shoutAsync('gettingData', index, item);
-        console.log("async gettedData", index);
+        //console.log("async gettedData", index);
 
         holder.index = index;
         holder.item = item;
