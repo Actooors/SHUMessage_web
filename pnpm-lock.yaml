@@ -15,9 +15,12 @@ dependencies:
   normalize.css: 8.0.1
   stickybits: 3.6.4
   sw-precache-webpack-plugin: 0.11.5
+  swiper: 4.5.0
   system-sleep: 1.3.6
+  touch-action: 1.0.1
   vue: 2.6.10
-  vue-apollo: 3.0.0-beta.28
+  vue-amap: 0.5.9
+  vue-awesome-swiper: 3.1.3
   vue-hot-reload-api: 2.3.3
   vue-router: 3.0.2
   vuex: 2.5.0
@@ -1615,7 +1618,6 @@ packages:
     resolution:
       integrity: sha1-MIvur/3ygRkFHvodkyITyRuPkuc=
   /camelcase/1.2.1:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -2525,6 +2527,12 @@ packages:
       node: '>=0.8.0'
     resolution:
       integrity: sha1-AB3fgWKM0ecGElxxdvU8zsVdkY4=
+  /dom7/2.1.3:
+    dependencies:
+      ssr-window: 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-QTxHHDox+M6ZFz1zHPAHZKI3JOHY5iY4i9BK2uctlggxKQwRhO3q3HHFq1BKsT25Bm/ySSj70K6Wk/G4bs9rMQ==
   /domain-browser/1.2.0:
     dev: true
     engines:
@@ -6833,6 +6841,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg==
+  /ssr-window/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-dgFqB+f00LJTEgb6UXhx0h+SrG50LJvti2yMKMqAgzfUmUXZrLSv2fjULF7AWGwK25EXu8+smLR3jYsJQChPsg==
   /ssri/5.3.0:
     dependencies:
       safe-buffer: 5.1.2
@@ -7088,6 +7100,16 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Jt8dHHA0hljk3qKIQxkUm3sxg7U=
+  /swiper/4.5.0:
+    dependencies:
+      dom7: 2.1.3
+      ssr-window: 1.0.1
+    dev: false
+    engines:
+      node: '>= 4.7.0'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-jRCd/CGet9kaHwthHdd/sL/YU8CI157PWLyItnIcn/o/jP4haVky3zTF6f9F3JDpmQIw7jdWihISiYx0/oTHsg==
   /symbol-observable/1.2.0:
     dev: false
     engines:
@@ -7122,12 +7144,6 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-RYuDiH8oj8Vtb/+/rSYuJmOO+mk=
-  /throttle-debounce/2.1.0:
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-AOvyNahXQuU7NN+VVvOOX+uW6FPaWdAOdRP5HfwYxAfCzXTFKRMoIMk+n+po318+ktcChx+F1Dd91G3YHeMKyg==
   /through2/2.0.5:
     dependencies:
       readable-stream: 2.3.6
@@ -7205,6 +7221,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-LmhELZ9k7HILjMieZEOsbKqVACk=
+  /touch-action/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-DJNyVPAZ7wtKhQf6Kz3sPCg8wx0=
   /touch/1.0.0:
     dependencies:
       nopt: 1.0.10
@@ -7445,6 +7465,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-9rRQHC7EzdJrp4vnIilh3ndiFZg=
+  /uppercamelcase/1.1.0:
+    dependencies:
+      camelcase: 1.2.1
+    dev: false
+    resolution:
+      integrity: sha1-Mk2YprOvx+iolT4QZBUJsOTiP5c=
   /uri-js/4.2.2:
     dependencies:
       punycode: 2.1.1
@@ -7569,15 +7595,26 @@ packages:
     dev: true
     resolution:
       integrity: sha1-XX6kW7755Kb/ZflUOOCofDV9WnM=
-  /vue-apollo/3.0.0-beta.28:
+  /vue-amap/0.5.9:
     dependencies:
-      chalk: 2.4.2
-      throttle-debounce: 2.1.0
+      uppercamelcase: 1.1.0
     dev: false
-    peerDependencies:
-      apollo-client: ^2.0.0
+    engines:
+      core-js: ^2.5.0
+      node: '>= 4.0.0'
+      npm: '>= 3.0.0'
     resolution:
-      integrity: sha512-ceCc1xTyxpNtiSeJMQgSkfgJue6pnv+TIvp75CwZlwMxRtNZjITj4MGvBWFwnoIEhVrUAw45ff/5udgJ8z9sdQ==
+      integrity: sha512-zVDTZkLCFo8+jf1RD3d7Pcg5Ay+t5HHA3+V/frscEZQp2PGbUDOhJtH/JDxazJBYUDHqaPs743AAU/gGADphIg==
+  /vue-awesome-swiper/3.1.3:
+    dependencies:
+      object-assign: 4.1.1
+      swiper: 4.5.0
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+      npm: '>= 3.0.0'
+    resolution:
+      integrity: sha512-E7suzkyApO8vNZbgdEnjSmnpsmQZyRvSVXJ7sey3XYwKPOkLhH3+GnHroBw+5PZIQXvWBwdCeQsPG1xQ1r1Rhg==
   /vue-hot-reload-api/2.3.3:
     resolution:
       integrity: sha512-KmvZVtmM26BQOMK1rwUZsrqxEGeKiYSZGA7SNWE6uExx8UX/cj9hq2MRV/wWC3Cq6AoeDGk57rL9YMFRel/q+g==
@@ -8130,10 +8167,13 @@ specifiers:
   shelljs: ^0.7.6
   stickybits: ^3.4.1
   sw-precache-webpack-plugin: ^0.11.5
+  swiper: ^4.5.0
   system-sleep: ^1.3.6
+  touch-action: ^1.0.1
   url-loader: ^0.5.8
   vue: ^2.5.17
-  vue-apollo: ^3.0.0-beta.28
+  vue-amap: ^0.5.9
+  vue-awesome-swiper: ^3.1.3
   vue-hot-reload-api: ^2.3.0
   vue-lazyload: ^1.2.6
   vue-loader: ^13.3.0
