@@ -15,26 +15,12 @@ import 'assets/js/iNoBounce'
 import ShumsgToastPlugin from 'assets/js/shumsgToastPlugin'
 // import ApolloClient from 'apollo-boost'
 // import VueApollo from 'vue-apollo'
-import preview from 'assets/js/vue-photo-preview'
-import 'assets/js/vue-photo-preview/dist/skin.css'
+import preview from 'assets/js/vue-photo-preview/lib'
+import 'assets/js/vue-photo-preview/lib/skin.css'
 import {getUserInfoFromToken} from 'assets/js/tokenTools'
 import TouchAction from 'touch-action'
 
 TouchAction({src: 'assets/js/fastclick/js'});
-
-import VueAMap from 'vue-amap';
-
-Vue.use(VueAMap);
-// 初始化vue-amap
-VueAMap.initAMapApiLoader({
-  // 高德的key
-  key: '9511251ad77487adcf5c4a7f9cdaea2a',
-  // 插件集合
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation', "AMap.Geocoder"],
-  // 高德 sdk 版本，默认为 1.4.4
-  v: '1.4.14',
-  uiVersion: '1.0.11'
-});
 
 
 Vue.use(preview, {
@@ -44,7 +30,7 @@ Vue.use(preview, {
   tapToClose: true,
   loop: false,
   arrowEl: false,
-  preload: [2, 2],
+  preload: [1, 1],
   shareButtons: [
     {id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}
   ]
@@ -73,14 +59,20 @@ Vue.use(VueLazyload, {
 });
 
 Vue.config.productionTip = false;
-//
-// const apolloClient = new ApolloClient({
-//   // 你需要在这里使用绝对路径
-//   uri: 'http://129.204.71.113/graphql'
-// });
-// const apolloProvider = new VueApollo({
-//   defaultClient: apolloClient,
-// });
+
+import VueAMap from 'vue-amap';
+
+Vue.use(VueAMap);
+// 初始化vue-amap
+VueAMap.initAMapApiLoader({
+  // 高德的key
+  key: '9511251ad77487adcf5c4a7f9cdaea2a',
+  // 插件集合
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation', "AMap.Geocoder"],
+  // 高德 sdk 版本，默认为 1.4.4
+  v: '1.4.14',
+  uiVersion: '1.0.11'
+});
 new Vue({
   router,
   store,

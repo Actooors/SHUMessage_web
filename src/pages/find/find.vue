@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-lazy="http://www.w3.org/1999/xhtml">
   <Scroll
     :noMore="noMore"
     :pulldownCallback="handlePulldownCallback"
@@ -26,7 +26,7 @@
         </div>
         <i :style="{background:`url() no-repeat 0/cover`}" v-lazy:background-image="item.url[0]" @click="handleClickPreviewBackground"></i>
         <img v-lazy="`${item.url[0]}#${index}`" :preview="index" :preview-text="`${item.content}（点击查看详情）`">
-        <img v-for="(img,i) in item.url" :large="`${img}#${index}`" style="height:0;width:0" :preview="index" v-if="i!==0" :preview-text="`${item.content}（点击查看详情）`">
+        <img v-for="(img,i) in item.url" :large="`${img}#${index}`" style="height:0;width:0;position:absolute" :preview="index" v-if="i!==0" :preview-text="`${item.content}（点击查看详情）`">
       </div>
     </div>
   </Scroll>

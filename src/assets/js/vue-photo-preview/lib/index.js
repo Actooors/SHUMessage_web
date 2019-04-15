@@ -1,0 +1,371 @@
+import previewComponent from './preview.vue'
+import PhotoSwipe from './photoswipe'
+import PhotoSwipeUI_Default from './photoswipe-ui-default'
+
+let $preview
+var vuePhotoPreview = {
+  install(Vue, opts) {
+    const Preview = Vue.extend(previewComponent)
+    var opts = opts || {}
+    if (!$preview) {
+      $preview = new Preview({el: document.createElement('div')})
+      document.body.appendChild($preview.$el)
+    }
+    let eventName, eventCallback
+    Vue.prototype.$preview = {
+      self: null,
+      on: (name, callback) => {
+        eventName = name
+        eventCallback = callback
+      }
+    }
+    Vue.mixin({
+      data() {
+        return {
+          galleryElements: null,
+          galleryPicLoading: false
+        }
+      },
+      methods: {
+        $previewRefresh() {
+          setTimeout(() => {
+            this.galleryElements = document.querySelectorAll('img[preview]');
+            for (var i = 0, l = this.galleryElements.length; i < l; i++) {
+              this.galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+              this.galleryElements[i].onclick = this.onThumbnailsClick;
+            }
+          }, 200);
+
+        },
+        onThumbnailsClick(e) {
+          if (this.galleryPicLoading) return false;
+          this.galleryPicLoading = true
+          e = e || window.event;
+          e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+          var eTarget = e.target || e.srcElement;
+
+
+          var thumbElements;
+          var group = eTarget.getAttribute('preview')
+          if (group) {
+            thumbElements = document.querySelectorAll('img[preview="' + group + '"]')
+          } else {
+            thumbElements = document.querySelectorAll('img[preview]')
+          }
+          var clickedGallery = thumbElements;
+
+          var index;
+
+          for (var i = 0; i < clickedGallery.length; i++) {
+            if (clickedGallery[i] === eTarget) {
+              index = i;
+              break;
+            }
+          }
+          if (index >= 0) {
+            this.openPhotoSwipe(index, clickedGallery);
+            this.$emit('preview-open', e, eTarget.src)
+          }
+          return false;
+        },
+        async openPhotoSwipe(index, galleryElement, disableAnimation, fromURL) {
+          var pswpElement = document.querySelectorAll('.pswp')[0],
+            gallery,
+            options;
+          var items = await this.parseThumbnailElements(galleryElement);
+          options = {
+
+            // galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+            getThumbBoundsFn: function (index) {
+              //在点开和关闭大图时调用，计算动画缩放效果需要的位置
+              var thumbnail = items[index].el,
+                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                rect = thumbnail.getBoundingClientRect();
+              return {
+                x: rect.left,
+                y: rect.top + pageYScroll,
+                w: rect.width
+              };
+
+            },
+
+            addCaptionHTMLFn: function (item, captionEl, isFake) {
+              if (!item.title) {
+                captionEl.children[0].innerText = '';
+                return false;
+              }
+              captionEl.children[0].innerHTML = item.title;
+              return true;
+            },
+            showHideOpacity: true,
+            history: false,
+            shareEl: false,
+            maxSpreadZoom: 3,
+            getDoubleTapZoom: function (isMouseClick, item) {
+              if (isMouseClick) {
+
+                return 1.5;
+
+              } else {
+                return item.initialZoomLevel < 0.7 ? 1 : 1.5;
+              }
+            }
+
+          };
+
+          if (fromURL) {
+            if (options.galleryPIDs) {
+              // parse real index when custom PIDs are used
+              // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
+              for (var j = 0; j < items.length; j++) {
+                if (items[j].pid == index) {
+                  options.index = j;
+                  break;
+                }
+              }
+            } else {
+              options.index = parseInt(index, 10) - 1;
+            }
+          } else {
+            options.index = parseInt(index, 10);
+          }
+
+          // exit if index not found
+          if (isNaN(options.index)) {
+            return;
+          }
+          options = this.extend(options, opts)
+
+          if (disableAnimation) {
+            options.showAnimationDuration = 0;
+          }
+
+          // Pass data to PhotoSwipe and initialize it
+          gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+          Vue.prototype.$preview.self = gallery
+          // see: http://photoswipe.com/documentation/responsive-images.html
+          var realViewportWidth,
+            useLargeImages = false,
+            firstResize = true,
+            imageSrcWillChange;
+
+          gallery.listen('beforeResize', function () {
+
+            var dpiRatio = window.devicePixelRatio ? window.devicePixelRatio : 1;
+            dpiRatio = Math.min(dpiRatio, 2.5);
+            realViewportWidth = gallery.viewportSize.x * dpiRatio;
+
+            if (realViewportWidth >= 1200 || (!gallery.likelyTouchDevice && realViewportWidth > 800) || screen.width > 1200) {
+              if (!useLargeImages) {
+                useLargeImages = true;
+                imageSrcWillChange = true;
+              }
+
+            } else {
+              if (useLargeImages) {
+                useLargeImages = false;
+                imageSrcWillChange = true;
+              }
+            }
+
+            if (imageSrcWillChange && !firstResize) {
+              gallery.invalidateCurrItems();
+            }
+
+            if (firstResize) {
+              firstResize = false;
+            }
+
+            imageSrcWillChange = false;
+
+          });
+
+          gallery.listen('gettingData', function (index, item) {
+            console.log(item.w, item.h)
+            // if (item.el.getAttribute('large')) {
+            //     item.src = item.o.src;
+            //     item.w = item.o.w;
+            //     item.h = item.o.h;
+            // } else {
+            //     item.src = item.m.src;
+            //     item.w = item.m.w;
+            //     item.h = item.m.h;
+            // }
+          });
+          // gallery.listen('beforeChange', async () => {
+          let loadingTag = {};
+          gallery.listen('gettingData', async (index, item) => {
+            //避免在本次调整中多次调用事件
+            if (loadingTag[index]) {
+              console.log("多次调用，等待.");
+              await loadingTag[index];
+              loadingTag[index] = null;
+              console.log("多次调用，等待完毕.");
+              return;
+            }
+            console.log("beforechange", index, gallery.getCurrentIndex(), opts.preload, [item.w, item.h]);
+            // let currIndex = gallery.getCurrentIndex(),
+            //     items = gallery.items;
+            let currIndex = index,
+              items = gallery.items;
+            // if (opts.preload.length === 2) {
+            //     let p = [];
+            //     for (let i = currIndex - opts.preload[0]; i <= currIndex + opts.preload[1] && i < items.length; i++) {
+            //         if (i >= 0 && items[i].o.w === 0x3f3f3f3f) {//该图片的大小尚未经过调整，0x3f3f3f3f是规定的一个预设值
+            //             p.push(new Promise((resolve) => {
+            //                 let item = items[i];
+            //                 let l = new Image();
+            //                 console.log(item.src);
+            //                 l.src = item.src;
+            //                 l.onload = () => {
+            //                     // let scale=l.height/l.width;
+            //                     // item.o.w=item.m.w=item.w=Math.max(l.width,item.rw);
+            //                     item.o.w = item.m.w = l.width;
+            //                     // item.o.h=item.m.h=item.h=scale*item.w;
+            //                     item.o.h = item.m.h = l.height;
+            //                     resolve();
+            //                 }
+            //             }))
+            //         }
+            //     }
+            //     console.log("p.length", p.length);
+            //     if (p.length) {
+            //         await Promise.all(p);
+            //         gallery.invalidateCurrItems();
+            //         gallery.updateSize(true);
+            //     }
+            // }
+            if (item.o.w === 0x3f3f3f3f) {
+              let l = new Image();
+              console.log(item.src);
+              loadingTag[index] = new Promise((resolve) => {
+                l.src = item.src;
+                l.onload = () => {
+                  // let scale=l.height/l.width;
+                  // item.o.w=item.m.w=item.w=Math.max(l.width,item.rw);
+                  item.o.w = item.m.w = l.width;
+                  // item.o.h=item.m.h=item.h=scale*item.w;
+                  item.o.h = item.m.h = l.height;
+                  resolve();
+                }
+              });
+              await loadingTag[index];
+              if (item.el.getAttribute('large')) {
+                item.src = item.o.src;
+                item.w = item.o.w;
+                item.h = item.o.h;
+              } else {
+                item.src = item.m.src;
+                item.w = item.m.w;
+                item.h = item.m.h;
+              }
+              // gallery.invalidateCurrItems();
+              // gallery.updateSize(true);
+              console.log("after: ", index, [item.w, item.h]);
+              loadingTag[index] = null;
+            }
+          });
+          gallery.listen('imageLoadComplete', (index, ITEM) => {
+            this.galleryPicLoading = false
+          });
+          gallery.listen(eventName, eventCallback)
+          gallery.init();
+          $preview.$el.classList = $preview.$el.classList + ' pswp--zoom-allowed'
+        },
+        parseThumbnailElements(thumbElements) {
+          return new Promise(resolve => {
+            var items = new Array(thumbElements.length),
+              el,
+              load = 0,
+              item;
+            item = {}
+            let count = 0
+            for (var i = 0; i < thumbElements.length; i++) {
+              el = thumbElements[i];
+
+              // include only element nodes
+              if (el.nodeType !== 1) {
+                continue;
+              }
+
+
+              getImage(i)
+
+              function getImage(index) {
+                if (typeof el.naturalWidth == "undefined") {　　 // IE 6/7/8
+                  let i = new Image();
+                  i.src = el.src;
+                  var rw = i.width;
+                  var rh = i.height;
+                } else {　　 // HTML5 browsers
+                  //使用缩略图的宽高作为实际宽高
+                  var rw = el.naturalWidth;
+                  var rh = el.naturalHeight;
+                }
+                var l = {};
+                l.src = el.getAttribute('large') ? el.getAttribute('large') : el.getAttribute('src')
+                l.text = el.getAttribute('preview-text')
+                l.author = el.getAttribute('data-author')
+
+                item = {
+                  title: l.text,
+                  el: thumbElements[index],
+                  src: l.src,
+                  w: rw,
+                  h: rh,
+                  rw,
+                  rh,
+                  author: l.author,
+                  o: {
+                    src: l.src,
+                    w: 0x3f3f3f3f,
+                    h: 0x3f3f3f3f,
+                  },
+                  m: {
+                    src: l.src,
+                    w: 0x3f3f3f3f,
+                    h: 0x3f3f3f3f,
+                  }
+                };
+                items[index] = item
+                count++
+                if (count === thumbElements.length) {
+                  resolve(items)
+                }
+              }
+
+            }
+          })
+
+        },
+        extend(o1, o2) {
+          for (var prop in o2) {
+            o1[prop] = o2[prop];
+          }
+          return o1
+        },
+        initPreview(gallerySelector) {
+          this.galleryElements = document.querySelectorAll(gallerySelector);
+          for (var i = 0, l = this.galleryElements.length; i < l; i++) {
+            this.galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+            this.galleryElements[i].onclick = this.onThumbnailsClick;
+          }
+
+        }
+      },
+      mounted: function () {
+        this.initPreview('img[preview]')
+
+      }
+    })
+
+  }
+}
+
+export default vuePhotoPreview
+
+if (typeof window !== 'undefined' && !window.vuePhotoPreview) {
+  window.vuePhotoPreview = vuePhotoPreview;
+}

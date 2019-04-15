@@ -24,7 +24,7 @@
       <textarea
         ref="textarea"
         class="textarea"
-        placeholder="SHU Message, 让纸飞机捎去你的点滴生活"
+        placeholder="让纸飞机捎去你的点滴"
       ></textarea>
           <Group class="needsclick" gutter="0">
             <CellBox is-link @click="selectGroup=true">
