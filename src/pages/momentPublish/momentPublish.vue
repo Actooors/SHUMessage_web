@@ -27,7 +27,7 @@
         placeholder="让纸飞机捎去你的点滴"
       ></textarea>
           <Group class="needsclick" gutter="0">
-            <Cell title="选择圈子" value="" is-link @click.native="selectGroup=true"></Cell>
+<!--            <Cell title="选择圈子" value="" is-link @click.native="selectGroup=true"></Cell>-->
             <Cell title="你在哪里？" :value="loc.name" is-link @click.native="handleClickWhere"></Cell>
           </Group>
         </div>
