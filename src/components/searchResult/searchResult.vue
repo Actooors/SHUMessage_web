@@ -1,10 +1,11 @@
 <template>
   <div class="searchResult">
     <tab :line-width="2" bar-active-color="#2196F3" active-color="#2196F3" :animate=false>
-      <tab-item @on-item-click="handleSwitchTab" selected>综合</tab-item>
-      <tab-item @on-item-click="handleSwitchTab">主题</tab-item>
-      <tab-item @on-item-click="handleSwitchTab">消息</tab-item>
+      <tab-item @on-item-click="handleSwitchTab" selected>新闻</tab-item>
+      <tab-item @on-item-click="handleSwitchTab">动态</tab-item>
+      <tab-item @on-item-click="handleSwitchTab">圈子</tab-item>
       <tab-item @on-item-click="handleSwitchTab">用户</tab-item>
+      <tab-item @on-item-click="handleSwitchTab">标签</tab-item>
     </tab>
     <div class="results">
       <div v-if="value.length===0 && itemIndex===0" class="hots">

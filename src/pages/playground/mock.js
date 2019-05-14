@@ -443,7 +443,7 @@ export const neighborhood = {
       content: "看看我家的狗狗，可爱吗？？？嘻嘻嘻",//文本消息
       author: {
         id: 10001,
-        avatar: "http://img5.duitang.com/uploads/item/201409/23/20140923094045_BNYji.thumb.700_0.png",
+        avatar: "https://ws1.sinaimg.cn/mw690/006P5HMAgy1g298s2a806j30jg0jg0tz.jpg",
         name: "︴猫猫怪￣ˇ￣"
       },
       publishTime: "2019-03-25T13:15:04",

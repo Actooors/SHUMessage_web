@@ -6,7 +6,8 @@ import store from 'store/store'
 export default {
   store,
   mounted() {
-    // console.log(this._getShareVN(), 'sharebarMixin: mounted');
+    this._getShareVN();
+    console.log('sharebarMixin: mounted');
   },
   methods: {
     /*
