@@ -4,8 +4,11 @@
 .searchResult {
   @extend .vuxfy;
   height: 100vh;
+
   .results {
-    padding: 1rem;
+    padding: 1rem 1rem 50px;
+    margin-bottom: 50px;
+
     .hots {
       .tag {
         display: inline-block;
@@ -15,6 +18,7 @@
         border-radius: .3rem;
         height: 2rem;
         line-height: 2rem;
+
         .icon-huo {
           color: rgb(215, 0, 0);
           //使用偏移的方式使得空出的位置不向右挤，居中感更好
@@ -22,6 +26,7 @@
           left: -0.2rem;
         }
       }
+
       .more {
         @extend .tag;
         color: rgba(215, 0, 0, .7);

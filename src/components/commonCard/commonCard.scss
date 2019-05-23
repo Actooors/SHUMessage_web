@@ -6,16 +6,19 @@
   font-size: .9rem;
   background: white;
   box-shadow: 0 0 1rem .1rem rgba(0, 0, 0, .05);
+
   .cardTopBar {
     position: relative;
     font-size: 12px;
     height: 32px;
+
     .topic {
       background: $--background-deep;
       padding: 4px 12.8px;
       border-radius: 16px;
       color: $--theme-blue;
     }
+
     .operation {
       font-size: 12px;
       position: absolute;
@@ -25,23 +28,27 @@
       top: 0;
       fill: gray;
       color: gray;
+
       .extraInfo {
         margin-right: 9.6px;
       }
     }
   }
+
   .url {
     background-color: $--theme-gray-light4;
     display: flex;
     border-radius: 2px;
     overflow: hidden;
     margin-bottom: 8px;
+
     .url-img {
       height: 65px;
       width: 65px;
       border-radius: 2px;
       flex-shrink: 0;
     }
+
     .url-side {
       position: relative;
       max-height: 65px;
@@ -50,6 +57,7 @@
       line-height: 18px;
       word-break: break-word;
       overflow: hidden;
+
       .url-title {
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -60,6 +68,7 @@
         line-clamp: 2;
         overflow: hidden;
       }
+
       .url-domain {
         font-size: .75rem;
         color: $--theme-gray;
@@ -68,11 +77,28 @@
       }
     }
   }
+
   .content {
     margin-bottom: 8px;
     white-space: pre-wrap;
     word-break: break-word;
+    max-height: 30vh;
+    overflow: hidden;
+    position: relative;
+    @media (min-height: 45vh) {
+      &:after {
+        content: '';
+        text-align: right;
+        position: absolute;
+        top: calc(30vh - 2em + 2px);
+        right: 0;
+        height: 2em;
+        width: 100%;
+        background: linear-gradient(180deg, transparent, white);
+      }
+    }
   }
+
   .author {
     height: 30px;
     line-height: 30px;
@@ -80,6 +106,7 @@
     align-items: center;
     position: relative;
     font-size: 12px;
+
     .avatar {
       height: 1.5rem;
       width: 1.5rem;
@@ -89,6 +116,7 @@
       margin-right: .3rem;
       flex-shrink: 0;
     }
+
     &-name {
       &:after {
         margin-left: 4.8px;
@@ -96,6 +124,7 @@
         content: '发布'
       }
     }
+
     .author-append {
       @extend .author-name:after;
       position: absolute;
@@ -103,6 +132,7 @@
       margin-right: 3px;
     }
   }
+
   .shareBar {
     margin-top: .3rem;
   }

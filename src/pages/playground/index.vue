@@ -17,7 +17,7 @@
         cancel-text="返回"
         id="search"
       >
-        <search-result :value="searchValue"></search-result>
+        <search-result :value="cards"></search-result>
       </Search>
     </div>
     <tab
@@ -54,7 +54,8 @@
       searchValue: "",
       tabIndex: 1,
       offset: 0,
-      slowScrollHeight: "0"
+      slowScrollHeight: "0",
+      cards: []
     }),
     computed: mapState('playground', ['nodeTab', 'nodeTopBar', 'nodeTabbar', 'searchHeight']),
     created() {
@@ -77,7 +78,20 @@
         this.$store.commit("playground/SET_PLAYGROUND_NOW", this.$route.fullPath.substring(this.$route.fullPath.lastIndexOf('/')))
       },
       handleSearch(value) {
-        console.log("search", value)
+        console.log("search", value);
+        this.$axios({
+          url: "http://localhost:8080/search",
+          params: {word: value}
+        }).then((res) => {
+          console.log(res.data);
+          this.cards = res.data.map((card) => {
+            return {
+              media: {title: card.mediaTitle, type: card.mediaType, value: card.newsUrl},
+              content: card.content
+            }
+          });
+          console.log("!", this.cards)
+        });
         this.$refs.search.setBlur()
       },
       initTab(autoMatch = true) {
@@ -108,9 +122,11 @@
       top: 44px;
       left: 0;
     }
+
     .pulltorefresh--ptr {
       z-index: 1;
     }
+
     .spinner-loadIcon {
       top: 53px !important;
     }
