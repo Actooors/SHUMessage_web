@@ -1,4 +1,4 @@
-# SHU Message
+# SHU Message This is For Boy and Girl. 
 一个良心的校园消息聚合、分享及交流平台。
 
 > 我们将长期致力于打造一个好看的，好用的，稳定的，且仅为SHU师生服务的消息聚合及分享平台。
